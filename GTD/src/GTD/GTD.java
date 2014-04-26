@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package gtd;
+package GTD;
 
-import gtd.pl.GtdGUI;
+import GTD.PL.GtdGUI;
 
 /**
  *

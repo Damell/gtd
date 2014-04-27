@@ -5,6 +5,10 @@ import GTD.BL.BLInterfaces.IUkolController;
 import GTD.BL.BLInterfaces.IProjektController;
 import GTD.BL.BLInterfaces.IKontextController;
 import GTD.BL.BLInterfaces.IOsobaController;
+import GTD.DL.DLEntity.Cinnost;
+import GTD.DL.DLEntity.Osoba;
+import java.awt.Event;
+import java.util.List;
 
 /**
  * Třída starající se o komunikaci z uživatelského rozhraní do business vrstvy.
@@ -47,7 +51,7 @@ public class GTDEventHandler {
 	 * 
 	 * @param osoba
 	 */
-	public List<Cinnost> getCinnostiOsoby(Osoba osoba){
+	public List getCinnostiOsoby(Osoba osoba){
 		return null;
 	}
 

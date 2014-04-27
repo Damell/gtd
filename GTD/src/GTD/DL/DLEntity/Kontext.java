@@ -1,5 +1,4 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Kontext;
 
 /**
  * Tato trída predstavuje kontext,  ve  kterém  je  úkol plnen.  Urcuje  v jaké

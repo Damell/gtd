@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Osoba;
+
+import java.util.List;
 
 /**
  * Trída predstavuje osobu, která je registrována v systému GTD.
@@ -13,19 +14,19 @@ public class Osoba {
 	/**
 	 * uživatelské jméno, unikátní v celém systému
 	 */
-	private string login;
+	private String login;
 	/**
 	 * Křestní jméno uživatele.
 	 */
-	private string jmeno;
+	private String jmeno;
 	/**
 	 * Příjmení uživatele.
 	 */
-	private string prijmeni;
+	private String prijmeni;
 	/**
 	 * Heslo - používá se spolu s loginem pro přihlášení do systému
 	 */
-	private string heslo;
+	private String heslo;
 	/**
 	 * Kontakty na uživatele - od každého typu max. 1 (v budoucích iteracích se budou
 	 * požívat pro různé notifikace).

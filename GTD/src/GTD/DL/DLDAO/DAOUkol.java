@@ -1,5 +1,8 @@
 package GTD.DL.DLDAO;
+import GTD.DL.DLEntity.Kontext;
+import GTD.DL.DLEntity.Ukol;
 import GTD.DL.DLInterfaces.IDAOUkol;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
@@ -38,7 +41,7 @@ public class DAOUkol implements IDAOUkol {
 	/**
 	 * Vrátí všechny úkoly v systému.
 	 */
-	public List<Úkol> getAllUkoly(){
+	public List getAllUkoly(){
 		return null;
 	}
 
@@ -47,7 +50,7 @@ public class DAOUkol implements IDAOUkol {
 	 * 
 	 * @param id
 	 */
-	public Úkol getUkol(int id){
+	public Ukol getUkol(int id){
 		return null;
 	}
 

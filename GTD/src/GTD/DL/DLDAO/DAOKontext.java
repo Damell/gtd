@@ -1,4 +1,4 @@
-package gtd.DL.DLDAO;
+package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOKontext;

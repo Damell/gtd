@@ -1,6 +1,11 @@
 package GTD.PL.PLView;
 import GTD.PL.PLController.GTDEventHandler;
 import GTD.BL.BLInterfaces.IGTDGUI;
+import GTD.DL.DLEntity.Cinnost;
+import GTD.DL.DLEntity.Osoba;
+import GTD.DL.DLEntity.Projekt;
+import java.util.List;
+import javax.swing.JButton;
 
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci

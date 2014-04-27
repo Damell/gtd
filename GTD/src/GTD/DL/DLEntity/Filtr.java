@@ -13,7 +13,7 @@ public class Filtr {
 	/**
 	 * Název filtru (filtry jedné osoby musí mít různá jména).
 	 */
-	private string název;
+	private String název;
 
 	public Filtr(){
 

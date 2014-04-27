@@ -1,5 +1,4 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Úkol;
 
 /**
  * Třída predstavující úkol - realizovatelnou akci.

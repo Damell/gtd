@@ -1,5 +1,4 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Cinnost;
 
 /**
  * Trída predstavuje surovou cinnost tak, jak ji uživatel vymyslí, bez dalšího

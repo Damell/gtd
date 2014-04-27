@@ -1,5 +1,7 @@
 package GTD.DL.DLDAO;
+import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání osob z databáze.
@@ -65,7 +67,7 @@ public class DAOOsoba implements IDAOOsoba {
 	 * 
 	 * @param login
 	 */
-	public boolean checkNewLogin(string login){
+	public boolean checkNewLogin(String login){
 		return false;
 	}
 
@@ -75,7 +77,7 @@ public class DAOOsoba implements IDAOOsoba {
 	 * @param login
 	 * @param heslo
 	 */
-	public boolean checkPrihlaseni(string login, string heslo){
+	public boolean checkPrihlaseni(String login, String heslo){
 		return false;
 	}
 

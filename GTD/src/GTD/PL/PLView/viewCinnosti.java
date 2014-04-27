@@ -1,5 +1,8 @@
 package GTD.PL.PLView;
 import GTD.PL.PLController.GTDEventHandler;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.

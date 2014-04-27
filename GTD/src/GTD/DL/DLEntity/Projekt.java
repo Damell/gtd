@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Projekt;
+
+import java.util.List;
 
 /**
  * Třída predstavuje projekt - množinu souvisejících úkolu. Projekt muže krome

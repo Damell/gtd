@@ -36,14 +36,14 @@ public interface IDAOUkol {
 	 * 
 	 * @param id
 	 */
-	public Úkol getUkol(int id);
+	public Ukol getUkol(int id);
 
 	/**
 	 * Uloží zmenený úkol.
 	 * 
 	 * @param úkol
 	 */
-	public boolean updateUkol(Úkol úkol);
+	public boolean updateUkol(Ukol úkol);
 
 	/**
 	 * Vrátí všechny úkoly daného kontextu.

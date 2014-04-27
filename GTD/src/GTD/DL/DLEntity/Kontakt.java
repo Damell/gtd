@@ -1,5 +1,4 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Kontakt;
 
 /**
  * Trída predstavuje kontakt na osobu evidovanou v systému GTD.
@@ -12,11 +11,11 @@ public class Kontakt {
 	/**
 	 * Kontakt pro zasílání upozornění
 	 */
-	private string Kontakt;
+	private String Kontakt;
 	/**
 	 * typ spojení (email, telefon, ...)
 	 */
-	private string Typ;
+	private String Typ;
 
 	public Kontakt(){
 

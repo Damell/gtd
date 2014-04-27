@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
-import Analýza.Doménový model.Interval;
+
+import java.util.Date;
 
 /**
  * Trída predstavuje casový interval pro daný úkol.
@@ -12,11 +13,11 @@ public class Interval {
 	/**
 	 * Casový pocátek úkolu. Minimální presnost jsou dny. 
 	 */
-	private Date od;
+	private Date from;
 	/**
 	 * Casový konec úkolu. Minimální presnost jsou dny. 
 	 */
-	private Date do;
+	private Date to;
 
 	public Interval(){
 

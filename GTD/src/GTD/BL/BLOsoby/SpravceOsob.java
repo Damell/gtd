@@ -1,4 +1,5 @@
 package GTD.BL.BLOsoby;
+import GTD.DL.DLDAO.DAOOsoba;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
 
@@ -17,11 +18,7 @@ public class SpravceOsob {
 	private Osoba prihlasenaOsoba;
 
 	public SpravceOsob(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		DAOOsoba = new DAOOsoba();
 	}
 
 	/**
@@ -67,7 +64,7 @@ public class SpravceOsob {
 	 * @param heslo
 	 */
 	public boolean loginOsoba(String login, String heslo){
-		return false;
+		return DAOOsoba.checkPrihlaseni(login, heslo);
 	}
 
 	/**

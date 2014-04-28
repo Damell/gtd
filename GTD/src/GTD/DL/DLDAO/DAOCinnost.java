@@ -16,10 +16,6 @@ public class DAOCinnost implements IDAOCinnost {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
 	 * 

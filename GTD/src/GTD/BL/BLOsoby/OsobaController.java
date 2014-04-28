@@ -17,6 +17,7 @@ public class OsobaController implements IOsobaController {
 
 	public OsobaController(){
 		GUI = GTDGUI.getGTDGUI();
+		spravceOsob = new SpravceOsob();
 	}
 
 	/**
@@ -27,11 +28,7 @@ public class OsobaController implements IOsobaController {
 	 */
 	@Override
 	public boolean loginOsoba(String login, String heslo){
-		if(login.equals("user") && heslo.equals("heslo")) {
-			return true;
-		} else {
-			return false;
-		}
+		return spravceOsob.loginOsoba(login, heslo);
 	}
 
 	/**

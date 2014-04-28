@@ -16,10 +16,6 @@ public class DAOUkol implements IDAOUkol {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
 	 * 

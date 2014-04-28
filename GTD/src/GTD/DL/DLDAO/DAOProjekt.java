@@ -16,10 +16,6 @@ public class DAOProjekt implements IDAOProjekt {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
 	 * 

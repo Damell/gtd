@@ -16,10 +16,6 @@ public class DAOKontext implements IDAOKontext {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
 	 * 

@@ -39,8 +39,4 @@ public class Osoba {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 }

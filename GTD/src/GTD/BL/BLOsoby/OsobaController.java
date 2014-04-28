@@ -2,6 +2,7 @@ package GTD.BL.BLOsoby;
 import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.IOsobaController;
 import GTD.DL.DLEntity.Osoba;
+import GTD.PL.PLView.GTDGUI;
 
 /**
  * Třída implementuje interface IOsobaController.
@@ -15,7 +16,7 @@ public class OsobaController implements IOsobaController {
 	private IGTDGUI GUI;
 
 	public OsobaController(){
-
+		GUI = GTDGUI.getGTDGUI();
 	}
 
 	/**
@@ -26,7 +27,11 @@ public class OsobaController implements IOsobaController {
 	 */
 	@Override
 	public boolean loginOsoba(String login, String heslo){
-		return false;
+		if(login.equals("user") && heslo.equals("heslo")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**

@@ -1,11 +1,22 @@
 package GTD.PL.PLView;
+import GTD.BL.BLAktivity.CinnostController;
+import GTD.BL.BLAktivity.ProjektController;
+import GTD.BL.BLAktivity.UkolController;
+import GTD.BL.BLFiltry.KontextController;
+import GTD.BL.BLInterfaces.ICinnostController;
 import GTD.PL.PLController.GTDEventHandler;
 import GTD.BL.BLInterfaces.IGTDGUI;
+import GTD.BL.BLInterfaces.IKontextController;
+import GTD.BL.BLInterfaces.IOsobaController;
+import GTD.BL.BLInterfaces.IProjektController;
+import GTD.BL.BLInterfaces.IUkolController;
+import GTD.BL.BLOsoby.OsobaController;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
@@ -21,22 +32,50 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	private List<IView> views;
 	private GTDEventHandler eventHandler;
-	private JButton cinnostiButton;
-	private JButton UkolyProjektyButton;
+	private JFrame mainFrame;
+
+	// BL reference 
+	private IOsobaController osobaController;
+	private ICinnostController cinnostController;
+	private IKontextController kontextController;
+	private IProjektController projektController;
+	private IUkolController ukolController;
+
+	private boolean authenticated;
+
+	private static IView loginPanel;
+	private static GTDGUI GTDGUI;
 
 	public GTDGUI(){
+		authenticated = false;
+		views = new ArrayList<>() ;
+		initBL();
+
+		//Init main frame
+		mainFrame = new mainFrame(Consts.APP_TITLE);
 
 	}
 
-	public void finalize() throws Throwable {
-
+	void initBL() {
+		osobaController = new OsobaController();
+		cinnostController = new CinnostController();
+		kontextController = new KontextController();
+		projektController = new ProjektController();
+		ukolController = new UkolController();
 	}
+
+	public static void main(String[] args) {
+		GTDGUI = new GTDGUI();
+		GTDGUI.showPrihlaseni();
+	}
+
 
 	/**
 	 * Aktualizuje všechny navázané pohledy.
 	 */
 	public void refresh(){
-
+		mainFrame.revalidate();
+		mainFrame.repaint();
 	}
 
 	/**
@@ -70,7 +109,33 @@ public class GTDGUI implements IGTDGUI {
 	 * Zobrazí přihlašovací okno.
 	 */
 	public void showPrihlaseni(){
-
+		//Init login panel
+		loginPanel = new viewPrihlaseni(mainFrame);
+		views.add(loginPanel);
+		loginPanel.show();
 	}
 
+	public static GTDGUI getGTDGUI() {
+		return GTDGUI;
+	}
+
+	public IOsobaController getOsobaController() {
+		return osobaController;
+	}
+
+	public ICinnostController getCinnostController() {
+		return cinnostController;
+	}
+
+	public IKontextController getKontextController() {
+		return kontextController;
+	}
+
+	public IProjektController getProjektController() {
+		return projektController;
+	}
+
+	public IUkolController getUkolController() {
+		return ukolController;
+	}
 }

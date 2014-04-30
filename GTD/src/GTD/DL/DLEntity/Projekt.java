@@ -34,8 +34,9 @@ public class Projekt extends Aktivita {
 
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	@Override
+	public String toString() {
+		return super.toString() + "rodic=" + rodic + ", skupina=" + skupina + ", ukoly=" + ukoly + ", projekty=" + projekty + '}';
 	}
 
 }

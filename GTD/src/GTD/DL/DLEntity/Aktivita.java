@@ -42,5 +42,33 @@ public class Aktivita {
 		this.stavPopis = stavPopis;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public String getNazev() {
+		return nazev;
+	}
+
+	public String getPopis() {
+		return popis;
+	}
+
+	public int getStav() {
+		return stav;
+	}
+
+	public int getVlastnik_id() {
+		return vlastnik_id;
+	}
+
+	public String getStavPopis() {
+		return stavPopis;
+	}
+
+	@Override
+	public String toString() {
+		return "Aktivita{" + "id=" + id + ", nazev=" + nazev + ", popis=" + popis + ", stav=" + stav + ", vlastnik_id=" + vlastnik_id + ", stavPopis=" + stavPopis + '}';
+	}
+
 }

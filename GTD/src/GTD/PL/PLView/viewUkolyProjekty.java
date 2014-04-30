@@ -15,10 +15,6 @@ public class viewUkolyProjekty implements IView {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Aktualizuje pohled.
 	 */

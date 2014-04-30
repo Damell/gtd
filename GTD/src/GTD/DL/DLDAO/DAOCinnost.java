@@ -53,7 +53,9 @@ public class DAOCinnost implements IDAOCinnost {
 				ResultSet rset = stmt
 					.executeQuery("select id, name, description, id_type, type_name where id_person =" + DatabaseConnection.getID());
 				while (rset.next()) {
-					cinnosti.add(new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5)));
+					Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5));
+					System.out.println(cin);
+					cinnosti.add(cin);
 				}
 				rset.close();
 				stmt.close();

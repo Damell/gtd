@@ -70,7 +70,22 @@ public class DAOCinnost implements IDAOCinnost {
 	 * @param id
 	 */
 	public Cinnost getCinnost(int id){
-		return null;
+		Cinnost cinnost = null;
+		if(con != null) {
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rset = stmt
+					.executeQuery("select id, name, description, id_type, type_name where id =" + id);
+				while (rset.next()) {
+					cinnost = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5));
+				}
+				rset.close();
+				stmt.close();
+			} catch (SQLException e) {
+				System.err.println("DB query error");
+			}
+		}
+		return cinnost;
 	}
 
 	/**

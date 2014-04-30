@@ -6,7 +6,7 @@
 
 package GTD.PL.PLView;
 
-import GTD.DL.DatabaseConnection;
+import GTD.DL.DLDAO.DatabaseConnection;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

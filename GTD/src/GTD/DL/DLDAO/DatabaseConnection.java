@@ -1,4 +1,4 @@
-package GTD.DL;
+package GTD.DL.DLDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +14,8 @@ public class DatabaseConnection {
 	private static DatabaseConnection instance = null;
 
 	private static Connection connection;
+	private int id;
+	private String username;
 
 	private DatabaseConnection() {
 		try {
@@ -50,4 +52,11 @@ public class DatabaseConnection {
 		}
 	}
 
+	public static int getID() {
+		return DatabaseConnection.instance.id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
 }

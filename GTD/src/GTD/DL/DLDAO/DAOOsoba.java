@@ -1,7 +1,6 @@
 package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
-import GTD.DL.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public class DAOOsoba implements IDAOOsoba {
 	
-	Connection con;
+	private Connection con;
 	
 	public DAOOsoba(){
 		con = DatabaseConnection.getConnection();

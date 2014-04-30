@@ -26,15 +26,21 @@ public class Aktivita {
 	 * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v
 	 * případě úkolu a projektu dokončit a delegovat).
 	 */
-	private Osoba vlastnik;
-	public Osoba vlastník;
+	private int vlastnik_id;
+
+	private String stavPopis;
 
 	public Aktivita(){
 
 	}
 
-	public void finalize() throws Throwable {
-
+	public Aktivita(int id, String nazev, String popis, int stav, String stavPopis) {
+		this.id = id;
+		this.nazev = nazev;
+		this.popis = popis;
+		this.stav = stav;
+		this.stavPopis = stavPopis;
 	}
 
+	
 }

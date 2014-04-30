@@ -10,11 +10,11 @@ package GTD.DL.DLEntity;
 public class Cinnost extends Aktivita {
 
 	public Cinnost(){
-
+		
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	public Cinnost(int id, String name, String desc, int idType, String typeDesc) {
+		super(id, name, desc, idType, typeDesc);
 	}
 
 }

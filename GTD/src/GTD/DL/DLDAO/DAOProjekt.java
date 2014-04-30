@@ -2,6 +2,7 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
 import GTD.DL.DLInterfaces.IDAOProjekt;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -12,8 +13,10 @@ import java.util.List;
  */
 public class DAOProjekt implements IDAOProjekt {
 
-	public DAOProjekt(){
+	private Connection con;
 
+	public DAOProjekt(){
+		con = DatabaseConnection.getConnection();
 	}
 
 	/**

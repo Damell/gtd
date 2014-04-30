@@ -2,6 +2,11 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOCinnost;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +17,10 @@ import java.util.List;
  */
 public class DAOCinnost implements IDAOCinnost {
 
+	private Connection con;
+
 	public DAOCinnost(){
+		con = DatabaseConnection.getConnection();
 
 	}
 
@@ -38,7 +46,22 @@ public class DAOCinnost implements IDAOCinnost {
 	 * Vrátí všechny cinnosti v systému.
 	 */
 	public List getAllCinnosti(){
-		return null;
+		List <Cinnost> cinnosti = new ArrayList ();
+		if(con != null) {
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rset = stmt
+					.executeQuery("select id, name, description, id_type, type_name where id_person =" + DatabaseConnection.getID());
+				while (rset.next()) {
+					cinnosti.add(new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5)));
+				}
+				rset.close();
+				stmt.close();
+			} catch (SQLException e) {
+				System.err.println("DB query error");
+			}
+		}
+		return cinnosti;
 	}
 
 	/**

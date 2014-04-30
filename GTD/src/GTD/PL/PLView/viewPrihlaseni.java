@@ -47,7 +47,7 @@ public class viewPrihlaseni extends JPanel implements IView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(osobaCtrl.loginOsoba(usernameField.getText(), passwordField.getText())) {
-
+					hide();
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.LOGIN_ERROR);
@@ -67,6 +67,14 @@ public class viewPrihlaseni extends JPanel implements IView {
 	 */
 	public void show(){
 		mainFrame.add(this);
+		GTDGUI.getGTDGUI().refresh();
+	}
+
+	/**
+	 * Smaže daný pohled.
+	 */
+	public void hide(){
+		mainFrame.remove(this);
 		GTDGUI.getGTDGUI().refresh();
 	}
 

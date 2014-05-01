@@ -18,6 +18,14 @@ public class Interval {
 	 * Casový konec úkolu. Minimální presnost jsou dny. 
 	 */
 	private Date to;
+        
+        /*
+        * Nastav interval 
+        */
+        public void setInterval (Date from,Date to){
+            this.from=from;
+            this.to=to;
+        }
 
 	public Interval(){
 

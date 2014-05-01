@@ -9,12 +9,12 @@ package GTD.DL.DLEntity;
  */
 public class Cinnost extends Aktivita {
 
-	public Cinnost(){
-		
+    
+        public Cinnost(){
+
 	}
 
-	public Cinnost(int id, String name, String desc, int idType, String typeDesc) {
-		super(id, name, desc, idType, typeDesc);
+	public Cinnost(int id, String nazev, String popis, int stav, String stavPopis,int vlastnik_id) {
+		super(id,nazev,popis,stav,stavPopis,vlastnik_id);
 	}
-
 }

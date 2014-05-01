@@ -28,18 +28,19 @@ public class Aktivita {
 	 */
 	private int vlastnik_id;
 
-	private String stavPopis;
+	private String stavPopis; /*pro zobrazeni v gridu*/
 
 	public Aktivita(){
 
 	}
 
-	public Aktivita(int id, String nazev, String popis, int stav, String stavPopis) {
+	public Aktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
 		this.id = id;
 		this.nazev = nazev;
 		this.popis = popis;
 		this.stav = stav;
 		this.stavPopis = stavPopis;
+                this.vlastnik_id = vlastnik_id;
 	}
 
 	public int getId() {

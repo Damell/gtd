@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class Osoba {
 
+    	/**
+	 * unikátní id v celém systému
+	 */
 	private int id;
 	/**
 	 * uživatelské jméno, unikátní v celém systému
@@ -37,6 +40,9 @@ public class Osoba {
 
 	public Osoba(){
 
+	}
+        public int getId() {
+		return id;
 	}
 
 }

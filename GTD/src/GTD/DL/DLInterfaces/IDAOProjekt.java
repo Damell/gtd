@@ -51,6 +51,6 @@ public interface IDAOProjekt {
 	 * 
 	 * @param osoba
 	 */
-	public Projekt getProjektyOsoby(Osoba osoba);
+	public List<Projekt> getProjektyOsoby(Osoba osoba);
 
 }

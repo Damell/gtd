@@ -42,6 +42,19 @@ public class Aktivita {
 		this.stavPopis = stavPopis;
                 this.vlastnik_id = vlastnik_id;
 	}
+        
+        /*
+        * Nastav aktivitu
+        */
+        public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
+		this.id = id;
+		this.nazev = nazev;
+		this.popis = popis;
+		this.stav = stav;
+		this.stavPopis = stavPopis;
+                this.vlastnik_id = vlastnik_id;
+	}
+
 
 	public int getId() {
 		return id;

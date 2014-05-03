@@ -19,10 +19,7 @@ import java.util.List;
  */
 public class DAOCinnost implements IDAOCinnost {
 
-    private Connection con;
-
     public DAOCinnost() {
-        con = DatabaseConnection.getConnection();
 
     }
 
@@ -48,24 +45,23 @@ public class DAOCinnost implements IDAOCinnost {
      * Vrátí všechny cinnosti v systému.
      */
     public List getAllCinnosti() {
-        List<Cinnost> cinnosti = new ArrayList<Cinnost>();
-        if (con != null) {
-            try {
-                Statement stmt = con.createStatement();
-                //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-                ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v");
-                while (rset.next()) {
-                    Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
-                    System.out.println(cin);
-                    cinnosti.add(cin);
-                }
-                rset.close();
-                stmt.close();
-            } catch (SQLException e) {
-                System.err.println("DB query error");
-            }
-        }
-        return cinnosti;
+		List<Cinnost> cinnosti = new ArrayList<Cinnost>();
+		Connection con = DatabaseConnection.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			//Podminka pro prihlasenou osobu + DatabaseConnection.getID());
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v");
+			while (rset.next()) {
+				Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+				System.out.println(cin);
+				cinnosti.add(cin);
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("DB query error");
+		}
+		return cinnosti;
     }
 
     /**
@@ -74,21 +70,20 @@ public class DAOCinnost implements IDAOCinnost {
      * @param id
      */
     public Cinnost getCinnost(int id) {
-        Cinnost cinnost = null;
-        if (con != null) {
-            try {
-                Statement stmt = con.createStatement();
-                ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id =" + id);
-                while (rset.next()) {
-                    cinnost = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
-                }
-                rset.close();
-                stmt.close();
-            } catch (SQLException e) {
-                System.err.println("DB query error");
-            }
-        }
-        return cinnost;
+		Cinnost cinnost = null;
+		Connection con = DatabaseConnection.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id =" + id);
+			while (rset.next()) {
+				cinnost = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("DB query error");
+		}
+		return cinnost;
     }
 
     /**
@@ -105,24 +100,24 @@ public class DAOCinnost implements IDAOCinnost {
      *
      * @param osoba
      */
-    public List getCinnostiOsoby(Osoba osoba) {
-        List<Cinnost> cinnosti = new ArrayList<Cinnost>();
-        if (con != null) {
-            try {
-                Statement stmt = con.createStatement();
-                ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id_person = " + osoba.getId());
-                while (rset.next()) {
-                    Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
-                    System.out.println(cin);
-                    cinnosti.add(cin);
-                }
-                rset.close();
-                stmt.close();
-            } catch (SQLException e) {
-                System.err.println("DB query error");
-            }
-        }
-        return cinnosti;
+	@Override
+    public List<Cinnost> getCinnostiOsoby(Osoba osoba) {
+		List<Cinnost> cinnosti = new ArrayList<Cinnost>();
+		Connection con = DatabaseConnection.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id_person = " + osoba.getId());
+			while (rset.next()) {
+				Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+				System.out.println(cin);
+				cinnosti.add(cin);
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("DB query error");
+		}
+		return cinnosti;
     }
 
 }

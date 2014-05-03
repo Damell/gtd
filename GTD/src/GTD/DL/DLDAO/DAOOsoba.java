@@ -17,10 +17,8 @@ import java.util.List;
  */
 public class DAOOsoba implements IDAOOsoba {
 
-	private Connection con;
 
 	public DAOOsoba() {
-		con = DatabaseConnection.getConnection();
 
 	}
 
@@ -55,7 +53,20 @@ public class DAOOsoba implements IDAOOsoba {
 	 * @param id
 	 */
 	public Osoba getOsoba(int id) {
-		return null;
+		Osoba osoba = null;
+		Connection con = DatabaseConnection.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rset = stmt.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_person =" + id);
+			while (rset.next()) {
+				osoba = new Osoba(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("DB query error");
+		}
+		return osoba;
 	}
 
 	/**
@@ -84,21 +95,20 @@ public class DAOOsoba implements IDAOOsoba {
 	 */
 	public boolean checkPrihlaseni(String login, String heslo) {
 		boolean authenticated = false;
-		if (con != null) {
-			try {
-				Statement stmt = con.createStatement();
-				ResultSet rset = stmt
-					.executeQuery("select login, pass_hash from persons");
-				while (rset.next()) {
-					if (rset.getString(1).equals(login) && String.valueOf(rset.getLong(2)).equals(heslo)) {
-						authenticated = true;
-					}
+		Connection con = DatabaseConnection.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rset = stmt
+				.executeQuery("select login, pass_hash from persons");
+			while (rset.next()) {
+				if (rset.getString(1).equals(login) && String.valueOf(rset.getLong(2)).equals(heslo)) {
+					authenticated = true;
 				}
-				rset.close();
-				stmt.close();
-			} catch (SQLException e) {
-				System.err.println("DB query error");
 			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("DB query error");
 		}
 		return authenticated;
 	}

@@ -42,7 +42,7 @@ public class GTDGUI implements IGTDGUI {
 	private IProjektController projektController;
 	private IUkolController ukolController;
 
-	private boolean authenticated;
+	private Osoba myself;
 
 	private static IView loginPanel;
 	private static IView cinnostiPanel;
@@ -50,13 +50,11 @@ public class GTDGUI implements IGTDGUI {
 	private static GTDGUI GTDGUI;
 
 	public GTDGUI(){
-		authenticated = false;
 		views = new ArrayList<>() ;
 		initBL();
 
 		//Init main frame
 		mainFrame = new mainFrame(Consts.APP_TITLE);
-
 	}
 
 	void initBL() {
@@ -91,6 +89,7 @@ public class GTDGUI implements IGTDGUI {
 	}
 
 	public void showMainWindow() {
+		myself = getOsobaController().getPrihlasenaOsoba();
 		showCinnosti(null);
 		showUkolyProjekty(null);
 	}
@@ -127,6 +126,10 @@ public class GTDGUI implements IGTDGUI {
 
 	public static GTDGUI getGTDGUI() {
 		return GTDGUI;
+	}
+
+	public static Osoba getMyself() {
+		return GTDGUI.myself;
 	}
 
 	public IOsobaController getOsobaController() {

@@ -2,9 +2,8 @@ package GTD.PL.PLView;
 import GTD.PL.PLController.GTDEventHandler;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  * Třída představující pohled (okno) s úkoly a projekty.
@@ -20,8 +19,8 @@ public class viewUkolyProjekty extends JPanel implements IView {
 	private JPanel menu;
 
 	private JPanel mainView;
-	private JList projectsList;
-	private JList tasksList;
+	private JTable projectsList;
+	private JTable tasksList;
 
 	public viewUkolyProjekty(mainFrame mainFrame){
 		this.mainFrame = mainFrame;
@@ -42,8 +41,8 @@ public class viewUkolyProjekty extends JPanel implements IView {
 
 	void initMainView() {
 		mainView = new JPanel(new FlowLayout());
-		projectsList = new JList();
-		tasksList = new JList();
+		projectsList = new JTable();
+		tasksList = new JTable();
 		mainView.add(projectsList);
 		mainView.add(tasksList);
 	}

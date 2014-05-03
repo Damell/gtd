@@ -17,11 +17,7 @@ public class CinnostController implements ICinnostController {
 	private IGTDGUI GUI;
 
 	public CinnostController(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		spravceCinnosti = new SpravceCinnosti();
 	}
 
 	/**
@@ -47,8 +43,8 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param osoba
 	 */
-	public List getCinnostiOsoby(Osoba osoba){
-		return null;
+	public List<Cinnost> getCinnostiOsoby(Osoba osoba){
+		return spravceCinnosti.getCinnostiOsoby(osoba);
 	}
 
 	/**

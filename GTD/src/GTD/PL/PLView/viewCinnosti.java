@@ -1,11 +1,16 @@
 package GTD.PL.PLView;
+import GTD.DL.DLEntity.Cinnost;
 import GTD.PL.PLController.GTDEventHandler;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
@@ -18,6 +23,8 @@ public class viewCinnosti extends JPanel implements IView {
 	private GTDEventHandler eventHandler;
 	private mainFrame mainFrame;
 	private JPanel menu;
+	private JPanel mainView;
+	private List<Cinnost> cinnosti;
 	/**
 	 * Tlačítko pro vložení nové činnosti
 	 */
@@ -30,7 +37,7 @@ public class viewCinnosti extends JPanel implements IView {
 	/**
 	 * Kolekce nezpracovaných činností uživatele.
 	 */
-	private JList cinnosti;
+	private JTable cinnostiTable;
 	/**
 	 * Textové pole pro název nové činnosti
 	 */
@@ -56,6 +63,7 @@ public class viewCinnosti extends JPanel implements IView {
 	void init() {
 		setLayout(new GridLayout(2, 1));
 		initMenu();
+		initMainView();
 		add(menu);
 	}
 
@@ -65,6 +73,53 @@ public class viewCinnosti extends JPanel implements IView {
 		processActivityButton = new JButton(Consts.PROCESS_ACTIVITY);
 		menu.add(newActivityButton);
 		menu.add(processActivityButton);
+	}
+
+	void initMainView() {
+		mainView = new JPanel(new BorderLayout());
+		loadCinnosti();
+		cinnostiTable = new JTable(new CinnostiTableModel());
+		JScrollPane scrollPane = new JScrollPane(cinnostiTable);
+		mainView.add(scrollPane);
+		add(mainView);
+	}
+
+	void loadCinnosti() {
+		cinnosti = GTDGUI.getGTDGUI().getCinnostController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
+	}
+
+	class CinnostiTableModel extends AbstractTableModel {
+
+		@Override
+		public int getRowCount() {
+			return cinnosti.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 4;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			String value = "";
+			switch(columnIndex) {
+				case 0: {
+					return cinnosti.get(rowIndex).getNazev();
+				}
+				case 1: {
+					return cinnosti.get(rowIndex).getPopis();
+				}
+				case 2: {
+					return cinnosti.get(rowIndex).getStav();
+				}
+				case 3: {
+					return cinnosti.get(rowIndex).getStavPopis();
+				}
+			}
+			return value;
+		}
+
 	}
 
 	/**

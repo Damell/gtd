@@ -66,7 +66,7 @@ public class OsobaController implements IOsobaController {
 	 */
 	@Override
 	public Osoba getPrihlasenaOsoba(){
-		return null;
+		return spravceOsob.getOsoba(61);
 	}
 
 	/**

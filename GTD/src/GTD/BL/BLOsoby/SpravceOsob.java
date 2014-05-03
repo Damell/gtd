@@ -46,7 +46,7 @@ public class SpravceOsob {
 	 * @param id
 	 */
 	public Osoba getOsoba(int id){
-		return null;
+		return DAOOsoba.getOsoba(id);
 	}
 
 	/**

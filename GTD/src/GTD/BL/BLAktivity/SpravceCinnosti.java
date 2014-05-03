@@ -22,11 +22,7 @@ public class SpravceCinnosti {
 	public DAOCinnost m_DAOCinnost;
 
 	public SpravceCinnosti(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		DAOCinnost = new DAOCinnost();
 	}
 
 	/**
@@ -70,8 +66,8 @@ public class SpravceCinnosti {
 	 * 
 	 * @param osoba
 	 */
-	public List getCinnostiOsoby(Osoba osoba){
-		return null;
+	public List<Cinnost> getCinnostiOsoby(Osoba osoba){
+		return DAOCinnost.getCinnostiOsoby(osoba);
 	}
 
 	/**

@@ -30,7 +30,7 @@ public class mainFrame extends JFrame implements WindowListener {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		pack();
-		setSize(700, 500);
+		setSize(900, 700);
 		setVisible(true);
 		addWindowListener(this);
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);

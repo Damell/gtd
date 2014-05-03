@@ -1,5 +1,6 @@
 package GTD.BL.BLOsoby;
 import GTD.DL.DLDAO.DAOOsoba;
+import GTD.DL.DLDAO.DatabaseConnection;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
 
@@ -64,7 +65,7 @@ public class SpravceOsob {
 	 * @param heslo
 	 */
 	public boolean loginOsoba(String login, String heslo){
-		return DAOOsoba.checkPrihlaseni(login, heslo);
+		return DatabaseConnection.login(login, heslo);
 	}
 
 	/**

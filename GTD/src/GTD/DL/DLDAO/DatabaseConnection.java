@@ -13,11 +13,12 @@ public class DatabaseConnection {
 
 	private static DatabaseConnection instance = null;
 
-	private static Connection connection;
+	private Connection connection;
 	private int id;
 	private String username;
 
-	private DatabaseConnection() {
+	private DatabaseConnection(String username, String password) throws SQLException {
+		// pavlim33 oracleGTD
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -25,28 +26,39 @@ public class DatabaseConnection {
 			e.printStackTrace();
 			return;
 		}
-		try {
-			connection = DriverManager.getConnection(
-					"jdbc:oracle:thin:@oracle.fit.cvut.cz:1521:ORACLE", "pavlim33",
-					"oracleGTD");
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		}
+		connection = DriverManager.getConnection(
+			"jdbc:oracle:thin:@oracle.fit.cvut.cz:1521:ORACLE",
+			username,
+			password);
 	}
 
 	public static Connection getConnection() {
 		if(instance == null) {
-			instance = new DatabaseConnection();
+			return null;
 		}
-		return connection;
+		return instance.connection;
+	}
+
+	public static boolean login(String username, String password) {
+		if(instance == null) {
+			try {
+				instance = new DatabaseConnection(username, password);
+			} catch (SQLException e) {
+				System.out.println("Connection Failed! Check output console");
+				e.printStackTrace();
+				instance = null;
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static void closeConnection() {
 		try {
-			connection.close();
-			System.out.println("closing connection");
+			if(instance != null) {
+				instance.connection.close();
+				System.out.println("closing connection");
+			}
 		} catch (SQLException e) {
 			System.err.println("closing connection unsuccessful");
 		}

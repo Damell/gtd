@@ -29,7 +29,7 @@ public class viewZpracovaniCinnosti implements IView {
 	/**
 	 * Zobrazí daný pohled.
 	 */
-	public void show(){
+	public void showView(){
 
 	}
 

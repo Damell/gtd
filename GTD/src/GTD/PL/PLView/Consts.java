@@ -13,10 +13,21 @@ package GTD.PL.PLView;
 public class Consts {
 
 	public static final String APP_TITLE = "Getting Things Done app";
+
+	// Login panel
 	public static final String USERNAME = "Username: ";
 	public static final String PASSWORD = "Password: ";
 	public static final String LOGIN = "Log in!";
 	public static final String LOGIN_ERROR = "Invalid username or password. Please try again.";
 
+	// Tabs
+	public static final String ACTIVITES = "Činnosti";
+	public static final String TASKS_AND_PROJECTS = "Úkoly a projekty";
+
+	// Tasks and projects tab
+	
+	// Activities tab
+	public static final String ADD_ACTIVITY = "Přidat činnost";
+	public static final String PROCESS_ACTIVITY = "Zpracovat činnost";
 
 }

@@ -16,6 +16,6 @@ public interface IView {
 	/**
 	 * Zobrazí daný pohled.
 	 */
-	public void show();
+	public void showView();
 
 }

@@ -17,6 +17,7 @@ import GTD.DL.DLEntity.Projekt;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
@@ -32,7 +33,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	private List<IView> views;
 	private GTDEventHandler eventHandler;
-	private JFrame mainFrame;
+	private mainFrame mainFrame;
 
 	// BL reference 
 	private IOsobaController osobaController;
@@ -44,6 +45,8 @@ public class GTDGUI implements IGTDGUI {
 	private boolean authenticated;
 
 	private static IView loginPanel;
+	private static IView cinnostiPanel;
+	private static IView ukolyProjektyPanel;
 	private static GTDGUI GTDGUI;
 
 	public GTDGUI(){
@@ -79,15 +82,6 @@ public class GTDGUI implements IGTDGUI {
 	}
 
 	/**
-	 * Zobrazí činnosti zadané osoby.
-	 * 
-	 * @param osoba
-	 */
-	public void showCinnosti(Osoba osoba){
-
-	}
-
-	/**
 	 * Zobrazí dialog se zpracováním činnosti.
 	 * 
 	 * @param cinnost
@@ -96,13 +90,29 @@ public class GTDGUI implements IGTDGUI {
 
 	}
 
+	public void showMainWindow() {
+		showCinnosti(null);
+		showUkolyProjekty(null);
+	}
+
 	/**
 	 * Zobrazí okno s úkoly a podprojekty zadaného projektu.
 	 * 
 	 * @param projekt
 	 */
 	public void showUkolyProjekty(Projekt projekt){
+		ukolyProjektyPanel = new viewUkolyProjekty(mainFrame);
+		ukolyProjektyPanel.showView();
+	}
 
+	/**
+	 * Zobrazí činnosti zadané osoby.
+	 * 
+	 * @param osoba
+	 */
+	public void showCinnosti(Osoba osoba){
+		cinnostiPanel = new viewCinnosti(mainFrame);
+		cinnostiPanel.showView();
 	}
 
 	/**
@@ -112,7 +122,7 @@ public class GTDGUI implements IGTDGUI {
 		//Init login panel
 		loginPanel = new viewPrihlaseni(mainFrame);
 		views.add(loginPanel);
-		loginPanel.show();
+		loginPanel.showView();
 	}
 
 	public static GTDGUI getGTDGUI() {

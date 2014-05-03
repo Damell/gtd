@@ -25,11 +25,11 @@ public class viewPrihlaseni extends JPanel implements IView {
 	JLabel passwordLabel;
 	JTextField usernameField;
 	JPasswordField passwordField;
-	JFrame mainFrame;
+	mainFrame mainFrame;
 	JButton loginButton;
 	IOsobaController osobaCtrl;
 
-	public viewPrihlaseni(JFrame mainFrame){
+	public viewPrihlaseni(mainFrame mainFrame){
 		super();
 		osobaCtrl = GTDGUI.getGTDGUI().getOsobaController();
 		this.mainFrame = mainFrame;
@@ -40,14 +40,15 @@ public class viewPrihlaseni extends JPanel implements IView {
 		setLayout(new GridLayout(3,2));
 		usernameLabel = new JLabel(Consts.USERNAME);
 		passwordLabel = new JLabel(Consts.PASSWORD);
-		usernameField = new JTextField();
-		passwordField = new JPasswordField();
+		usernameField = new JTextField("pavlim33");
+		passwordField = new JPasswordField("oracleGTD");
 		loginButton = new JButton(Consts.LOGIN);
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(osobaCtrl.loginOsoba(usernameField.getText(), passwordField.getText())) {
 					hide();
+					GTDGUI.getGTDGUI().showMainWindow();
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.LOGIN_ERROR);
@@ -65,7 +66,7 @@ public class viewPrihlaseni extends JPanel implements IView {
 	/**
 	 * Zobrazí daný pohled.
 	 */
-	public void show(){
+	public void showView(){
 		mainFrame.add(this);
 		GTDGUI.getGTDGUI().refresh();
 	}

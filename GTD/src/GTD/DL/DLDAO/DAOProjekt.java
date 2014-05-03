@@ -86,7 +86,7 @@ public class DAOProjekt implements IDAOProjekt {
                     rset_ukoly.close();
 
                     //pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
-                    ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",)");
+                    ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                     while (rset_podprojekty.next()) {
                         //pridej konkretni projekt
                         pro.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
@@ -147,7 +147,7 @@ public class DAOProjekt implements IDAOProjekt {
                     rset_ukoly.close();
 
                     //pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
-                    ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",)");
+                    ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                     while (rset_podprojekty.next()) {
                         //pridej konkretni projekt
                         projekt.addProjekt(getProjekt(rset_podprojekty.getInt(1)));

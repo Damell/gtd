@@ -25,34 +25,14 @@ public class viewCinnosti extends JPanel implements IView {
 	private JPanel menu;
 	private JPanel mainView;
 	private List<Cinnost> cinnosti;
-	/**
-	 * Tlačítko pro vložení nové činnosti
-	 */
+
 	private JButton newActivityButton;
-	/**
-	 * Tlačítko pro zpracování nové činnosti
-	 */
 	private JButton processActivityButton;
 
-	/**
-	 * Kolekce nezpracovaných činností uživatele.
-	 */
 	private JTable cinnostiTable;
-	/**
-	 * Textové pole pro název nové činnosti
-	 */
 	private JTextField newCinnostJmeno;
-	/**
-	 * Textové pole pro popis nové činnosti
-	 */
 	private JTextField newCinnostPopis;
-	/**
-	 * Tlačítko pro zpracování označené činnosti
-	 */
 	private JButton zpracujCinnostButton;
-	/**
-	 * Tlačítko pro smazání označené činnosti
-	 */
 	private JButton deleteCinnostButton;
 
 	public viewCinnosti(mainFrame mainFrame){
@@ -76,15 +56,15 @@ public class viewCinnosti extends JPanel implements IView {
 	}
 
 	void initMainView() {
+		loadData();
 		mainView = new JPanel(new BorderLayout());
-		loadCinnosti();
 		cinnostiTable = new JTable(new CinnostiTableModel());
 		JScrollPane scrollPane = new JScrollPane(cinnostiTable);
 		mainView.add(scrollPane);
 		add(mainView);
 	}
 
-	void loadCinnosti() {
+	void loadData() {
 		cinnosti = GTDGUI.getGTDGUI().getCinnostController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
 	}
 
@@ -97,7 +77,12 @@ public class viewCinnosti extends JPanel implements IView {
 
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 3;
+		}
+
+		@Override
+		public String getColumnName(int column) {
+			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE})[column];
 		}
 
 		@Override
@@ -111,9 +96,6 @@ public class viewCinnosti extends JPanel implements IView {
 					return cinnosti.get(rowIndex).getPopis();
 				}
 				case 2: {
-					return cinnosti.get(rowIndex).getStav();
-				}
-				case 3: {
 					return cinnosti.get(rowIndex).getStavPopis();
 				}
 			}

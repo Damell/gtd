@@ -9,30 +9,26 @@ import java.util.Date;
  * @created 26-4-2014 14:51:22
  */
 public class Interval {
-
+	
 	/**
-	 * Casový pocátek úkolu. Minimální presnost jsou dny. 
+	 * Casový pocátek úkolu. Minimální presnost jsou dny.
 	 */
 	private Date from;
 	/**
-	 * Casový konec úkolu. Minimální presnost jsou dny. 
+	 * Casový konec úkolu. Minimální presnost jsou dny.
 	 */
 	private Date to;
-        
-        /*
-        * Nastav interval 
-        */
-        public void setInterval (Date from,Date to){
-            this.from=from;
-            this.to=to;
-        }
-
+	
+	/*
+	* Nastav interval
+	*/
+	public void setInterval (Date from,Date to){
+		this.from=from;
+		this.to=to;
+	}
+	
 	public Interval(){
-
+		
 	}
-
-	public void finalize() throws Throwable {
-
-	}
-
+	
 }

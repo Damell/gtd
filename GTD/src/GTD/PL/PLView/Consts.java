@@ -29,5 +29,9 @@ public class Consts {
 	// Activities tab
 	public static final String ADD_ACTIVITY = "Přidat činnost";
 	public static final String PROCESS_ACTIVITY = "Zpracovat činnost";
+	public static final String TITLE = "Název";
+	public static final String DESC = "Popis";
+	public static final String STATE = "Stav";
+
 
 }

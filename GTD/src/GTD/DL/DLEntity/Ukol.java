@@ -21,7 +21,6 @@ public class Ukol extends Aktivita {
     private Kontext kontext;
 
     public Ukol() {
-
     }
 
     /*
@@ -31,14 +30,14 @@ public class Ukol extends Aktivita {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
     }
 
-    public void finalize() throws Throwable {
-        super.finalize();
-    }
     /*
      * Nastav uzivatelsky kontext ukolu
      */
 
     public void setKontext(int id, String nazev) {
+		if(kontext == null) {
+			kontext = new Kontext();
+		}
         kontext.setKontext(id, nazev);
     }
     /*
@@ -46,7 +45,18 @@ public class Ukol extends Aktivita {
      */
 
     public void setInterval(Date from, Date to) {
+		if(kalendar == null) {
+			kalendar = new Interval();
+		}
         kalendar.setInterval(from, to);
     }
+
+	public Interval getKalendar() {
+		return kalendar;
+	}
+
+	public Kontext getKontext() {
+		return kontext;
+	}
 
 }

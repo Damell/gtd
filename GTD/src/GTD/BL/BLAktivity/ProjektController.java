@@ -16,7 +16,7 @@ public class ProjektController implements IProjektController {
 	private IGTDGUI GUI;
 
 	public ProjektController(){
-
+		spravceProjektu = new SpravceProjektu();
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class ProjektController implements IProjektController {
 	 */
 	@Override
 	public List getProjektyOsoby(Osoba osoba){
-		return null;
+		return spravceProjektu.getProjektyOsoby(osoba);
 	}
 
 	/**

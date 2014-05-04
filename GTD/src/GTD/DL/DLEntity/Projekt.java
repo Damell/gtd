@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,17 +33,27 @@ public class Projekt extends Aktivita {
     private List<Projekt> projekty;
 
     public Projekt() {
-
+		projekty = new ArrayList<>();
+		ukoly = new ArrayList<>();
+		skupina = new ArrayList<>();
+		rodic = null;
     }
 
     public Projekt(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
+		projekty = new ArrayList<>();
+		ukoly = new ArrayList<>();
+		skupina = new ArrayList<>();
+		rodic = null;
     }
     
     /*
     * Nastav rodice projektu
     */
     public void setProjectrodic(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
+		if(rodic == null) {
+			this.rodic = new Projekt();
+		}
         this.rodic.setAktivita(id, nazev, popis, stav, stavPopis, vlastnik_id);
     }
     /*
@@ -68,5 +79,21 @@ public class Projekt extends Aktivita {
     public String toString() {
         return super.toString() + "rodic=" + rodic + ", skupina=" + skupina + ", ukoly=" + ukoly + ", projekty=" + projekty + '}';
     }
+
+	public Projekt getRodic() {
+		return rodic;
+	}
+
+	public List<Osoba> getSkupina() {
+		return skupina;
+	}
+
+	public List<Ukol> getUkoly() {
+		return ukoly;
+	}
+
+	public List<Projekt> getProjekty() {
+		return projekty;
+	}
 
 }

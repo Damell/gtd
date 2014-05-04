@@ -1,5 +1,6 @@
 package GTD.BL.BLAktivity;
 import GTD.BL.BLOsoby.SpravceOsob;
+import GTD.DL.DLDAO.DAOProjekt;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
@@ -26,11 +27,7 @@ public class SpravceProjektu {
 	private SpravceOsob spravceOsob;
 
 	public SpravceProjektu(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		DAOProjekt = new DAOProjekt();
 	}
 
 	/**
@@ -81,7 +78,7 @@ public class SpravceProjektu {
 	 * @param osoba
 	 */
 	public List getProjektyOsoby(Osoba osoba){
-		return null;
+		return DAOProjekt.getProjektyOsoby(osoba);
 	}
 
 	/**

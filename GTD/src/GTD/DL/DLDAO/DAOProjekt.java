@@ -19,34 +19,34 @@ import java.util.List;
  * @created 26-4-2014 14:51:21
  */
 public class DAOProjekt implements IDAOProjekt {
-
-
-    public DAOProjekt() {
-    }
-
-    /**
-     * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
-     *
-     * @param projekt
-     */
-    public boolean createProjekt(Projekt projekt) {
-        return false;
-    }
-
-    /**
-     * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho
-     * úkoly a podprojekty.
-     *
-     * @param projekt
-     */
-    public boolean deleteProjekt(Projekt projekt) {
-        return false;
-    }
-
-    /**
-     * Vrátí všechny projekty v systému.
-     */
-    public List<Projekt> getAllProjekty() {
+	
+	
+	public DAOProjekt() {
+	}
+	
+	/**
+	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
+	 *
+	 * @param projekt
+	 */
+	public boolean createProjekt(Projekt projekt) {
+		return false;
+	}
+	
+	/**
+	 * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho
+	 * úkoly a podprojekty.
+	 *
+	 * @param projekt
+	 */
+	public boolean deleteProjekt(Projekt projekt) {
+		return false;
+	}
+	
+	/**
+	 * Vrátí všechny projekty v systému.
+	 */
+	public List<Projekt> getAllProjekty() {
 		List<Projekt> projekty = new ArrayList<Projekt>();
 		Connection con = DatabaseConnection.getConnection();
 		try {
@@ -84,7 +84,7 @@ public class DAOProjekt implements IDAOProjekt {
 				rset_ukoly.close();
 				
 				//pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
-				ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",)");
+				ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
 				while (rset_podprojekty.next()) {
 					//pridej konkretni projekt
 					pro.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
@@ -99,14 +99,14 @@ public class DAOProjekt implements IDAOProjekt {
 			System.err.println("DB query error");
 		}
 		return projekty;
-    }
-
-    /**
-     * Vrátí projekt podle jeho ID.
-     *
-     * @param id
-     */
-    public Projekt getProjekt(int id) {
+	}
+	
+	/**
+	 * Vrátí projekt podle jeho ID.
+	 *
+	 * @param id
+	 */
+	public Projekt getProjekt(int id) {
 		Projekt projekt = null;
 		Connection con = DatabaseConnection.getConnection();
 		try {
@@ -144,7 +144,7 @@ public class DAOProjekt implements IDAOProjekt {
 				rset_ukoly.close();
 				
 				//pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
-				ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",)");
+				ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
 				while (rset_podprojekty.next()) {
 					//pridej konkretni projekt
 					projekt.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
@@ -158,25 +158,24 @@ public class DAOProjekt implements IDAOProjekt {
 		} catch (SQLException e) {
 			System.err.println("DB query error");
 		}
-        return projekt;
-
-    }
-
-    /**
-     * Uloží zmenený projekt.
-     *
-     * @param projekt
-     */
-    public boolean updateProjekt(Projekt projekt) {
-        return false;
-    }
-
-    /**
-     * Vrátí všechny projekty patřící zadané osobe.
-     *
-     * @param osoba
-     */
-    public List<Projekt> getProjektyOsoby(Osoba osoba) {
+		return projekt;
+	}
+	
+	/**
+	 * Uloží zmenený projekt.
+	 *
+	 * @param projekt
+	 */
+	public boolean updateProjekt(Projekt projekt) {
+		return false;
+	}
+	
+	/**
+	 * Vrátí všechny projekty patřící zadané osobe.
+	 *
+	 * @param osoba
+	 */
+	public List<Projekt> getProjektyOsoby(Osoba osoba) {
 		List<Projekt> projekty = new ArrayList<Projekt>();
 		Connection con = DatabaseConnection.getConnection();
 		try {
@@ -192,6 +191,6 @@ public class DAOProjekt implements IDAOProjekt {
 			System.err.println("DB query error");
 		}
 		return projekty;
-    }
-
+	}
+	
 }

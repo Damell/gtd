@@ -57,22 +57,27 @@ public class DAOProjekt implements IDAOProjekt {
 				Projekt pro = new Projekt(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
 				
 				//Nastav rodice projektu
-				ResultSet rset_rodic = stmt.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
+                                Statement stmt_rodic = con.createStatement();
+				ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
 				while (rset.next()) {
 					pro.setProjectrodic(rset_rodic.getInt(1), rset_rodic.getString(2), rset_rodic.getString(3), rset_rodic.getInt(4), rset_rodic.getString(5), rset_rodic.getInt(6));
 				}
 				rset_rodic.close();
+                                stmt_rodic.close();
 				
 				//Pridej osoby do projektu
-				ResultSet rset_osoby = stmt.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_project = " + rset.getInt(1));
+				Statement stmt_osoby = con.createStatement();
+                                ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_project = " + rset.getInt(1));
 				while (rset_osoby.next()) {
 					Osoba oso = new Osoba(rset_osoby.getInt(1), rset_osoby.getString(2), rset_osoby.getString(3), rset_osoby.getString(4));
 					pro.addOsoba(oso);
 				}
 				rset_osoby.close();
+                                stmt_osoby.close();
 				
-				//Pridej ukolu do projektu
-				ResultSet rset_ukoly = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id_project = " + rset.getInt(1));
+				//Pridej ukoly do projektu
+                                Statement stmt_ukoly = con.createStatement();
+				ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id_project = " + rset.getInt(1));
 				while (rset_ukoly.next()) {
 					Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6));
 					//nastav interval
@@ -82,13 +87,17 @@ public class DAOProjekt implements IDAOProjekt {
 					pro.addUkol(ukl);
 				}
 				rset_ukoly.close();
+                                stmt_ukoly.close();
 				
-				//pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
-				ResultSet rset_podprojekty = stmt.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
+				//Pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
+				Statement stmt_podprojekty = con.createStatement();
+                                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
 				while (rset_podprojekty.next()) {
 					//pridej konkretni projekt
 					pro.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
 				}
+                                rset_podprojekty.close();
+                                stmt_podprojekty.close();
 				
 				System.out.println(pro);
 				projekty.add(pro);

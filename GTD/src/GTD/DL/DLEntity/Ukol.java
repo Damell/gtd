@@ -19,7 +19,7 @@ public class Ukol extends Aktivita {
      * Kontext úkolu.
      */
     private Kontext kontext;
-    private Projekt projekt;
+    private int id_projekt;
 
     public Ukol() {
     }
@@ -27,8 +27,9 @@ public class Ukol extends Aktivita {
     /*
      * Inicializace ukolu
      */
-    public Ukol(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
+    public Ukol(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
+        this.id_projekt=id_projekt;
     }
 
     /*
@@ -52,7 +53,7 @@ public class Ukol extends Aktivita {
     }
     
     public void setProjekt(int id_projekt) {
-        projekt.setId(id_projekt);
+        this.id_projekt=id_projekt;
     }
 
     public Interval getKalendar() {
@@ -63,7 +64,7 @@ public class Ukol extends Aktivita {
         return kontext;
     }
 
-    public Projekt getProjekt() {
-        return projekt;
+    public int getProjekt() {
+        return id_projekt;
     }
 }

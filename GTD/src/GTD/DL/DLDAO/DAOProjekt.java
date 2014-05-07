@@ -105,9 +105,9 @@ public class DAOProjekt implements IDAOProjekt {
 
                 //Pridej ukoly do projektu
                 Statement stmt_ukoly = con.createStatement();
-                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id_project = " + rset.getInt(1));
+                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_project = " + rset.getInt(1));
                 while (rset_ukoly.next()) {
-                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6));
+                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(7));
                     //nastav interval
                     ukl.setInterval(rset_ukoly.getDate(7), rset_ukoly.getDate(8));
                     //nastav kontext ukolu vlastnika// zobrazit kontext jen vlastnikovy kontextu?
@@ -133,7 +133,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getAllProjekty");
+            System.err.println("DB query error :: getAllProjekty: " + e.getMessage());
         }
         return projekty;
     }
@@ -177,9 +177,9 @@ public class DAOProjekt implements IDAOProjekt {
 
                 //Pridej ukolu do projektu
                 Statement stmt_ukoly = con.createStatement();
-                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id_project = " + rset.getInt(1));
+                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_project = " + rset.getInt(1));
                 while (rset_ukoly.next()) {
-                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6));
+                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(11));
                     //nastav interval
                     ukl.setInterval(rset_ukoly.getDate(7), rset_ukoly.getDate(8));
                     //nastav kontext ukolu vlastnika// zobrazit kontext jen vlastnikovy kontextu?
@@ -206,7 +206,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getProjekt");
+            System.err.println("DB query error :: getProjekt: " + e.getMessage());
         }
         return projekt;
     }
@@ -257,7 +257,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getProjektyOsoby");
+            System.err.println("DB query error :: getProjektyOsoby: " + e.getMessage());
         }
         return projekty;
     }

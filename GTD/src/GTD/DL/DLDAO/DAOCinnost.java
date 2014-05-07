@@ -35,8 +35,8 @@ public class DAOCinnost implements IDAOCinnost {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin pavlim33.API.ACTIVITIES_IU("
                     + "inp_id_person  =>" + cinnost.getVlastnik_id()
-                    + ",inp_name => '" + cinnost.getNazev() +"'"
-                    + ",inp_description => '" + cinnost.getPopis() +"'"
+                    + ",inp_name => '" + cinnost.getNazev() + "'"
+                    + ",inp_description => '" + cinnost.getPopis() + "'"
                     + ",inp_id_type => " + cinnost.getStav()
                     + "); end;";
             System.out.println(jobquery);
@@ -45,7 +45,7 @@ public class DAOCinnost implements IDAOCinnost {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -66,7 +66,7 @@ public class DAOCinnost implements IDAOCinnost {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -90,7 +90,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         return cinnosti;
     }
@@ -112,7 +112,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         return cinnost;
     }
@@ -129,15 +129,15 @@ public class DAOCinnost implements IDAOCinnost {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin pavlim33.API.ACTIVITIES_IU(inp_id_person    =>" + cinnost.getVlastnik_id()
                     + ",inp_id =>" + cinnost.getId()
-                    + ",inp_name => '" + cinnost.getNazev() +"'"
-                    + ",inp_description => '" + cinnost.getPopis() +"'"
+                    + ",inp_name => '" + cinnost.getNazev() + "'"
+                    + ",inp_description => '" + cinnost.getPopis() + "'"
                     + ",inp_id_type => " + cinnost.getStav()
                     + "); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -163,7 +163,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         return cinnosti;
     }

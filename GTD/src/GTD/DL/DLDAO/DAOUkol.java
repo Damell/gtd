@@ -3,6 +3,7 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Ukol;
 import GTD.DL.DLInterfaces.IDAOUkol;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +31,26 @@ public class DAOUkol implements IDAOUkol {
      * @param ukol
      */
     public boolean createUkol(Ukol ukol) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String jobquery = "begin pavlim33.API.TASKS_IU("
+                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
+                    + "inp_id_creator  =>" + ukol.getVlastnik_id()
+                    + ",inp_name => '" + ukol.getNazev() + "'"
+                    + ",inp_description => '" + ukol.getPopis() + "'"
+                    + ",inp_id_project => " + ukol.getProjekt().getId()
+                    + ",inp_id_type => " + ukol.getStav()
+                    + "); end;";
+            System.out.println(jobquery);
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e ) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -39,7 +59,17 @@ public class DAOUkol implements IDAOUkol {
      * @param ukol
      */
     public boolean deleteUkol(Ukol ukol) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            String jobquery = "begin pavlim33.API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -102,7 +132,26 @@ public class DAOUkol implements IDAOUkol {
      * @param ukol
      */
     public boolean updateUkol(Ukol ukol) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String jobquery = "begin pavlim33.API.TASKS_IU("
+                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
+                    + "inp_id  =>" + ukol.getId()
+                    + ",inp_name => '" + ukol.getNazev() + "'"
+                    + ",inp_description => '" + ukol.getPopis() + "'"
+                    + ",inp_id_project => " + ukol.getProjekt().getId()
+                    + ",inp_id_type => " + ukol.getStav()
+                    + "); end;";
+            System.out.println(jobquery);
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e ) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**

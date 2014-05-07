@@ -33,12 +33,10 @@ public class viewCinnosti extends JPanel implements IView {
 	private JTextField newActivityDescField;
 	private JButton newActivityButton;
 	private JButton processActivityButton;
+	private JButton deleteActivityButton;
 
+	private CinnostiTableModel cinnostiTableModel;
 	private JTable cinnostiTable;
-	private JTextField newCinnostJmeno;
-	private JTextField newCinnostPopis;
-	private JButton zpracujCinnostButton;
-	private JButton deleteCinnostButton;
 
 	public viewCinnosti(mainFrame mainFrame){
 		this.mainFrame = mainFrame;
@@ -87,7 +85,8 @@ public class viewCinnosti extends JPanel implements IView {
 	void initMainView() {
 		loadData();
 		mainView = new JPanel(new BorderLayout());
-		cinnostiTable = new JTable(new CinnostiTableModel());
+		cinnostiTableModel = new CinnostiTableModel();
+		cinnostiTable = new JTable(cinnostiTableModel);
 		JScrollPane scrollPane = new JScrollPane(cinnostiTable);
 		mainView.add(scrollPane);
 	}
@@ -137,6 +136,7 @@ public class viewCinnosti extends JPanel implements IView {
 	 */
 	public void refresh(){
 		loadData();
+		cinnostiTableModel.fireTableDataChanged();
 	}
 
 	/**

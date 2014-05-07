@@ -62,7 +62,10 @@ public class Aktivita {
 		this.vlastnik_id = vlastnik_id;
 	}
 	
-	
+	public void setId(int id) {
+		this.id = id;
+	}
+        
 	public int getId() {
 		return id;
 	}

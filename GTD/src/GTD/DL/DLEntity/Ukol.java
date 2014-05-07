@@ -19,6 +19,7 @@ public class Ukol extends Aktivita {
      * Kontext úkolu.
      */
     private Kontext kontext;
+    private Projekt projekt;
 
     public Ukol() {
     }
@@ -33,11 +34,10 @@ public class Ukol extends Aktivita {
     /*
      * Nastav uzivatelsky kontext ukolu
      */
-
     public void setKontext(int id, String nazev) {
-		if(kontext == null) {
-			kontext = new Kontext();
-		}
+        if (kontext == null) {
+            kontext = new Kontext();
+        }
         kontext.setKontext(id, nazev);
     }
     /*
@@ -45,18 +45,25 @@ public class Ukol extends Aktivita {
      */
 
     public void setInterval(Date from, Date to) {
-		if(kalendar == null) {
-			kalendar = new Interval();
-		}
+        if (kalendar == null) {
+            kalendar = new Interval();
+        }
         kalendar.setInterval(from, to);
     }
+    
+    public void setProjekt(int id_projekt) {
+        projekt.setId(id_projekt);
+    }
 
-	public Interval getKalendar() {
-		return kalendar;
-	}
+    public Interval getKalendar() {
+        return kalendar;
+    }
 
-	public Kontext getKontext() {
-		return kontext;
-	}
+    public Kontext getKontext() {
+        return kontext;
+    }
 
+    public Projekt getProjekt() {
+        return projekt;
+    }
 }

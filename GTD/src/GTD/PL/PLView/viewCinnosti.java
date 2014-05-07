@@ -3,9 +3,12 @@ import GTD.DL.DLEntity.Cinnost;
 import GTD.PL.PLController.GTDEventHandler;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +29,8 @@ public class viewCinnosti extends JPanel implements IView {
 	private JPanel mainView;
 	private List<Cinnost> cinnosti;
 
+	private JTextField newActivityTitleField;
+	private JTextField newActivityDescField;
 	private JButton newActivityButton;
 	private JButton processActivityButton;
 
@@ -41,16 +46,40 @@ public class viewCinnosti extends JPanel implements IView {
 	}
 
 	void init() {
-		setLayout(new GridLayout(2, 1));
+		setLayout(new BorderLayout());
 		initMenu();
 		initMainView();
-		add(menu);
+		add(menu, BorderLayout.PAGE_START);
+		add(mainView, BorderLayout.CENTER);
 	}
 
 	void initMenu() {
 		menu = new JPanel(new FlowLayout());
+		newActivityTitleField = new JTextField(12);
+		newActivityDescField = new JTextField(25);
 		newActivityButton = new JButton(Consts.ADD_ACTIVITY);
+		newActivityButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (newActivityTitleField.getText() == "") {
+					JOptionPane optionPane = new JOptionPane();
+					optionPane.showMessageDialog(mainFrame, Consts.TITLE_EMPTY);
+				} else if (newActivityDescField.getText() == "") {
+					JOptionPane optionPane = new JOptionPane();
+					optionPane.showMessageDialog(mainFrame, Consts.DESC_EMPTY);
+				} else {
+					Cinnost newActivity = new Cinnost(newActivityTitleField.getText(), newActivityDescField.getText(), 48, GTDGUI.getMyself().getId());
+					if (GTDGUI.getGTDGUI().getCinnostController().addCinnost(newActivity)) {
+						refresh();
+					}
+				}
+			}
+		}) ;
 		processActivityButton = new JButton(Consts.PROCESS_ACTIVITY);
+		menu.add(new JLabel(Consts.TITLE + ": "));
+		menu.add(newActivityTitleField);
+		menu.add(new JLabel(Consts.DESC + ": "));
+		menu.add(newActivityDescField);
 		menu.add(newActivityButton);
 		menu.add(processActivityButton);
 	}
@@ -61,7 +90,6 @@ public class viewCinnosti extends JPanel implements IView {
 		cinnostiTable = new JTable(new CinnostiTableModel());
 		JScrollPane scrollPane = new JScrollPane(cinnostiTable);
 		mainView.add(scrollPane);
-		add(mainView);
 	}
 
 	void loadData() {
@@ -108,7 +136,7 @@ public class viewCinnosti extends JPanel implements IView {
 	 * Aktualizuje pohled.
 	 */
 	public void refresh(){
-
+		loadData();
 	}
 
 	/**

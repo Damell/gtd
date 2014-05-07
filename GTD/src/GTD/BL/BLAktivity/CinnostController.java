@@ -26,7 +26,7 @@ public class CinnostController implements ICinnostController {
 	 * @param cinnost
 	 */
 	public boolean addCinnost(Cinnost cinnost){
-		return false;
+		return spravceCinnosti.addCinnost(cinnost);
 	}
 
 	/**

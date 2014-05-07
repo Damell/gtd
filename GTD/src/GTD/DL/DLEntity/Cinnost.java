@@ -13,4 +13,9 @@ public class Cinnost extends Aktivita {
 		super(id,nazev,popis,stav,stavPopis,vlastnik_id);
 	}
 
+	public Cinnost(String nazev, String popis, int stav, int vlastnik_id) {
+		super(nazev, popis, stav, vlastnik_id);
+
+	}
+
 }

@@ -42,6 +42,13 @@ public class Aktivita {
 		this.stavPopis = stavPopis;
 		this.vlastnik_id = vlastnik_id;
 	}
+
+	public Aktivita(String nazev, String popis, int stav, int vlastnik_id) {
+		this.nazev = nazev;
+		this.popis = popis;
+		this.stav = stav;
+		this.vlastnik_id = vlastnik_id;
+	}
 	
 	/*
 	* Nastav aktivitu

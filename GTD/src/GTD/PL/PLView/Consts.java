@@ -31,6 +31,8 @@ public class Consts {
 	public static final String PROCESS_ACTIVITY = "Zpracovat činnost";
 	public static final String TITLE = "Název";
 	public static final String DESC = "Popis";
+	public static final String TITLE_EMPTY = "Chybí název";
+	public static final String DESC_EMPTY = "Chybí popis";
 	public static final String STATE = "Stav";
 
 

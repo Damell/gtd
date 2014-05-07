@@ -31,7 +31,7 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean addCinnost(Cinnost cinnost){
-		return false;
+		return DAOCinnost.createCinnost(cinnost);
 	}
 
 	/**

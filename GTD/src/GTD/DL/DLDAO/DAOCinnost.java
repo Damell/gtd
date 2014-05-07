@@ -34,11 +34,13 @@ public class DAOCinnost implements IDAOCinnost {
         try {
             //Statement stmt = con.createStatement();
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.ACTIVITIES_IU(inp_id_person    =>" + cinnost.getVlastnik_id()
-                    + ",inp_name =>" + cinnost.getNazev()
-                    + ",inp_description =>" + cinnost.getPopis()
+            String jobquery = "begin pavlim33.API.ACTIVITIES_IU("
+                    + "inp_id_person  =>" + cinnost.getVlastnik_id()
+                    + ",inp_name => '" + cinnost.getNazev() +"'"
+                    + ",inp_description => '" + cinnost.getPopis() +"'"
                     + ",inp_id_type => " + cinnost.getStav()
                     + "); end;";
+            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             //vystupni parametry, zatim nepotrebuji
             callStmt.execute();

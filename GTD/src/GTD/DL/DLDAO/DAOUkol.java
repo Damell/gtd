@@ -39,7 +39,7 @@ public class DAOUkol implements IDAOUkol {
                     + "inp_id_creator  =>" + ukol.getVlastnik_id()
                     + ",inp_name => '" + ukol.getNazev() + "'"
                     + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt().getId()
+                    + ",inp_id_project => " + ukol.getProjekt()
                     + ",inp_id_type => " + ukol.getStav()
                     + "); end;";
             System.out.println(jobquery);
@@ -81,9 +81,9 @@ public class DAOUkol implements IDAOUkol {
 		try {
 			Statement stmt = con.createStatement();
 			//Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v");
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v");
 			while (rset.next()) {
-				Ukol ukl = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+				Ukol ukl = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
 				//nastav interval
 				ukl.setInterval(rset.getDate(7), rset.getDate(8));
 				//nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
@@ -110,9 +110,9 @@ public class DAOUkol implements IDAOUkol {
 		try {
 			Statement stmt = con.createStatement();
 			//Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id = " + id);
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id = " + id);
 			while (rset.next()) {
-				ukol = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+				ukol = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
 				//nastav interval
 				ukol.setInterval(rset.getDate(7), rset.getDate(8));
 				//nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
@@ -140,7 +140,7 @@ public class DAOUkol implements IDAOUkol {
                     + "inp_id  =>" + ukol.getId()
                     + ",inp_name => '" + ukol.getNazev() + "'"
                     + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt().getId()
+                    + ",inp_id_project => " + ukol.getProjekt()
                     + ",inp_id_type => " + ukol.getStav()
                     + "); end;";
             System.out.println(jobquery);
@@ -165,9 +165,9 @@ public class DAOUkol implements IDAOUkol {
 		try {
 			Statement stmt = con.createStatement();
 			//Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name from pavlim33.tasks_v where id_context="+ kontext.getKontextId());
+			ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_context="+ kontext.getKontextId());
 			while (rset.next()) {
-				Ukol ukl = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
+				Ukol ukl = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
 				//nastav interval
 				ukl.setInterval(rset.getDate(7), rset.getDate(8));
 				//nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?

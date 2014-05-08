@@ -68,9 +68,7 @@ public class ViewCinnosti extends JPanel implements IView {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.DESC_EMPTY);
 				} else {
-					Cinnost newActivity = new Cinnost(newActivityTitleField.getText(), newActivityDescField.getText(), 48, GTDGUI.getMyself().getId());
-					System.out.println(newActivityTitleField.getText());
-					if (GTDGUI.getGTDGUI().getCinnostController().addCinnost(newActivity)) {
+					if (GTDGUI.getGTDGUI().getCinnostController().addCinnost(newActivityTitleField.getText(), newActivityDescField.getText())) {
 						refresh();
 					}
 				}

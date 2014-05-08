@@ -1,14 +1,18 @@
 package GTD.PL.PLView;
 import GTD.DL.DLEntity.Cinnost;
+import GTD.DL.DLEntity.Projekt;
 import GTD.PL.PLController.GTDEventHandler;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
 /**
@@ -25,6 +29,8 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 	private JPanel visiblePanel;
 	private JButton closeButton;
 	private Cinnost cinnost;
+	private List<Projekt> projects;
+	private JList projectsList;
 
 	public ViewZpracovaniCinnosti(Cinnost cinnost){
 		this.cinnost = cinnost;
@@ -158,7 +164,31 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 	}
 
 	void showCreateProject() {
-
+		this.remove(visiblePanel);
+		visiblePanel = new JPanel(new BorderLayout());
+		List<String> projectNames = new ArrayList<>();
+		projects = GTDGUI.getGTDGUI().getProjektController().getProjektyOsoby(GTDGUI.getMyself());
+		for (Projekt project : projects) {
+			projectNames.add(project.getNazev());
+		}
+		projectsList = new JList(projectNames.toArray());
+		JButton createProjectButton = new JButton(Consts.CREATE_PROJECT);
+		createProjectButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), projectsList.getSelectedIndex(), cinnost)) {
+					GTDGUI.getGTDGUI().refresh();
+					processFrame.dispose();
+				}
+			}
+		});
+		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_PARENT), BorderLayout.PAGE_START);
+		visiblePanel.add(projectsList, BorderLayout.CENTER);
+		visiblePanel.add(createProjectButton, BorderLayout.PAGE_END);
+		this.add(visiblePanel);
+		setPreferredSize (new Dimension (600, 200));
+		processFrame.pack();
+		refresh();
 	}
 
 	void showCreateTask() {

@@ -16,9 +16,10 @@ public interface ICinnostController {
 	/**
 	 * Přidá novou činnost zadaných vlastností.
 	 * 
-	 * @param cinnost
+	 * @param nazev 
+	 * @param popis 
 	 */
-	public boolean addCinnost(Cinnost cinnost);
+	public boolean addCinnost(String nazev, String popis);
 
 	/**
 	 * Smaže činnost.

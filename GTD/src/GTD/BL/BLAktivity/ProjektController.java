@@ -22,12 +22,21 @@ public class ProjektController implements IProjektController {
 	/**
 	 * Přidá nový projekt zadaných vlastností.
 	 * 
-	 * @param projekt
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param vlastnik
+	 * @param rodicID
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
 	 */
 	@Override
-	public boolean addProjekt(Projekt projekt, Cinnost cinnost) {
-		return false;
+	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, Cinnost cinnost) {
+		Projekt rodic = null;
+		if (rodicID != -1) {
+			rodic = spravceProjektu.getProjekt(rodicID);
+		}
+		Projekt newProjekt = new Projekt(nazev, popis, 55, vlastnik, rodic);
+		return spravceProjektu.addProjekt(newProjekt, cinnost);
 	}
 
 	/**

@@ -46,7 +46,14 @@ public class Projekt extends Aktivita {
 		skupina = new ArrayList<>();
 		rodic = null;
     }
-    
+    public Projekt(String nazev, String popis, int stav, int vlastnik_id, Projekt rodic) {
+        super(nazev, popis, stav, vlastnik_id);
+		projekty = new ArrayList<>();
+		ukoly = new ArrayList<>();
+		skupina = new ArrayList<>();
+		this.rodic = rodic;
+    }
+
     /*
     * Nastav rodice projektu
     */

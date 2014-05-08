@@ -28,6 +28,7 @@ public class SpravceProjektu {
 
 	public SpravceProjektu(){
 		DAOProjekt = new DAOProjekt();
+		spravceCinnosti = new SpravceCinnosti();
 	}
 
 	/**
@@ -39,7 +40,10 @@ public class SpravceProjektu {
 	 * se pro označení činnosti jako "zpracované".
 	 */
 	public boolean addProjekt(Projekt projekt, Cinnost cinnost){
-		return false;
+		if (cinnost != null) {
+			spravceCinnosti.processCinnost(cinnost);
+		}
+		return DAOProjekt.createProjekt(projekt);
 	}
 
 	/**

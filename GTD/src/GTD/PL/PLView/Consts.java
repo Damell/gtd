@@ -51,5 +51,7 @@ public class Consts {
 	public static final String ARCHIVED = "Činnost byla archivována";
 	public static final String POSTPONED = "Činnost byla odložena";
 	public static final String DELETED = "Činnost byla smazána";
+	public static final String CREATE_PROJECT = "Vytvořit projekt";
+	public static final String CREATE_PROJECT_CHOOSE_PARENT = "Pokud má být nový projekt podprojektem již existujícího, zvolte ho prosím: ";
 
 }

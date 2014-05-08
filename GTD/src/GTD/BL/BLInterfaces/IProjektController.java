@@ -20,7 +20,7 @@ public interface IProjektController {
 	 * @param projekt
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
 	 */
-	public boolean addProjekt(Projekt projekt, Cinnost cinnost);
+	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, Cinnost cinnost);
 
 	/**
 	 * Smaže projekt (resp. označí jako smazaný).

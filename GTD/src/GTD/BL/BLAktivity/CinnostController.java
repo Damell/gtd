@@ -26,8 +26,10 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param cinnost
 	 */
-	public boolean addCinnost(Cinnost cinnost){
-		return spravceCinnosti.addCinnost(cinnost);
+	@Override
+	public boolean addCinnost(String nazev, String popis){
+		Cinnost newCinnost = new Cinnost(nazev, popis, 48, GTDGUI.getMyself().getId());
+		return spravceCinnosti.addCinnost(newCinnost);
 	}
 
 	/**
@@ -35,6 +37,7 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param cinnost
 	 */
+	@Override
 	public boolean deleteCinnost(Cinnost cinnost){
 		return spravceCinnosti.deleteCinnost(cinnost);
 	}
@@ -44,6 +47,7 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param osoba
 	 */
+	@Override
 	public List<Cinnost> getCinnostiOsoby(Osoba osoba){
 		return spravceCinnosti.getCinnostiOsoby(osoba);
 	}
@@ -53,6 +57,7 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param cinnost
 	 */
+	@Override
 	public boolean processCinnost(Cinnost cinnost){
 		return false;
 	}
@@ -62,6 +67,7 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param cinnost
 	 */
+	@Override
 	public boolean archiveCinnost(Cinnost cinnost){
 		return spravceCinnosti.archiveCinnost(cinnost);
 	}
@@ -71,6 +77,7 @@ public class CinnostController implements ICinnostController {
 	 * 
 	 * @param cinnost
 	 */
+	@Override
 	public boolean updateCinnost(Cinnost cinnost){
 		return false;
 	}
@@ -78,6 +85,7 @@ public class CinnostController implements ICinnostController {
 	/**
 	 * Odešle GUI pokyn k obnovení.
 	 */
+	@Override
 	public void refresh(){
 		GTDGUI.getGTDGUI().refresh();
 	}

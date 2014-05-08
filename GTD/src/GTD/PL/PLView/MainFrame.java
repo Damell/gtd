@@ -19,18 +19,18 @@ import javax.swing.JTabbedPane;
  *
  * @author damell
  */
-public class mainFrame extends JFrame implements WindowListener {
+public class MainFrame extends JFrame implements WindowListener {
 
 	private JTabbedPane tabbedPane;
 	
-	mainFrame(String appTitle) {
+	MainFrame(String appTitle) {
 		super(appTitle);
 		
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		pack();
-		setSize(900, 700);
+		setSize(1000, 700);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		addWindowListener(this);
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);

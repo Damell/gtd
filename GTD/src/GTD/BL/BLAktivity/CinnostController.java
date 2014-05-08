@@ -3,6 +3,7 @@ import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.ICinnostController;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
+import GTD.PL.PLView.GTDGUI;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class CinnostController implements ICinnostController {
 	 * @param cinnost
 	 */
 	public boolean deleteCinnost(Cinnost cinnost){
-		return false;
+		return spravceCinnosti.deleteCinnost(cinnost);
 	}
 
 	/**
@@ -62,7 +63,7 @@ public class CinnostController implements ICinnostController {
 	 * @param cinnost
 	 */
 	public boolean archiveCinnost(Cinnost cinnost){
-		return false;
+		return spravceCinnosti.archiveCinnost(cinnost);
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class CinnostController implements ICinnostController {
 	 * Odešle GUI pokyn k obnovení.
 	 */
 	public void refresh(){
-
+		GTDGUI.getGTDGUI().refresh();
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class CinnostController implements ICinnostController {
 	 */
 	@Override
 	public boolean postponeCinnost(Cinnost cinnost){
-		return false;
+		return spravceCinnosti.postponeCinnost(cinnost);
 	}
 
 }

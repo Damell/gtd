@@ -40,7 +40,7 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean deleteCinnost(Cinnost cinnost){
-		return false;
+		return DAOCinnost.deleteCinnost(cinnost);
 	}
 
 	/**
@@ -76,7 +76,8 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean processCinnost(Cinnost cinnost){
-		return false;
+		cinnost.setStav(52);
+		return DAOCinnost.updateCinnost(cinnost);
 	}
 
 	/**
@@ -85,7 +86,8 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean archiveCinnost(Cinnost cinnost){
-		return false;
+		cinnost.setStav(50);
+		return DAOCinnost.updateCinnost(cinnost);
 	}
 
 	/**
@@ -94,7 +96,8 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean postponeCinnost(Cinnost cinnost){
-		return false;
+		cinnost.setStav(51);
+		return DAOCinnost.updateCinnost(cinnost);
 	}
 
 }

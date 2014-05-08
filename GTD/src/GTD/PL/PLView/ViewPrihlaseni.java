@@ -18,18 +18,18 @@ import javax.swing.JTextField;
  * @version 1.0
  * @created 26-4-2014 14:51:24
  */
-public class viewPrihlaseni extends JPanel implements IView {
+public class ViewPrihlaseni extends JPanel implements IView {
 
 	private GTDEventHandler eventHandler;
 	JLabel usernameLabel;
 	JLabel passwordLabel;
 	JTextField usernameField;
 	JPasswordField passwordField;
-	mainFrame mainFrame;
+	MainFrame mainFrame;
 	JButton loginButton;
 	IOsobaController osobaCtrl;
 
-	public viewPrihlaseni(mainFrame mainFrame){
+	public ViewPrihlaseni(MainFrame mainFrame){
 		super();
 		osobaCtrl = GTDGUI.getGTDGUI().getOsobaController();
 		this.mainFrame = mainFrame;

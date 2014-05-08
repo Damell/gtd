@@ -16,8 +16,6 @@ import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
 
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
@@ -33,7 +31,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	private List<IView> views;
 	private GTDEventHandler eventHandler;
-	private mainFrame mainFrame;
+	private MainFrame mainFrame;
 
 	// BL reference 
 	private IOsobaController osobaController;
@@ -47,6 +45,7 @@ public class GTDGUI implements IGTDGUI {
 	private static IView loginPanel;
 	private static IView cinnostiPanel;
 	private static IView ukolyProjektyPanel;
+	private static IView zpracovaniPanel;
 	private static GTDGUI GTDGUI;
 
 	public GTDGUI(){
@@ -54,7 +53,7 @@ public class GTDGUI implements IGTDGUI {
 		initBL();
 
 		//Init main frame
-		mainFrame = new mainFrame(Consts.APP_TITLE);
+		mainFrame = new MainFrame(Consts.APP_TITLE);
 	}
 
 	void initBL() {
@@ -77,6 +76,8 @@ public class GTDGUI implements IGTDGUI {
 	public void refresh(){
 		mainFrame.revalidate();
 		mainFrame.repaint();
+		if (ukolyProjektyPanel!= null) ukolyProjektyPanel.refresh();
+		if (cinnostiPanel != null) cinnostiPanel.refresh();
 	}
 
 	/**
@@ -85,7 +86,8 @@ public class GTDGUI implements IGTDGUI {
 	 * @param cinnost
 	 */
 	public void showZpracovaniCinnosti(Cinnost cinnost){
-
+		zpracovaniPanel = new ViewZpracovaniCinnosti(cinnost);
+		zpracovaniPanel.showView();
 	}
 
 	public void showMainWindow() {
@@ -100,7 +102,7 @@ public class GTDGUI implements IGTDGUI {
 	 * @param projekt
 	 */
 	public void showUkolyProjekty(Projekt projekt){
-		ukolyProjektyPanel = new viewUkolyProjekty(mainFrame);
+		ukolyProjektyPanel = new ViewUkolyProjekty(mainFrame);
 		ukolyProjektyPanel.showView();
 	}
 
@@ -110,7 +112,7 @@ public class GTDGUI implements IGTDGUI {
 	 * @param osoba
 	 */
 	public void showCinnosti(Osoba osoba){
-		cinnostiPanel = new viewCinnosti(mainFrame);
+		cinnostiPanel = new ViewCinnosti(mainFrame);
 		cinnostiPanel.showView();
 	}
 
@@ -119,7 +121,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	public void showPrihlaseni(){
 		//Init login panel
-		loginPanel = new viewPrihlaseni(mainFrame);
+		loginPanel = new ViewPrihlaseni(mainFrame);
 		views.add(loginPanel);
 		loginPanel.showView();
 	}

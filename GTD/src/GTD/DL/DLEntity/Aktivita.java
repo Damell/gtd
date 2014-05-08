@@ -65,6 +65,10 @@ public class Aktivita {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public void setStav(int stav) {
+		this.stav = stav;
+	}
         
 	public int getId() {
 		return id;

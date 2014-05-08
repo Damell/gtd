@@ -29,11 +29,27 @@ public class Consts {
 	// Activities tab
 	public static final String ADD_ACTIVITY = "Přidat činnost";
 	public static final String PROCESS_ACTIVITY = "Zpracovat činnost";
+	public static final String DELETE_ACTIVITY = "Smazat činnost";
+	public static final String NO_ACTIVITY_SELECTED = "Není zvolena žádná činnost";
+	
 	public static final String TITLE = "Název";
 	public static final String DESC = "Popis";
 	public static final String TITLE_EMPTY = "Chybí název";
 	public static final String DESC_EMPTY = "Chybí popis";
 	public static final String STATE = "Stav";
 
+	public static final String PROCESSING = "Zpracování";
+	public static final String REALIZABLE_QUESTION = "Je tato činnost realizovatelná?";
+	public static final String IS_ONE_ACTION_QUESTION = "Skládá se pouze z jedné akce?";
+	public static final String IS_USELESS_QUESTION = "Je zbytečná?";
+	public static final String IS_SHORT_QUESTION = "Je proveditelná do dvou minut?";
+	public static final String ARCHIVE_QUESTION = "Chcete činnost archivovat?";
+	public static final String ERROR = "Nastala chyba v komunikaci s databází. Doporučujeme zkusit akci znvou nebo aplikaci vypnout a zapnout";
+	public static final String YES = "Ano";
+	public static final String NO = "Ne";
+	public static final String CLOSE = "Zavřít";
+	public static final String ARCHIVED = "Činnost byla archivována";
+	public static final String POSTPONED = "Činnost byla odložena";
+	public static final String DELETED = "Činnost byla smazána";
 
 }

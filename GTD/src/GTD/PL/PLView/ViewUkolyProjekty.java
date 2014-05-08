@@ -21,10 +21,10 @@ import javax.swing.table.AbstractTableModel;
  * @version 1.0
  * @created 26-4-2014 14:51:24
  */
-public class viewUkolyProjekty extends JPanel implements IView {
+public class ViewUkolyProjekty extends JPanel implements IView {
 	
 	private GTDEventHandler eventHandler;
-	private mainFrame mainFrame;
+	private MainFrame mainFrame;
 	
 	private JPanel menu;
 	
@@ -36,7 +36,7 @@ public class viewUkolyProjekty extends JPanel implements IView {
 	private List<Projekt> projects;
 	private List<Ukol> tasks;
 	
-	public viewUkolyProjekty(mainFrame mainFrame){
+	public ViewUkolyProjekty(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
 		init();
 	}
@@ -164,7 +164,9 @@ public class viewUkolyProjekty extends JPanel implements IView {
 	 * Aktualizuje pohled.
 	 */
 	public void refresh(){
-		
+		loadData();
+		projectModel.fireTableDataChanged();
+		taskModel.fireTableDataChanged();
 	}
 	
 	/**

@@ -19,7 +19,12 @@ public class Ukol extends Aktivita {
      * Kontext úkolu.
      */
     private Kontext kontext;
+    /**
+     * Projekt úkolu.
+     */
     private int id_projekt;
+    private String projekt_nazev;
+    private String projekt_popis;
 
     public Ukol() {
     }
@@ -29,7 +34,7 @@ public class Ukol extends Aktivita {
      */
     public Ukol(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
-        this.id_projekt=id_projekt;
+        this.id_projekt = id_projekt;
     }
 
     /*
@@ -51,9 +56,15 @@ public class Ukol extends Aktivita {
         }
         kalendar.setInterval(from, to);
     }
-    
+
     public void setProjekt(int id_projekt) {
-        this.id_projekt=id_projekt;
+        this.id_projekt = id_projekt;
+    }
+
+    public void setProjekt(int id_projekt, String nazev, String popis) {
+        this.id_projekt = id_projekt;
+        this.projekt_nazev = nazev;
+        this.projekt_popis = popis;
     }
 
     public Interval getKalendar() {
@@ -66,5 +77,11 @@ public class Ukol extends Aktivita {
 
     public int getProjekt() {
         return id_projekt;
+    }
+    public String getProjektNazev() {
+        return projekt_nazev;
+    }
+    public String getProjektPopis() {
+        return projekt_popis;
     }
 }

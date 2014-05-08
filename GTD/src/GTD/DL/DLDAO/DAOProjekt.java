@@ -37,7 +37,7 @@ public class DAOProjekt implements IDAOProjekt {
                     + "inp_id_person  =>" + projekt.getVlastnik_id()
                     + ",inp_name => '" + projekt.getNazev() + "'"
                     + ",inp_description => '" + projekt.getPopis() + "'"
-                    + ",inp_id_project_parent => " + projekt.getRodic()
+                    + ",inp_id_project_parent => " + projekt.getRodic().getId()
                     + ",inp_id_type => " + projekt.getStav()
                     + "); end;";
             System.out.println(jobquery);

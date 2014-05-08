@@ -63,7 +63,7 @@ public class SpravceProjektu {
 	 * @param id
 	 */
 	public Projekt getProjekt(int id){
-		return null;
+		return DAOProjekt.getProjekt(id);
 	}
 
 	/**

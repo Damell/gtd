@@ -176,7 +176,9 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		createProjectButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), projectsList.getSelectedIndex(), cinnost)) {
+				int selectedIndex = projectsList.getSelectedIndex();
+				int rodicID = projects.get(selectedIndex).getId();
+				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID , cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}

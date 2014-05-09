@@ -283,6 +283,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		public void removeTreeModelListener(TreeModelListener l) {
 			treeModelListeners.removeElement(l);
 		}
+
 	}
 	
 	/**
@@ -290,6 +291,9 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	 */
 	public void refresh(){
 		loadData();
+		projectTreeModel = new ProjectTreeModel();
+		projectsTree.setModel(projectTreeModel);
+		
 	}
 	
 	/**

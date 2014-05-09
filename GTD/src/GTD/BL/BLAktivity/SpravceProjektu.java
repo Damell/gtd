@@ -41,7 +41,7 @@ public class SpravceProjektu {
 	 */
 	public boolean addProjekt(Projekt projekt, Cinnost cinnost){
 		if (cinnost != null) {
-			spravceCinnosti.processCinnost(cinnost);
+			spravceCinnosti.deleteCinnost(cinnost);
 		}
 		return DAOProjekt.createProjekt(projekt);
 	}

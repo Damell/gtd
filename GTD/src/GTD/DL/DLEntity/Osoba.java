@@ -64,4 +64,35 @@ public class Osoba {
         this.prijmeni = prijmeni;
     }
 
+	public String getLogin() {
+		return login;
+	}
+
+	public String getJmeno() {
+		return jmeno;
+	}
+
+	public String getPrijmeni() {
+		return prijmeni;
+	}
+
+	public List<Kontakt> getKontakty() {
+		return kontakty;
+	}
+
+	public Kontext getM_Kontext() {
+		return m_Kontext;
+	}
+
+	public Cinnost getM_Cinnost() {
+		return m_Cinnost;
+	}
+
+	@Override
+	public String toString() {
+		return jmeno + " " + prijmeni;
+	}
+
+	
+
 }

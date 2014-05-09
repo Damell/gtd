@@ -36,6 +36,13 @@ public interface IDAOOsoba {
 	 * @param id
 	 */
 	public Osoba getOsoba(int id);
+	
+	/**
+	 * Vrátí uživatele na základě uživatelského jména
+	 * 
+	 * @param username
+	 */
+	public Osoba getOsoba(String username);
 
 	/**
 	 * Uloží změny osoby.

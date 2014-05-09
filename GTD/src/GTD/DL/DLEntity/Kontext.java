@@ -36,8 +36,4 @@ public class Kontext extends Filtr {
         return this.getFiltrNazev();
     }
 
-    public void finalize() throws Throwable {
-        super.finalize();
-    }
-
 }

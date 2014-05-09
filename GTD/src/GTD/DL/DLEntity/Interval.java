@@ -26,7 +26,15 @@ public class Interval {
 		this.from=from;
 		this.to=to;
 	}
-	
+
+	public Date getFrom() {
+		return from;
+	}
+
+	public Date getTo() {
+		return to;
+	}
+
 	public Interval(){
 		
 	}

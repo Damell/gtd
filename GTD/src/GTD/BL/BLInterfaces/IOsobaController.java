@@ -44,6 +44,11 @@ public interface IOsobaController {
 	public Osoba getPrihlasenaOsoba();
 
 	/**
+	 * Vrátí uživatele podle ID.
+	 */
+	public Osoba getOsoba(int id);
+
+	/**
 	 * Odhlásí aktuálního uživatele.
 	 */
 	public void logout();

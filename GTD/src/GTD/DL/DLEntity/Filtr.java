@@ -42,8 +42,4 @@ public class Filtr {
         return this.nazev;
     }
 
-    public void finalize() throws Throwable {
-
-    }
-
 }

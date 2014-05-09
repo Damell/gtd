@@ -56,6 +56,15 @@ public class Consts {
 	public static final String CREATE_PROJECT = "Vytvořit projekt";
 	public static final String CREATE_PROJECT_CHOOSE_PARENT = "Pokud má být nový projekt podprojektem již existujícího, zvolte ho prosím: ";
 
+	// Details View
+	public static final String PROJECT = "Projekt";
+	public static final String TASK = "Úkol";
+	public static final String PARENT = "Projekt";
+	public static final String PARENT_DESC = "Popis projektu";
+	public static final String OWNER = "Vlastník";
+	public static final String CONTEXT = "Kontext";
+	public static final String GROUP = "Skupina";
+
 	// My Tasks Tab
 	public static final String FINISH_TASK = "Dokončit úkol";
 

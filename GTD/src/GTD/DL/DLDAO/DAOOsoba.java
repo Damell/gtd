@@ -113,4 +113,9 @@ public class DAOOsoba implements IDAOOsoba {
 		return authenticated;
 	}
 
+	@Override
+	public Osoba getOsoba(String username) {
+		return null;
+	}
+
 }

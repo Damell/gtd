@@ -66,7 +66,18 @@ public class OsobaController implements IOsobaController {
 	 */
 	@Override
 	public Osoba getPrihlasenaOsoba(){
+		//return spravceOsob.getOsoba(GTDGUI.getMyself().getId());
 		return spravceOsob.getOsoba(61);
+	}
+
+	/**
+	 * Vrátí uživatele podle id.
+	 * 
+	 * @param id
+	 */
+	@Override
+	public Osoba getOsoba(int id){
+		return spravceOsob.getOsoba(id);
 	}
 
 	/**

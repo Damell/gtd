@@ -111,8 +111,9 @@ public class DAOUkol implements IDAOUkol {
             ResultSet rset = stmt.executeQuery("select "
                     + "id, name, description, id_type, type_name, id_owner, "
                     + "date_from, date_to, id_context, context_name, "
-                    + "id_project, project_name, project_description"
-                    + " from pavlim33.tasks_v");
+                    + "id_project, project_name, project_description "
+                    + "from pavlim33.tasks_v "
+                    + "where id_owner = " + osoba.getId());
             while (rset.next()) {
                 Ukol ukl = new Ukol(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
                 //nastav interval

@@ -28,14 +28,14 @@ public class ProjektController implements IProjektController {
 	 * @param vlastnik
 	 * @param rodicID
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
-	 */
+		 */
 	@Override
-	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, Cinnost cinnost) {
+	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, List<Osoba> skupina, Cinnost cinnost) {
 		Projekt rodic = null;
 		if (rodicID != -1) {
 			rodic = spravceProjektu.getProjekt(rodicID);
 		}
-		Projekt newProjekt = new Projekt(nazev, popis, 55, vlastnik, rodic);
+		Projekt newProjekt = new Projekt(nazev, popis, 55, vlastnik, skupina, rodic);
 		return spravceProjektu.addProjekt(newProjekt, cinnost);
 	}
 

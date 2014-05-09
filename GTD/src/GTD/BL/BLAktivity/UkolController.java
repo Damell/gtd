@@ -6,6 +6,7 @@ import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
+import GTD.PL.PLView.GTDGUI;
 import java.util.List;
 
 /**
@@ -29,8 +30,12 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
 	 */
-	public boolean addUkol(Ukol ukol, Cinnost cinnost){
-		return false;
+	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Cinnost cinnost){
+
+		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
+		Ukol ukol = new Ukol(nazev, popis, 57, GTDGUI.getMyself().getId(), vlastnikId, projektId);
+
+		return spravceUkolu.addUkol(ukol, cinnost);
 	}
 
 	/**

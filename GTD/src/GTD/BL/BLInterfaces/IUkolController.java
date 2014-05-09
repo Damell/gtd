@@ -22,7 +22,7 @@ public interface IUkolController {
 	 * @param ukol
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
 	 */
-	public boolean addUkol(Ukol ukol, Cinnost cinnost);
+	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Cinnost cinnost);
 
 	/**
 	 * Smaže úkol (resp. označí jako smazaný).

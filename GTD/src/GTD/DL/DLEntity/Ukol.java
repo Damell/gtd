@@ -25,6 +25,10 @@ public class Ukol extends Aktivita {
     private int id_projekt;
     private String projekt_nazev;
     private String projekt_popis;
+	/**
+	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
+	 */
+    private int id_tvurce;
 
     public Ukol() {
     }
@@ -36,6 +40,12 @@ public class Ukol extends Aktivita {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
         this.id_projekt = id_projekt;
     }
+
+	public Ukol(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt) {
+		super(nazev, popis, stav, vlastnik_id);
+		this.id_projekt = id_projekt;
+		this.id_tvurce = tvurce_id;
+	}
 
     /*
      * Nastav uzivatelsky kontext ukolu
@@ -83,5 +93,8 @@ public class Ukol extends Aktivita {
     }
     public String getProjektPopis() {
         return projekt_popis;
+    }
+    public int getTvurce() {
+        return id_tvurce;
     }
 }

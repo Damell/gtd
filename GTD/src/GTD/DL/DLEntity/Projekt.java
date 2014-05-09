@@ -34,24 +34,24 @@ public class Projekt extends Aktivita {
     private List<Projekt> projekty;
 
     public Projekt() {
-		projekty = new ArrayList<>();
-		ukoly = new ArrayList<>();
-		skupina = new ArrayList<>();
-		rodic = null;
+		this.projekty = new ArrayList<>();
+		this.ukoly = new ArrayList<>();
+		this.skupina = new ArrayList<>();
+		this.rodic = null;
     }
 
     public Projekt(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
-		projekty = new ArrayList<>();
-		ukoly = new ArrayList<>();
-		skupina = new ArrayList<>();
-		rodic = null;
+		this.projekty = new ArrayList<>();
+		this.ukoly = new ArrayList<>();
+		this.skupina = new ArrayList<>();
+		this.rodic = null;
     }
-    public Projekt(String nazev, String popis, int stav, int vlastnik_id, Projekt rodic) {
+    public Projekt(String nazev, String popis, int stav, int vlastnik_id, List<Osoba> skupina, Projekt rodic) {
         super(nazev, popis, stav, vlastnik_id);
-		projekty = new ArrayList<>();
-		ukoly = new ArrayList<>();
-		skupina = new ArrayList<>();
+		this.projekty = new ArrayList<>();
+		this.ukoly = new ArrayList<>();
+		this.skupina = skupina;
 		this.rodic = rodic;
     }
 

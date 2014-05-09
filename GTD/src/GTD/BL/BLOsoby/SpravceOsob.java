@@ -3,6 +3,7 @@ import GTD.DL.DLDAO.DAOOsoba;
 import GTD.DL.DLDAO.DatabaseConnection;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
+import java.util.List;
 
 /**
  * Třída zapouzdřuje metody pro ukládání a načítání osob z databáze.
@@ -47,6 +48,13 @@ public class SpravceOsob {
 	 */
 	public Osoba getOsoba(int id){
 		return DAOOsoba.getOsoba(id);
+	}
+
+	/**
+	 * Vrátí všechny uživatele
+	 */
+	public List getAllUsers() {
+		return DAOOsoba.getAllOsoby();
 	}
 
 	/**

@@ -12,21 +12,19 @@ package GTD.PL.PLView;
  */
 public class Consts {
 
-	public static final String APP_TITLE = "Getting Things Done app";
+	public static final String APP_TITLE = "Getting Things Done";
 
 	// Login panel
-	public static final String USERNAME = "Username: ";
-	public static final String PASSWORD = "Password: ";
-	public static final String LOGIN = "Log in!";
-	public static final String LOGIN_ERROR = "Invalid username or password. Please try again.";
+	public static final String USERNAME = "Uživatelské jméno: ";
+	public static final String PASSWORD = "Heslo: ";
+	public static final String LOGIN = "Přihlásit!";
+	public static final String LOGIN_ERROR = "Neplatné uživatelské jméno nebo heslo. Prosím zkuste to znovu";
 
 	// Tabs
 	public static final String ACTIVITES = "Činnosti";
 	public static final String TASKS_AND_PROJECTS = "Úkoly a projekty";
 	public static final String PROJECTS = "Projekty";
 	public static final String MY_TASKS = "Moje úkoly";
-
-	// Tasks and projects tab
 	
 	// Activities tab
 	public static final String ADD_ACTIVITY = "Přidat činnost";
@@ -55,7 +53,12 @@ public class Consts {
 	public static final String DELETED = "Činnost byla smazána";
 	public static final String CREATE_PROJECT = "Vytvořit projekt";
 	public static final String CREATE_PROJECT_CHOOSE_PARENT = "Pokud má být nový projekt podprojektem již existujícího, zvolte ho prosím: ";
+	public static final String CREATE_PROJECT_CHOOSE_GROUP = "Zvolte osoby, které chcete přidat do skupiny projektu";
+	public static final String CREATE_TASK = "Vytvořit úkol";
+	public static final String CREATE_TASK_CHOOSE_PROJECT = "Zvolte projekt, pod který chcete úkol přiřadit: ";
+	public static final String CREATE_TASK_CHOOSE_OWNER = "Zvolte osobu, které chcete úkol přiřadit: ";
 
+	// Tasks and projects tab
 	// Details View
 	public static final String PROJECT = "Projekt";
 	public static final String TASK = "Úkol";

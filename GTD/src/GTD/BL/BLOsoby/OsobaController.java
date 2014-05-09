@@ -3,6 +3,7 @@ import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.IOsobaController;
 import GTD.DL.DLEntity.Osoba;
 import GTD.PL.PLView.GTDGUI;
+import java.util.List;
 
 /**
  * Třída implementuje interface IOsobaController.
@@ -86,6 +87,11 @@ public class OsobaController implements IOsobaController {
 	@Override
 	public void logout(){
 
+	}
+
+	@Override
+	public List getAllUsers() {
+		return spravceOsob.getAllUsers();
 	}
 
 }

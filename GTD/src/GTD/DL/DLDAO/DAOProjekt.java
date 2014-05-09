@@ -33,11 +33,13 @@ public class DAOProjekt implements IDAOProjekt {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+			String rodic = null;
+			if(projekt.getRodic() != null) rodic = projekt.getRodic().getId() + "";
             String jobquery = "begin pavlim33.API.PROJECTS_IU("
                     + "inp_id_person  =>" + projekt.getVlastnik_id()
                     + ",inp_name => '" + projekt.getNazev() + "'"
                     + ",inp_description => '" + projekt.getPopis() + "'"
-                    + ",inp_id_project_parent => " + projekt.getRodic().getId()
+                    + ",inp_id_project_parent => " + rodic
                     + ",inp_id_type => " + projekt.getStav()
                     + "); end;";
             //System.out.println(jobquery);

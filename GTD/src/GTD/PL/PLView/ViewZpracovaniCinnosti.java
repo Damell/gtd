@@ -1,10 +1,13 @@
 package GTD.PL.PLView;
 import GTD.DL.DLEntity.Cinnost;
+import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
 import GTD.PL.PLController.GTDEventHandler;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 /**
  * Třída představující pohled (okno) s formulářem pro zpracování činnosti.
@@ -29,8 +33,10 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 	private JPanel visiblePanel;
 	private JButton closeButton;
 	private Cinnost cinnost;
-	private List<Projekt> projects;
+	private List <Projekt> projects;
+	private List <Osoba> users;
 	private JList projectsList;
+	private JList usersList;
 
 	public ViewZpracovaniCinnosti(Cinnost cinnost){
 		this.cinnost = cinnost;
@@ -165,39 +171,121 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 
 	void showCreateProject() {
 		this.remove(visiblePanel);
-		visiblePanel = new JPanel(new BorderLayout());
-		List<String> projectNames = new ArrayList<>();
-		projects = GTDGUI.getGTDGUI().getProjektController().getProjektyOsoby(GTDGUI.getMyself());
-		for (Projekt project : projects) {
-			projectNames.add(project.getNazev());
-		}
-		projectsList = new JList(projectNames.toArray());
+		visiblePanel = new JPanel(new GridBagLayout());
+
+		users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		usersList = new JList(users.toArray());
+		usersList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		usersList.setVisibleRowCount(-1);
+
+		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projectsList = new JList(projects.toArray());
+		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		projectsList.setVisibleRowCount(-1);
+
 		JButton createProjectButton = new JButton(Consts.CREATE_PROJECT);
 		createProjectButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				List <Osoba> selectedUsers = new ArrayList<>();
 				int selectedIndex = projectsList.getSelectedIndex();
 				int rodicID = -1;
 				if (selectedIndex != -1) {
 					rodicID = projects.get(selectedIndex).getId();
 				}
-				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID , cinnost)) {
+				int [] selectedIndices = usersList.getSelectedIndices();
+				for (int i : selectedIndices) {
+					selectedUsers.add(users.get(i));
+				}
+				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID, selectedUsers, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
 			}
 		});
-		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_PARENT), BorderLayout.PAGE_START);
-		visiblePanel.add(projectsList, BorderLayout.CENTER);
-		visiblePanel.add(createProjectButton, BorderLayout.PAGE_END);
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(10,20,10,20);
+		c.gridx = 0;
+		c.gridy = 0;
+		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_PARENT), c);
+		c.gridy = 1;
+		visiblePanel.add(projectsList, c);
+		c.gridx++;
+		c.gridy = 0;
+		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_GROUP), c);
+		c.gridy = 1;
+		visiblePanel.add(usersList, c);
+		c.gridx++;
+		c.gridy = 1;
+		visiblePanel.add(createProjectButton, c);
 		this.add(visiblePanel);
-		setPreferredSize (new Dimension (600, 200));
+		setPreferredSize (new Dimension (1100, 400));
 		processFrame.pack();
 		refresh();
 	}
 
 	void showCreateTask() {
+		this.remove(visiblePanel);
+		visiblePanel = new JPanel(new GridBagLayout());
 
+		users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		usersList = new JList(users.toArray());
+		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		usersList.setVisibleRowCount(-1);
+
+		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projectsList = new JList(projects.toArray());
+		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		projectsList.setVisibleRowCount(-1);
+
+		JButton createTaskButton = new JButton(Consts.CREATE_TASK);
+		createTaskButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int projektId = -1;
+				int ownerId = -1;
+				List <Osoba> selectedUsers = new ArrayList<>();
+
+				int selectedIndex = projectsList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					projektId = projects.get(selectedIndex).getId();
+				}
+
+				selectedIndex = usersList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					ownerId = users.get(selectedIndex).getId();
+				}
+				if (GTDGUI.getGTDGUI().getUkolController().addUkol(cinnost.getNazev(), cinnost.getPopis(), ownerId, projektId, cinnost)) {
+					GTDGUI.getGTDGUI().refresh();
+					processFrame.dispose();
+				}
+			}
+		});
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(10,20,10,20);
+		c.gridx = 0;
+		c.gridy = 0;
+		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_PROJECT), c);
+		c.gridy = 1;
+		visiblePanel.add(projectsList, c);
+		c.gridx++;
+		c.gridy = 0;
+		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_OWNER), c);
+		c.gridy = 1;
+		visiblePanel.add(usersList, c);
+		c.gridx++;
+		c.gridy = 1;
+		visiblePanel.add(createTaskButton);
+		this.add(visiblePanel);
+		setPreferredSize (new Dimension (1100, 400));
+		processFrame.pack();
+		refresh();
 	}
 
 	void showCreateFinishedTask() {

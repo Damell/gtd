@@ -25,6 +25,7 @@ public class SpravceUkolu {
 	private SpravceOsob spravceOsob;
 
 	public SpravceUkolu(){
+		spravceCinnosti = new SpravceCinnosti();
 		DAOUkol = new DAOUkol();
 	}
 
@@ -37,7 +38,8 @@ public class SpravceUkolu {
 	 * pro označení činnosti jako "zpracované".
 	 */
 	public boolean addUkol(Ukol ukol, Cinnost cinnost){
-		return false;
+		spravceCinnosti.deleteCinnost(cinnost);
+		return DAOUkol.createUkol(ukol);
 	}
 
 	/**

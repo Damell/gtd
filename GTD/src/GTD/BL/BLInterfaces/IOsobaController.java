@@ -1,6 +1,7 @@
 package GTD.BL.BLInterfaces;
 
 import GTD.DL.DLEntity.Osoba;
+import java.util.List;
 
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
@@ -47,6 +48,11 @@ public interface IOsobaController {
 	 * Vrátí uživatele podle ID.
 	 */
 	public Osoba getOsoba(int id);
+
+	/**
+	 * Vrátí všechny uživatele
+	 */
+	public List getAllUsers();
 
 	/**
 	 * Odhlásí aktuálního uživatele.

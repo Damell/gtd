@@ -96,7 +96,8 @@ public class Aktivita {
 	
 	@Override
 	public String toString() {
-		return "Aktivita{" + "id=" + id + ", nazev=" + nazev + ", popis=" + popis + ", stav=" + stav + ", vlastnik_id=" + vlastnik_id + ", stavPopis=" + stavPopis + '}';
+		return nazev + " :: " + popis;
+		//return "Aktivita{" + "id=" + id + ", nazev=" + nazev + ", popis=" + popis + ", stav=" + stav + ", vlastnik_id=" + vlastnik_id + ", stavPopis=" + stavPopis + '}';
 	}
 	
 }

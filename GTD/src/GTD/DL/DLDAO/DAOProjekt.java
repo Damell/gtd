@@ -40,7 +40,7 @@ public class DAOProjekt implements IDAOProjekt {
                     + ",inp_id_project_parent => " + projekt.getRodic().getId()
                     + ",inp_id_type => " + projekt.getStav()
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -87,7 +87,7 @@ public class DAOProjekt implements IDAOProjekt {
                 //Nastav rodice projektu
                 Statement stmt_rodic = con.createStatement();
                 ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
-                while (rset.next()) {
+                while (rset_rodic.next()) {
                     pro.setProjectrodic(rset_rodic.getInt(1), rset_rodic.getString(2), rset_rodic.getString(3), rset_rodic.getInt(4), rset_rodic.getString(5), rset_rodic.getInt(6));
                 }
                 rset_rodic.close();
@@ -107,7 +107,7 @@ public class DAOProjekt implements IDAOProjekt {
                 Statement stmt_ukoly = con.createStatement();
                 ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_project = " + rset.getInt(1));
                 while (rset_ukoly.next()) {
-                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(7));
+                    Ukol ukl = new Ukol(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(11));
                     //nastav interval
                     ukl.setInterval(rset_ukoly.getDate(7), rset_ukoly.getDate(8));
                     //nastav kontext ukolu vlastnika// zobrazit kontext jen vlastnikovy kontextu?
@@ -127,7 +127,7 @@ public class DAOProjekt implements IDAOProjekt {
                 rset_podprojekty.close();
                 stmt_podprojekty.close();
 
-                System.out.println(pro);
+                //System.out.println(pro);
                 projekty.add(pro);
             }
             rset.close();
@@ -164,7 +164,7 @@ public class DAOProjekt implements IDAOProjekt {
                     stmt_rodic.close();
                 }
 
-                System.out.println(rset.getInt(1));
+                //System.out.println(rset.getInt(1));
                 //Pridej osoby do projektu
                 Statement stmt_osoby = con.createStatement();
                 ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_project = " + rset.getInt(1));
@@ -200,7 +200,7 @@ public class DAOProjekt implements IDAOProjekt {
                 rset_podprojekty.close();
                 stmt_podprojekty.close();
 
-                System.out.println(projekt);
+                //System.out.println(projekt);
                 //projekty.add(pro);
             }
             rset.close();
@@ -228,7 +228,7 @@ public class DAOProjekt implements IDAOProjekt {
                     + ",inp_id_project_parent => " + projekt.getRodic()
                     + ",inp_id_type => " + projekt.getStav()
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();

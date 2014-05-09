@@ -2,6 +2,7 @@ package GTD.DL.DLEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Třída predstavuje projekt - množinu souvisejících úkolu. Projekt muže krome
@@ -84,7 +85,8 @@ public class Projekt extends Aktivita {
 
     @Override
     public String toString() {
-        return super.toString() + "rodic=" + rodic + ", skupina=" + skupina + ", ukoly=" + ukoly + ", projekty=" + projekty + '}';
+        //return super.toString() + "rodic=" + rodic + ", skupina=" + skupina + ", ukoly=" + ukoly + ", projekty=" + projekty + '}';
+		return super.toString();
     }
 
 	public Projekt getRodic() {

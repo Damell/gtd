@@ -86,6 +86,14 @@ public class SpravceProjektu {
 	}
 
 	/**
+	 * Vrátí všechny projekty
+	 * 
+	 */
+	public List getAllProjekty(){
+		return DAOProjekt.getAllProjekty();
+	}
+
+	/**
 	 * Změní vlastníka projektu. Změnit vlastníka projektu může jeho vlastník nebo
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 

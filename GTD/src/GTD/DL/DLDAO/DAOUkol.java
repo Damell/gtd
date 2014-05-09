@@ -42,7 +42,7 @@ public class DAOUkol implements IDAOUkol {
                     + ",inp_id_project => " + ukol.getProjekt()
                     + ",inp_id_type => " + ukol.getStav()
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -88,7 +88,7 @@ public class DAOUkol implements IDAOUkol {
 				ukl.setInterval(rset.getDate(7), rset.getDate(8));
 				//nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
 				ukl.setKontext(rset.getInt(9), rset.getString(10));
-				System.out.println(ukl);
+				//System.out.println(ukl);
 				ukoly.add(ukl);
 			}
 			rset.close();
@@ -143,7 +143,7 @@ public class DAOUkol implements IDAOUkol {
                     + ",inp_id_project => " + ukol.getProjekt()
                     + ",inp_id_type => " + ukol.getStav()
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();

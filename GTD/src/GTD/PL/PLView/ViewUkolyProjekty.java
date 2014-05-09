@@ -1,4 +1,5 @@
 package GTD.PL.PLView;
+import GTD.DL.DLEntity.Aktivita;
 import GTD.DL.DLEntity.Projekt;
 import GTD.DL.DLEntity.Ukol;
 import GTD.PL.PLController.GTDEventHandler;
@@ -7,13 +8,19 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+import sun.awt.X11.XConstants;
 
 /**
  * Třída představující pohled (okno) s úkoly a projekty.
@@ -29,12 +36,10 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	private JPanel menu;
 	
 	private JPanel mainView;
-	private JTable projectsTable;
-	private JTable tasksTable;
-	private ProjectTableModel projectModel;
-	private TaskTableModel taskModel;
+	private JTree projectsTree;
+	private ProjectTreeModel projectTreeModel;
 	private List<Projekt> projects;
-	private List<Ukol> tasks;
+	private JPanel detailView;
 	
 	public ViewUkolyProjekty(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
@@ -57,116 +62,102 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		loadData();
 		mainView = new JPanel(new GridLayout(1, 2));
 
-		projectModel = new ProjectTableModel();
-		projectsTable = new JTable(projectModel);
-		projectsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		projectsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-				tasks = projects.get(lsm.getLeadSelectionIndex()).getUkoly();
-				//GTDGUI.getGTDGUI().refresh();
-				taskModel.fireTableDataChanged();
-			}
-		});
-		JScrollPane projectsScrollPane = new JScrollPane(projectsTable);
-
-		taskModel = new TaskTableModel();
-		tasksTable = new JTable(taskModel);
-		tasksTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JScrollPane tasksScrollPane = new JScrollPane(tasksTable);
-
+		projectTreeModel = new ProjectTreeModel();
+		projectsTree = new JTree(projectTreeModel);
+		JScrollPane projectsScrollPane = new JScrollPane(projectsTree);
 		mainView.add(projectsScrollPane);
-		mainView.add(tasksScrollPane);
+
 	}
 
 	void loadData() {
-		projects = GTDGUI.getGTDGUI().getProjektController().getProjektyOsoby(GTDGUI.getGTDGUI().getMyself());
-		tasks = new ArrayList<Ukol>();
+		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+	}
+
+	class ProjectTreeModel implements TreeModel {
+		private Vector<TreeModelListener> treeModelListeners = new Vector<TreeModelListener>();
+		@Override
+		public Object getRoot() {
+			return new Projekt(-1, Consts.PROJECTS, "", 0, "", GTDGUI.getMyself().getId());
+		}
+
+		@Override
+		public Object getChild(Object parent, int index) {
+			Projekt par = (Projekt) parent;
+			List <Aktivita> childs = new ArrayList<>();
+			if (par.getNazev().equals(Consts.PROJECTS)) {
+				for (Projekt el : projects) {
+					if (el.getRodic() == null) {
+						childs.add(el);
+					}
+				}
+			} else {
+				childs.addAll(par.getProjekty());
+			}
+			for (Ukol ukol : par.getUkoly()) {
+				childs.add(ukol);
+			}
+			return childs.get(index);
+		}
+
+		@Override
+		public int getChildCount(Object parent) {
+			Projekt par = (Projekt) parent;
+			int count = 0;
+			if (par.getNazev().equals(Consts.PROJECTS)) {
+				for (Projekt el : projects) {
+					if (el.getRodic() == null) {
+						count++;
+					}
+				}
+			} else {
+				count += par.getProjekty().size();
+			}
+			count += par.getUkoly().size();
+			return count;
+		}
+
+		@Override
+		public boolean isLeaf(Object node) {
+			return node instanceof Ukol;
+		}
+
+		@Override
+		public void valueForPathChanged(TreePath path, Object newValue) {
+		}
+
+		@Override
+		public int getIndexOfChild(Object parent, Object child) {
+			Projekt par = (Projekt) parent;
+			List <Aktivita> childs = new ArrayList<>();
+			if (par.getNazev().equals(Consts.PROJECTS)) {
+				for (Projekt el : projects) {
+					if (el.getRodic() == null) {
+						childs.add(el);
+					}
+				}
+			} else {
+				childs.addAll(par.getProjekty());
+			}
+			childs.addAll(par.getUkoly());
+			return childs.indexOf(child);
+		}
+
+		@Override
+		public void addTreeModelListener(TreeModelListener l) {
+			treeModelListeners.addElement(l);
+		}
+
+		@Override
+		public void removeTreeModelListener(TreeModelListener l) {
+			treeModelListeners.removeElement(l);
+		}
 	}
 	
-	class ProjectTableModel extends AbstractTableModel {
-
-		@Override
-		public int getRowCount() {
-			return projects.size();
-		}
-		
-		@Override
-		public int getColumnCount() {
-			return 3;
-		}
-		
-		@Override
-		public String getColumnName(int column) {
-			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE})[column];
-		}
-		
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			String value = "";
-			switch(columnIndex) {
-				case 0: {
-					return projects.get(rowIndex).getNazev();
-				}
-				case 1: {
-					return projects.get(rowIndex).getPopis();
-				}
-				case 2: {
-					return projects.get(rowIndex).getStavPopis();
-				}
-			}
-			return value;
-		}
-		
-	}
-	
-	class TaskTableModel extends AbstractTableModel {
-		
-		@Override
-		public int getRowCount() {
-			return tasks.size();
-		}
-		
-		@Override
-		public int getColumnCount() {
-			return 3;
-		}
-		
-		@Override
-		public String getColumnName(int column) {
-			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE})[column];
-		}
-		
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			String value = "";
-			switch(columnIndex) {
-				case 0: {
-					return tasks.get(rowIndex).getNazev();
-				}
-				case 1: {
-					return tasks.get(rowIndex).getPopis();
-				}
-				case 2: {
-					return tasks.get(rowIndex).getStavPopis();
-				}
-			}
-			return value;
-		}
-
-		void refresh() {
-			fireTableDataChanged();
-		}
-	}
-
 	/**
 	 * Aktualizuje pohled.
 	 */
 	public void refresh(){
 		loadData();
-		projectModel.fireTableDataChanged();
-		taskModel.fireTableDataChanged();
 	}
 	
 	/**

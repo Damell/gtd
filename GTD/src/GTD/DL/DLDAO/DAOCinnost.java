@@ -39,7 +39,7 @@ public class DAOCinnost implements IDAOCinnost {
                     + ",inp_description => '" + cinnost.getPopis() + "'"
                     + ",inp_id_type => " + cinnost.getStav()
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             //vystupni parametry, zatim nepotrebuji
             callStmt.execute();
@@ -84,7 +84,7 @@ public class DAOCinnost implements IDAOCinnost {
             ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v");
             while (rset.next()) {
                 Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
-                System.out.println(cin);
+                //System.out.println(cin);
                 cinnosti.add(cin);
             }
             rset.close();
@@ -157,7 +157,7 @@ public class DAOCinnost implements IDAOCinnost {
             ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id_person = " + osoba.getId());
             while (rset.next()) {
                 Cinnost cin = new Cinnost(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
-                System.out.println(cin);
+                //System.out.println(cin);
                 cinnosti.add(cin);
             }
             rset.close();

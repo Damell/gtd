@@ -67,6 +67,12 @@ public interface IProjektController {
 	public List getProjektyOsoby(Osoba osoba);
 
 	/**
+	 * Vrátí všechny projekty 
+	 * 
+	 */
+	public List getAllProjekty();
+
+	/**
 	 * Odešle GUI pokyn k obnovení.
 	 */
 	public void refresh();

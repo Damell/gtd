@@ -23,6 +23,7 @@ public class Consts {
 	// Tabs
 	public static final String ACTIVITES = "Činnosti";
 	public static final String TASKS_AND_PROJECTS = "Úkoly a projekty";
+	public static final String PROJECTS = "Projekty";
 
 	// Tasks and projects tab
 	

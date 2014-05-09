@@ -103,6 +103,15 @@ public class ProjektController implements IProjektController {
 	}
 
 	/**
+	 * Vrátí všechny projekty
+	 * 
+	 */
+	@Override
+	public List getAllProjekty(){
+		return spravceProjektu.getAllProjekty();
+	}
+
+	/**
 	 * Odešle GUI pokyn k obnovení.
 	 */
 	@Override

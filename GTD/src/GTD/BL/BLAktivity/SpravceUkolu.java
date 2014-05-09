@@ -1,5 +1,6 @@
 package GTD.BL.BLAktivity;
 import GTD.BL.BLOsoby.SpravceOsob;
+import GTD.DL.DLDAO.DAOUkol;
 import GTD.DL.DLInterfaces.IDAOUkol;
 import GTD.DL.DLEntity.*;
 import java.util.List;
@@ -24,11 +25,7 @@ public class SpravceUkolu {
 	private SpravceOsob spravceOsob;
 
 	public SpravceUkolu(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		DAOUkol = new DAOUkol();
 	}
 
 	/**
@@ -131,6 +128,10 @@ public class SpravceUkolu {
 	 */
 	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik){
 		return false;
+	}
+
+	public List getUkolyOsoby(Osoba osoba) {
+		return DAOUkol.getUkolyOsoby(osoba);
 	}
 
 }

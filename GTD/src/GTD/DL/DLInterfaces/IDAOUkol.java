@@ -1,6 +1,7 @@
 package GTD.DL.DLInterfaces;
 
 import GTD.DL.DLEntity.Kontext;
+import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
 import java.util.List;
 
@@ -30,6 +31,13 @@ public interface IDAOUkol {
 	 * Vrátí všechny úkoly v systému.
 	 */
 	public List getAllUkoly();
+
+	/**
+	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * 
+	 * @param osoba
+	 */
+	public List getUkolyOsoby(Osoba osoba);
 
 	/**
 	 * Vrátí úkol podle jeho ID.

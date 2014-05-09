@@ -17,11 +17,9 @@ public interface IGTDGUI {
 	public void refresh();
 
 	/**
-	 * Zobrazí činnosti zadané osoby.
-	 * 
-	 * @param osoba
+	 * Zobrazí činnosti přihlášené osoby.
 	 */
-	public void showCinnosti(Osoba osoba);
+	public void showCinnosti();
 
 	/**
 	 * Zobrazí dialog se zpracováním činnosti.
@@ -31,11 +29,16 @@ public interface IGTDGUI {
 	public void showZpracovaniCinnosti(Cinnost cinnost);
 
 	/**
-	 * Zobrazí okno s úkoly a podprojekty zadaného projektu.
+	 * Zobrazí okno s úkoly a projekty všech osob
+	 */
+	public void showUkolyProjekty();
+
+	/**
+	 * Zobrazí úkoly přihlášené osoby
 	 * 
 	 * @param projekt
 	 */
-	public void showUkolyProjekty(Projekt projekt);
+	public void showMojeUkoly();
 
 	/**
 	 * Zobrazí přihlašovací okno.

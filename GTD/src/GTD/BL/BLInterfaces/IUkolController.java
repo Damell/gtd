@@ -5,6 +5,7 @@ import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
+import java.util.List;
 
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
@@ -80,5 +81,12 @@ public interface IUkolController {
 	 * @param ukol
 	 */
 	public boolean addTwoMinutesUkol(Ukol ukol);
+
+	/**
+	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * 
+	 * @param osoba
+	 */
+	public List getUkolyOsoby(Osoba osoba);
 
 }

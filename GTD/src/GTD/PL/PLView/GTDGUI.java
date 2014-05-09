@@ -45,6 +45,7 @@ public class GTDGUI implements IGTDGUI {
 	private static IView loginPanel;
 	private static IView cinnostiPanel;
 	private static IView ukolyProjektyPanel;
+	private static IView mojeUkolyPanel;
 	private static IView zpracovaniPanel;
 	private static GTDGUI GTDGUI;
 
@@ -92,28 +93,33 @@ public class GTDGUI implements IGTDGUI {
 
 	public void showMainWindow() {
 		myself = getOsobaController().getPrihlasenaOsoba();
-		showCinnosti(null);
-		showUkolyProjekty(null);
+		showCinnosti();
+		showUkolyProjekty();
+		showMojeUkoly();
 	}
 
 	/**
-	 * Zobrazí okno s úkoly a podprojekty zadaného projektu.
-	 * 
-	 * @param projekt
+	 * Zobrazí okno s úkoly a projekty všech osob
 	 */
-	public void showUkolyProjekty(Projekt projekt){
+	public void showUkolyProjekty(){
 		ukolyProjektyPanel = new ViewUkolyProjekty(mainFrame);
 		ukolyProjektyPanel.showView();
 	}
 
 	/**
-	 * Zobrazí činnosti zadané osoby.
-	 * 
-	 * @param osoba
+	 * Zobrazí činnosti přihlášené osoby.
 	 */
-	public void showCinnosti(Osoba osoba){
+	public void showCinnosti(){
 		cinnostiPanel = new ViewCinnosti(mainFrame);
 		cinnostiPanel.showView();
+	}
+
+	/**
+	 * Zobrazí úkoly přihlášené osoby.
+	 */
+	public void showMojeUkoly(){
+		mojeUkolyPanel = new ViewMojeUkoly(mainFrame);
+		mojeUkolyPanel.showView();
 	}
 
 	/**

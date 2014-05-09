@@ -24,6 +24,7 @@ public class Consts {
 	public static final String ACTIVITES = "Činnosti";
 	public static final String TASKS_AND_PROJECTS = "Úkoly a projekty";
 	public static final String PROJECTS = "Projekty";
+	public static final String MY_TASKS = "Moje úkoly";
 
 	// Tasks and projects tab
 	
@@ -54,5 +55,8 @@ public class Consts {
 	public static final String DELETED = "Činnost byla smazána";
 	public static final String CREATE_PROJECT = "Vytvořit projekt";
 	public static final String CREATE_PROJECT_CHOOSE_PARENT = "Pokud má být nový projekt podprojektem již existujícího, zvolte ho prosím: ";
+
+	// My Tasks Tab
+	public static final String FINISH_TASK = "Dokončit úkol";
 
 }

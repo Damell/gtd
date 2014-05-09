@@ -6,6 +6,7 @@ import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
+import java.util.List;
 
 /**
  * Třída implementuje interface IUkolController.
@@ -19,11 +20,7 @@ public class UkolController implements IUkolController {
 	private IGTDGUI GUI;
 
 	public UkolController(){
-
-	}
-
-	public void finalize() throws Throwable {
-
+		spravceUkolu = new SpravceUkolu();
 	}
 
 	/**
@@ -108,6 +105,16 @@ public class UkolController implements IUkolController {
 	 */
 	public boolean addTwoMinutesUkol(Ukol ukol){
 		return false;
+	}
+
+	/**
+	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * 
+	 * @param osoba
+	 */
+	@Override
+	public List getUkolyOsoby(Osoba osoba) {
+		return spravceUkolu.getUkolyOsoby(osoba);
 	}
 
 }

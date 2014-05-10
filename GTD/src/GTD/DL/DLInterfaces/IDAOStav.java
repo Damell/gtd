@@ -28,6 +28,54 @@ public interface IDAOStav {
     public int getCinnostZahozenaID();
 
     /**
+     * Vrátí ID stavu: činost Odlozena
+     *
+     */
+    public int getCinnostOdlozenaID();
+
+    /**
+     * Vrátí ID stavu: činost Odlozena
+     *
+     */
+    public int getCinnostZpracovanaID();
+
+    /**
+     * Vrátí ID stavu: osoby Aktivni
+     *
+     */
+    public int getOsobaAktivniID();
+
+    /**
+     * Vrátí ID stavu: osoby Aktivni
+     *
+     */
+    public int getOsobaNeaktivniID();
+
+    /**
+     * Vrátí ID stavu: konatakt email
+     *
+     */
+    public int getKontaktEmailID();
+
+    /**
+     * Vrátí ID stavu: konatakt telefon
+     *
+     */
+    public int getKontaktTelefonID();
+
+    /**
+     * Vrátí ID stavu: projekt Aktivni
+     *
+     */
+    public int getProjektAktivniID();
+
+    /**
+     * Vrátí ID stavu: projekt Dokonceny
+     *
+     */
+    public int getProjektDokoncenyID();
+
+    /**
      * Vrátí ID stavu: úkol vytvořený
      *
      */

@@ -163,7 +163,7 @@ public class DAOStav implements IDAOStav {
             String jobquery = "select id from pavlim33.types where "
                     + "table_name = '" + table_name + "' "
                     + "and code = '" + code + "'";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             ResultSet rset = stmt.executeQuery(jobquery);
             while (rset.next()) {
                 pid = rset.getInt(1);

@@ -15,6 +15,13 @@ public class Kontext extends Filtr {
 
     }
     /*
+     * Vytvor kontext
+     */
+
+    public Kontext(int id, String nazev) {
+        this.setFiltr(id, nazev);
+    }
+    /*
      * Nastav kontext
      */
 

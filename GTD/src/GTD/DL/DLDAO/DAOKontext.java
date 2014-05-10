@@ -32,8 +32,8 @@ public class DAOKontext implements IDAOKontext {
     public boolean createKontext(Kontext kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.CONTEXT_IU("
-                    + "inp_id_name  => '" + kontext.getKontextNazev() + "'"
+            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
+                    + "inp_name  => '" + kontext.getKontextNazev() + "'"
                     + "inp_id_person  =>" + DatabaseConnection.getID()
                     + "); end;";
             System.out.println(jobquery);
@@ -75,11 +75,11 @@ public class DAOKontext implements IDAOKontext {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v");
+            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts");
             while (rset.next()) {
-                //TODO Kontext ukl = new Kontext(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
+                Kontext kon = new Kontext(rset.getInt(1), rset.getString(2));
                 //System.out.println(ukl);
-                //kontexty.add(ukl);
+                kontexty.add(kon);
             }
             rset.close();
             stmt.close();
@@ -95,7 +95,21 @@ public class DAOKontext implements IDAOKontext {
      * @param id
      */
     public Kontext getKontext(int id) {
-        return null;
+      Kontext kontext = null;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
+                    + "id = " + id);
+            while (rset.next()) {
+                kontext = new Kontext(rset.getInt(1), rset.getString(2));
+            }
+            rset.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+        }
+        return kontext;
     }
 
     /**
@@ -106,7 +120,7 @@ public class DAOKontext implements IDAOKontext {
     public boolean updateKontext(Kontext kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.CONTEXT_IU("
+            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
                     + "inp_id  =>" + kontext.getKontextId()
                     + "inp_id_name  => '" + kontext.getKontextNazev() + "'"
                     + "inp_id_person  =>" + DatabaseConnection.getID()
@@ -128,7 +142,24 @@ public class DAOKontext implements IDAOKontext {
      * @param osoba
      */
     public List getKontextyOsoby(Osoba osoba) {
-        return null;
+        List<Kontext> kontexty = new ArrayList<Kontext>();
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
+            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
+                    + "id_person = " + osoba.getId());
+            while (rset.next()) {
+                Kontext kon = new Kontext(rset.getInt(1), rset.getString(2));
+                //System.out.println(ukl);
+                kontexty.add(kon);
+            }
+            rset.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+        }
+        return kontexty;
     }
 
 }

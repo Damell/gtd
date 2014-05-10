@@ -7,7 +7,7 @@ package GTD.DL.DLInterfaces;
  * @version 1.0
  * @created 26-4-2014 14:51:22
  */
-public interface IDAOTypy {
+public interface IDAOStav {
 
     /**
      * Vrátí ID stavu: činnost Archivovaná
@@ -25,6 +25,6 @@ public interface IDAOTypy {
      * Vrátí ID stavu: činost Zahozena
      *
      */
-    public int getCinnostKeZahozenaID();
+    public int getCinnostZahozenaID();
 
 }

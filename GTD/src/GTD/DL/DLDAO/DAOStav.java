@@ -1,5 +1,6 @@
 package GTD.DL.DLDAO;
 
+import GTD.DL.DLInterfaces.IDAOStav;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.sql.Statement;
  * @version 1.0
  * @created 26-4-2014 14:51:20
  */
-public class DAOTypy {
+public class DAOStav implements IDAOStav {
 
     /**
      * Vrátí ID stavu: činnost Archivovaná
@@ -34,7 +35,7 @@ public class DAOTypy {
      * Vrátí ID stavu: činost Zahozena
      *
      */
-    public int getCinnostKeZahozenaID() {
+    public int getCinnostZahozenaID() {
         return this.getID("activities", "Z");
     }
     

@@ -2,7 +2,6 @@ package GTD.PL.PLView;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
-import GTD.PL.PLController.GTDEventHandler;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -27,8 +26,6 @@ import javax.swing.ListSelectionModel;
  * @created 26-4-2014 14:51:25
  */
 public class ViewZpracovaniCinnosti extends JPanel implements IView {
-
-	private GTDEventHandler eventHandler;
 
 	private JFrame processFrame;
 	private JPanel visiblePanel;

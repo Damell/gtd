@@ -3,7 +3,6 @@ import GTD.DL.DLEntity.Aktivita;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
 import GTD.DL.DLEntity.Ukol;
-import GTD.PL.PLController.GTDEventHandler;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -33,7 +32,6 @@ import javax.swing.tree.TreePath;
  */
 public class ViewUkolyProjekty extends JPanel implements IView {
 	
-	private GTDEventHandler eventHandler;
 	private MainFrame mainFrame;
 	
 	private JPanel menu;

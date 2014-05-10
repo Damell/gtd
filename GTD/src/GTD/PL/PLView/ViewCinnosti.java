@@ -1,6 +1,5 @@
 package GTD.PL.PLView;
 import GTD.DL.DLEntity.Cinnost;
-import GTD.PL.PLController.GTDEventHandler;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -25,7 +24,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ViewCinnosti extends JPanel implements IView {
 
-	private GTDEventHandler eventHandler;
 	private MainFrame mainFrame;
 	private JPanel menu;
 	private JPanel mainView;

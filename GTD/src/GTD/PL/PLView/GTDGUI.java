@@ -4,7 +4,6 @@ import GTD.BL.BLAktivity.ProjektController;
 import GTD.BL.BLAktivity.UkolController;
 import GTD.BL.BLFiltry.KontextController;
 import GTD.BL.BLInterfaces.ICinnostController;
-import GTD.PL.PLController.GTDEventHandler;
 import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.IKontextController;
 import GTD.BL.BLInterfaces.IOsobaController;
@@ -13,7 +12,6 @@ import GTD.BL.BLInterfaces.IUkolController;
 import GTD.BL.BLOsoby.OsobaController;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
-import GTD.DL.DLEntity.Projekt;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ public class GTDGUI implements IGTDGUI {
 	 * Kolekce pohledů (obrazovek).
 	 */
 	private List<IView> views;
-	private GTDEventHandler eventHandler;
 	private MainFrame mainFrame;
 
 	// BL reference 

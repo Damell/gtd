@@ -1,11 +1,9 @@
 package GTD.PL.PLView;
 import GTD.BL.BLInterfaces.IOsobaController;
-import GTD.PL.PLController.GTDEventHandler;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,7 +18,6 @@ import javax.swing.JTextField;
  */
 public class ViewPrihlaseni extends JPanel implements IView {
 
-	private GTDEventHandler eventHandler;
 	JLabel usernameLabel;
 	JLabel passwordLabel;
 	JTextField usernameField;

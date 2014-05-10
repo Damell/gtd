@@ -1,14 +1,9 @@
 package GTD.PL.PLView;
-import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Ukol;
-import GTD.PL.PLController.GTDEventHandler;
-import GTD.PL.PLView.ViewCinnosti.CinnostiTableModel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -25,7 +20,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ViewMojeUkoly extends JPanel implements IView {
 
-	private GTDEventHandler eventHandler;
 	private MainFrame mainFrame;
 	private JPanel menu;
 	private JPanel mainView;

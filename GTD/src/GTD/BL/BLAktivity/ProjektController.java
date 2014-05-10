@@ -1,7 +1,9 @@
 package GTD.BL.BLAktivity;
 
 import GTD.BL.BLInterfaces.*;
+import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.*;
+import GTD.DL.DLInterfaces.IDAOStav;
 import java.util.List;
 
 /**
@@ -14,9 +16,11 @@ public class ProjektController implements IProjektController {
 
 	private SpravceProjektu spravceProjektu;
 	private IGTDGUI GUI;
+        private IDAOStav DAOStav;
 
 	public ProjektController(){
 		spravceProjektu = new SpravceProjektu();
+                DAOStav = new DAOStav();
 	}
 
 	/**
@@ -35,7 +39,7 @@ public class ProjektController implements IProjektController {
 		if (rodicID != -1) {
 			rodic = spravceProjektu.getProjekt(rodicID);
 		}
-		Projekt newProjekt = new Projekt(nazev, popis, 55, vlastnik, skupina, rodic);
+		Projekt newProjekt = new Projekt(nazev, popis, DAOStav.getProjektAktivniID(), vlastnik, skupina, rodic);
 		return spravceProjektu.addProjekt(newProjekt, cinnost);
 	}
 

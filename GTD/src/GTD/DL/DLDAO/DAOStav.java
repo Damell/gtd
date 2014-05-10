@@ -30,16 +30,124 @@ public class DAOStav implements IDAOStav {
      */
 	@Override
     public int getCinnostKeZpracovaniID() {
-        return 48;//this.getID("activities", "K");
+        return this.getID("activities", "K");
     }
- 
-        /**
+
+    /**
      * Vrátí ID stavu: činost Zahozena
      *
      */
 	@Override
     public int getCinnostZahozenaID() {
+        return this.getID("activities", "H");
+    }
+
+    /**
+     * Vrátí ID stavu: činost Odlozena
+     *
+     */
+    @Override
+    public int getCinnostOdlozenaID() {
+        return this.getID("activities", "O");
+    }
+
+    /**
+     * Vrátí ID stavu: činost Odlozena
+     *
+     */
+    @Override
+    public int getCinnostZpracovanaID() {
         return this.getID("activities", "Z");
+    }
+
+    /**
+     * Vrátí ID stavu: osoby Aktivni
+     *
+     */
+    @Override
+    public int getOsobaAktivniID() {
+        return this.getID("persons", "A");
+    }
+
+    /**
+     * Vrátí ID stavu: osoby Aktivni
+     *
+     */
+    @Override
+    public int getOsobaNeaktivniID() {
+        return this.getID("persons", "N");
+    }
+
+    /**
+     * Vrátí ID stavu: konatakt email
+     *
+     */
+    @Override
+    public int getKontaktEmailID() {
+        return this.getID("contacts", "E");
+    }
+
+    /**
+     * Vrátí ID stavu: konatakt telefon
+     *
+     */
+    @Override
+    public int getKontaktTelefonID() {
+        return this.getID("contacts", "T");
+    }
+
+    /**
+     * Vrátí ID stavu: projekt Aktivni
+     *
+     */
+    @Override
+    public int getProjektAktivniID() {
+        return this.getID("projects", "A");
+    }
+
+    /**
+     * Vrátí ID stavu: projekt Dokonceny
+     *
+     */
+    @Override
+    public int getProjektDokoncenyID() {
+        return this.getID("projects", "D");
+    }
+
+    /**
+     * Vrátí ID stavu: ukol Vytvoreny
+     *
+     */
+    @Override
+    public int getUkolVytvorenyID() {
+        return this.getID("tasks", "V");
+    }
+
+    /**
+     * Vrátí ID stavu: ukol Aktivni
+     *
+     */
+    @Override
+    public int getUkolAktivniID() {
+        return this.getID("tasks", "A");
+    }
+
+    /**
+     * Vrátí ID stavu: ukol V kalendari
+     *
+     */
+    @Override
+    public int getUkolVKalendariID() {
+        return this.getID("tasks", "K");
+    }
+
+    /**
+     * Vrátí ID stavu: ukol Hotovy
+     *
+     */
+    @Override
+    public int getUkolHotovyID() {
+        return this.getID("tasks", "H");
     }
     
 
@@ -53,9 +161,9 @@ public class DAOStav implements IDAOStav {
         try {
             Statement stmt = con.createStatement();
             String jobquery = "select id from pavlim33.types where "
-                    + "table_name = '" + table_name + "'"
-                    + "code = '" + code + "'";
-            System.out.println(jobquery);
+                    + "table_name = '" + table_name + "' "
+                    + "and code = '" + code + "'";
+            //System.out.println(jobquery);
             ResultSet rset = stmt.executeQuery(jobquery);
             while (rset.next()) {
                 pid = rset.getInt(1);
@@ -67,25 +175,5 @@ public class DAOStav implements IDAOStav {
         }
         return pid;
     }
-
-	@Override
-	public int getUkolVytvorenyID() {
-		return 57;
-	}
-
-	@Override
-	public int getUkolAktivniID() {
-		return 58;
-	}
-
-	@Override
-	public int getUkolVKalendariID() {
-		return 59;
-	}
-
-	@Override
-	public int getUkolHotovyID() {
-		return 60;
-	}
 
 }

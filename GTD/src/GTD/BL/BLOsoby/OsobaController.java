@@ -68,7 +68,7 @@ public class OsobaController implements IOsobaController {
 	@Override
 	public Osoba getPrihlasenaOsoba(){
 		//return spravceOsob.getOsoba(GTDGUI.getMyself().getId());
-		return spravceOsob.getOsoba(61);
+		return spravceOsob.getOsoba(18);
 	}
 
 	/**

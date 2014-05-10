@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -177,11 +178,14 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		usersList.setVisibleRowCount(-1);
+		JScrollPane usersScrollPane = new JScrollPane(usersList);
+		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
 		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
+		JScrollPane projectsScrollPane = new JScrollPane(projectsList);
 
 		JButton createProjectButton = new JButton(Consts.CREATE_PROJECT);
 		createProjectButton.addActionListener(new ActionListener() {
@@ -206,23 +210,27 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(10,20,10,20);
 		c.gridx = 0;
 		c.gridy = 0;
 		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_PARENT), c);
 		c.gridy = 1;
-		visiblePanel.add(projectsList, c);
+		c.weighty = 2;
+		visiblePanel.add(projectsScrollPane, c);
 		c.gridx++;
 		c.gridy = 0;
+		c.weighty = 0;
 		visiblePanel.add(new JLabel(Consts.CREATE_PROJECT_CHOOSE_GROUP), c);
 		c.gridy = 1;
-		visiblePanel.add(usersList, c);
+		c.weighty = 2;
+		visiblePanel.add(usersScrollPane, c);
 		c.gridx++;
 		c.gridy = 1;
+		c.weighty = 0;
 		visiblePanel.add(createProjectButton, c);
 		this.add(visiblePanel);
-		setPreferredSize (new Dimension (1100, 400));
+		setPreferredSize (new Dimension (1100, 300));
 		processFrame.pack();
 		refresh();
 	}
@@ -235,11 +243,14 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		usersList.setVisibleRowCount(-1);
+		JScrollPane usersScrollPane = new JScrollPane(usersList);
+		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
 		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
+		JScrollPane projectsScrollPane = new JScrollPane(projectsList);
 
 		JButton createTaskButton = new JButton(Consts.CREATE_TASK);
 		createTaskButton.addActionListener(new ActionListener() {
@@ -267,23 +278,27 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(10,20,10,20);
 		c.gridx = 0;
 		c.gridy = 0;
 		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_PROJECT), c);
 		c.gridy = 1;
-		visiblePanel.add(projectsList, c);
+		c.weighty = 2;
+		visiblePanel.add(projectsScrollPane, c);
 		c.gridx++;
 		c.gridy = 0;
+		c.weighty = 0;
 		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_OWNER), c);
 		c.gridy = 1;
-		visiblePanel.add(usersList, c);
+		c.weighty = 2;
+		visiblePanel.add(usersScrollPane, c);
 		c.gridx++;
 		c.gridy = 1;
-		visiblePanel.add(createTaskButton);
+		c.weighty = 0;
+		visiblePanel.add(createTaskButton, c);
 		this.add(visiblePanel);
-		setPreferredSize (new Dimension (1100, 400));
+		setPreferredSize (new Dimension (1000, 300));
 		processFrame.pack();
 		refresh();
 	}
@@ -296,6 +311,8 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
+		JScrollPane projectsScrollPane = new JScrollPane(projectsList);
+		projectsScrollPane.setPreferredSize(new Dimension(200, 200));
 
 		JButton createTaskButton = new JButton(Consts.CREATE_TASK);
 		createTaskButton.addActionListener(new ActionListener() {
@@ -316,18 +333,20 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(10,20,10,20);
 		c.gridx = 0;
 		c.gridy = 0;
 		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_PROJECT), c);
 		c.gridy = 1;
-		visiblePanel.add(projectsList, c);
+		c.weighty = 2;
+		visiblePanel.add(projectsScrollPane, c);
 		c.gridx++;
 		c.gridy = 1;
-		visiblePanel.add(createTaskButton);
+		c.weighty = 0;
+		visiblePanel.add(createTaskButton, c);
 		this.add(visiblePanel);
-		setPreferredSize (new Dimension (1100, 400));
+		setPreferredSize (new Dimension (600, 300));
 		processFrame.pack();
 		refresh();
 	}

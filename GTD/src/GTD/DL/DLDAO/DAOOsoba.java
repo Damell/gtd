@@ -2,6 +2,7 @@ package GTD.DL.DLDAO;
 
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOOsoba;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,24 @@ public class DAOOsoba implements IDAOOsoba {
      * @param osoba
      */
     public boolean createOsoba(Osoba osoba) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String jobquery = "begin pavlim33.API.PERSONS_IU("
+                    + "inp_login  => '" + osoba.getLogin() + "'"
+                    + ",inp_fname => '" + osoba.getJmeno() + "'"
+                    + ",inp_sname => '" + osoba.getPrijmeni() + "'"
+                    + "); end;";
+            //System.out.println(jobquery);
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            //vystupni parametry, zatim nepotrebuji
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -37,7 +55,21 @@ public class DAOOsoba implements IDAOOsoba {
      * @param osoba
      */
     public boolean deactivateOsoba(Osoba osoba) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String jobquery = "begin pavlim33.API.PERSONS_DEL("
+                    + "inp_id  => '" + osoba.getId() + "'"
+                    + "); end;";
+            //System.out.println(jobquery);
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -72,7 +104,7 @@ public class DAOOsoba implements IDAOOsoba {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_person =" + id);
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.members_v where id_person =" + id);
             while (rset.next()) {
                 osoba = new Osoba(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }
@@ -90,7 +122,25 @@ public class DAOOsoba implements IDAOOsoba {
      * @param osoba
      */
     public boolean updateOsoba(Osoba osoba) {
-        return false;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String jobquery = "begin pavlim33.API.PERSONS_IU("
+                    + "inp_id  => " + osoba.getId()
+                    + "inp_login  => '" + osoba.getLogin() + "'"
+                    + ",inp_fname => '" + osoba.getJmeno() + "'"
+                    + ",inp_sname => '" + osoba.getPrijmeni() + "'"
+                    + "); end;";
+            //System.out.println(jobquery);
+            CallableStatement callStmt = con.prepareCall(jobquery);
+            //vystupni parametry, zatim nepotrebuji
+            callStmt.execute();
+            callStmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -99,7 +149,24 @@ public class DAOOsoba implements IDAOOsoba {
      * @param login
      */
     public boolean checkNewLogin(String login) {
-        return false;
+        int count = 0;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select id from pavlim33.members_v where login = '" + login + "'");
+            while (rset.next()) {
+                count++;
+            }
+            rset.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error");
+        }
+        if (count == 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -130,7 +197,20 @@ public class DAOOsoba implements IDAOOsoba {
 
     @Override
     public Osoba getOsoba(String username) {
-        return null;
+        Osoba osoba = null;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.members_v where login = '" + username + "'");
+            while (rset.next()) {
+                osoba = new Osoba(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
+            }
+            rset.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error");
+        }
+        return osoba;
     }
 
 }

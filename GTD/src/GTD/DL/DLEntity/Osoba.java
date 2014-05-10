@@ -27,10 +27,7 @@ public class Osoba {
      * Příjmení uživatele.
      */
     private String prijmeni;
-    /**
-     * Heslo - používá se spolu s loginem pro přihlášení do systému
-     */
-    private String heslo;
+
     /**
      * Kontakty na uživatele - od každého typu max. 1 (v budoucích iteracích se
      * budou požívat pro různé notifikace).

@@ -79,6 +79,7 @@ public class GTDGUI implements IGTDGUI {
 		mainFrame.repaint();
 		if (ukolyProjektyPanel!= null) ukolyProjektyPanel.refresh();
 		if (cinnostiPanel != null) cinnostiPanel.refresh();
+		if (mojeUkolyPanel != null) mojeUkolyPanel.refresh();
 	}
 
 	/**

@@ -171,7 +171,7 @@ public class DAOUkol implements IDAOUkol {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin pavlim33.API.TASKS_IU("
                     + "inp_id_owner  =>" + ukol.getVlastnik_id()
-                    + "inp_id  =>" + ukol.getId()
+                    + ",inp_id  =>" + ukol.getId()
                     + ",inp_name => '" + ukol.getNazev() + "'"
                     + ",inp_description => '" + ukol.getPopis() + "'"
                     + ",inp_id_project => " + ukol.getProjekt()

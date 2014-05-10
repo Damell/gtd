@@ -1,11 +1,13 @@
 package GTD.BL.BLAktivity;
 import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.IUkolController;
+import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Kontext;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
+import GTD.DL.DLInterfaces.IDAOStav;
 import GTD.PL.PLView.GTDGUI;
 import java.util.List;
 
@@ -18,10 +20,12 @@ import java.util.List;
 public class UkolController implements IUkolController {
 
 	private SpravceUkolu spravceUkolu;
+	private IDAOStav DAOStav;
 	private IGTDGUI GUI;
 
 	public UkolController(){
 		spravceUkolu = new SpravceUkolu();
+		DAOStav = new DAOStav();
 	}
 
 	/**
@@ -30,11 +34,26 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
 	 */
+	@Override
 	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Cinnost cinnost){
 
 		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
-		Ukol ukol = new Ukol(nazev, popis, 57, GTDGUI.getMyself().getId(), vlastnikId, projektId);
+		Ukol ukol = new Ukol(nazev, popis, DAOStav.getUkolVytvorenyID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
 
+		return spravceUkolu.addUkol(ukol, cinnost);
+	}
+
+	/**
+	 * Vytvoří úkol a hned ho označí jako "hotový" (používá se při zpracování činnosti,
+	 * pokud ji mohu a chci dokončit do 2 minut).
+	 * 
+	 * @param nazev
+	 * @param popis
+	 * @param projektId
+	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 */
+	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Cinnost cinnost){
+		Ukol ukol = new Ukol(nazev, popis, DAOStav.getUkolHotovyID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
 		return spravceUkolu.addUkol(ukol, cinnost);
 	}
 
@@ -82,7 +101,8 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 */
 	public boolean finishUkol(Ukol ukol){
-		return false;
+		ukol.setStav(DAOStav.getUkolHotovyID());
+		return spravceUkolu.finishUkol(ukol);
 	}
 
 	/**
@@ -100,16 +120,6 @@ public class UkolController implements IUkolController {
 	 */
 	public void refresh(){
 
-	}
-
-	/**
-	 * Vytvoří úkol a hned ho označí jako "hotový" (používá se při zpracování činnosti,
-	 * pokud ji mohu a chci dokončit do 2 minut).
-	 * 
-	 * @param ukol
-	 */
-	public boolean addTwoMinutesUkol(Ukol ukol){
-		return false;
 	}
 
 	/**

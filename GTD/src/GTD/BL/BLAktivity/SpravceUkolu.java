@@ -38,8 +38,11 @@ public class SpravceUkolu {
 	 * pro označení činnosti jako "zpracované".
 	 */
 	public boolean addUkol(Ukol ukol, Cinnost cinnost){
-		spravceCinnosti.deleteCinnost(cinnost);
-		return DAOUkol.createUkol(ukol);
+		if (DAOUkol.createUkol(ukol)) {
+			spravceCinnosti.deleteCinnost(cinnost);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -68,7 +71,7 @@ public class SpravceUkolu {
 	 * @param ukol
 	 */
 	public boolean finishUkol(Ukol ukol){
-		return false;
+		return DAOUkol.updateUkol(ukol);
 	}
 
 	/**
@@ -108,16 +111,6 @@ public class SpravceUkolu {
 	 * @param kontext
 	 */
 	public boolean setKontext(Ukol ukol, Kontext kontext){
-		return false;
-	}
-
-	/**
-	 * Vytvoří úkol a hned ho označí jako "hotový" (používá se při zpracování činnosti,
-	 * pokud ji mohu a chci dokončit do 2 minut).
-	 * 
-	 * @param ukol
-	 */
-	public boolean addTwoMinutesUkol(Ukol ukol){
 		return false;
 	}
 

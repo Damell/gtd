@@ -19,6 +19,7 @@ public class DAOStav implements IDAOStav {
      * Vrátí ID stavu: činnost Archivovaná
      *
      */
+	@Override
     public int getCinnostArchivovanaID() {
         return this.getID("activities", "A");
     }
@@ -27,6 +28,7 @@ public class DAOStav implements IDAOStav {
      * Vrátí ID stavu: činost Ke zpracování
      *
      */
+	@Override
     public int getCinnostKeZpracovaniID() {
         return 48;//this.getID("activities", "K");
     }
@@ -35,6 +37,7 @@ public class DAOStav implements IDAOStav {
      * Vrátí ID stavu: činost Zahozena
      *
      */
+	@Override
     public int getCinnostZahozenaID() {
         return this.getID("activities", "Z");
     }
@@ -64,5 +67,25 @@ public class DAOStav implements IDAOStav {
         }
         return pid;
     }
+
+	@Override
+	public int getUkolVytvorenyID() {
+		return 57;
+	}
+
+	@Override
+	public int getUkolAktivniID() {
+		return 58;
+	}
+
+	@Override
+	public int getUkolVKalendariID() {
+		return 59;
+	}
+
+	@Override
+	public int getUkolHotovyID() {
+		return 60;
+	}
 
 }

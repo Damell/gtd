@@ -27,4 +27,27 @@ public interface IDAOStav {
      */
     public int getCinnostZahozenaID();
 
+    /**
+     * Vrátí ID stavu: úkol vytvořený
+     *
+     */
+    public int getUkolVytvorenyID();
+
+    /**
+     * Vrátí ID stavu: úkol aktivní
+     *
+     */
+    public int getUkolAktivniID();
+
+    /**
+     * Vrátí ID stavu: úkol v kalendáři
+     *
+     */
+    public int getUkolVKalendariID();
+
+    /**
+     * Vrátí ID stavu: úkol hotový
+     *
+     */
+    public int getUkolHotovyID();
 }

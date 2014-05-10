@@ -76,11 +76,14 @@ public interface IUkolController {
 
 	/**
 	 * Vytvoří úkol a hned ho označí jako "hotový" (používá se při zpracování činnosti,
-	 * pokud ji mohu a chci dokončit od 2 minut).
+	 * pokud ji mohu a chci dokončit do 2 minut).
 	 * 
-	 * @param ukol
+	 * @param nazev
+	 * @param popis
+	 * @param projektId
+	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
 	 */
-	public boolean addTwoMinutesUkol(Ukol ukol);
+	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Cinnost cinnost);
 
 	/**
 	 * Vrátí všechny úkoly přiřazené dané osobě

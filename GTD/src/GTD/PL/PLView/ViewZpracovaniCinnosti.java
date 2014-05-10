@@ -289,7 +289,47 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 	}
 
 	void showCreateFinishedTask() {
+		this.remove(visiblePanel);
+		visiblePanel = new JPanel(new GridBagLayout());
 
+		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projectsList = new JList(projects.toArray());
+		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		projectsList.setVisibleRowCount(-1);
+
+		JButton createTaskButton = new JButton(Consts.CREATE_TASK);
+		createTaskButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int projektId = -1;
+				int selectedIndex = projectsList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					projektId = projects.get(selectedIndex).getId();
+				}
+
+				if (GTDGUI.getGTDGUI().getUkolController().addTwoMinutesUkol(cinnost.getNazev(), cinnost.getPopis(), projektId, cinnost)) {
+					GTDGUI.getGTDGUI().refresh();
+					processFrame.dispose();
+				}
+			}
+		});
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(10,20,10,20);
+		c.gridx = 0;
+		c.gridy = 0;
+		visiblePanel.add(new JLabel(Consts.CREATE_TASK_CHOOSE_PROJECT), c);
+		c.gridy = 1;
+		visiblePanel.add(projectsList, c);
+		c.gridx++;
+		c.gridy = 1;
+		visiblePanel.add(createTaskButton);
+		this.add(visiblePanel);
+		setPreferredSize (new Dimension (1100, 400));
+		processFrame.pack();
+		refresh();
 	}
 
 	void showUseless() {
@@ -333,7 +373,6 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		this.add(visiblePanel);
 		refresh();
 	}
-
 
 	/**
 	 * Aktualizuje pohled.

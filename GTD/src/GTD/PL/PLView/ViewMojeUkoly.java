@@ -58,6 +58,9 @@ public class ViewMojeUkoly extends JPanel implements IView {
  				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(selected)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);

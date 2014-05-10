@@ -39,6 +39,7 @@ public class SpravceOsob {
 	 */
 	public boolean deactivateOsoba(Osoba osoba){
 		return false;
+                //DAO metoda pripravena
 	}
 
 	/**
@@ -48,6 +49,14 @@ public class SpravceOsob {
 	 */
 	public Osoba getOsoba(int id){
 		return DAOOsoba.getOsoba(id);
+	}
+        /**
+	 * Vrátí prihlaseneho uživatele.
+	 * 
+	 * @param id
+	 */
+	public Osoba getOsobaPrihlasena(){
+		return DAOOsoba.getOsoba(DAOOsoba.getOsobaID());
 	}
 
 	/**

@@ -104,16 +104,38 @@ public class DAOOsoba implements IDAOOsoba {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.members_v where id_person =" + id);
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.persons_v where id =" + id);
             while (rset.next()) {
                 osoba = new Osoba(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         return osoba;
+    }
+
+    /**
+     * Vrátí ID prihlasene ososby.
+     *
+     * @param id
+     */
+    public int getOsobaID() {
+        int id = 0;
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("SELECT id from pavlim33.persons where upper(login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')");
+            while (rset.next()) {
+                id = rset.getInt(1);
+            }
+            rset.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("DB query error: " + e.getMessage());
+        }
+        return id;
     }
 
     /**
@@ -160,7 +182,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         if (count == 1) {
             return false;
@@ -170,22 +192,19 @@ public class DAOOsoba implements IDAOOsoba {
     }
 
     /**
-     * Zkontroluje přihlašovací údaje.
+     * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
      *
      * @param login
-     * @param heslo
      */
-    public boolean checkPrihlaseni(String login, String heslo) {
+    public boolean checkPrihlaseni(String login) {
         boolean authenticated = false;
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
             ResultSet rset = stmt
-                    .executeQuery("select login, pass_hash from persons");
+                    .executeQuery("select login, pass_hash from pavlim33.persons_v where login ='" + login + "'");
             while (rset.next()) {
-                if (rset.getString(1).equals(login) && String.valueOf(rset.getLong(2)).equals(heslo)) {
-                    authenticated = true;
-                }
+                authenticated = true;
             }
             rset.close();
             stmt.close();
@@ -208,7 +227,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            System.err.println("DB query error: " + e.getMessage());
         }
         return osoba;
     }

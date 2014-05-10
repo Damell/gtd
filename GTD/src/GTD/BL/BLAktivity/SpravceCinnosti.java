@@ -2,8 +2,10 @@ package GTD.BL.BLAktivity;
 import GTD.BL.BLOsoby.SpravceOsob;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLDAO.DAOCinnost;
+import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLInterfaces.IDAOCinnost;
+import GTD.DL.DLInterfaces.IDAOStav;
 import java.util.List;
 
 /**
@@ -20,9 +22,11 @@ public class SpravceCinnosti {
 	 */
 	private SpravceOsob spravceOsob;
 	public DAOCinnost m_DAOCinnost;
+        private IDAOStav DAOStav;
 
 	public SpravceCinnosti(){
 		DAOCinnost = new DAOCinnost();
+                DAOStav = new DAOStav();
 	}
 
 	/**
@@ -76,7 +80,7 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean processCinnost(Cinnost cinnost){
-		cinnost.setStav(52);
+		cinnost.setStav(DAOStav.getCinnostZpracovanaID());
 		return DAOCinnost.updateCinnost(cinnost);
 	}
 
@@ -86,7 +90,7 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean archiveCinnost(Cinnost cinnost){
-		cinnost.setStav(50);
+		cinnost.setStav(DAOStav.getCinnostArchivovanaID());
 		return DAOCinnost.updateCinnost(cinnost);
 	}
 
@@ -96,7 +100,7 @@ public class SpravceCinnosti {
 	 * @param cinnost
 	 */
 	public boolean postponeCinnost(Cinnost cinnost){
-		cinnost.setStav(51);
+		cinnost.setStav(DAOStav.getCinnostOdlozenaID());
 		return DAOCinnost.updateCinnost(cinnost);
 	}
 

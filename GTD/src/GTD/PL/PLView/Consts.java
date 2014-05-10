@@ -67,6 +67,8 @@ public class Consts {
 	public static final String OWNER = "Vlastník";
 	public static final String CONTEXT = "Kontext";
 	public static final String GROUP = "Skupina";
+	public static final String FROM = "Od";
+	public static final String TO = "Do";
 
 	// My Tasks Tab
 	public static final String FINISH_TASK = "Dokončit úkol";

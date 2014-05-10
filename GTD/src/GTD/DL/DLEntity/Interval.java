@@ -18,7 +18,7 @@ public class Interval {
 	 * Casový konec úkolu. Minimální presnost jsou dny.
 	 */
 	private Date to;
-	
+
 	/*
 	* Nastav interval
 	*/
@@ -35,8 +35,11 @@ public class Interval {
 		return to;
 	}
 
+	public boolean isSet () {
+		return from != null && to != null;
+	}
+
 	public Interval(){
-		
 	}
 	
 }

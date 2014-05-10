@@ -121,26 +121,24 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(new JLabel(Consts.STATE + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(task.getStavPopis()), c);
-			/*
-			c.gridx = 0;
-			c.gridy = 4;
-			add(new JLabel(Consts.PARENT + ": "), c);
-			c.gridx = 1;
-			c.gridy = 4;
-			add(new JLabel(task.getProjektNazev()), c);
-			c.gridx = 0;
-			c.gridy = 5;
-			add(new JLabel(Consts.PARENT_DESC + ": "), c);
-			c.gridx = 1;
-			c.gridy = 5;
-			add(new JLabel(task.getProjektPopis()), c);
-			*/
 			c.gridx = 0;
 			c.gridy++;
 			add(new JLabel(Consts.OWNER + ": "), c);
 			c.gridx = 1;
 			Osoba vlastnik = GTDGUI.getGTDGUI().getOsobaController().getOsoba(task.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
+			if(task.getKalendar() != null && task.getKalendar().isSet()) {
+				c.gridx = 0;
+				c.gridy++;
+				add(new JLabel(Consts.FROM + ": "), c);
+				c.gridx = 1;
+				add(new JLabel(task.getKalendar().getFrom().toString()), c);
+				c.gridx = 0;
+				c.gridy++;
+				add(new JLabel(Consts.TO + ": "), c);
+				c.gridx = 1;
+				add(new JLabel(task.getKalendar().getTo().toString()), c);
+			}
 			if(task.getKontext() != null && task.getKontext().getKontextNazev() != null) {
 				c.gridx = 0;
 				c.gridy++;

@@ -23,8 +23,8 @@ public class DAOCinnost implements IDAOCinnost {
     public DAOCinnost() {
 
     }
-
-    /**
+    
+     /**
      * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
      *
      * @param cinnost
@@ -59,8 +59,6 @@ public class DAOCinnost implements IDAOCinnost {
     public boolean deleteCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            //Statement stmt = con.createStatement();
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin pavlim33.API.ACTIVITIES_DEL(inp_id  => " + cinnost.getId() + "); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
@@ -127,7 +125,8 @@ public class DAOCinnost implements IDAOCinnost {
         try {
             //Statement stmt = con.createStatement();
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.ACTIVITIES_IU(inp_id_person    =>" + cinnost.getVlastnik_id()
+            String jobquery = "begin pavlim33.API.ACTIVITIES_IU("
+                    + "inp_id_person    =>" + cinnost.getVlastnik_id()
                     + ",inp_id =>" + cinnost.getId()
                     + ",inp_name => '" + cinnost.getNazev() + "'"
                     + ",inp_description => '" + cinnost.getPopis() + "'"

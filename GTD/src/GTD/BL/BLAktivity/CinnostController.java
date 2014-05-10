@@ -1,8 +1,9 @@
 package GTD.BL.BLAktivity;
-import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.ICinnostController;
+import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
+import GTD.DL.DLInterfaces.IDAOTypy;
 import GTD.PL.PLView.GTDGUI;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class CinnostController implements ICinnostController {
 
 	private SpravceCinnosti spravceCinnosti;
 	private IGTDGUI GUI;
+        private IDAOTypy TypId;
 
 	public CinnostController(){
 		spravceCinnosti = new SpravceCinnosti();
@@ -28,6 +30,8 @@ public class CinnostController implements ICinnostController {
 	 */
 	@Override
 	public boolean addCinnost(String nazev, String popis){
+                //int id=TypId.getCinnostKeZpracovaniID();
+                //System.out.println("TYP "+id);
 		Cinnost newCinnost = new Cinnost(nazev, popis, 48, GTDGUI.getMyself().getId());
 		return spravceCinnosti.addCinnost(newCinnost);
 	}

@@ -248,17 +248,42 @@ public class DAOProjekt implements IDAOProjekt {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
+            String rodic = null;
+            if (projekt.getRodic() != null) {
+                rodic = projekt.getRodic().getId() + "";
+            }
             String jobquery = "begin pavlim33.API.PROJECTS_IU("
-                    + "inp_id_person  =>" + projekt.getVlastnik_id()
-                    + ",inp_id =>" + projekt.getId()
-                    + ",inp_name => '" + projekt.getNazev() + "'"
-                    + ",inp_description => '" + projekt.getPopis() + "'"
-                    + ",inp_id_project_parent => " + projekt.getRodic()
-                    + ",inp_id_type => " + projekt.getStav()
+                    + "inp_id_person  => ? "
+                    + ",inp_name => ? "
+                    + ",inp_description => ? "
+                    + ",inp_id_project_parent => ? "
+                    + ",inp_id_type => ? "
+                    + ",out_id => ?"
+                    + ",inp_id => ?"
                     + "); end;";
-            //System.out.println(jobquery);
+            //sySystem.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, projekt.getVlastnik_id());
+            callStmt.setString(2, projekt.getNazev());
+            callStmt.setString(3, projekt.getPopis());
+            callStmt.setString(4, rodic);
+            callStmt.setInt(5, projekt.getStav());
+            callStmt.registerOutParameter(6, Types.INTEGER);
+            callStmt.setInt(7, projekt.getId());
+
             callStmt.execute();
+            //System.out.println("Result = " + callStmt.getObject(6));
+
+            //přidat všechny osoby ze skupiny toho projektu
+            for (int i = 0; i < projekt.getSkupina().size(); i++) {
+                String jobquery_members = "begin pavlim33.API.MEMBERS_IU("
+                        + "inp_id_person  =>" + projekt.getSkupina().get(i).getId()
+                        + ",inp_id_project => " + projekt.getId()
+                        + "); end;";
+                CallableStatement callStmt_members = con.prepareCall(jobquery_members);
+                callStmt_members.execute();
+                callStmt_members.close();
+            }
             callStmt.close();
         } catch (SQLException e) {
             DatabaseConnection.showError("DB query error: " + e.getMessage());

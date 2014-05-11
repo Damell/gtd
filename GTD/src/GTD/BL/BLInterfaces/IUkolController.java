@@ -39,6 +39,14 @@ public interface IUkolController {
 	public boolean updateUkol(Ukol ukol);
 
 	/**
+	 * Označí úkol jako aktivní.
+	 * 
+	 * @param ukol
+	 * @param interval
+	 */
+	public boolean activateUkol(Ukol ukol);
+
+	/**
 	 * Přidá úkol do kalendáře.
 	 * 
 	 * @param ukol

@@ -71,6 +71,10 @@ public class Consts {
 	public static final String TO = "Do";
 
 	// My Tasks Tab
+	public static final String ACTIVATE_TASK = "Aktivovat úkol";
+	public static final String PLAN_TASK = "Naplánovat úkol";
+	public static final String SET_INTERVAL = "Zadejte začátek a konec úkolu: ";
+	public static final String TO_BEFORE_FROM = "Datum do je před datem od!";
 	public static final String FINISH_TASK = "Dokončit úkol";
 
 }

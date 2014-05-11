@@ -9,7 +9,9 @@ import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
 import GTD.DL.DLInterfaces.IDAOStav;
 import GTD.PL.PLView.GTDGUI;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Třída implementuje interface IUkolController.
@@ -52,6 +54,7 @@ public class UkolController implements IUkolController {
 	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
 	 */
+	@Override
 	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Cinnost cinnost){
 		Ukol ukol = new Ukol(nazev, popis, DAOStav.getUkolHotovyID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
 		return spravceUkolu.addUkol(ukol, cinnost);
@@ -62,6 +65,7 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 */
+	@Override
 	public boolean deleteUkol(Ukol ukol){
 		return false;
 	}
@@ -71,8 +75,15 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 */
+	@Override
 	public boolean updateUkol(Ukol ukol){
 		return false;
+	}
+
+	@Override
+	public boolean activateUkol(Ukol ukol) {
+		ukol.setStav(DAOStav.getUkolAktivniID());
+		return spravceUkolu.updateUkol(ukol);
 	}
 
 	/**
@@ -81,8 +92,10 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 * @param interval
 	 */
+	@Override
 	public boolean scheduleUkol(Ukol ukol, Interval interval){
-		return false;
+		ukol.setInterval(interval.getFrom(), interval.getTo());
+		return spravceUkolu.updateUkol(ukol);
 	}
 
 	/**
@@ -91,6 +104,7 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 * @param novyVlastnik
 	 */
+	@Override
 	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik){
 		return false;
 	}
@@ -100,9 +114,10 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 */
+	@Override
 	public boolean finishUkol(Ukol ukol){
 		ukol.setStav(DAOStav.getUkolHotovyID());
-		return spravceUkolu.finishUkol(ukol);
+		return spravceUkolu.updateUkol(ukol);
 	}
 
 	/**
@@ -111,6 +126,7 @@ public class UkolController implements IUkolController {
 	 * @param ukol
 	 * @param kontext
 	 */
+	@Override
 	public boolean setKontext(Ukol ukol, Kontext kontext){
 		return false;
 	}
@@ -118,6 +134,7 @@ public class UkolController implements IUkolController {
 	/**
 	 * Odešle GUI pokyn k obnovení.
 	 */
+	@Override
 	public void refresh(){
 
 	}
@@ -139,5 +156,6 @@ public class UkolController implements IUkolController {
 	public List getAllUkoly() {
 		return spravceUkolu.getAllUkoly();
 	}
+
 
 }

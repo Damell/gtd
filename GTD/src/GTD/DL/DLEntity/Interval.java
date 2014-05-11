@@ -41,5 +41,10 @@ public class Interval {
 
 	public Interval(){
 	}
+
+	public Interval(Date from, Date to){
+		this.from = from;
+		this.to = to;
+	}
 	
 }

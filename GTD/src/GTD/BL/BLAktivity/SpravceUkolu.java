@@ -52,7 +52,7 @@ public class SpravceUkolu {
 	 * @param ukol
 	 */
 	public boolean deleteUkol(Ukol ukol){
-		return false;
+		return DAOUkol.deleteUkol(ukol);
 	}
 
 	/**
@@ -61,17 +61,7 @@ public class SpravceUkolu {
 	 * @param id
 	 */
 	public Ukol getUkol(int id){
-		return null;
-	}
-
-	/**
-	 * Změní stav úkolu na "hotový". Dokončit úkol může jeho vlastník nebo vlastník
-	 * nadřazeného projektu (v 1.úrovni).
-	 * 
-	 * @param ukol
-	 */
-	public boolean finishUkol(Ukol ukol){
-		return DAOUkol.updateUkol(ukol);
+		return DAOUkol.getUkol(id);
 	}
 
 	/**
@@ -81,7 +71,7 @@ public class SpravceUkolu {
 	 * @param ukol
 	 */
 	public boolean updateUkol(Ukol ukol){
-		return false;
+		return DAOUkol.updateUkol(ukol);
 	}
 
 	/**
@@ -90,7 +80,7 @@ public class SpravceUkolu {
 	 * @param kontext
 	 */
 	public List getUkolyKontextu(Kontext kontext){
-		return null;
+		return DAOUkol.getUkolyKontextu(kontext);
 	}
 
 	/**
@@ -98,17 +88,6 @@ public class SpravceUkolu {
 	 */
 	public List getAllUkoly(){
 		return DAOUkol.getAllUkoly();
-	}
-
-	/**
-	 * Přidá úkol do kalendáře. Toto může udělat vlastník úkolu nebo vlastník
-	 * nadřazeného projektu (v 1.úrovni).
-	 * 
-	 * @param ukol
-	 * @param interval
-	 */
-	public boolean scheduleUkol(Ukol ukol, Interval interval){
-		return false;
 	}
 
 	/**

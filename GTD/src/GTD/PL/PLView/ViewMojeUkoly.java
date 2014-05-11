@@ -28,6 +28,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 	private JButton activateTaskButton;
 	private JButton planTaskButton;
 	private JButton finishTaskButton;
+	private JButton deleteTaskButton;
 
 	private TaskTableModel tasksTableModel;
 	private JTable tasksTable;
@@ -51,7 +52,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 		activateTaskButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 				int selectedRow = tasksTable.getSelectedRow();
+				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
 					if(GTDGUI.getGTDGUI().getUkolController().activateUkol(selected)) {
@@ -67,7 +68,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 		planTaskButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 				int selectedRow = tasksTable.getSelectedRow();
+				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
 					new ViewPlanTask(selected);
@@ -81,7 +82,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 		finishTaskButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 				int selectedRow = tasksTable.getSelectedRow();
+				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
 					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(selected)) {
@@ -93,10 +94,27 @@ public class ViewMojeUkoly extends JPanel implements IView {
 				}
 			}
 		}) ;
-
+		deleteTaskButton = new JButton(Consts.DELETE_TASK);
+		deleteTaskButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = tasksTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					if(GTDGUI.getGTDGUI().getUkolController().deleteUkol(selected)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				} else {
+					JOptionPane optionPane = new JOptionPane();
+					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);
+				}
+			}
+		});
+		
 		menu.add(activateTaskButton);
 		menu.add(planTaskButton);
 		menu.add(finishTaskButton);
+		menu.add(deleteTaskButton);
 	}
 
 	void initMainView() {

@@ -1,6 +1,8 @@
 package GTD.PL.PLView;
 import GTD.BL.BLInterfaces.IOsobaController;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -9,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  * Třída představující pohled (okno) s přihlašovacím formulářem.
@@ -34,7 +37,7 @@ public class ViewPrihlaseni extends JPanel implements IView {
 	}
 
 	void init() {
-		setLayout(new GridLayout(3,2));
+		setLayout(new GridBagLayout());
 		usernameLabel = new JLabel(Consts.USERNAME);
 		passwordLabel = new JLabel(Consts.PASSWORD);
 		usernameField = new JTextField("pavlim33");
@@ -52,12 +55,34 @@ public class ViewPrihlaseni extends JPanel implements IView {
 				}
 			}
 		});
-		add(usernameLabel);
-		add(usernameField);
-		add(passwordLabel);
-		add(passwordField);
-		add(new JPanel());
-		add(loginButton);
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(160,10,50,10);
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 4;
+		JLabel title = new JLabel(Consts.APP_TITLE);
+		title.setFont(title.getFont().deriveFont(30f));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(title, c);
+		c.gridx = 1;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.insets = new Insets(5,10,5,50);
+		add(usernameLabel, c);
+		c.gridx = 2;
+		c.insets = new Insets(5,10,5,10);
+		add(usernameField, c);
+		c.gridx = 1;
+		c.gridy++;
+		add(passwordLabel, c);
+		c.gridx = 2;
+		add(passwordField, c);
+		c.gridx = 1;
+		c.gridy++;
+		c.gridwidth = 2;
+		add(loginButton, c);
 	}
 
 	/**

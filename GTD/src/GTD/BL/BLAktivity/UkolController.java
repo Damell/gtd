@@ -9,9 +9,7 @@ import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Ukol;
 import GTD.DL.DLInterfaces.IDAOStav;
 import GTD.PL.PLView.GTDGUI;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Třída implementuje interface IUkolController.
@@ -67,7 +65,7 @@ public class UkolController implements IUkolController {
 	 */
 	@Override
 	public boolean deleteUkol(Ukol ukol){
-		return false;
+		return spravceUkolu.deleteUkol(ukol);
 	}
 
 	/**

@@ -16,11 +16,11 @@ public class ProjektController implements IProjektController {
 
 	private SpravceProjektu spravceProjektu;
 	private IGTDGUI GUI;
-        private IDAOStav DAOStav;
+	private IDAOStav DAOStav;
 
 	public ProjektController(){
 		spravceProjektu = new SpravceProjektu();
-                DAOStav = new DAOStav();
+		DAOStav = new DAOStav();
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ProjektController implements IProjektController {
 	 */
 	@Override
 	public boolean deleteProjekt(Projekt projekt){
-		return false;
+		return spravceProjektu.deleteProjekt(projekt);
 	}
 
 	/**

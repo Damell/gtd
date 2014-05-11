@@ -129,6 +129,11 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(new JLabel(task.getPopis()), c);
 			c.gridx = 0;
 			c.gridy++;
+			add(new JLabel(Consts.ID + ": "), c);
+			c.gridx = 1;
+			add(new JLabel(task.getId() + ""), c);
+			c.gridx = 0;
+			c.gridy++;
 			add(new JLabel(Consts.STATE + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(task.getStavPopis()), c);
@@ -204,6 +209,22 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			}.setTask(task));
 			c.gridy++;
 			add(finishTaskButton, c);
+			JButton deleteTaskButton = new JButton(Consts.DELETE_TASK);
+			deleteTaskButton.addActionListener(new ActionListener() {
+				Ukol task;
+				ActionListener setTask(Ukol task) {
+					this.task = task;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GTDGUI.getGTDGUI().getUkolController().deleteUkol(task)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				}
+			}.setTask(task));
+			c.gridy++;
+			add(deleteTaskButton, c);
 
 			refresh();
 		}
@@ -231,6 +252,11 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(new JLabel(Consts.DESC + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(project.getPopis()), c);
+			c.gridx = 0;
+			c.gridy++;
+			add(new JLabel(Consts.ID + ": "), c);
+			c.gridx = 1;
+			add(new JLabel(project.getId() + ""), c);
 			c.gridx = 0;
 			c.gridy++;
 			add(new JLabel(Consts.STATE + ": "), c);

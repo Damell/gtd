@@ -62,6 +62,7 @@ public class Consts {
 	// Details View
 	public static final String PROJECT = "Projekt";
 	public static final String TASK = "Úkol";
+	public static final String ID = "ID";
 	public static final String PARENT = "Projekt";
 	public static final String PARENT_DESC = "Popis projektu";
 	public static final String OWNER = "Vlastník";

@@ -46,7 +46,7 @@ public class DAOProjekt implements IDAOProjekt {
                     + ",inp_id_type => ? "
                     + ",out_id => ?"
                     + "); end;";
-            //System.out.println(jobquery);
+            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.setInt(1, projekt.getVlastnik_id());
             callStmt.setString(2, projekt.getNazev());
@@ -88,6 +88,7 @@ public class DAOProjekt implements IDAOProjekt {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.PROJECTS_DEL(inp_id  => " + projekt.getId() + "); end;";
+            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -146,7 +147,7 @@ public class DAOProjekt implements IDAOProjekt {
 
                 //Pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
                 Statement stmt_podprojekty = con.createStatement();
-                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
+                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects_v where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                 while (rset_podprojekty.next()) {
                     //pridej konkretni projekt
                     pro.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
@@ -255,7 +256,7 @@ public class DAOProjekt implements IDAOProjekt {
                     + ",inp_id_project_parent => " + projekt.getRodic()
                     + ",inp_id_type => " + projekt.getStav()
                     + "); end;";
-            //System.out.println(jobquery);
+            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();

@@ -1,17 +1,22 @@
 package GTD.PL.PLView;
+import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.Ukol;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
@@ -32,6 +37,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 	private JButton deleteTaskButton;
 
 	private TaskTableModel tasksTableModel;
+	private TableRowSorter<TaskTableModel> tasksSorter;
 	private JTable tasksTable;
 
 	public ViewMojeUkoly(MainFrame mainFrame){
@@ -49,6 +55,30 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 	void initMenu() {
 		menu = new JPanel(new FlowLayout());
+
+
+		JCheckBox activeFilterCheckBox = new JCheckBox(Consts.ACTIVE_TASKS);
+		activeFilterCheckBox.addItemListener(new ItemListener() {
+			RowFilter<TaskTableModel,Integer> activeFilter = new RowFilter<TaskTableModel, Integer>() {
+				int activeID = new DAOStav().getUkolAktivniID();
+				int inCalendarID = new DAOStav().getUkolVKalendariID();
+				@Override
+				public boolean include(RowFilter.Entry<? extends TaskTableModel, ? extends Integer> entry) {
+					int id = entry.getModel().getStav(entry.getIdentifier());
+					return id == activeID || id == inCalendarID;
+				}
+			};
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					tasksSorter.setRowFilter(activeFilter);
+					tasksTable.setRowSorter(tasksSorter);
+				} else {
+					tasksSorter.setRowFilter(null);
+				}
+			}
+		});
 		activateTaskButton = new JButton(Consts.ACTIVATE_TASK);
 		activateTaskButton.addActionListener(new ActionListener() {
 			@Override
@@ -112,6 +142,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 			}
 		});
 		
+		menu.add(activeFilterCheckBox);
 		menu.add(activateTaskButton);
 		menu.add(planTaskButton);
 		menu.add(finishTaskButton);
@@ -122,6 +153,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 		loadData();
 		mainView = new JPanel(new BorderLayout());
 		tasksTableModel = new TaskTableModel();
+		tasksSorter = new TableRowSorter<>(tasksTableModel);
 		tasksTable = new JTable(tasksTableModel);
 		JScrollPane scrollPane = new JScrollPane(tasksTable);
 		mainView.add(scrollPane);
@@ -132,6 +164,10 @@ public class ViewMojeUkoly extends JPanel implements IView {
 	}
 
 	class TaskTableModel extends AbstractTableModel {
+
+		public int getStav(int index) {
+			return tasks.get(index).getStav();
+		}
 
 		@Override
 		public int getRowCount() {

@@ -72,6 +72,7 @@ public class Consts {
 	public static final String TO = "Do";
 
 	// My Tasks Tab
+	public static final String ACTIVE_TASKS = "Aktivní úkoly";
 	public static final String ACTIVATE_TASK = "Aktivovat úkol";
 	public static final String PLAN_TASK = "Naplánovat úkol";
 	public static final String SET_INTERVAL = "Zadejte začátek a konec úkolu: ";

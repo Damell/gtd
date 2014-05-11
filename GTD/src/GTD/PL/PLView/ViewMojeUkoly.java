@@ -139,7 +139,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 		@Override
 		public int getColumnCount() {
-			return 5;
+			return 6;
 		}
 
 		@Override
@@ -152,18 +152,21 @@ public class ViewMojeUkoly extends JPanel implements IView {
 			String value = "";
 			switch(columnIndex) {
 				case 0: {
-					return tasks.get(rowIndex).getNazev();
+					return tasks.get(rowIndex).getId();
 				}
 				case 1: {
-					return tasks.get(rowIndex).getPopis();
+					return tasks.get(rowIndex).getNazev();
 				}
 				case 2: {
-					return tasks.get(rowIndex).getStavPopis();
+					return tasks.get(rowIndex).getPopis();
 				}
 				case 3: {
-					return tasks.get(rowIndex).getProjektNazev();
+					return tasks.get(rowIndex).getStavPopis();
 				}
 				case 4: {
+					return tasks.get(rowIndex).getProjektNazev();
+				}
+				case 5: {
 					return tasks.get(rowIndex).getProjektPopis();
 				}
 			}

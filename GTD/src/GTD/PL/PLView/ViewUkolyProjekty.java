@@ -113,7 +113,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridx = 0;
 			c.gridy = 0;
 			c.gridwidth = 2;
-			JLabel title = new JLabel(Consts.TASK);
+			JLabel title = new JLabel(Consts.TASK + " #" + task.getId());
 			title.setFont(title.getFont().deriveFont(20f));
 			add(title, c);
 			c.gridwidth = 1;
@@ -127,11 +127,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(new JLabel(Consts.DESC + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(task.getPopis()), c);
-			c.gridx = 0;
-			c.gridy++;
-			add(new JLabel(Consts.ID + ": "), c);
-			c.gridx = 1;
-			add(new JLabel(task.getId() + ""), c);
 			c.gridx = 0;
 			c.gridy++;
 			add(new JLabel(Consts.STATE + ": "), c);
@@ -238,7 +233,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridx = 0;
 			c.gridy = 0;
 			c.gridwidth = 2;
-			JLabel title = new JLabel(Consts.PROJECT);
+			JLabel title = new JLabel(Consts.PROJECT + " #" + project.getId());
 			title.setFont(title.getFont().deriveFont(20f));
 			add(title, c);
 			c.gridwidth = 1;
@@ -252,11 +247,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(new JLabel(Consts.DESC + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(project.getPopis()), c);
-			c.gridx = 0;
-			c.gridy++;
-			add(new JLabel(Consts.ID + ": "), c);
-			c.gridx = 1;
-			add(new JLabel(project.getId() + ""), c);
 			c.gridx = 0;
 			c.gridy++;
 			add(new JLabel(Consts.STATE + ": "), c);

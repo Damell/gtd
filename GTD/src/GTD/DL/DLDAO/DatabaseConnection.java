@@ -1,8 +1,8 @@
 package GTD.DL.DLDAO;
 
+import GTD.PL.PLView.GTDGUI;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -70,5 +70,9 @@ public class DatabaseConnection {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public static void showError(String error) {
+		GTDGUI.getGTDGUI().showError(error);
 	}
 }

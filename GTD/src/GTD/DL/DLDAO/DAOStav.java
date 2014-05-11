@@ -171,7 +171,7 @@ public class DAOStav implements IDAOStav {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error :: getID: " + e.getMessage());
         }
         return pid;
     }

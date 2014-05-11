@@ -47,7 +47,7 @@ public class DAOUkol implements IDAOUkol {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -66,7 +66,7 @@ public class DAOUkol implements IDAOUkol {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class DAOUkol implements IDAOUkol {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return ukoly;
     }
@@ -128,7 +128,7 @@ public class DAOUkol implements IDAOUkol {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return ukoly;
     }
@@ -155,7 +155,7 @@ public class DAOUkol implements IDAOUkol {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return ukol;
     }
@@ -182,7 +182,7 @@ public class DAOUkol implements IDAOUkol {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -212,7 +212,7 @@ public class DAOUkol implements IDAOUkol {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return ukoly;
     }

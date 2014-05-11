@@ -45,7 +45,7 @@ public class DAOCinnost implements IDAOCinnost {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -64,7 +64,7 @@ public class DAOCinnost implements IDAOCinnost {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -88,7 +88,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return cinnosti;
     }
@@ -110,7 +110,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return cinnost;
     }
@@ -136,7 +136,7 @@ public class DAOCinnost implements IDAOCinnost {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -162,7 +162,7 @@ public class DAOCinnost implements IDAOCinnost {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return cinnosti;
     }

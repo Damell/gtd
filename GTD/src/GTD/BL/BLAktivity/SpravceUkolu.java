@@ -94,6 +94,13 @@ public class SpravceUkolu {
 	}
 
 	/**
+	 * Vrátí všechny úkoly
+	 */
+	public List getAllUkoly(){
+		return DAOUkol.getAllUkoly();
+	}
+
+	/**
 	 * Přidá úkol do kalendáře. Toto může udělat vlastník úkolu nebo vlastník
 	 * nadřazeného projektu (v 1.úrovni).
 	 * 

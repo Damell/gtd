@@ -40,6 +40,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	private JTree projectsTree;
 	private ProjectTreeModel projectTreeModel;
 	private List<Projekt> projects;
+	private List<Ukol> tasks;
 	private DetailView detailView;
 	
 	public ViewUkolyProjekty(MainFrame mainFrame){
@@ -86,6 +87,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 
 	void loadData() {
 		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		tasks = GTDGUI.getGTDGUI().getUkolController().getAllUkoly();
 	}
 
 	class DetailView extends JPanel {
@@ -205,7 +207,13 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		private Vector<TreeModelListener> treeModelListeners = new Vector<TreeModelListener>();
 		@Override
 		public Object getRoot() {
-			return new Projekt(-1, Consts.PROJECTS, "", 0, "", GTDGUI.getMyself().getId());
+			Projekt root = new Projekt(-1, Consts.PROJECTS, "", 0, "", GTDGUI.getMyself().getId());
+			for (Ukol el : tasks) {
+				if (el.getProjekt() == 0) {
+					root.addUkol(el);
+				}
+			}
+			return root;
 		}
 
 		@Override

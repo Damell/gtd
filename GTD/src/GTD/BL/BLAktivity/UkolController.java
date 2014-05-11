@@ -132,4 +132,12 @@ public class UkolController implements IUkolController {
 		return spravceUkolu.getUkolyOsoby(osoba);
 	}
 
+	/**
+	 * Vrátí všechny úkoly
+	 */
+	@Override
+	public List getAllUkoly() {
+		return spravceUkolu.getAllUkoly();
+	}
+
 }

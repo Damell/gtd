@@ -92,4 +92,8 @@ public interface IUkolController {
 	 */
 	public List getUkolyOsoby(Osoba osoba);
 
+	/**
+	 * Vrátí všechny úkoly
+	 */
+	public List getAllUkoly();
 }

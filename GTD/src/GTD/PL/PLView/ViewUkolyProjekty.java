@@ -251,6 +251,39 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			group.setVisibleRowCount(-1);
 			add(group, c);
 
+			JButton finishProjectButton = new JButton(Consts.FINISH_PROJECT);
+			finishProjectButton.addActionListener(new ActionListener() {
+				Projekt project;
+				ActionListener setProject(Projekt project) {
+					this.project = project;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GTDGUI.getGTDGUI().getProjektController().finishProjekt(project)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				}
+			}.setProject(project));
+			c.gridy++;
+			add(finishProjectButton, c);
+			JButton deleteProjectButton = new JButton(Consts.DELETE_PROJECT);
+			deleteProjectButton.addActionListener(new ActionListener() {
+				Projekt project;
+				ActionListener setProject(Projekt project) {
+					this.project = project;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GTDGUI.getGTDGUI().getProjektController().deleteProjekt(project)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				}
+			}.setProject(project));
+			c.gridy++;
+			add(deleteProjectButton, c);
+
 			refresh();
 		}
 		void showNone() {

@@ -76,5 +76,8 @@ public class Consts {
 	public static final String SET_INTERVAL = "Zadejte začátek a konec úkolu: ";
 	public static final String TO_BEFORE_FROM = "Datum do je před datem od!";
 	public static final String FINISH_TASK = "Dokončit úkol";
+	public static final String FINISH_PROJECT = "Dokončit projekt";
+	public static final String DELETE_PROJECT = "Smazat projekt";
+	public static final String DELETE_TASK = "Smazat úkol";
 
 }

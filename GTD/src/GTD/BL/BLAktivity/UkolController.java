@@ -95,6 +95,7 @@ public class UkolController implements IUkolController {
 	@Override
 	public boolean scheduleUkol(Ukol ukol, Interval interval){
 		ukol.setInterval(interval.getFrom(), interval.getTo());
+		ukol.setStav(DAOStav.getUkolVKalendariID());
 		return spravceUkolu.updateUkol(ukol);
 	}
 

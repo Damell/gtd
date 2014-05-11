@@ -4,6 +4,7 @@ import GTD.DL.DLEntity.Osoba;
 import GTD.DL.DLEntity.Projekt;
 import GTD.DL.DLEntity.Ukol;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -107,7 +108,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		void showTask (Ukol task) {
 			removeAll();
 			c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.PAGE_START;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,20,10,20);
 			c.gridx = 0;
@@ -119,9 +120,14 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridwidth = 1;
 			c.gridx = 0;
 			c.gridy++;
+			c.weightx = 1;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			add(new JLabel(Consts.TITLE + ": "), c);
 			c.gridx = 1;
-			add(new JLabel(task.getNazev()), c);
+			JLabel label = new JLabel();
+			label.setText("<html>" + task.getNazev() + "</html>");
+			label.setMaximumSize(new Dimension(1, 1));
+			add(label, c);
 			c.gridx = 0;
 			c.gridy++;
 			add(new JLabel(Consts.DESC + ": "), c);
@@ -171,9 +177,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					}
 				}
 			}.setTask(task));
-			c.gridx = 1;
-			c.gridy++;
-			add(activateTaskButton, c);
 			JButton planTaskButton = new JButton(Consts.PLAN_TASK);
 			planTaskButton.addActionListener(new ActionListener() {
 				Ukol task;
@@ -186,8 +189,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					new ViewPlanTask(task);
 				}
 			}.setTask(task));
-			c.gridy++;
-			add(planTaskButton, c);
 			JButton finishTaskButton = new JButton(Consts.FINISH_TASK);
 			finishTaskButton.addActionListener(new ActionListener() {
 				Ukol task;
@@ -202,8 +203,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					}
 				}
 			}.setTask(task));
-			c.gridy++;
-			add(finishTaskButton, c);
 			JButton deleteTaskButton = new JButton(Consts.DELETE_TASK);
 			deleteTaskButton.addActionListener(new ActionListener() {
 				Ukol task;
@@ -218,6 +217,14 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					}
 				}
 			}.setTask(task));
+			c.gridwidth = 2;
+			c.gridx = 0;
+			c.gridy++;
+			add(activateTaskButton, c);
+			c.gridy++;
+			add(planTaskButton, c);
+			c.gridy++;
+			add(finishTaskButton, c);
 			c.gridy++;
 			add(deleteTaskButton, c);
 
@@ -227,7 +234,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		void showProject (Projekt project) {
 			removeAll();
 			c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.PAGE_START;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,20,10,20);
 			c.gridx = 0;
@@ -239,6 +246,8 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridwidth = 1;
 			c.gridx = 0;
 			c.gridy++;
+			c.weightx = 1;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			add(new JLabel(Consts.TITLE + ": "), c);
 			c.gridx = 1;
 			add(new JLabel(project.getNazev()), c);
@@ -281,8 +290,6 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					}
 				}
 			}.setProject(project));
-			c.gridy++;
-			add(finishProjectButton, c);
 			JButton deleteProjectButton = new JButton(Consts.DELETE_PROJECT);
 			deleteProjectButton.addActionListener(new ActionListener() {
 				Projekt project;
@@ -297,6 +304,10 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 					}
 				}
 			}.setProject(project));
+			c.gridwidth = 2;
+			c.gridx = 0;
+			c.gridy++;
+			add(finishProjectButton, c);
 			c.gridy++;
 			add(deleteProjectButton, c);
 

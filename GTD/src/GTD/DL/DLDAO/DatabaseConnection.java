@@ -74,5 +74,6 @@ public class DatabaseConnection {
 
 	public static void showError(String error) {
 		GTDGUI.getGTDGUI().showError(error);
+		System.err.println(error);
 	}
 }

@@ -15,7 +15,6 @@ import java.util.List;
 public class ProjektController implements IProjektController {
 
 	private SpravceProjektu spravceProjektu;
-	private IGTDGUI GUI;
 	private IDAOStav DAOStav;
 
 	public ProjektController(){
@@ -93,7 +92,8 @@ public class ProjektController implements IProjektController {
 	 */
 	@Override
 	public boolean finishProjekt(Projekt projekt){
-		return false;
+		projekt.setStav(DAOStav.getProjektDokoncenyID());
+		return spravceProjektu.finishProjekt(projekt);
 	}
 
 	/**

@@ -54,7 +54,7 @@ public class SpravceProjektu {
 	 * @param projekt
 	 */
 	public boolean deleteProjekt(Projekt projekt){
-		return false;
+		return DAOProjekt.deleteProjekt(projekt);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class SpravceProjektu {
 	 * @param projekt
 	 */
 	public boolean updateProjekt(Projekt projekt){
-		return false;
+		return DAOProjekt.updateProjekt(projekt);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class SpravceProjektu {
 	 * @param projekt
 	 */
 	public boolean finishProjekt(Projekt projekt){
-		return false;
+		return DAOProjekt.updateProjekt(projekt);
 	}
 
 }

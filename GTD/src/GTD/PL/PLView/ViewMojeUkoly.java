@@ -144,7 +144,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 		@Override
 		public String getColumnName(int column) {
-			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE, Consts.PARENT, Consts.PARENT_DESC})[column];
+			return (new String[] {Consts.ID, Consts.TITLE, Consts.DESC, Consts.STATE, Consts.PARENT, Consts.PARENT_DESC})[column];
 		}
 
 		@Override

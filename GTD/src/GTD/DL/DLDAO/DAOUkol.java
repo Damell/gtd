@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
  *
@@ -168,8 +167,12 @@ public class DAOUkol implements IDAOUkol {
      * @param ukol
      */
     public boolean updateUkol(Ukol ukol) {
-        String date_from = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getFrom());
-        String date_to = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getTo());
+        String date_from = null;
+        String date_to = null;
+        if (ukol.getKalendar().isSet()) {
+            date_from = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getFrom());
+            date_to = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getTo());
+        }
 
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -181,10 +184,10 @@ public class DAOUkol implements IDAOUkol {
                     + ",inp_description => '" + ukol.getPopis() + "'"
                     + ",inp_id_project => " + ukol.getProjekt()
                     + ",inp_id_type => " + ukol.getStav()
-                    + ",inp_date_from => '" + date_from+ "'"
+                    + ",inp_date_from => '" + date_from + "'"
                     + ",inp_date_to => '" + date_to + "'"
                     + "); end;";
-            //System.out.println(jobquery);
+            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();

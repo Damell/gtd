@@ -9,9 +9,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -69,13 +72,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		projectsTree.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				Aktivita node = (Aktivita) projectsTree.getLastSelectedPathComponent();
-				if (node == null) return;
-				if (node instanceof Ukol) {
-					detailView.showTask((Ukol) node);
-				} else {
-					detailView.showProject((Projekt) node);
-				}
+				showDetailOfSelected();
 			}
 		});
 		JScrollPane projectsScrollPane = new JScrollPane(projectsTree);
@@ -88,6 +85,18 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	void loadData() {
 		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
 		tasks = GTDGUI.getGTDGUI().getUkolController().getAllUkoly();
+	}
+
+	void showDetailOfSelected() {
+		Aktivita node = (Aktivita) projectsTree.getLastSelectedPathComponent();
+		detailView.refresh();
+		if (node == null) {
+			detailView.showNone();
+		} else if (node instanceof Ukol) {
+			detailView.showTask((Ukol) node);
+		} else {
+			detailView.showProject((Projekt) node);
+		}
 	}
 
 	class DetailView extends JPanel {
@@ -148,6 +157,53 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 				c.gridx = 1;
 				add(new JLabel(task.getKontext().getKontextNazev()), c);
 			}
+			JButton activateTaskButton = new JButton(Consts.ACTIVATE_TASK);
+			activateTaskButton.addActionListener(new ActionListener() {
+				Ukol task;
+				ActionListener setTask(Ukol task) {
+					this.task = task;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GTDGUI.getGTDGUI().getUkolController().activateUkol(task)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				}
+			}.setTask(task));
+			c.gridx = 1;
+			c.gridy++;
+			add(activateTaskButton, c);
+			JButton planTaskButton = new JButton(Consts.PLAN_TASK);
+			planTaskButton.addActionListener(new ActionListener() {
+				Ukol task;
+				ActionListener setTask(Ukol task) {
+					this.task = task;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new ViewPlanTask(task);
+				}
+			}.setTask(task));
+			c.gridy++;
+			add(planTaskButton, c);
+			JButton finishTaskButton = new JButton(Consts.FINISH_TASK);
+			finishTaskButton.addActionListener(new ActionListener() {
+				Ukol task;
+				ActionListener setTask(Ukol task) {
+					this.task = task;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(task)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
+				}
+			}.setTask(task));
+			c.gridy++;
+			add(finishTaskButton, c);
 
 			refresh();
 		}
@@ -196,6 +252,9 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			add(group, c);
 
 			refresh();
+		}
+		void showNone() {
+			removeAll();
 		}
 		void refresh() {
 			revalidate();
@@ -294,9 +353,12 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	 * Aktualizuje pohled.
 	 */
 	public void refresh(){
+		TreePath path = projectsTree.getSelectionPath();
 		loadData();
 		projectTreeModel = new ProjectTreeModel();
 		projectsTree.setModel(projectTreeModel);
+		projectsTree.setSelectionPath(path);
+		showDetailOfSelected();
 		
 	}
 	

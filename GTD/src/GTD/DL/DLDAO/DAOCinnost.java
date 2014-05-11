@@ -149,8 +149,6 @@ public class DAOCinnost implements IDAOCinnost {
      */
     @Override
     public List<Cinnost> getCinnostiOsoby(Osoba osoba) {
-        System.out.println(osoba);
-        System.out.println(osoba.getId());
         List<Cinnost> cinnosti = new ArrayList<Cinnost>();
         Connection con = DatabaseConnection.getConnection();
         try {

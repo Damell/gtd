@@ -87,12 +87,12 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 		@Override
 		public int getColumnCount() {
-			return 3;
+			return 5;
 		}
 
 		@Override
 		public String getColumnName(int column) {
-			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE})[column];
+			return (new String[] {Consts.TITLE, Consts.DESC, Consts.STATE, Consts.PARENT, Consts.PARENT_DESC})[column];
 		}
 
 		@Override
@@ -107,6 +107,12 @@ public class ViewMojeUkoly extends JPanel implements IView {
 				}
 				case 2: {
 					return tasks.get(rowIndex).getStavPopis();
+				}
+				case 3: {
+					return tasks.get(rowIndex).getProjektNazev();
+				}
+				case 4: {
+					return tasks.get(rowIndex).getProjektPopis();
 				}
 			}
 			return value;

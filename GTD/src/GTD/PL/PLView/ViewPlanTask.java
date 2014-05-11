@@ -85,8 +85,8 @@ public class ViewPlanTask {
 		frame = new JFrame(Consts.ACTIVATE_TASK);
 		frame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().add(panel);
-		frame.setLocationRelativeTo(null);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible (true);
 	}
 }

@@ -405,8 +405,8 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		processFrame = new JFrame(Consts.PROCESSING);
 		processFrame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
 		processFrame.getContentPane().add (this);
-		processFrame.setLocationRelativeTo(null);
 		processFrame.pack();
+		processFrame.setLocationRelativeTo(null);
 		processFrame.setVisible (true);
 	}
 

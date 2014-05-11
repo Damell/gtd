@@ -1,5 +1,6 @@
 package GTD.PL.PLView;
 import GTD.BL.BLInterfaces.IOsobaController;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -63,25 +64,33 @@ public class ViewPrihlaseni extends JPanel implements IView {
 		c.gridy = 0;
 		c.gridwidth = 4;
 		JLabel title = new JLabel(Consts.APP_TITLE);
-		title.setFont(title.getFont().deriveFont(30f));
+		title.setFont(title.getFont().deriveFont(40f));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		add(title, c);
 		c.gridx = 1;
 		c.gridy = 1;
 		c.gridwidth = 1;
-		c.insets = new Insets(5,10,5,50);
+		c.ipady = 10;
+		c.insets = new Insets(5,80,5,10);
 		add(usernameLabel, c);
 		c.gridx = 2;
 		c.insets = new Insets(5,10,5,10);
+		c.ipadx = 30;
 		add(usernameField, c);
 		c.gridx = 1;
 		c.gridy++;
+		c.insets = new Insets(5,80,5,10);
+		c.ipadx = 0;
 		add(passwordLabel, c);
 		c.gridx = 2;
+		c.insets = new Insets(5,10,5,10);
+		c.ipadx = 30;
 		add(passwordField, c);
 		c.gridx = 1;
 		c.gridy++;
 		c.gridwidth = 2;
+		c.insets = new Insets(5,75,5,10);
+		c.ipady = 10;
 		add(loginButton, c);
 	}
 

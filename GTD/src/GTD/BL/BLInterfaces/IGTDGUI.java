@@ -45,4 +45,9 @@ public interface IGTDGUI {
 	 */
 	public void showPrihlaseni();
 
+	/**
+	 * Zobrazí chybovou hlášku.
+	 */
+	public void showError(String error);
+
 }

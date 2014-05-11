@@ -43,7 +43,7 @@ public class DAOOsoba implements IDAOOsoba {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -66,7 +66,7 @@ public class DAOOsoba implements IDAOOsoba {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -89,7 +89,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return osoby;
     }
@@ -111,7 +111,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return osoba;
     }
@@ -133,7 +133,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return id;
     }
@@ -159,7 +159,7 @@ public class DAOOsoba implements IDAOOsoba {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -182,7 +182,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         if (count == 1) {
             return false;
@@ -209,7 +209,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error");
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return authenticated;
     }
@@ -227,7 +227,7 @@ public class DAOOsoba implements IDAOOsoba {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
         return osoba;
     }

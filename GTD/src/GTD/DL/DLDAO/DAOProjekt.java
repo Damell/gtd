@@ -72,7 +72,7 @@ public class DAOProjekt implements IDAOProjekt {
             }
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -92,7 +92,7 @@ public class DAOProjekt implements IDAOProjekt {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -160,7 +160,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getAllProjekty: " + e.getMessage());
+            DatabaseConnection.showError("DB query error :: getAllProjekty: " + e.getMessage());
         }
         return projekty;
     }
@@ -233,7 +233,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getProjekt: " + e.getMessage());
+            DatabaseConnection.showError("DB query error :: getProjekt: " + e.getMessage());
         }
         return projekt;
     }
@@ -260,7 +260,7 @@ public class DAOProjekt implements IDAOProjekt {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error: " + e.getMessage());
+            DatabaseConnection.showError("DB query error: " + e.getMessage());
             return false;
         }
         return true;
@@ -284,7 +284,7 @@ public class DAOProjekt implements IDAOProjekt {
             rset.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("DB query error :: getProjektyOsoby: " + e.getMessage());
+            DatabaseConnection.showError("DB query error :: getProjektyOsoby: " + e.getMessage());
         }
         return projekty;
     }

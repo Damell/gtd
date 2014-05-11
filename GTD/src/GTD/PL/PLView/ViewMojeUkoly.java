@@ -1,23 +1,16 @@
 package GTD.PL.PLView;
-import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Ukol;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
@@ -34,10 +27,6 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 	private JButton activateTaskButton;
 	private JButton planTaskButton;
-	UtilDateModel fromModel;
-	UtilDateModel toModel;
-	JFrame frame;
-	Ukol selectedUkol;
 	private JButton finishTaskButton;
 
 	private TaskTableModel tasksTableModel;
@@ -80,8 +69,8 @@ public class ViewMojeUkoly extends JPanel implements IView {
 			public void actionPerformed(ActionEvent e) {
  				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
-					selectedUkol = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					getDatesFromUser();
+					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					new ViewPlanTask(selected);
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);
@@ -94,7 +83,10 @@ public class ViewMojeUkoly extends JPanel implements IView {
 			public void actionPerformed(ActionEvent e) {
  				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
-					selectedUkol = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(selected)) {
+						GTDGUI.getGTDGUI().refresh();
+					}
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);
@@ -118,54 +110,6 @@ public class ViewMojeUkoly extends JPanel implements IView {
 
 	void loadData() {
 		tasks = GTDGUI.getGTDGUI().getUkolController().getUkolyOsoby(GTDGUI.getMyself());
-	}
-
-	void planTask (Interval interval) {
-		if(GTDGUI.getGTDGUI().getUkolController().scheduleUkol(selectedUkol, interval)) {
-			GTDGUI.getGTDGUI().refresh();
-		}
-	}
-
-	void getDatesFromUser () {
-		Interval interval = null;
-
-		// init date pickers
-		fromModel = new UtilDateModel();
-		JDatePanelImpl fromDatePanel = new JDatePanelImpl(fromModel);
-		JDatePickerImpl fromDatePicker = new JDatePickerImpl(fromDatePanel);
-		toModel = new UtilDateModel();
-		JDatePanelImpl toDatePanel = new JDatePanelImpl(toModel);
-		JDatePickerImpl toDatePicker = new JDatePickerImpl(toDatePanel);
-		// set default today's date
-		fromModel.setValue(new Date());
-		toModel.setValue(new Date());
-
-		JButton planButton = new JButton(Consts.PLAN_TASK);
-		planButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fromModel.getValue().before(toModel.getValue())) {
-					frame.dispose();
-					planTask(new Interval(fromModel.getValue(), toModel.getValue()));
-				} else {
-					JOptionPane optionPane = new JOptionPane();
-					optionPane.showMessageDialog(mainFrame, Consts.TO_BEFORE_FROM);
-				}
-			}
-		});
-
-		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(new JLabel(Consts.SET_INTERVAL));
-		panel.add(fromDatePicker);
-		panel.add(toDatePicker);
-		panel.add(planButton);
-
-		frame = new JFrame(Consts.ACTIVATE_TASK);
-		frame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(panel);
-		frame.setLocationRelativeTo(null);
-		frame.pack();
-		frame.setVisible (true);
 	}
 
 	class TaskTableModel extends AbstractTableModel {

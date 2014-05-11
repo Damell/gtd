@@ -14,6 +14,7 @@ import GTD.DL.DLEntity.Cinnost;
 import GTD.DL.DLEntity.Osoba;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
@@ -71,6 +72,7 @@ public class GTDGUI implements IGTDGUI {
 	/**
 	 * Aktualizuje všechny navázané pohledy.
 	 */
+	@Override
 	public void refresh(){
 		mainFrame.revalidate();
 		mainFrame.repaint();
@@ -84,6 +86,7 @@ public class GTDGUI implements IGTDGUI {
 	 * 
 	 * @param cinnost
 	 */
+	@Override
 	public void showZpracovaniCinnosti(Cinnost cinnost){
 		zpracovaniPanel = new ViewZpracovaniCinnosti(cinnost);
 		zpracovaniPanel.showView();
@@ -99,6 +102,7 @@ public class GTDGUI implements IGTDGUI {
 	/**
 	 * Zobrazí okno s úkoly a projekty všech osob
 	 */
+	@Override
 	public void showUkolyProjekty(){
 		ukolyProjektyPanel = new ViewUkolyProjekty(mainFrame);
 		ukolyProjektyPanel.showView();
@@ -107,6 +111,7 @@ public class GTDGUI implements IGTDGUI {
 	/**
 	 * Zobrazí činnosti přihlášené osoby.
 	 */
+	@Override
 	public void showCinnosti(){
 		cinnostiPanel = new ViewCinnosti(mainFrame);
 		cinnostiPanel.showView();
@@ -115,6 +120,7 @@ public class GTDGUI implements IGTDGUI {
 	/**
 	 * Zobrazí úkoly přihlášené osoby.
 	 */
+	@Override
 	public void showMojeUkoly(){
 		mojeUkolyPanel = new ViewMojeUkoly(mainFrame);
 		mojeUkolyPanel.showView();
@@ -123,11 +129,18 @@ public class GTDGUI implements IGTDGUI {
 	/**
 	 * Zobrazí přihlašovací okno.
 	 */
+	@Override
 	public void showPrihlaseni(){
 		//Init login panel
 		loginPanel = new ViewPrihlaseni(mainFrame);
 		views.add(loginPanel);
 		loginPanel.showView();
+	}
+
+	@Override
+	public void showError(String error) {
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.showMessageDialog(mainFrame, error);
 	}
 
 	public static GTDGUI getGTDGUI() {
@@ -157,4 +170,5 @@ public class GTDGUI implements IGTDGUI {
 	public IUkolController getUkolController() {
 		return ukolController;
 	}
+
 }

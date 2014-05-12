@@ -54,8 +54,13 @@ public class ViewPlanTask {
 		JDatePanelImpl toDatePanel = new JDatePanelImpl(toModel);
 		JDatePickerImpl toDatePicker = new JDatePickerImpl(toDatePanel);
 		// set default today's date
-		fromModel.setValue(new Date());
-		toModel.setValue(new Date());
+		if (ukol.getKalendar().isSet()) {
+			fromModel.setValue(ukol.getKalendar().getFrom());
+			toModel.setValue(ukol.getKalendar().getTo());
+		} else {
+			fromModel.setValue(new Date());
+			toModel.setValue(new Date());
+		}
 
 		JButton planButton = new JButton(Consts.PLAN_TASK);
 		planButton.addActionListener(new ActionListener() {

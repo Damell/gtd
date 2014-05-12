@@ -69,8 +69,8 @@ public class ProjektController implements IProjektController {
 	 * @param id
 	 */
 	@Override
-	public boolean getCurrentProjekt(int id){
-		return false;
+	public Projekt getProjekt(int id){
+		return spravceProjektu.getProjekt(id);
 	}
 
 	/**

@@ -52,7 +52,13 @@ public class ViewChangeOwner {
 
 
 	void setUser () {
-		users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		if (activity instanceof Projekt) {
+			users = ((Projekt) activity).getSkupina();
+		} else if (((Ukol) activity).getProjekt() == 0) {
+			users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		} else {
+			users = GTDGUI.getGTDGUI().getProjektController().getProjekt(((Ukol) activity).getProjekt()).getSkupina();
+		}
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		usersList.setVisibleRowCount(-1);
@@ -80,7 +86,7 @@ public class ViewChangeOwner {
 		panel.add(usersScrollPane);
 		panel.add(changeOwnerButton);
 
-		frame = new JFrame(Consts.ACTIVATE_TASK);
+		frame = new JFrame(Consts.CHANGE_OWNER);
 		frame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().add(panel);
 		frame.pack();

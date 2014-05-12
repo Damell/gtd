@@ -42,7 +42,7 @@ public interface IProjektController {
 	 * 
 	 * @param id
 	 */
-	public boolean getCurrentProjekt(int id);
+	public Projekt getProjekt(int id);
 
 	/**
 	 * Změní vlastníka projektu.

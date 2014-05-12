@@ -94,17 +94,6 @@ public class SpravceProjektu {
 	}
 
 	/**
-	 * Změní vlastníka projektu. Změnit vlastníka projektu může jeho vlastník nebo
-	 * vlastník nadřazeného projektu (v 1.úrovni).
-	 * 
-	 * @param projekt
-	 * @param novyVlastnik
-	 */
-	public boolean changeOwner(Projekt projekt, Osoba novyVlastnik){
-		return false;
-	}
-
-	/**
 	 * Označí projekt jako "dokončený". Dokončit projekt může jeho vlastník nebo
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 

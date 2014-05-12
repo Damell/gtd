@@ -66,10 +66,14 @@ public class Consts {
 	public static final String PARENT = "Projekt";
 	public static final String PARENT_DESC = "Popis projektu";
 	public static final String OWNER = "Vlastník";
+	public static final String CREATOR = "Tvůrce";
 	public static final String CONTEXT = "Kontext";
 	public static final String GROUP = "Skupina";
 	public static final String FROM = "Od";
 	public static final String TO = "Do";
+	public static final String CHANGE_OWNER = "Změnit vlastníka";
+	public static final String SET_OWNER = "Zvolte nového vlastníka: ";
+	public static final String NO_USER_SELECTED = "Zvolte nového vlastníka: ";
 
 	// My Tasks Tab
 	public static final String ACTIVE_TASKS = "Aktivní úkoly";

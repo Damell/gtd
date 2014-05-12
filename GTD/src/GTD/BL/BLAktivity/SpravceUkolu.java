@@ -100,17 +100,6 @@ public class SpravceUkolu {
 		return false;
 	}
 
-	/**
-	 * Změní vlastníka úkolu. Změnit vlastníka smí pouze jeho vlastník nebo vlastník
-	 * prvního nadřazeného projektu.
-	 * 
-	 * @param ukol
-	 * @param novyVlastnik
-	 */
-	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik){
-		return false;
-	}
-
 	public List getUkolyOsoby(Osoba osoba) {
 		return DAOUkol.getUkolyOsoby(osoba);
 	}

@@ -82,7 +82,8 @@ public class ProjektController implements IProjektController {
 	 */
 	@Override
 	public boolean changeOwner(Projekt projekt, Osoba novyVlastnik){
-		return false;
+		projekt.setVlastnikID(novyVlastnik.getId());
+		return spravceProjektu.updateProjekt(projekt);
 	}
 
 	/**

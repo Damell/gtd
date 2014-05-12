@@ -105,7 +105,8 @@ public class UkolController implements IUkolController {
 	 */
 	@Override
 	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik){
-		return false;
+		ukol.setVlastnikID(novyVlastnik.getId());
+		return spravceUkolu.updateUkol(ukol);
 	}
 
 	/**

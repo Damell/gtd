@@ -144,6 +144,13 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridx = 1;
 			Osoba vlastnik = GTDGUI.getGTDGUI().getOsobaController().getOsoba(task.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
+			/*c.gridx = 0;
+			c.gridy++;
+			add(new JLabel(Consts.CREATOR + ": "), c);
+			c.gridx = 1;
+			Osoba creator = GTDGUI.getGTDGUI().getOsobaController().getOsoba(task.getTvurce());
+			add(new JLabel(creator.getJmeno() + " " + creator.getPrijmeni()), c);
+			*/
 			if(task.getKalendar() != null && task.getKalendar().isSet()) {
 				c.gridx = 0;
 				c.gridy++;
@@ -163,6 +170,18 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 				c.gridx = 1;
 				add(new JLabel(task.getKontext().getKontextNazev()), c);
 			}
+			JButton changeOwnerButton = new JButton(Consts.CHANGE_OWNER);
+			changeOwnerButton.addActionListener(new ActionListener() {
+				Ukol task;
+				ActionListener setTask(Ukol task) {
+					this.task = task;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new ViewChangeOwner(task);
+				}
+			}.setTask(task));
 			JButton activateTaskButton = new JButton(Consts.ACTIVATE_TASK);
 			activateTaskButton.addActionListener(new ActionListener() {
 				Ukol task;
@@ -220,6 +239,8 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			c.gridwidth = 2;
 			c.gridx = 0;
 			c.gridy++;
+			add(changeOwnerButton, c);
+			c.gridy++;
 			add(activateTaskButton, c);
 			c.gridy++;
 			add(planTaskButton, c);
@@ -276,6 +297,18 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			group.setVisibleRowCount(-1);
 			add(group, c);
 
+			JButton changeOwnerButton = new JButton(Consts.CHANGE_OWNER);
+			changeOwnerButton.addActionListener(new ActionListener() {
+				Projekt project;
+				ActionListener setProject(Projekt project) {
+					this.project = project;
+					return this;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new ViewChangeOwner(project);
+				}
+			}.setProject(project));
 			JButton finishProjectButton = new JButton(Consts.FINISH_PROJECT);
 			finishProjectButton.addActionListener(new ActionListener() {
 				Projekt project;
@@ -306,6 +339,8 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 			}.setProject(project));
 			c.gridwidth = 2;
 			c.gridx = 0;
+			c.gridy++;
+			add(changeOwnerButton, c);
 			c.gridy++;
 			add(finishProjectButton, c);
 			c.gridy++;

@@ -69,6 +69,10 @@ public class Aktivita {
 	public void setStav(int stav) {
 		this.stav = stav;
 	}
+
+	public void setVlastnikID(int id) {
+		this.vlastnik_id = id;
+	}
         
 	public int getId() {
 		return id;
@@ -93,7 +97,7 @@ public class Aktivita {
 	public String getStavPopis() {
 		return stavPopis;
 	}
-	
+
 	@Override
 	public String toString() {
 		return nazev + " :: " + popis;

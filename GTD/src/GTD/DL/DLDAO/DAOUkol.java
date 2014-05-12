@@ -187,7 +187,7 @@ public class DAOUkol implements IDAOUkol {
                     + ",inp_date_from => '" + date_from + "'"
                     + ",inp_date_to => '" + date_to + "'"
                     + "); end;";
-            System.out.println(jobquery);
+            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();

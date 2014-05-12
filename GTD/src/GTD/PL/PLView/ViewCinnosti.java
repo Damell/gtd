@@ -98,6 +98,8 @@ public class ViewCinnosti extends JPanel implements IView {
 					optionPane.showMessageDialog(mainFrame, Consts.DESC_EMPTY);
 				} else {
 					if (GTDGUI.getGTDGUI().getCinnostController().addCinnost(newActivityTitleField.getText(), newActivityDescField.getText())) {
+						newActivityTitleField.setText("");
+						newActivityDescField.setText("");
 						refresh();
 					}
 				}

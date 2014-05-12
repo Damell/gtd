@@ -1,20 +1,27 @@
 package GTD.PL.PLView;
+import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.Cinnost;
+import GTD.PL.PLView.ViewMojeUkoly.TaskTableModel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
@@ -27,7 +34,7 @@ public class ViewCinnosti extends JPanel implements IView {
 	private MainFrame mainFrame;
 	private JPanel menu;
 	private JPanel mainView;
-	private List<Cinnost> cinnosti;
+	private List<Cinnost> activities;
 
 	private JTextField newActivityTitleField;
 	private JTextField newActivityDescField;
@@ -35,8 +42,9 @@ public class ViewCinnosti extends JPanel implements IView {
 	private JButton processActivityButton;
 	private JButton deleteActivityButton;
 
-	private CinnostiTableModel cinnostiTableModel;
-	private JTable cinnostiTable;
+	private ActivityTableModel activityTableModel;
+	private JTable activityTable;
+	private TableRowSorter<ActivityTableModel> activitySorter;
 
 	public ViewCinnosti(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
@@ -53,8 +61,31 @@ public class ViewCinnosti extends JPanel implements IView {
 
 	void initMenu() {
 		menu = new JPanel(new FlowLayout());
-		newActivityTitleField = new JTextField(10);
-		newActivityDescField = new JTextField(20);
+		
+		JCheckBox toProcessFilterCheckBox = new JCheckBox(Consts.ACTIVE_TASKS);
+		toProcessFilterCheckBox.addItemListener(new ItemListener() {
+			RowFilter<ActivityTableModel,Integer> activeFilter = new RowFilter<ActivityTableModel, Integer>() {
+				int toProcessID = new DAOStav().getCinnostKeZpracovaniID();
+				@Override
+				public boolean include(RowFilter.Entry<? extends ActivityTableModel, ? extends Integer> entry) {
+					int id = entry.getModel().getStav(entry.getIdentifier());
+					return id == toProcessID;
+				}
+			};
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					activitySorter.setRowFilter(activeFilter);
+					activityTable.setRowSorter(activitySorter);
+				} else {
+					activitySorter.setRowFilter(null);
+				}
+			}
+		});
+
+		newActivityTitleField = new JTextField(8);
+		newActivityDescField = new JTextField(14);
 		newActivityButton = new JButton(Consts.ADD_ACTIVITY);
 		newActivityButton.addActionListener(new ActionListener() {
 			@Override
@@ -76,9 +107,9 @@ public class ViewCinnosti extends JPanel implements IView {
 		processActivityButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 				int selectedRow = cinnostiTable.getSelectedRow();
+ 				int selectedRow = activityTable.getSelectedRow();
 				if(selectedRow != -1) {
-					Cinnost selected = cinnosti.get(cinnostiTable.convertRowIndexToModel(selectedRow));
+					Cinnost selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
 					GTDGUI.getGTDGUI().showZpracovaniCinnosti(selected);
 				} else {
 					JOptionPane optionPane = new JOptionPane();
@@ -90,9 +121,9 @@ public class ViewCinnosti extends JPanel implements IView {
 		deleteActivityButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 				int selectedRow = cinnostiTable.getSelectedRow();
+ 				int selectedRow = activityTable.getSelectedRow();
 				if(selectedRow != -1) {
-					Cinnost selected = cinnosti.get(cinnostiTable.convertRowIndexToModel(selectedRow));
+					Cinnost selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
 					if ( GTDGUI.getGTDGUI().getCinnostController().deleteCinnost(selected) ) {
 						refresh();
 					}
@@ -103,6 +134,7 @@ public class ViewCinnosti extends JPanel implements IView {
 			}
 		});
 
+		menu.add(toProcessFilterCheckBox);
 		menu.add(processActivityButton);
 		menu.add(deleteActivityButton);
 		menu.add(new JLabel(Consts.TITLE + ": "));
@@ -115,31 +147,36 @@ public class ViewCinnosti extends JPanel implements IView {
 	void initMainView() {
 		loadData();
 		mainView = new JPanel(new BorderLayout());
-		cinnostiTableModel = new CinnostiTableModel();
-		cinnostiTable = new JTable(cinnostiTableModel);
-		cinnostiTable.addMouseListener(new MouseAdapter() {
+		activityTableModel = new ActivityTableModel();
+		activitySorter = new TableRowSorter<>(activityTableModel);
+		activityTable = new JTable(activityTableModel);
+		activityTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					JTable target = (JTable)e.getSource();
 					int selectedRow = target.getSelectedRow();
-					Cinnost selected = cinnosti.get(cinnostiTable.convertRowIndexToModel(selectedRow));
+					Cinnost selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
 					GTDGUI.getGTDGUI().showZpracovaniCinnosti(selected);
 				}
 			}
 		});
-		JScrollPane scrollPane = new JScrollPane(cinnostiTable);
+		JScrollPane scrollPane = new JScrollPane(activityTable);
 		mainView.add(scrollPane);
 	}
 
 	void loadData() {
-		cinnosti = GTDGUI.getGTDGUI().getCinnostController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
+		activities = GTDGUI.getGTDGUI().getCinnostController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
 	}
 
-	class CinnostiTableModel extends AbstractTableModel {
+	class ActivityTableModel extends AbstractTableModel {
+
+		public int getStav(int index) {
+			return activities.get(index).getStav();
+		}
 
 		@Override
 		public int getRowCount() {
-			return cinnosti.size();
+			return activities.size();
 		}
 
 		@Override
@@ -157,13 +194,13 @@ public class ViewCinnosti extends JPanel implements IView {
 			String value = "";
 			switch(columnIndex) {
 				case 0: {
-					return cinnosti.get(rowIndex).getNazev();
+					return activities.get(rowIndex).getNazev();
 				}
 				case 1: {
-					return cinnosti.get(rowIndex).getPopis();
+					return activities.get(rowIndex).getPopis();
 				}
 				case 2: {
-					return cinnosti.get(rowIndex).getStavPopis();
+					return activities.get(rowIndex).getStavPopis();
 				}
 			}
 			return value;
@@ -176,7 +213,7 @@ public class ViewCinnosti extends JPanel implements IView {
 	 */
 	public void refresh(){
 		loadData();
-		cinnostiTableModel.fireTableDataChanged();
+		activityTableModel.fireTableDataChanged();
 	}
 
 	/**

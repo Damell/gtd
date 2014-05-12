@@ -453,7 +453,7 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 		projectTreeModel = new ProjectTreeModel();
 		projectsTree.setModel(projectTreeModel);
 		projectsTree.setSelectionPath(path);
-		showDetailOfSelected();
+		detailView.showNone();
 		
 	}
 	

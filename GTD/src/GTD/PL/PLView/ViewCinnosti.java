@@ -1,7 +1,6 @@
 package GTD.PL.PLView;
 import GTD.DL.DLDAO.DAOStav;
 import GTD.DL.DLEntity.Cinnost;
-import GTD.PL.PLView.ViewMojeUkoly.TaskTableModel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -62,7 +61,7 @@ public class ViewCinnosti extends JPanel implements IView {
 	void initMenu() {
 		menu = new JPanel(new FlowLayout());
 		
-		JCheckBox toProcessFilterCheckBox = new JCheckBox(Consts.ACTIVE_TASKS);
+		JCheckBox toProcessFilterCheckBox = new JCheckBox(Consts.ACTIVITIES_TO_PROCESS);
 		toProcessFilterCheckBox.addItemListener(new ItemListener() {
 			RowFilter<ActivityTableModel,Integer> activeFilter = new RowFilter<ActivityTableModel, Integer>() {
 				int toProcessID = new DAOStav().getCinnostKeZpracovaniID();

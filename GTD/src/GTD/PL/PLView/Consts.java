@@ -30,6 +30,7 @@ public class Consts {
 	public static final String ADD_ACTIVITY = "Přidat činnost";
 	public static final String PROCESS_ACTIVITY = "Zpracovat činnost";
 	public static final String DELETE_ACTIVITY = "Smazat činnost";
+	public static final String ACTIVITIES_TO_PROCESS = "Činnosti ke zpracování";
 	public static final String NO_ACTIVITY_SELECTED = "Není zvolena žádná činnost";
 	
 	public static final String TITLE = "Název";

@@ -29,7 +29,7 @@ public class MainFrame extends JFrame implements WindowListener {
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
-		setSize(1000, 700);
+		setSize(1050, 700);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		addWindowListener(this);

@@ -93,7 +93,11 @@ public class DAOProjekt implements IDAOProjekt {
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
+            if (e.getErrorCode() == 20021) {
+                DatabaseConnection.showError("Chyba: " + e.getMessage().substring(10, 100).trim());
+            } else {
+                DatabaseConnection.showError("DB query error: " + e.getMessage());
+            }
             return false;
         }
         return true;

@@ -18,6 +18,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Třída představující pohled (okno) s formulářem pro zpracování činnosti.
@@ -182,6 +184,16 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
+		projectsList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int selectedIndex = projectsList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					users = projects.get(selectedIndex).getSkupina();
+					usersList.setListData(users.toArray());
+				}
+			}
+		});
 		JScrollPane projectsScrollPane = new JScrollPane(projectsList);
 
 		JButton createProjectButton = new JButton(Consts.CREATE_PROJECT);

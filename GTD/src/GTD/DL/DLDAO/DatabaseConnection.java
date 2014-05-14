@@ -23,7 +23,7 @@ public class DatabaseConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Where is your Oracle JDBC Driver?");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return;
 		}
 		connection = DriverManager.getConnection(
@@ -45,7 +45,7 @@ public class DatabaseConnection {
 				instance = new DatabaseConnection(username, password);
 			} catch (SQLException e) {
 				System.out.println("Connection Failed! Check output console");
-				e.printStackTrace();
+				//e.printStackTrace();
 				instance = null;
 				return false;
 			}

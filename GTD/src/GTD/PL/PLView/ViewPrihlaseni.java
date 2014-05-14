@@ -1,6 +1,5 @@
 package GTD.PL.PLView;
 import GTD.BL.BLInterfaces.IOsobaController;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,6 +19,7 @@ import javax.swing.SwingConstants;
  * @version 1.0
  * @created 26-4-2014 14:51:24
  */
+@SuppressWarnings("serial")
 public class ViewPrihlaseni extends JPanel implements IView {
 
 	JLabel usernameLabel;
@@ -47,12 +47,12 @@ public class ViewPrihlaseni extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(osobaCtrl.loginOsoba(usernameField.getText(), passwordField.getText())) {
-					hide();
+				if(osobaCtrl.loginOsoba(usernameField.getText(), passwordField.getPassword().toString())) {
+					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {
 					JOptionPane optionPane = new JOptionPane();
-					optionPane.showMessageDialog(mainFrame, Consts.LOGIN_ERROR);
+					JOptionPane.showMessageDialog(mainFrame, Consts.LOGIN_ERROR);
 				}
 			}
 		});
@@ -105,7 +105,7 @@ public class ViewPrihlaseni extends JPanel implements IView {
 	/**
 	 * Smaže daný pohled.
 	 */
-	public void hide(){
+	public void hideView(){
 		mainFrame.remove(this);
 		GTDGUI.getGTDGUI().refresh();
 	}

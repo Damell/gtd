@@ -31,6 +31,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 	private JPanel mainView;
 	private List<Ukol> tasks;
 
+	private JButton changeOwnerButton;
 	private JButton activateTaskButton;
 	private JButton planTaskButton;
 	private JButton finishTaskButton;
@@ -76,6 +77,20 @@ public class ViewMojeUkoly extends JPanel implements IView {
 					tasksTable.setRowSorter(tasksSorter);
 				} else {
 					tasksSorter.setRowFilter(null);
+				}
+			}
+		});
+		changeOwnerButton = new JButton(Consts.CHANGE_OWNER);
+		changeOwnerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = tasksTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ukol selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
+					new ViewChangeOwner(selected);
+				} else {
+					JOptionPane optionPane = new JOptionPane();
+					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);
 				}
 			}
 		});
@@ -143,6 +158,7 @@ public class ViewMojeUkoly extends JPanel implements IView {
 		});
 		
 		menu.add(activeFilterCheckBox);
+		menu.add(changeOwnerButton);
 		menu.add(activateTaskButton);
 		menu.add(planTaskButton);
 		menu.add(finishTaskButton);

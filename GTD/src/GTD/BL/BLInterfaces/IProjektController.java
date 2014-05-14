@@ -8,17 +8,20 @@ import java.util.List;
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
  * Projekty.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IProjektController {
 
 	/**
 	 * Přidá nový projekt zadaných vlastností.
 	 * 
-	 * @param projekt
+	 * @param nazev
+	 * @param popis
+	 * @param vlastnik
+	 * @param rodicID
+	 * @param skupina
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
+	 * @return 
 	 */
 	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, List<Osoba> skupina, Cinnost cinnost);
 
@@ -26,6 +29,7 @@ public interface IProjektController {
 	 * Smaže projekt (resp. označí jako smazaný).
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean deleteProjekt(Projekt projekt);
 
@@ -33,6 +37,7 @@ public interface IProjektController {
 	 * Změní název a/nebo popis projektu.
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean updateProjekt(Projekt projekt);
 
@@ -41,6 +46,7 @@ public interface IProjektController {
 	 * projektu).
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Projekt getProjekt(int id);
 
@@ -49,6 +55,7 @@ public interface IProjektController {
 	 * 
 	 * @param projekt
 	 * @param novyVlastnik
+	 * @return 
 	 */
 	public boolean changeOwner(Projekt projekt, Osoba novyVlastnik);
 
@@ -56,6 +63,7 @@ public interface IProjektController {
 	 * Označí projekt jako "dokončený".
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean finishProjekt(Projekt projekt);
 
@@ -63,12 +71,14 @@ public interface IProjektController {
 	 * Vrátí všechny projekty patřící dané osobě.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getProjektyOsoby(Osoba osoba);
 
 	/**
 	 * Vrátí všechny projekty 
 	 * 
+	 * @return 
 	 */
 	public List getAllProjekty();
 

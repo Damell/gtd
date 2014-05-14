@@ -2,9 +2,7 @@ package GTD.DL.DLEntity;
 
 /**
  * Tato trída predstavuje spolecný nadtyp pro trídy Cinnost, Úkol a Projekt.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:19
  */
 public class Aktivita {
 	
@@ -30,10 +28,22 @@ public class Aktivita {
 	
 	private String stavPopis; /*pro zobrazeni v gridu*/
 	
+	/**
+	 *
+	 */
 	public Aktivita(){
 		
 	}
 	
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id
+	 */
 	public Aktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
 		this.id = id;
 		this.nazev = nazev;
@@ -43,6 +53,13 @@ public class Aktivita {
 		this.vlastnik_id = vlastnik_id;
 	}
 
+	/**
+	 *
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param vlastnik_id
+	 */
 	public Aktivita(String nazev, String popis, int stav, int vlastnik_id) {
 		this.nazev = nazev;
 		this.popis = popis;
@@ -53,6 +70,17 @@ public class Aktivita {
 	/*
 	* Nastav aktivitu
 	*/
+
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id
+	 */
+	
 	public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
 		this.id = id;
 		this.nazev = nazev;
@@ -62,38 +90,74 @@ public class Aktivita {
 		this.vlastnik_id = vlastnik_id;
 	}
 	
+	/**
+	 *
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 *
+	 * @param stav
+	 */
 	public void setStav(int stav) {
 		this.stav = stav;
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
 	public void setVlastnikID(int id) {
 		this.vlastnik_id = id;
 	}
         
+	/**
+	 *
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public String getNazev() {
 		return nazev;
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public String getPopis() {
 		return popis;
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public int getStav() {
 		return stav;
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public int getVlastnik_id() {
 		return vlastnik_id;
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public String getStavPopis() {
 		return stavPopis;
 	}

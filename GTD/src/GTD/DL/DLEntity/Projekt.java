@@ -9,9 +9,7 @@ import java.util.logging.Logger;
  * úkolu obsahovat i další projekty (pocet úrovní není omezen). Vlastník
  * projektu může delegovat jeho úkoly a podprojekty (v 1.úrovni).
  *
- * @author andel
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class Projekt extends Aktivita {
 
@@ -33,21 +31,43 @@ public class Projekt extends Aktivita {
      */
     private List<Projekt> projekty;
 
-    public Projekt() {
+	/**
+	 *
+	 */
+	public Projekt() {
 		this.projekty = new ArrayList<>();
 		this.ukoly = new ArrayList<>();
 		this.skupina = new ArrayList<>();
 		this.rodic = null;
     }
 
-    public Projekt(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id
+	 */
+	public Projekt(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
 		this.projekty = new ArrayList<>();
 		this.ukoly = new ArrayList<>();
 		this.skupina = new ArrayList<>();
 		this.rodic = null;
     }
-    public Projekt(String nazev, String popis, int stav, int vlastnik_id, List<Osoba> skupina, Projekt rodic) {
+
+	/**
+	 *
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param vlastnik_id
+	 * @param skupina
+	 * @param rodic
+	 */
+	public Projekt(String nazev, String popis, int stav, int vlastnik_id, List<Osoba> skupina, Projekt rodic) {
         super(nazev, popis, stav, vlastnik_id);
 		this.projekty = new ArrayList<>();
 		this.ukoly = new ArrayList<>();
@@ -58,6 +78,17 @@ public class Projekt extends Aktivita {
     /*
     * Nastav rodice projektu
     */
+
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id
+	 */
+	
     public void setProjectrodic(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
 		if(rodic == null) {
 			this.rodic = new Projekt();
@@ -67,18 +98,36 @@ public class Projekt extends Aktivita {
     /*
     * Pridej osobu do projektu
     */
+
+	/**
+	 *
+	 * @param osoba
+	 */
+	
     public void addOsoba(Osoba osoba){
         this.skupina.add(osoba);
     }
     /*
     * Pridej ukol do projektu
     */
+
+	/**
+	 *
+	 * @param ukol
+	 */
+	
     public void addUkol(Ukol ukol){
         this.ukoly.add(ukol);
     }
     /*
     * Pridej podprojekt do projektu
     */
+
+	/**
+	 *
+	 * @param projekt
+	 */
+	
     public void addProjekt(Projekt projekt){
         this.projekty.add(projekt);
     }
@@ -89,18 +138,34 @@ public class Projekt extends Aktivita {
 		return super.toString();
     }
 
+	/**
+	 *
+	 * @return
+	 */
 	public Projekt getRodic() {
 		return rodic;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public List<Osoba> getSkupina() {
 		return skupina;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public List<Ukol> getUkoly() {
 		return ukoly;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public List<Projekt> getProjekty() {
 		return projekty;
 	}

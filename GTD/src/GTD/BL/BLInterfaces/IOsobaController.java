@@ -6,9 +6,7 @@ import java.util.List;
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
  * Osobami.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IOsobaController {
 
@@ -17,6 +15,7 @@ public interface IOsobaController {
 	 * 
 	 * @param login
 	 * @param heslo
+	 * @return 
 	 */
 	public boolean loginOsoba(String login, String heslo);
 
@@ -24,6 +23,7 @@ public interface IOsobaController {
 	 * Vytvoří nového uživatele.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean addOsoba(Osoba osoba);
 
@@ -31,6 +31,7 @@ public interface IOsobaController {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean deactivateOsoba(Osoba osoba);
 
@@ -41,16 +42,20 @@ public interface IOsobaController {
 
 	/**
 	 * Vrátí přihlášeného uživatele.
+	 * @return 
 	 */
 	public Osoba getPrihlasenaOsoba();
 
 	/**
 	 * Vrátí uživatele podle ID.
+	 * @param id
+	 * @return 
 	 */
 	public Osoba getOsoba(int id);
 
 	/**
 	 * Vrátí všechny uživatele
+	 * @return 
 	 */
 	public List getAllUsers();
 

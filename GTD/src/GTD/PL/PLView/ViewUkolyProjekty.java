@@ -30,9 +30,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * Třída představující pohled (okno) s úkoly a projekty.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class ViewUkolyProjekty extends JPanel implements IView {
 	
@@ -47,6 +45,10 @@ public class ViewUkolyProjekty extends JPanel implements IView {
 	private List<Ukol> tasks;
 	private DetailView detailView;
 	
+	/**
+	 *
+	 * @param mainFrame
+	 */
 	public ViewUkolyProjekty(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
 		init();

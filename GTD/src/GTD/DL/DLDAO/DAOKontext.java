@@ -14,13 +14,14 @@ import java.util.ArrayList;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:20
  */
 public class DAOKontext implements IDAOKontext {
 
-    public DAOKontext() {
+	/**
+	 *
+	 */
+	public DAOKontext() {
 
     }
 
@@ -28,6 +29,7 @@ public class DAOKontext implements IDAOKontext {
      * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
      *
      * @param kontext
+	 * @return 
      */
     public boolean createKontext(Kontext kontext) {
         Connection con = DatabaseConnection.getConnection();
@@ -51,6 +53,7 @@ public class DAOKontext implements IDAOKontext {
      * Smaže kontext z databáze.
      *
      * @param kontext
+	 * @return 
      */
     public boolean deleteKontext(Kontext kontext) {
         Connection con = DatabaseConnection.getConnection();
@@ -68,6 +71,7 @@ public class DAOKontext implements IDAOKontext {
 
     /**
      * Vrátí všechny kontexty v systému.
+	 * @return 
      */
     public List getAllKontexty() {
         List<Kontext> kontexty = new ArrayList<Kontext>();
@@ -93,6 +97,7 @@ public class DAOKontext implements IDAOKontext {
      * Vrátí kontext podle jeho ID.
      *
      * @param id
+	 * @return 
      */
     public Kontext getKontext(int id) {
       Kontext kontext = null;
@@ -116,6 +121,7 @@ public class DAOKontext implements IDAOKontext {
      * Uloží zmenený kontext.
      *
      * @param kontext
+	 * @return 
      */
     public boolean updateKontext(Kontext kontext) {
         Connection con = DatabaseConnection.getConnection();
@@ -140,6 +146,7 @@ public class DAOKontext implements IDAOKontext {
      * Vrátí všechny kontexty patrící zadané osobe.
      *
      * @param osoba
+	 * @return 
      */
     public List getKontextyOsoby(Osoba osoba) {
         List<Kontext> kontexty = new ArrayList<Kontext>();

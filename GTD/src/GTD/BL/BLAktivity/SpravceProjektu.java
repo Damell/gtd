@@ -9,9 +9,7 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s projekty.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class SpravceProjektu {
 
@@ -26,6 +24,9 @@ public class SpravceProjektu {
 	 */
 	private SpravceOsob spravceOsob;
 
+	/**
+	 *
+	 */
 	public SpravceProjektu(){
 		DAOProjekt = new DAOProjekt();
 		spravceCinnosti = new SpravceCinnosti();
@@ -38,6 +39,7 @@ public class SpravceProjektu {
 	 * @param projekt
 	 * @param cinnost    Činnost, ze které projekt vznikl (pokud existuje) - používá
 	 * se pro označení činnosti jako "zpracované".
+	 * @return 
 	 */
 	public boolean addProjekt(Projekt projekt, Cinnost cinnost){
 		if (cinnost != null) {
@@ -52,6 +54,7 @@ public class SpravceProjektu {
 	 * projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean deleteProjekt(Projekt projekt){
 		return DAOProjekt.deleteProjekt(projekt);
@@ -61,6 +64,7 @@ public class SpravceProjektu {
 	 * Vrátí projekt podle jeho ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Projekt getProjekt(int id){
 		return DAOProjekt.getProjekt(id);
@@ -71,6 +75,7 @@ public class SpravceProjektu {
 	 * nebo vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean updateProjekt(Projekt projekt){
 		return DAOProjekt.updateProjekt(projekt);
@@ -80,6 +85,7 @@ public class SpravceProjektu {
 	 * Vrátí všechny projekty patrící zadané osobe.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getProjektyOsoby(Osoba osoba){
 		return DAOProjekt.getProjektyOsoby(osoba);
@@ -88,6 +94,7 @@ public class SpravceProjektu {
 	/**
 	 * Vrátí všechny projekty
 	 * 
+	 * @return 
 	 */
 	public List getAllProjekty(){
 		return DAOProjekt.getAllProjekty();
@@ -98,6 +105,7 @@ public class SpravceProjektu {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean finishProjekt(Projekt projekt){
 		return DAOProjekt.updateProjekt(projekt);

@@ -23,9 +23,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * Třída představující pohled (okno) s formulářem pro zpracování činnosti.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:25
  */
 public class ViewZpracovaniCinnosti extends JPanel implements IView {
 
@@ -38,6 +36,9 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 	private JList projectsList;
 	private JList usersList;
 
+	/**
+	 * @param cinnost	Zpracovávaná činnost
+	 */
 	public ViewZpracovaniCinnosti(Cinnost cinnost){
 		this.cinnost = cinnost;
 		setPreferredSize (new Dimension (400, 85));

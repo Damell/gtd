@@ -5,9 +5,7 @@ import java.util.Date;
 /**
  * Třída predstavující úkol - realizovatelnou akci.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class Ukol extends Aktivita {
 
@@ -30,17 +28,41 @@ public class Ukol extends Aktivita {
 	 */
     private int id_tvurce;
 
-    public Ukol() {
+	/**
+	 *
+	 */
+	public Ukol() {
     }
 
     /*
      * Inicializace ukolu
      */
+
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id
+	 * @param id_projekt
+	 */
+	
     public Ukol(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
         this.id_projekt = id_projekt;
     }
 
+	/**
+	 *
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param tvurce_id
+	 * @param vlastnik_id
+	 * @param id_projekt
+	 */
 	public Ukol(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt) {
 		super(nazev, popis, stav, vlastnik_id);
 		this.id_projekt = id_projekt;
@@ -50,6 +72,13 @@ public class Ukol extends Aktivita {
     /*
      * Nastav uzivatelsky kontext ukolu
      */
+
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 */
+	
     public void setKontext(int id, String nazev) {
         if (kontext == null) {
             kontext = new Kontext();
@@ -60,41 +89,83 @@ public class Ukol extends Aktivita {
      * Nastav interval ukolu
      */
 
-    public void setInterval(Date from, Date to) {
+	/**
+	 *
+	 * @param from
+	 * @param to
+	 */
+	public void setInterval(Date from, Date to) {
         if (kalendar == null) {
             kalendar = new Interval();
         }
         kalendar.setInterval(from, to);
     }
 
-    public void setProjekt(int id_projekt) {
+	/**
+	 *
+	 * @param id_projekt
+	 */
+	public void setProjekt(int id_projekt) {
         this.id_projekt = id_projekt;
     }
 
-    public void setProjekt(int id_projekt, String nazev, String popis) {
+	/**
+	 *
+	 * @param id_projekt
+	 * @param nazev
+	 * @param popis
+	 */
+	public void setProjekt(int id_projekt, String nazev, String popis) {
         this.id_projekt = id_projekt;
         this.projekt_nazev = nazev;
         this.projekt_popis = popis;
     }
 
-    public Interval getKalendar() {
+	/**
+	 *
+	 * @return
+	 */
+	public Interval getKalendar() {
         return kalendar;
     }
 
-    public Kontext getKontext() {
+	/**
+	 *
+	 * @return
+	 */
+	public Kontext getKontext() {
         return kontext;
     }
 
-    public int getProjekt() {
+	/**
+	 *
+	 * @return
+	 */
+	public int getProjekt() {
         return id_projekt;
     }
-    public String getProjektNazev() {
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getProjektNazev() {
         return projekt_nazev;
     }
-    public String getProjektPopis() {
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getProjektPopis() {
         return projekt_popis;
     }
-    public int getTvurce() {
+
+	/**
+	 *
+	 * @return
+	 */
+	public int getTvurce() {
         return id_tvurce;
     }
 }

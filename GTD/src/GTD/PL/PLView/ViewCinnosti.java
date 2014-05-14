@@ -24,9 +24,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class ViewCinnosti extends JPanel implements IView {
 
@@ -45,6 +43,10 @@ public class ViewCinnosti extends JPanel implements IView {
 	private JTable activityTable;
 	private TableRowSorter<ActivityTableModel> activitySorter;
 
+	/**
+	 *
+	 * @param mainFrame
+	 */
 	public ViewCinnosti(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
 		init();

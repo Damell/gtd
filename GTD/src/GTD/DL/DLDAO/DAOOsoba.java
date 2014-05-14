@@ -13,13 +13,14 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání osob z databáze.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:21
  */
 public class DAOOsoba implements IDAOOsoba {
 
-    public DAOOsoba() {
+	/**
+	 *
+	 */
+	public DAOOsoba() {
 
     }
 
@@ -27,6 +28,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Vytvoří nového uživatele.
      *
      * @param osoba
+	 * @return 
      */
     public boolean createOsoba(Osoba osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -53,6 +55,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
      *
      * @param osoba
+	 * @return 
      */
     public boolean deactivateOsoba(Osoba osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -74,6 +77,7 @@ public class DAOOsoba implements IDAOOsoba {
 
     /**
      * Vrátí všechny osoby.
+	 * @return 
      */
     public List<Osoba> getAllOsoby() {
         List<Osoba> osoby = new ArrayList<Osoba>();
@@ -98,6 +102,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Vrátí osobu podle jejího ID.
      *
      * @param id
+	 * @return 
      */
     public Osoba getOsoba(int id) {
         Osoba osoba = null;
@@ -119,7 +124,7 @@ public class DAOOsoba implements IDAOOsoba {
     /**
      * Vrátí ID prihlasene ososby.
      *
-     * @param id
+	 * @return 
      */
     public int getOsobaID() {
         int id = 0;
@@ -142,6 +147,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Uloží změny osoby.
      *
      * @param osoba
+	 * @return 
      */
     public boolean updateOsoba(Osoba osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -169,6 +175,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
      *
      * @param login
+	 * @return 
      */
     public boolean checkNewLogin(String login) {
         int count = 0;
@@ -195,6 +202,7 @@ public class DAOOsoba implements IDAOOsoba {
      * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
      *
      * @param login
+	 * @return 
      */
     public boolean checkPrihlaseni(String login) {
         boolean authenticated = false;

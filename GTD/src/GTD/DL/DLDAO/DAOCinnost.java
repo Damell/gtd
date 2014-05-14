@@ -14,13 +14,14 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání cinností z databáze.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:20
  */
 public class DAOCinnost implements IDAOCinnost {
 
-    public DAOCinnost() {
+	/**
+	 *
+	 */
+	public DAOCinnost() {
 
     }
 
@@ -28,6 +29,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
      *
      * @param cinnost
+	 * @return 
      */
     public boolean createCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -55,6 +57,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Smaže cinnost z databáze.
      *
      * @param cinnost
+	 * @return 
      */
     public boolean deleteCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -72,6 +75,7 @@ public class DAOCinnost implements IDAOCinnost {
 
     /**
      * Vrátí všechny cinnosti v systému.
+	 * @return 
      */
     public List getAllCinnosti() {
         List<Cinnost> cinnosti = new ArrayList<Cinnost>();
@@ -97,6 +101,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vrátí cinnost podle jejího ID.
      *
      * @param id
+	 * @return 
      */
     public Cinnost getCinnost(int id) {
         Cinnost cinnost = null;
@@ -119,6 +124,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Uloží zmenenou cinnost.
      *
      * @param cinnost
+	 * @return 
      */
     public boolean updateCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -146,6 +152,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vrátí všechny cinnosti patrící zadané osobe.
      *
      * @param osoba
+	 * @return 
      */
     @Override
     public List<Cinnost> getCinnostiOsoby(Osoba osoba) {

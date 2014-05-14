@@ -5,9 +5,7 @@ import GTD.DL.DLEntity.*;
 /**
  * Rozhraní pro komunikaci přímo s hlavní třídou GUI (PL) (v BL používáno po změně
  * dat pro pokyn k aktualizaci dat v GUI).
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IGTDGUI {
 
@@ -36,7 +34,6 @@ public interface IGTDGUI {
 	/**
 	 * Zobrazí úkoly přihlášené osoby
 	 * 
-	 * @param projekt
 	 */
 	public void showMojeUkoly();
 
@@ -47,6 +44,7 @@ public interface IGTDGUI {
 
 	/**
 	 * Zobrazí chybovou hlášku.
+	 * @param error
 	 */
 	public void showError(String error);
 

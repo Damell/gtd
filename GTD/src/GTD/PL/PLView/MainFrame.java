@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GTD.PL.PLView;
 
 import GTD.DL.DLDAO.DatabaseConnection;
@@ -17,7 +11,6 @@ import javax.swing.JTabbedPane;
 
 /**
  *
- * @author damell
  */
 public class MainFrame extends JFrame implements WindowListener {
 

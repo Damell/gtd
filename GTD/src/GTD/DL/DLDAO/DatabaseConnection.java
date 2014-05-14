@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 /**
  * Singleton for holding an instance of database connection
- * @author damell
  */
 public class DatabaseConnection {
 
@@ -32,6 +31,10 @@ public class DatabaseConnection {
 			password);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static Connection getConnection() {
 		if(instance == null) {
 			return null;
@@ -39,6 +42,12 @@ public class DatabaseConnection {
 		return instance.connection;
 	}
 
+	/**
+	 *
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public static boolean login(String username, String password) {
 		if(instance == null) {
 			try {
@@ -53,6 +62,9 @@ public class DatabaseConnection {
 		return true;
 	}
 
+	/**
+	 *
+	 */
 	public static void closeConnection() {
 		try {
 			if(instance != null) {
@@ -64,14 +76,26 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static int getID() {
 		return DatabaseConnection.instance.id;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 *
+	 * @param error
+	 */
 	public static void showError(String error) {
 		GTDGUI.getGTDGUI().showError(error);
 		System.err.println(error);

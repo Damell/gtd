@@ -20,9 +20,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class ViewMojeUkoly extends JPanel implements IView {
 
@@ -41,6 +39,10 @@ public class ViewMojeUkoly extends JPanel implements IView {
 	private TableRowSorter<TaskTableModel> tasksSorter;
 	private JTable tasksTable;
 
+	/**
+	 *
+	 * @param mainFrame
+	 */
 	public ViewMojeUkoly(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
 		init();

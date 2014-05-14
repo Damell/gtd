@@ -4,15 +4,16 @@ import GTD.DL.DLEntity.*;
 
 /**
  * Třída implementuje interface IKontextController.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class KontextController implements IKontextController {
 
 	private SpravceKontextu spravceKontextu;
 	private IGTDGUI GUI;
 
+	/**
+	 *
+	 */
 	public KontextController(){
 
 	}
@@ -26,6 +27,7 @@ public class KontextController implements IKontextController {
 	 * 
 	 * @param kontext
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean addKontext(Kontext kontext, Osoba osoba){
 		return false;
@@ -35,6 +37,7 @@ public class KontextController implements IKontextController {
 	 * Smaže kontext.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean deleteKontext(Kontext kontext){
 		return false;
@@ -44,6 +47,7 @@ public class KontextController implements IKontextController {
 	 * Změní název kontextu.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean updateKontext(Kontext kontext){
 		return false;

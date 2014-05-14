@@ -13,9 +13,7 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IUkolController.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class UkolController implements IUkolController {
 
@@ -23,6 +21,9 @@ public class UkolController implements IUkolController {
 	private IDAOStav DAOStav;
 	private IGTDGUI GUI;
 
+	/**
+	 *
+	 */
 	public UkolController(){
 		spravceUkolu = new SpravceUkolu();
 		DAOStav = new DAOStav();
@@ -31,8 +32,12 @@ public class UkolController implements IUkolController {
 	/**
 	 * Přidá nový úkol zadaných vlastností.
 	 * 
-	 * @param ukol
+	 * @param nazev
+	 * @param popis
+	 * @param vlastnikId
+	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 * @return 
 	 */
 	@Override
 	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Cinnost cinnost){
@@ -51,6 +56,7 @@ public class UkolController implements IUkolController {
 	 * @param popis
 	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 * @return 
 	 */
 	@Override
 	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Cinnost cinnost){
@@ -62,6 +68,7 @@ public class UkolController implements IUkolController {
 	 * Smaže úkol (resp. označí jako smazaný).
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	@Override
 	public boolean deleteUkol(Ukol ukol){
@@ -72,6 +79,7 @@ public class UkolController implements IUkolController {
 	 * Změní název a/nebo popis úkolu.
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	@Override
 	public boolean updateUkol(Ukol ukol){
@@ -89,6 +97,7 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 * @param interval
+	 * @return 
 	 */
 	@Override
 	public boolean scheduleUkol(Ukol ukol, Interval interval){
@@ -102,6 +111,7 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 * @param novyVlastnik
+	 * @return 
 	 */
 	@Override
 	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik){
@@ -113,6 +123,7 @@ public class UkolController implements IUkolController {
 	 * Označí úkol jako "dokončený".
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	@Override
 	public boolean finishUkol(Ukol ukol){
@@ -125,6 +136,7 @@ public class UkolController implements IUkolController {
 	 * 
 	 * @param ukol
 	 * @param kontext
+	 * @return 
 	 */
 	@Override
 	public boolean setKontext(Ukol ukol, Kontext kontext){
@@ -143,6 +155,7 @@ public class UkolController implements IUkolController {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	@Override
 	public List getUkolyOsoby(Osoba osoba) {
@@ -151,6 +164,7 @@ public class UkolController implements IUkolController {
 
 	/**
 	 * Vrátí všechny úkoly
+	 * @return 
 	 */
 	@Override
 	public List getAllUkoly() {

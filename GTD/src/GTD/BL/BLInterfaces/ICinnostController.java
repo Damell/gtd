@@ -7,9 +7,7 @@ import java.util.List;
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
  * Činnostmi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface ICinnostController {
 
@@ -18,6 +16,7 @@ public interface ICinnostController {
 	 * 
 	 * @param nazev 
 	 * @param popis 
+	 * @return  
 	 */
 	public boolean addCinnost(String nazev, String popis);
 
@@ -25,6 +24,7 @@ public interface ICinnostController {
 	 * Smaže činnost.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean deleteCinnost(Cinnost cinnost);
 
@@ -32,6 +32,7 @@ public interface ICinnostController {
 	 * Vrátí činnosti konkrétní osoby.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getCinnostiOsoby(Osoba osoba);
 
@@ -39,6 +40,7 @@ public interface ICinnostController {
 	 * Označí činnost jako "zpracovanou".
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean processCinnost(Cinnost cinnost);
 
@@ -46,6 +48,7 @@ public interface ICinnostController {
 	 * Označí činnost jako "archivovanou".
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean archiveCinnost(Cinnost cinnost);
 
@@ -53,6 +56,7 @@ public interface ICinnostController {
 	 * Uloží změněnou činnost (změna jména/popisu).
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean updateCinnost(Cinnost cinnost);
 
@@ -65,6 +69,7 @@ public interface ICinnostController {
 	 * Označí činnost jako "odloženou".
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean postponeCinnost(Cinnost cinnost);
 

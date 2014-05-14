@@ -7,9 +7,7 @@ import java.util.List;
 
 /**
  * Interface pro správu Úkolu v databázi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IDAOUkol {
 
@@ -17,6 +15,7 @@ public interface IDAOUkol {
 	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean createUkol(Ukol ukol);
 
@@ -24,11 +23,13 @@ public interface IDAOUkol {
 	 * Smaže úkol z databáze (resp. označí jako smazaný).
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean deleteUkol(Ukol ukol);
 
 	/**
 	 * Vrátí všechny úkoly v systému.
+	 * @return 
 	 */
 	public List getAllUkoly();
 
@@ -36,6 +37,7 @@ public interface IDAOUkol {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getUkolyOsoby(Osoba osoba);
 
@@ -43,6 +45,7 @@ public interface IDAOUkol {
 	 * Vrátí úkol podle jeho ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Ukol getUkol(int id);
 
@@ -50,6 +53,7 @@ public interface IDAOUkol {
 	 * Uloží zmenený úkol.
 	 * 
 	 * @param úkol
+	 * @return 
 	 */
 	public boolean updateUkol(Ukol úkol);
 
@@ -57,6 +61,7 @@ public interface IDAOUkol {
 	 * Vrátí všechny úkoly daného kontextu.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public List getUkolyKontextu(Kontext kontext);
 

@@ -7,9 +7,7 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s úkoly.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class SpravceUkolu {
 
@@ -24,6 +22,9 @@ public class SpravceUkolu {
 	 */
 	private SpravceOsob spravceOsob;
 
+	/**
+	 *
+	 */
 	public SpravceUkolu(){
 		spravceCinnosti = new SpravceCinnosti();
 		DAOUkol = new DAOUkol();
@@ -36,6 +37,7 @@ public class SpravceUkolu {
 	 * @param ukol
 	 * @param cinnost    Činnost, ze které úkol vznikl (pokud existuje) - používá se
 	 * pro označení činnosti jako "zpracované".
+	 * @return 
 	 */
 	public boolean addUkol(Ukol ukol, Cinnost cinnost){
 		if (DAOUkol.createUkol(ukol)) {
@@ -50,6 +52,7 @@ public class SpravceUkolu {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean deleteUkol(Ukol ukol){
 		return DAOUkol.deleteUkol(ukol);
@@ -59,6 +62,7 @@ public class SpravceUkolu {
 	 * Vrátí úkol.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Ukol getUkol(int id){
 		return DAOUkol.getUkol(id);
@@ -69,6 +73,7 @@ public class SpravceUkolu {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean updateUkol(Ukol ukol){
 		return DAOUkol.updateUkol(ukol);
@@ -78,6 +83,7 @@ public class SpravceUkolu {
 	 * Vrátí všechny úkoly daného kontextu.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public List getUkolyKontextu(Kontext kontext){
 		return DAOUkol.getUkolyKontextu(kontext);
@@ -85,6 +91,7 @@ public class SpravceUkolu {
 
 	/**
 	 * Vrátí všechny úkoly
+	 * @return 
 	 */
 	public List getAllUkoly(){
 		return DAOUkol.getAllUkoly();
@@ -95,11 +102,17 @@ public class SpravceUkolu {
 	 * 
 	 * @param ukol
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean setKontext(Ukol ukol, Kontext kontext){
 		return false;
 	}
 
+	/**
+	 *
+	 * @param osoba
+	 * @return
+	 */
 	public List getUkolyOsoby(Osoba osoba) {
 		return DAOUkol.getUkolyOsoby(osoba);
 	}

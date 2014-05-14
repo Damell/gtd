@@ -6,9 +6,7 @@ import java.util.List;
 /**
  * Interface pro správu Osob v databázi.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IDAOOsoba {
 
@@ -16,6 +14,7 @@ public interface IDAOOsoba {
      * Vytvoří nového uživatele.
      *
      * @param osoba
+	 * @return 
      */
     public boolean createOsoba(Osoba osoba);
 
@@ -23,11 +22,13 @@ public interface IDAOOsoba {
      * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
      *
      * @param osoba
+	 * @return 
      */
     public boolean deactivateOsoba(Osoba osoba);
 
     /**
      * Vrátí všechny osoby.
+	 * @return 
      */
     public List getAllOsoby();
 
@@ -35,13 +36,14 @@ public interface IDAOOsoba {
      * Vrátí osobu podle jejího ID.
      *
      * @param id
+	 * @return 
      */
     public Osoba getOsoba(int id);
 
     /**
      * Vrátí ID prihlasene osoby.
      *
-     * @param id
+	 * @return 
      */
     public int getOsobaID();
 
@@ -49,6 +51,7 @@ public interface IDAOOsoba {
      * Vrátí uživatele na základě uživatelského jména
      *
      * @param username
+	 * @return 
      */
     public Osoba getOsoba(String username);
 
@@ -56,6 +59,7 @@ public interface IDAOOsoba {
      * Uloží změny osoby.
      *
      * @param osoba
+	 * @return 
      */
     public boolean updateOsoba(Osoba osoba);
 
@@ -63,6 +67,7 @@ public interface IDAOOsoba {
      * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
      *
      * @param login
+	 * @return 
      */
     public boolean checkNewLogin(String login);
 
@@ -70,6 +75,7 @@ public interface IDAOOsoba {
      * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
      *
      * @param login
+	 * @return 
      */
     public boolean checkPrihlaseni(String login);
 

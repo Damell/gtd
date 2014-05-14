@@ -6,9 +6,7 @@ import GTD.DL.DLEntity.Osoba;
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
  * Kontexty.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IKontextController {
 
@@ -17,6 +15,7 @@ public interface IKontextController {
 	 * 
 	 * @param kontext
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean addKontext(Kontext kontext, Osoba osoba);
 
@@ -24,6 +23,7 @@ public interface IKontextController {
 	 * Smaže kontext.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean deleteKontext(Kontext kontext);
 
@@ -31,6 +31,7 @@ public interface IKontextController {
 	 * Změní název kontextu.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean updateKontext(Kontext kontext);
 

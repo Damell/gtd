@@ -10,9 +10,7 @@ import java.util.List;
 
 /**
  * Třída implementuje interface ICinnostController.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:20
  */
 public class CinnostController implements ICinnostController {
 
@@ -20,6 +18,9 @@ public class CinnostController implements ICinnostController {
 	private IGTDGUI GUI;
 	private IDAOStav DAOStav;
 
+	/**
+	 *
+	 */
 	public CinnostController(){
 		spravceCinnosti = new SpravceCinnosti();
 		DAOStav = new DAOStav();
@@ -28,7 +29,8 @@ public class CinnostController implements ICinnostController {
 	/**
 	 * Přidá novou činnost zadaných vlastností.
 	 * 
-	 * @param cinnost
+	 * @param nazev
+	 * @param popis
 	 */
 	@Override
 	public boolean addCinnost(String nazev, String popis){

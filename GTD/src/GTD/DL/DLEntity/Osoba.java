@@ -5,9 +5,7 @@ import java.util.List;
 /**
  * Trída predstavuje osobu, která je registrována v systému GTD.
  *
- * @author andel
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class Osoba {
 
@@ -33,54 +31,104 @@ public class Osoba {
      * budou požívat pro různé notifikace).
      */
     private List<Kontakt> kontakty;
-    public Kontext m_Kontext;
-    public Cinnost m_Cinnost;
 
-    public Osoba() {
+	/**
+	 *
+	 */
+	public Kontext m_Kontext;
+
+	/**
+	 *
+	 */
+	public Cinnost m_Cinnost;
+
+	/**
+	 *
+	 */
+	public Osoba() {
 
     }
 
-    public Osoba(Osoba osoba) {
+	/**
+	 *
+	 * @param osoba
+	 */
+	public Osoba(Osoba osoba) {
         this.id = osoba.id;
         this.login = osoba.login;
         this.jmeno = osoba.jmeno;
         this.prijmeni = osoba.prijmeni;
     }
 
-    public int getId() {
+	/**
+	 *
+	 * @return
+	 */
+	public int getId() {
         return id;
     }
     /*
      * Nastav osobu
      */
 
-    public Osoba(int id, String login, String jmeno, String prijmeni) {
+	/**
+	 *
+	 * @param id
+	 * @param login
+	 * @param jmeno
+	 * @param prijmeni
+	 */
+	public Osoba(int id, String login, String jmeno, String prijmeni) {
         this.id = id;
         this.login = login;
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
     }
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getLogin() {
 		return login;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getJmeno() {
 		return jmeno;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getPrijmeni() {
 		return prijmeni;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public List<Kontakt> getKontakty() {
 		return kontakty;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Kontext getM_Kontext() {
 		return m_Kontext;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Cinnost getM_Cinnost() {
 		return m_Cinnost;
 	}

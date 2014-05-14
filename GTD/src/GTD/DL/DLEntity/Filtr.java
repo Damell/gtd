@@ -4,9 +4,7 @@ package GTD.DL.DLEntity;
  * Tato trída predstavuje spolecný nadtyp pro trídy Kontext, Složka (není
  * rešena) a Kategorie (není rešena).
  *
- * @author andel
  * @version 1.0
- * @created 26-4-2014 14:51:21
  */
 public class Filtr {
 
@@ -19,18 +17,34 @@ public class Filtr {
     /*
      * Nastavi id a nazev filtru
      */
+
+	/**
+	 *
+	 * @param id
+	 * @param nazev
+	 */
+	
     public void setFiltr(int id, String nazev) {
         this.id = id;
         this.nazev = nazev;
     }
 
-    public Filtr() {
+	/**
+	 *
+	 */
+	public Filtr() {
 
     }
 
     /*
      * Vrati nazev filtru
      */
+
+	/**
+	 *
+	 * @return
+	 */
+	
     public int getFiltrId() {
         return this.id;
     }
@@ -38,6 +52,12 @@ public class Filtr {
     /*
      * Vrati nazev filtru
      */
+
+	/**
+	 *
+	 * @return
+	 */
+	
     public String getFiltrNazev() {
         return this.nazev;
     }

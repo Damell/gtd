@@ -15,9 +15,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Třída představující pohled (okno) s přihlašovacím formulářem.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 @SuppressWarnings("serial")
 public class ViewPrihlaseni extends JPanel implements IView {
@@ -30,6 +28,10 @@ public class ViewPrihlaseni extends JPanel implements IView {
 	JButton loginButton;
 	IOsobaController osobaCtrl;
 
+	/**
+	 *
+	 * @param mainFrame
+	 */
 	public ViewPrihlaseni(MainFrame mainFrame){
 		super();
 		osobaCtrl = GTDGUI.getGTDGUI().getOsobaController();

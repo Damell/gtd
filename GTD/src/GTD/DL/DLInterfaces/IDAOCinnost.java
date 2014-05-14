@@ -5,9 +5,7 @@ import java.util.List;
 
 /**
  * Interface pro správu Cinností v databázi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IDAOCinnost {
 
@@ -15,6 +13,7 @@ public interface IDAOCinnost {
 	 * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean createCinnost(Cinnost cinnost);
 
@@ -22,11 +21,13 @@ public interface IDAOCinnost {
 	 * Smaže cinnost z databáze.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean deleteCinnost(Cinnost cinnost);
 
 	/**
 	 * Vrátí všechny cinnosti v systému.
+	 * @return 
 	 */
 	public List getAllCinnosti();
 
@@ -34,6 +35,7 @@ public interface IDAOCinnost {
 	 * Vrátí cinnost podle jejího ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Cinnost getCinnost(int id);
 
@@ -41,6 +43,7 @@ public interface IDAOCinnost {
 	 * Uloží zmenenou cinnost.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean updateCinnost(Cinnost cinnost);
 
@@ -48,6 +51,7 @@ public interface IDAOCinnost {
 	 * Vrátí všechny cinnosti patrící zadané osobe.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getCinnostiOsoby(Osoba osoba);
 

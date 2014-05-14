@@ -16,13 +16,14 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:21
  */
 public class DAOUkol implements IDAOUkol {
 
-    public DAOUkol() {
+	/**
+	 *
+	 */
+	public DAOUkol() {
 
     }
 
@@ -30,6 +31,7 @@ public class DAOUkol implements IDAOUkol {
      * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
      *
      * @param ukol
+	 * @return 
      */
     public boolean createUkol(Ukol ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -58,6 +60,7 @@ public class DAOUkol implements IDAOUkol {
      * Smaže úkol z databáze (resp. označí jako smazaný).
      *
      * @param ukol
+	 * @return 
      */
     public boolean deleteUkol(Ukol ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -79,6 +82,7 @@ public class DAOUkol implements IDAOUkol {
 
     /**
      * Vrátí všechny úkoly v systému.
+	 * @return 
      */
     public List getAllUkoly() {
         List<Ukol> ukoly = new ArrayList<Ukol>();
@@ -106,6 +110,7 @@ public class DAOUkol implements IDAOUkol {
 
     /**
      * Vrátí úkoly osoby.
+	 * @return 
      */
     public List getUkolyOsoby(Osoba osoba) {
         List<Ukol> ukoly = new ArrayList<Ukol>();
@@ -142,6 +147,7 @@ public class DAOUkol implements IDAOUkol {
      * Vrátí úkol podle jeho ID.
      *
      * @param id
+	 * @return 
      */
     public Ukol getUkol(int id) {
         Ukol ukol = null;
@@ -169,6 +175,7 @@ public class DAOUkol implements IDAOUkol {
      * Uloží zmenený úkol.
      *
      * @param ukol
+	 * @return 
      */
     public boolean updateUkol(Ukol ukol) {
         String date_from = null;
@@ -210,6 +217,7 @@ public class DAOUkol implements IDAOUkol {
      * Vrátí všechny úkoly daného kontextu.
      *
      * @param kontext
+	 * @return 
      */
     public List<Ukol> getUkolyKontextu(Kontext kontext) {
         List<Ukol> ukoly = new ArrayList<Ukol>();

@@ -5,9 +5,7 @@ import java.util.Date;
 /**
  * Trída predstavuje casový interval pro daný úkol.
  *
- * @author andel
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public class Interval {
 
@@ -23,27 +21,54 @@ public class Interval {
     /*
      * Nastav interval
      */
+
+	/**
+	 *
+	 * @param from
+	 * @param to
+	 */
+	
     public void setInterval(Date from, Date to) {
         this.from = from;
         this.to = to;
     }
 
-    public Date getFrom() {
+	/**
+	 *
+	 * @return
+	 */
+	public Date getFrom() {
         return from;
     }
 
-    public Date getTo() {
+	/**
+	 *
+	 * @return
+	 */
+	public Date getTo() {
         return to;
     }
 
-    public boolean isSet() {
+	/**
+	 *
+	 * @return
+	 */
+	public boolean isSet() {
         return from != null && to != null;
     }
 
-    public Interval() {
+	/**
+	 *
+	 */
+	public Interval() {
     }
 
-    public Interval(Date from, Date to) {
+	/**
+	 *
+	 * @param from
+	 * @param to
+	 */
+	public Interval(Date from, Date to) {
         this.from = from;
         this.to = to;
     }

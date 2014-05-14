@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GTD.PL.PLView;
 
 import GTD.DL.DLEntity.Interval;
@@ -23,7 +17,6 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 /**
  *
- * @author damell
  */
 public class ViewPlanTask {
 	
@@ -32,6 +25,10 @@ public class ViewPlanTask {
 	JFrame frame;
 	Ukol ukol;
 
+	/**
+	 *
+	 * @param ukol
+	 */
 	public ViewPlanTask(Ukol ukol) {
 		getDatesFromUserToPlanTask(ukol);
 	}

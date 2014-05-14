@@ -10,17 +10,19 @@ import java.util.List;
 /**
  * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
  * Úkoly.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IUkolController {
 
 	/**
 	 * Přidá nový úkol zadaných vlastností.
 	 * 
-	 * @param ukol
+	 * @param nazev
+	 * @param popis
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 * @param projektId
+	 * @param vlastnikId
+	 * @return 
 	 */
 	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Cinnost cinnost);
 
@@ -28,6 +30,7 @@ public interface IUkolController {
 	 * Smaže úkol (resp. označí jako smazaný).
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean deleteUkol(Ukol ukol);
 
@@ -35,6 +38,7 @@ public interface IUkolController {
 	 * Změní název a/nebo popis úkolu.
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean updateUkol(Ukol ukol);
 
@@ -42,7 +46,7 @@ public interface IUkolController {
 	 * Označí úkol jako aktivní.
 	 * 
 	 * @param ukol
-	 * @param interval
+	 * @return 
 	 */
 	public boolean activateUkol(Ukol ukol);
 
@@ -51,6 +55,7 @@ public interface IUkolController {
 	 * 
 	 * @param ukol
 	 * @param interval
+	 * @return 
 	 */
 	public boolean scheduleUkol(Ukol ukol, Interval interval);
 
@@ -59,6 +64,7 @@ public interface IUkolController {
 	 * 
 	 * @param ukol
 	 * @param novyVlastnik
+	 * @return 
 	 */
 	public boolean changeOwner(Ukol ukol, Osoba novyVlastnik);
 
@@ -66,6 +72,7 @@ public interface IUkolController {
 	 * Označí úkol jako "dokončený".
 	 * 
 	 * @param ukol
+	 * @return 
 	 */
 	public boolean finishUkol(Ukol ukol);
 
@@ -74,6 +81,7 @@ public interface IUkolController {
 	 * 
 	 * @param ukol
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean setKontext(Ukol ukol, Kontext kontext);
 
@@ -90,6 +98,7 @@ public interface IUkolController {
 	 * @param popis
 	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 * @return 
 	 */
 	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Cinnost cinnost);
 
@@ -97,11 +106,13 @@ public interface IUkolController {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getUkolyOsoby(Osoba osoba);
 
 	/**
 	 * Vrátí všechny úkoly
+	 * @return 
 	 */
 	public List getAllUkoly();
 }

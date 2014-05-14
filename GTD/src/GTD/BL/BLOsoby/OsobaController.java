@@ -7,15 +7,16 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IOsobaController.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class OsobaController implements IOsobaController {
 
 	private SpravceOsob spravceOsob;
 	private IGTDGUI GUI;
 
+	/**
+	 *
+	 */
 	public OsobaController(){
 		GUI = GTDGUI.getGTDGUI();
 		spravceOsob = new SpravceOsob();
@@ -26,6 +27,7 @@ public class OsobaController implements IOsobaController {
 	 * 
 	 * @param login
 	 * @param heslo
+	 * @return 
 	 */
 	@Override
 	public boolean loginOsoba(String login, String heslo){
@@ -48,6 +50,7 @@ public class OsobaController implements IOsobaController {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	@Override
 	public boolean deactivateOsoba(Osoba osoba){
@@ -64,6 +67,7 @@ public class OsobaController implements IOsobaController {
 
 	/**
 	 * Vrátí přihlášeného uživatele.
+	 * @return 
 	 */
 	@Override
 	public Osoba getPrihlasenaOsoba(){
@@ -76,6 +80,7 @@ public class OsobaController implements IOsobaController {
 	 * Vrátí uživatele podle id.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	@Override
 	public Osoba getOsoba(int id){

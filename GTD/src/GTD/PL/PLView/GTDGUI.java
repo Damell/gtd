@@ -19,9 +19,7 @@ import javax.swing.JOptionPane;
 /**
  * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
  * pohledů (views).
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public class GTDGUI implements IGTDGUI {
 
@@ -47,6 +45,9 @@ public class GTDGUI implements IGTDGUI {
 	private static IView zpracovaniPanel;
 	private static GTDGUI GTDGUI;
 
+	/**
+	 *
+	 */
 	public GTDGUI(){
 		views = new ArrayList<>() ;
 		initBL();
@@ -63,6 +64,10 @@ public class GTDGUI implements IGTDGUI {
 		ukolController = new UkolController();
 	}
 
+	/**
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		GTDGUI = new GTDGUI();
 		GTDGUI.showPrihlaseni();
@@ -92,6 +97,9 @@ public class GTDGUI implements IGTDGUI {
 		zpracovaniPanel.showView();
 	}
 
+	/**
+	 *
+	 */
 	public void showMainWindow() {
 		myself = getOsobaController().getPrihlasenaOsoba();
 		showCinnosti();
@@ -143,30 +151,58 @@ public class GTDGUI implements IGTDGUI {
 		optionPane.showMessageDialog(mainFrame, error);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static GTDGUI getGTDGUI() {
 		return GTDGUI;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static Osoba getMyself() {
 		return GTDGUI.myself;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public IOsobaController getOsobaController() {
 		return osobaController;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public ICinnostController getCinnostController() {
 		return cinnostController;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public IKontextController getKontextController() {
 		return kontextController;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public IProjektController getProjektController() {
 		return projektController;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public IUkolController getUkolController() {
 		return ukolController;
 	}

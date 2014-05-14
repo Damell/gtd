@@ -8,15 +8,16 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IProjektController.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class ProjektController implements IProjektController {
 
 	private SpravceProjektu spravceProjektu;
 	private IDAOStav DAOStav;
 
+	/**
+	 *
+	 */
 	public ProjektController(){
 		spravceProjektu = new SpravceProjektu();
 		DAOStav = new DAOStav();
@@ -27,10 +28,11 @@ public class ProjektController implements IProjektController {
 	 * 
 	 * @param nazev
 	 * @param popis
-	 * @param stav
 	 * @param vlastnik
 	 * @param rodicID
+	 * @param skupina
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
+	 * @return 
 		 */
 	@Override
 	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, List<Osoba> skupina, Cinnost cinnost) {
@@ -46,6 +48,7 @@ public class ProjektController implements IProjektController {
 	 * Smaže projekt (resp. označí jako smazaný).
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	@Override
 	public boolean deleteProjekt(Projekt projekt){
@@ -56,6 +59,7 @@ public class ProjektController implements IProjektController {
 	 * Změní název a/nebo popis projektu.
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	@Override
 	public boolean updateProjekt(Projekt projekt){
@@ -67,6 +71,7 @@ public class ProjektController implements IProjektController {
 	 * projektu).
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	@Override
 	public Projekt getProjekt(int id){
@@ -79,6 +84,7 @@ public class ProjektController implements IProjektController {
 	 * 
 	 * @param projekt
 	 * @param novyVlastnik
+	 * @return 
 	 */
 	@Override
 	public boolean changeOwner(Projekt projekt, Osoba novyVlastnik){
@@ -90,6 +96,7 @@ public class ProjektController implements IProjektController {
 	 * Označí projekt jako "dokončený".
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	@Override
 	public boolean finishProjekt(Projekt projekt){
@@ -101,6 +108,7 @@ public class ProjektController implements IProjektController {
 	 * Vrátí všechny projekty patřící dané osobě.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	@Override
 	public List getProjektyOsoby(Osoba osoba){
@@ -110,6 +118,7 @@ public class ProjektController implements IProjektController {
 	/**
 	 * Vrátí všechny projekty
 	 * 
+	 * @return 
 	 */
 	@Override
 	public List getAllProjekty(){

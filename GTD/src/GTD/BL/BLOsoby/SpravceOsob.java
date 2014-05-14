@@ -7,9 +7,7 @@ import java.util.List;
 
 /**
  * Třída zapouzdřuje metody pro ukládání a načítání osob z databáze.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class SpravceOsob {
 
@@ -19,6 +17,9 @@ public class SpravceOsob {
 	 */
 	private Osoba prihlasenaOsoba;
 
+	/**
+	 *
+	 */
 	public SpravceOsob(){
 		DAOOsoba = new DAOOsoba();
 	}
@@ -27,6 +28,7 @@ public class SpravceOsob {
 	 * Vytvorí nového uživatele.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean addOsoba(Osoba osoba){
 		return false;
@@ -36,6 +38,7 @@ public class SpravceOsob {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean deactivateOsoba(Osoba osoba){
 		return false;
@@ -46,6 +49,7 @@ public class SpravceOsob {
 	 * Vrátí uživatele.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Osoba getOsoba(int id){
 		return DAOOsoba.getOsoba(id);
@@ -53,7 +57,7 @@ public class SpravceOsob {
         /**
 	 * Vrátí prihlaseneho uživatele.
 	 * 
-	 * @param id
+	 * @return 
 	 */
 	public Osoba getOsobaPrihlasena(){
 		return DAOOsoba.getOsoba(DAOOsoba.getOsobaID());
@@ -61,6 +65,7 @@ public class SpravceOsob {
 
 	/**
 	 * Vrátí všechny uživatele
+	 * @return 
 	 */
 	public List getAllUsers() {
 		return DAOOsoba.getAllOsoby();
@@ -70,6 +75,7 @@ public class SpravceOsob {
 	 * Uloží zmeny profilu uživatele.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean updateOsoba(Osoba osoba){
 		return false;
@@ -80,6 +86,7 @@ public class SpravceOsob {
 	 * 
 	 * @param login
 	 * @param heslo
+	 * @return 
 	 */
 	public boolean loginOsoba(String login, String heslo){
 		return DatabaseConnection.login(login, heslo);

@@ -6,9 +6,7 @@ import java.util.List;
 
 /**
  * Interface pro správu Projektu v databázi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IDAOProjekt {
 
@@ -16,6 +14,7 @@ public interface IDAOProjekt {
 	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean createProjekt(Projekt projekt);
 
@@ -24,11 +23,13 @@ public interface IDAOProjekt {
 	 * a podprojekty.
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean deleteProjekt(Projekt projekt);
 
 	/**
 	 * Vrátí všechny projekty v systému.
+	 * @return 
 	 */
 	public List<Projekt> getAllProjekty();
 
@@ -36,6 +37,7 @@ public interface IDAOProjekt {
 	 * Vrátí projekt podle jeho ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Projekt getProjekt(int id);
 
@@ -43,6 +45,7 @@ public interface IDAOProjekt {
 	 * Uloží zmenený projekt.
 	 * 
 	 * @param projekt
+	 * @return 
 	 */
 	public boolean updateProjekt(Projekt projekt);
 
@@ -50,6 +53,7 @@ public interface IDAOProjekt {
 	 * Vrátí všechny projekty patřící zadané osobe.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List<Projekt> getProjektyOsoby(Osoba osoba);
 

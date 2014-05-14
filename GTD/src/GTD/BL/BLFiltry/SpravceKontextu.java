@@ -6,14 +6,15 @@ import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:24
  */
 public class SpravceKontextu {
 
 	private IDAOKontext DAOKontext;
 
+	/**
+	 *
+	 */
 	public SpravceKontextu(){
 
 	}
@@ -27,6 +28,7 @@ public class SpravceKontextu {
 	 * 
 	 * @param kontext
 	 * @param osoba
+	 * @return 
 	 */
 	public boolean addKontext(Kontext kontext, Osoba osoba){
 		return false;
@@ -36,6 +38,7 @@ public class SpravceKontextu {
 	 * Smaže kontext.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean deleteKontext(Kontext kontext){
 		return false;
@@ -45,6 +48,7 @@ public class SpravceKontextu {
 	 * Vrátí kontext podle jeho ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Kontext getKontext(int id){
 		return null;
@@ -54,6 +58,7 @@ public class SpravceKontextu {
 	 * Uloží zmenený kontext.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean updateKontext(Kontext kontext){
 		return false;
@@ -63,6 +68,7 @@ public class SpravceKontextu {
 	 * Vrátí všechny kontexty patrící zadané osobe.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getKontextyOsoby(Osoba osoba){
 		return null;

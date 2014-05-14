@@ -9,15 +9,14 @@ import java.sql.Statement;
 /**
  * Trída zapouzdruje metody pro získání ID stavů objektů
  *
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:20
  */
 public class DAOStav implements IDAOStav {
 
     /**
      * Vrátí ID stavu: činnost Archivovaná
      *
+	 * @return 
      */
 	@Override
     public int getCinnostArchivovanaID() {
@@ -27,6 +26,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: činost Ke zpracování
      *
+	 * @return 
      */
 	@Override
     public int getCinnostKeZpracovaniID() {
@@ -36,6 +36,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: činost Zahozena
      *
+	 * @return 
      */
 	@Override
     public int getCinnostZahozenaID() {
@@ -45,6 +46,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: činost Odlozena
      *
+	 * @return 
      */
     @Override
     public int getCinnostOdlozenaID() {
@@ -54,6 +56,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: činost Odlozena
      *
+	 * @return 
      */
     @Override
     public int getCinnostZpracovanaID() {
@@ -63,6 +66,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
+	 * @return 
      */
     @Override
     public int getOsobaAktivniID() {
@@ -72,6 +76,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
+	 * @return 
      */
     @Override
     public int getOsobaNeaktivniID() {
@@ -81,6 +86,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: konatakt email
      *
+	 * @return 
      */
     @Override
     public int getKontaktEmailID() {
@@ -90,6 +96,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: konatakt telefon
      *
+	 * @return 
      */
     @Override
     public int getKontaktTelefonID() {
@@ -99,6 +106,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: projekt Aktivni
      *
+	 * @return 
      */
     @Override
     public int getProjektAktivniID() {
@@ -108,6 +116,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: projekt Dokonceny
      *
+	 * @return 
      */
     @Override
     public int getProjektDokoncenyID() {
@@ -117,6 +126,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: ukol Vytvoreny
      *
+	 * @return 
      */
     @Override
     public int getUkolVytvorenyID() {
@@ -126,6 +136,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: ukol Aktivni
      *
+	 * @return 
      */
     @Override
     public int getUkolAktivniID() {
@@ -135,6 +146,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: ukol V kalendari
      *
+	 * @return 
      */
     @Override
     public int getUkolVKalendariID() {
@@ -144,6 +156,7 @@ public class DAOStav implements IDAOStav {
     /**
      * Vrátí ID stavu: ukol Hotovy
      *
+	 * @return 
      */
     @Override
     public int getUkolHotovyID() {

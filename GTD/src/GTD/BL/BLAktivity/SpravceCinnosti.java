@@ -10,9 +10,7 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s cinnostmi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:23
  */
 public class SpravceCinnosti {
 
@@ -21,9 +19,16 @@ public class SpravceCinnosti {
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
 	private SpravceOsob spravceOsob;
+
+	/**
+	 *
+	 */
 	public DAOCinnost m_DAOCinnost;
         private IDAOStav DAOStav;
 
+	/**
+	 *
+	 */
 	public SpravceCinnosti(){
 		DAOCinnost = new DAOCinnost();
                 DAOStav = new DAOStav();
@@ -33,6 +38,7 @@ public class SpravceCinnosti {
 	 * Vytvorí novou cinnost.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean addCinnost(Cinnost cinnost){
 		return DAOCinnost.createCinnost(cinnost);
@@ -42,6 +48,7 @@ public class SpravceCinnosti {
 	 * Smaže činnost. Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean deleteCinnost(Cinnost cinnost){
 		return DAOCinnost.deleteCinnost(cinnost);
@@ -51,6 +58,7 @@ public class SpravceCinnosti {
 	 * Vrátí cinnost na základě jejího ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Cinnost getCinnost(int id){
 		return null;
@@ -60,6 +68,7 @@ public class SpravceCinnosti {
 	 * Uloží změněnou činnost. Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean updateCinnost(Cinnost cinnost){
 		return false;
@@ -69,6 +78,7 @@ public class SpravceCinnosti {
 	 * Vrátí všechny cinnosti osoby.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List<Cinnost> getCinnostiOsoby(Osoba osoba){
 		return DAOCinnost.getCinnostiOsoby(osoba);
@@ -78,6 +88,7 @@ public class SpravceCinnosti {
 	 * Označí činnost jako "zpracovanou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean processCinnost(Cinnost cinnost){
 		cinnost.setStav(DAOStav.getCinnostZpracovanaID());
@@ -88,6 +99,7 @@ public class SpravceCinnosti {
 	 * Označí činnost jako "archivovanou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean archiveCinnost(Cinnost cinnost){
 		cinnost.setStav(DAOStav.getCinnostArchivovanaID());
@@ -98,6 +110,7 @@ public class SpravceCinnosti {
 	 * Označí činnost jako "odloženou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
+	 * @return 
 	 */
 	public boolean postponeCinnost(Cinnost cinnost){
 		cinnost.setStav(DAOStav.getCinnostOdlozenaID());

@@ -6,9 +6,7 @@ import java.util.List;
 
 /**
  * Interface pro správu Kontextu v databázi.
- * @author Šimon
  * @version 1.0
- * @created 26-4-2014 14:51:22
  */
 public interface IDAOKontext {
 
@@ -16,6 +14,7 @@ public interface IDAOKontext {
 	 * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean createKontext(Kontext kontext);
 
@@ -23,11 +22,13 @@ public interface IDAOKontext {
 	 * Smaže kontext z databáze.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean deleteKontext(Kontext kontext);
 
 	/**
 	 * Vrátí všechny kontexty v systému.
+	 * @return 
 	 */
 	public List getAllKontexty();
 
@@ -35,6 +36,7 @@ public interface IDAOKontext {
 	 * Vrátí kontext podle jeho ID.
 	 * 
 	 * @param id
+	 * @return 
 	 */
 	public Kontext getKontext(int id);
 
@@ -42,6 +44,7 @@ public interface IDAOKontext {
 	 * Uloží zmenený kontext.
 	 * 
 	 * @param kontext
+	 * @return 
 	 */
 	public boolean updateKontext(Kontext kontext);
 
@@ -49,6 +52,7 @@ public interface IDAOKontext {
 	 * Vrátí všechny kontexty patrící zadané osobe.
 	 * 
 	 * @param osoba
+	 * @return 
 	 */
 	public List getKontextyOsoby(Osoba osoba);
 

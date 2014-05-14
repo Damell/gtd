@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class DAOKontext implements IDAOKontext {
 
 	/**
-	 *
+	 * Kontruktor kontextu
 	 */
 	public DAOKontext() {
 
@@ -71,7 +71,7 @@ public class DAOKontext implements IDAOKontext {
 
     /**
      * Vrátí všechny kontexty v systému.
-	 * @return 
+	 * @return List<Kontext>
      */
     public List getAllKontexty() {
         List<Kontext> kontexty = new ArrayList<Kontext>();
@@ -97,7 +97,7 @@ public class DAOKontext implements IDAOKontext {
      * Vrátí kontext podle jeho ID.
      *
      * @param id
-	 * @return 
+	 * @return kontext
      */
     public Kontext getKontext(int id) {
       Kontext kontext = null;
@@ -146,7 +146,7 @@ public class DAOKontext implements IDAOKontext {
      * Vrátí všechny kontexty patrící zadané osobe.
      *
      * @param osoba
-	 * @return 
+	 * @return List<Kontext> 
      */
     public List getKontextyOsoby(Osoba osoba) {
         List<Kontext> kontexty = new ArrayList<Kontext>();

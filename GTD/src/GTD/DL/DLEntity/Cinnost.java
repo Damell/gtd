@@ -8,7 +8,8 @@ package GTD.DL.DLEntity;
 public class Cinnost extends Aktivita {
 
 	/**
-	 *
+	 * Konstruktor cinnosti
+         * 
 	 * @param id
 	 * @param nazev
 	 * @param popis
@@ -21,7 +22,8 @@ public class Cinnost extends Aktivita {
 	}
 
 	/**
-	 *
+	 * Konstruktor cinnosti
+         * 
 	 * @param nazev
 	 * @param popis
 	 * @param stav

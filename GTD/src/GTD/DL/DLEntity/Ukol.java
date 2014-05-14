@@ -21,64 +21,63 @@ public class Ukol extends Aktivita {
      * Projekt úkolu.
      */
     private int id_projekt;
+    /**
+     * Nazev projektu ukolu
+     */
     private String projekt_nazev;
+    /**
+     * Popis projektu ukolu
+     */
     private String projekt_popis;
-	/**
-	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
-	 */
+    /**
+     * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
+     */
     private int id_tvurce;
 
-	/**
-	 *
-	 */
-	public Ukol() {
+    /**
+     * Konstruktor ukolu
+     */
+    public Ukol() {
     }
 
     /*
      * Inicializace ukolu
+     *
+     * @param id
+     * @param nazev
+     * @param popis
+     * @param stav
+     * @param stavPopis
+     * @param vlastnik_id
+     * @param id_projekt
      */
-
-	/**
-	 *
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id
-	 * @param id_projekt
-	 */
-	
     public Ukol(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt) {
         super(id, nazev, popis, stav, stavPopis, vlastnik_id);
         this.id_projekt = id_projekt;
     }
 
-	/**
-	 *
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param tvurce_id
-	 * @param vlastnik_id
-	 * @param id_projekt
-	 */
-	public Ukol(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt) {
-		super(nazev, popis, stav, vlastnik_id);
-		this.id_projekt = id_projekt;
-		this.id_tvurce = tvurce_id;
-	}
+    /**
+     * Inicializace ukolu
+     * 
+     * @param nazev
+     * @param popis
+     * @param stav
+     * @param tvurce_id
+     * @param vlastnik_id
+     * @param id_projekt
+     */
+    public Ukol(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt) {
+        super(nazev, popis, stav, vlastnik_id);
+        this.id_projekt = id_projekt;
+        this.id_tvurce = tvurce_id;
+    }
 
     /*
      * Nastav uzivatelsky kontext ukolu
+     *
+     * @param id
+     * @param nazev
      */
-
-	/**
-	 *
-	 * @param id
-	 * @param nazev
-	 */
-	
     public void setKontext(int id, String nazev) {
         if (kontext == null) {
             kontext = new Kontext();
@@ -87,85 +86,90 @@ public class Ukol extends Aktivita {
     }
     /*
      * Nastav interval ukolu
+     *
+     * @param from
+     * @param to
      */
-
-	/**
-	 *
-	 * @param from
-	 * @param to
-	 */
-	public void setInterval(Date from, Date to) {
+    public void setInterval(Date from, Date to) {
         if (kalendar == null) {
             kalendar = new Interval();
         }
         kalendar.setInterval(from, to);
     }
 
-	/**
-	 *
-	 * @param id_projekt
-	 */
-	public void setProjekt(int id_projekt) {
+    /**
+     * Nastav id projetku k ukolu
+     * 
+     * @param id_projekt
+     */
+    public void setProjekt(int id_projekt) {
         this.id_projekt = id_projekt;
     }
 
-	/**
-	 *
-	 * @param id_projekt
-	 * @param nazev
-	 * @param popis
-	 */
-	public void setProjekt(int id_projekt, String nazev, String popis) {
+    /**
+     * Nastav projekt ukolu
+     * 
+     * @param id_projekt
+     * @param nazev
+     * @param popis
+     */
+    public void setProjekt(int id_projekt, String nazev, String popis) {
         this.id_projekt = id_projekt;
         this.projekt_nazev = nazev;
         this.projekt_popis = popis;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Interval getKalendar() {
+    /**
+     * Vrati kalendat ukolu
+     *
+     * @return kalendar
+     */
+    public Interval getKalendar() {
         return kalendar;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Kontext getKontext() {
+    /**
+     * Vrati kontext ukolu
+     * 
+     * @return kontext
+     */
+    public Kontext getKontext() {
         return kontext;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public int getProjekt() {
+    /**
+     * Vrati projekt úkolu
+     * 
+     * @return id
+     */
+    public int getProjekt() {
         return id_projekt;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getProjektNazev() {
+    /**
+     * Vrátí název projektu
+     * 
+     * @return nazev
+     */
+    public String getProjektNazev() {
         return projekt_nazev;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getProjektPopis() {
+    /**
+     * Vrátí popis projektu
+     * 
+     * @return nazev
+     */
+    public String getProjektPopis() {
         return projekt_popis;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public int getTvurce() {
+    /**
+     * Vrati id osoby tvurce úkolu
+     * 
+     * @return id
+     */
+    public int getTvurce() {
         return id_tvurce;
     }
 }

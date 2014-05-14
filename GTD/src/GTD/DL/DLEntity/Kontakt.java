@@ -16,7 +16,7 @@ public class Kontakt {
 	private String Typ;
 
 	/**
-	 *
+	 * Konstruktor kontaktu
 	 */
 	public Kontakt(){
 

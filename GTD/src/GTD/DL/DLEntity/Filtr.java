@@ -16,48 +16,36 @@ public class Filtr {
 
     /*
      * Nastavi id a nazev filtru
+     *
+     * @param id
+     * @param nazev
      */
-
-	/**
-	 *
-	 * @param id
-	 * @param nazev
-	 */
-	
     public void setFiltr(int id, String nazev) {
         this.id = id;
         this.nazev = nazev;
     }
 
-	/**
-	 *
-	 */
-	public Filtr() {
+    /**
+     * Konstruktor filtru
+     */
+    public Filtr() {
 
     }
 
     /*
-     * Vrati nazev filtru
+     * Vrati id filtru
+     *
+     * @return id
      */
-
-	/**
-	 *
-	 * @return
-	 */
-	
     public int getFiltrId() {
         return this.id;
     }
 
     /*
      * Vrati nazev filtru
+     *
+     * @return nazev
      */
-
-	/**
-	 *
-	 * @return
-	 */
-	
     public String getFiltrNazev() {
         return this.nazev;
     }

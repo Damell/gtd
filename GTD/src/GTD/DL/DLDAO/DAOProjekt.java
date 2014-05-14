@@ -21,7 +21,7 @@ import java.util.List;
 public class DAOProjekt implements IDAOProjekt {
 
 	/**
-	 *
+	 * Konstruktor projektu
 	 */
 	public DAOProjekt() {
     }
@@ -108,7 +108,7 @@ public class DAOProjekt implements IDAOProjekt {
 
     /**
      * Vrátí všechny projekty v systému.
-	 * @return 
+	 * @return List<Projekt>
      */
     public List<Projekt> getAllProjekty() {
         List<Projekt> projekty = new ArrayList<Projekt>();
@@ -178,7 +178,7 @@ public class DAOProjekt implements IDAOProjekt {
      * Vrátí projekt podle jeho ID.
      *
      * @param id
-	 * @return 
+	 * @return projekt
      */
     public Projekt getProjekt(int id) {
         Projekt projekt = null;
@@ -310,7 +310,7 @@ public class DAOProjekt implements IDAOProjekt {
      * Vrátí všechny projekty patřící zadané osobe.
      *
      * @param osoba
-	 * @return 
+	 * @return List<Projekt>
      */
     public List<Projekt> getProjektyOsoby(Osoba osoba) {
         List<Projekt> projekty = new ArrayList<Projekt>();

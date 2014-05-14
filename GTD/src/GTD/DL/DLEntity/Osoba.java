@@ -32,112 +32,121 @@ public class Osoba {
      */
     private List<Kontakt> kontakty;
 
-	/**
-	 *
-	 */
-	public Kontext m_Kontext;
+    /**
+     *
+     */
+    public Kontext m_Kontext;
 
-	/**
-	 *
-	 */
-	public Cinnost m_Cinnost;
+    /**
+     *
+     */
+    public Cinnost m_Cinnost;
 
-	/**
-	 *
-	 */
-	public Osoba() {
+    /**
+     * Konstruktor osoby
+     */
+    public Osoba() {
 
     }
 
-	/**
-	 *
-	 * @param osoba
-	 */
-	public Osoba(Osoba osoba) {
+    /**
+     * Konstruktor osoby
+     *
+     * @param osoba
+     */
+    public Osoba(Osoba osoba) {
         this.id = osoba.id;
         this.login = osoba.login;
         this.jmeno = osoba.jmeno;
         this.prijmeni = osoba.prijmeni;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public int getId() {
+    /**
+     * Vrátí id osoby
+     *
+     * @return id
+     */
+    public int getId() {
         return id;
     }
     /*
      * Nastav osobu
+     *
+     * @param id
+     * @param login
+     * @param jmeno
+     * @param prijmeni
      */
 
-	/**
-	 *
-	 * @param id
-	 * @param login
-	 * @param jmeno
-	 * @param prijmeni
-	 */
-	public Osoba(int id, String login, String jmeno, String prijmeni) {
+    public Osoba(int id, String login, String jmeno, String prijmeni) {
         this.id = id;
         this.login = login;
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getLogin() {
-		return login;
-	}
+    /**
+     * Vrátí login osoby
+     *
+     * @return login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getJmeno() {
-		return jmeno;
-	}
+    /**
+     * Vrátí jméno osoby
+     *
+     * @return jmeno
+     */
+    public String getJmeno() {
+        return jmeno;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getPrijmeni() {
-		return prijmeni;
-	}
+    /**
+     * Vrátí příjmení osoby
+     *
+     * @return prijmeni
+     */
+    public String getPrijmeni() {
+        return prijmeni;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public List<Kontakt> getKontakty() {
-		return kontakty;
-	}
+    /**
+     * Vrátí kontakty ososby
+     *
+     * @return List<Kontakt>
+     */
+    public List<Kontakt> getKontakty() {
+        return kontakty;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Kontext getM_Kontext() {
-		return m_Kontext;
-	}
+    /**
+     * Vrátí kontext
+     *
+     * @return m_Kontext
+     */
+    public Kontext getM_Kontext() {
+        return m_Kontext;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Cinnost getM_Cinnost() {
-		return m_Cinnost;
-	}
+    /**
+     * Vrátí činnost
+     *
+     * @return m_Cinnost
+     */
+    public Cinnost getM_Cinnost() {
+        return m_Cinnost;
+    }
 
-	@Override
-	public String toString() {
-		return jmeno + " " + prijmeni;
-	}
-
-	
+    /**
+     * Vrátí jméno a příjmení
+     *
+     * @return jmeno_prijmeni
+     */
+    @Override
+    public String toString() {
+        return jmeno + " " + prijmeni;
+    }
 
 }

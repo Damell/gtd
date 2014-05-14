@@ -9,57 +9,48 @@ package GTD.DL.DLEntity;
  */
 public class Kontext extends Filtr {
 
-	/**
-	 *
-	 */
-	public Kontext() {
+    /**
+     * Kontruktor kontextu
+     */
+    public Kontext() {
 
     }
     /*
      * Vytvor kontext
+
+     *
+     * @param id
+     * @param nazev
      */
 
-	/**
-	 *
-	 * @param id
-	 * @param nazev
-	 */
-	public Kontext(int id, String nazev) {
+    public Kontext(int id, String nazev) {
         this.setFiltr(id, nazev);
     }
     /*
      * Nastav kontext
+     *
+     * @param id
+     * @param nazev
      */
 
-	/**
-	 *
-	 * @param id
-	 * @param nazev
-	 */
-	public void setKontext(int id, String nazev) {
+    public void setKontext(int id, String nazev) {
         this.setFiltr(id, nazev);
     }
     /*
      * Vrati id kontextu
+     *
+     * @return id
      */
 
-	/**
-	 *
-	 * @return
-	 */
-	public int getKontextId() {
+    public int getKontextId() {
         return this.getFiltrId();
     }
 
     /*
      * Vrati nazev kontextu
+     *
+     * @return nazev
      */
-
-	/**
-	 *
-	 * @return
-	 */
-	
     public String getKontextNazev() {
         return this.getFiltrNazev();
     }

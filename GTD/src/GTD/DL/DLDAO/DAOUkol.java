@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class DAOUkol implements IDAOUkol {
 
-	/**
-	 *
-	 */
-	public DAOUkol() {
+    /**
+     * Konstruktor úkolu
+     */
+    public DAOUkol() {
 
     }
 
@@ -31,7 +31,7 @@ public class DAOUkol implements IDAOUkol {
      * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
      *
      * @param ukol
-	 * @return 
+     * @return
      */
     public boolean createUkol(Ukol ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -60,7 +60,7 @@ public class DAOUkol implements IDAOUkol {
      * Smaže úkol z databáze (resp. označí jako smazaný).
      *
      * @param ukol
-	 * @return 
+     * @return
      */
     public boolean deleteUkol(Ukol ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -71,7 +71,7 @@ public class DAOUkol implements IDAOUkol {
             callStmt.close();
         } catch (SQLException e) {
             if (e.getErrorCode() == 20021) {
-                DatabaseConnection.showError("Chyba: "+ e.getMessage().substring(10, 100).trim());
+                DatabaseConnection.showError("Chyba: " + e.getMessage().substring(10, 100).trim());
             } else {
                 DatabaseConnection.showError("DB query error: " + e.getMessage());
             }
@@ -82,7 +82,8 @@ public class DAOUkol implements IDAOUkol {
 
     /**
      * Vrátí všechny úkoly v systému.
-	 * @return 
+     *
+     * @return List<Ukol>
      */
     public List getAllUkoly() {
         List<Ukol> ukoly = new ArrayList<Ukol>();
@@ -110,7 +111,9 @@ public class DAOUkol implements IDAOUkol {
 
     /**
      * Vrátí úkoly osoby.
-	 * @return 
+     *
+     * @param osoba
+     * @return List<Ukol>
      */
     public List getUkolyOsoby(Osoba osoba) {
         List<Ukol> ukoly = new ArrayList<Ukol>();
@@ -147,7 +150,7 @@ public class DAOUkol implements IDAOUkol {
      * Vrátí úkol podle jeho ID.
      *
      * @param id
-	 * @return 
+     * @return ukol
      */
     public Ukol getUkol(int id) {
         Ukol ukol = null;
@@ -175,7 +178,7 @@ public class DAOUkol implements IDAOUkol {
      * Uloží zmenený úkol.
      *
      * @param ukol
-	 * @return 
+     * @return
      */
     public boolean updateUkol(Ukol ukol) {
         String date_from = null;
@@ -204,7 +207,7 @@ public class DAOUkol implements IDAOUkol {
             callStmt.close();
         } catch (SQLException e) {
             if (e.getErrorCode() == 20021) {
-                DatabaseConnection.showError("Chyba: "+ e.getMessage().substring(10, 100).trim());
+                DatabaseConnection.showError("Chyba: " + e.getMessage().substring(10, 100).trim());
             } else {
                 DatabaseConnection.showError("DB query error: " + e.getMessage());
             }
@@ -217,7 +220,7 @@ public class DAOUkol implements IDAOUkol {
      * Vrátí všechny úkoly daného kontextu.
      *
      * @param kontext
-	 * @return 
+     * @return ukoly
      */
     public List<Ukol> getUkolyKontextu(Kontext kontext) {
         List<Ukol> ukoly = new ArrayList<Ukol>();

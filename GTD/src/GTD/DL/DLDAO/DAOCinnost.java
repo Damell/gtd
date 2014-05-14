@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class DAOCinnost implements IDAOCinnost {
 
-	/**
-	 *
-	 */
-	public DAOCinnost() {
+    /**
+     * Konstruktor činnosti
+     */
+    public DAOCinnost() {
 
     }
 
@@ -29,7 +29,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
      *
      * @param cinnost
-	 * @return 
+     * @return
      */
     public boolean createCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -57,7 +57,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Smaže cinnost z databáze.
      *
      * @param cinnost
-	 * @return 
+     * @return
      */
     public boolean deleteCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -75,7 +75,8 @@ public class DAOCinnost implements IDAOCinnost {
 
     /**
      * Vrátí všechny cinnosti v systému.
-	 * @return 
+     *
+     * @return List<Cinnost>
      */
     public List getAllCinnosti() {
         List<Cinnost> cinnosti = new ArrayList<Cinnost>();
@@ -101,7 +102,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vrátí cinnost podle jejího ID.
      *
      * @param id
-	 * @return 
+     * @return cinnost
      */
     public Cinnost getCinnost(int id) {
         Cinnost cinnost = null;
@@ -124,7 +125,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Uloží zmenenou cinnost.
      *
      * @param cinnost
-	 * @return 
+     * @return
      */
     public boolean updateCinnost(Cinnost cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -152,7 +153,7 @@ public class DAOCinnost implements IDAOCinnost {
      * Vrátí všechny cinnosti patrící zadané osobe.
      *
      * @param osoba
-	 * @return 
+     * @return List<Cinnost>
      */
     @Override
     public List<Cinnost> getCinnostiOsoby(Osoba osoba) {

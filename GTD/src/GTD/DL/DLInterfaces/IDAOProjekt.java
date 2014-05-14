@@ -29,6 +29,7 @@ public interface IDAOProjekt {
 
 	/**
 	 * Vrátí všechny projekty v systému.
+         * 
 	 * @return 
 	 */
 	public List<Projekt> getAllProjekty();

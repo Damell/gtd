@@ -16,6 +16,12 @@ public class DatabaseConnection {
 	private int id;
 	private String username;
 
+        /**
+        * Připojení do databáze
+        * 
+        * @param username
+        * @param password
+        */
 	private DatabaseConnection(String username, String password) throws SQLException {
 		// pavlim33 oracleGTD
 		try {
@@ -32,8 +38,9 @@ public class DatabaseConnection {
 	}
 
 	/**
-	 *
-	 * @return
+	 * Vrátí instanci připojení
+         * 
+	 * @return instance.connection
 	 */
 	public static Connection getConnection() {
 		if(instance == null) {
@@ -43,7 +50,8 @@ public class DatabaseConnection {
 	}
 
 	/**
-	 *
+	 * Přihlášení do databáze
+         * 
 	 * @param username
 	 * @param password
 	 * @return
@@ -63,7 +71,7 @@ public class DatabaseConnection {
 	}
 
 	/**
-	 *
+	 * Uzavření prípojení
 	 */
 	public static void closeConnection() {
 		try {
@@ -77,23 +85,26 @@ public class DatabaseConnection {
 	}
 
 	/**
-	 *
-	 * @return
+	 * Vrátí id databázového připojení
+         * 
+	 * @return id
 	 */
 	public static int getID() {
 		return DatabaseConnection.instance.id;
 	}
 
 	/**
-	 *
-	 * @return
+	 * Vrátí login přihlášeného uživatele
+         * 
+	 * @return username
 	 */
 	public String getUsername() {
 		return username;
 	}
 
 	/**
-	 *
+	 * Zobrazí okno s chybovou hláškou
+         * 
 	 * @param error
 	 */
 	public static void showError(String error) {

@@ -20,55 +20,54 @@ public class Interval {
 
     /*
      * Nastav interval
+     *
+     * @param from
+     * @param to
      */
-
-	/**
-	 *
-	 * @param from
-	 * @param to
-	 */
-	
     public void setInterval(Date from, Date to) {
         this.from = from;
         this.to = to;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Date getFrom() {
+    /**
+     * Vrátí datum do z intervalu
+     * @return from
+     */
+    public Date getFrom() {
         return from;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Date getTo() {
+    /**
+     * Vrátí datum od z intervalu
+     * 
+     * @return to
+     */
+    public Date getTo() {
         return to;
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public boolean isSet() {
+    /**
+     * Vrátí tru, pikud je interval nastaven
+     * 
+     * @return
+     */
+    public boolean isSet() {
         return from != null && to != null;
     }
 
-	/**
-	 *
-	 */
-	public Interval() {
+    /**
+     * Konstruktor intevalu
+     */
+    public Interval() {
     }
 
-	/**
-	 *
-	 * @param from
-	 * @param to
-	 */
-	public Interval(Date from, Date to) {
+    /**
+     * Nastavení hodnot intervalu
+     * 
+     * @param from
+     * @param to
+     */
+    public Interval(Date from, Date to) {
         this.from = from;
         this.to = to;
     }

@@ -239,14 +239,16 @@ BEGIN
         id ,
         login ,
         fname ,
-        sname
+        sname ,
+        id_type
       )
       VALUES
       (
         inp_id_row ,
         inp_login ,
         inp_fname ,
-        inp_sname
+        inp_sname,
+        (select id from types where table_name = 'persons' and code='A')--aktivni
       );
   END IF;
   --nastav prava

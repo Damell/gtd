@@ -54,7 +54,7 @@ public class Consts {
 	public static final String DELETED = "Činnost byla smazána";
 	public static final String CREATE_PROJECT = "Vytvořit projekt";
 	public static final String CREATE_PROJECT_CHOOSE_PARENT = "Pokud má být nový projekt podprojektem již existujícího, zvolte ho prosím: ";
-	public static final String CREATE_PROJECT_CHOOSE_GROUP = "Zvolte osoby, které chcete přidat do skupiny projektu";
+	public static final String CREATE_PROJECT_CHOOSE_GROUP = "<html>Zvolte osoby, které chcete přidat do skupiny projektu<br>Více uživatelů pomocí CTRL</html>";
 	public static final String CREATE_TASK = "Vytvořit úkol";
 	public static final String CREATE_TASK_CHOOSE_PROJECT = "Zvolte projekt, pod který chcete úkol přiřadit: ";
 	public static final String CREATE_TASK_CHOOSE_OWNER = "Zvolte osobu, které chcete úkol přiřadit: ";

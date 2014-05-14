@@ -241,6 +241,7 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		this.add(visiblePanel);
 		setPreferredSize (new Dimension (1100, 300));
 		processFrame.pack();
+		processFrame.setLocationRelativeTo(null);
 		refresh();
 	}
 
@@ -309,6 +310,7 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		this.add(visiblePanel);
 		setPreferredSize (new Dimension (1000, 300));
 		processFrame.pack();
+		processFrame.setLocationRelativeTo(null);
 		refresh();
 	}
 
@@ -357,6 +359,7 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		this.add(visiblePanel);
 		setPreferredSize (new Dimension (600, 300));
 		processFrame.pack();
+		processFrame.setLocationRelativeTo(null);
 		refresh();
 	}
 

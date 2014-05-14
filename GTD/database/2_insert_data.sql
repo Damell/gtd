@@ -105,6 +105,7 @@ Insert into contacts (id,id_person	,value,id_type) values (insert_seq.nextval,(s
 Insert into contacts (id,id_person	,value,id_type) values (insert_seq.nextval,(select id from persons where login='andelja4'),'andelja4@fit.cvut.cz',(select id from types where table_name='contacts' and code='E'));
 Insert into contacts (id,id_person	,value,id_type) values (insert_seq.nextval,(select id from persons where login='andelja4'),'777 777 777',(select id from types where table_name='contacts' and code='T'));
 
+/*
 --projects
 Insert into projects (id,name,description,id_person,id_type,id_project_parent) values (insert_seq.nextval,'main','Hlavní projekt. id_project_parent si null',(select id from persons where login='pavlim33'),(select id from types where table_name='projects' and code='A'),null);
 Insert into projects (id,name,description,id_person,id_type,id_project_parent) values (insert_seq.nextval,'GTD','GTD – Getting Things Done. Podrobný popis.',(select id from persons where login='slamamic'),(select id from types where table_name='projects' and code='A'),(select id from projects where name='main'));
@@ -131,6 +132,6 @@ Insert into tasks (id,id_creator,id_owner,id_context,id_project,name,description
 
 --Intervals
 Insert into intervals (id_task,date_from,date_to) values ((select id from tasks where name='Vedení projektu'),to_date('20140301','YYYYMMDD'),to_date('20140601','YYYYMMDD'));
-
+*/
 execute NASTAV_PRAVA_TABULEK();
 

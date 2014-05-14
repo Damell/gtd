@@ -1,42 +1,65 @@
 CREATE OR REPLACE PACKAGE API
 AS
   /*
-  * Nastaveni prav po vlozeni nove osoby
+  * API rozhraní pro aplikaci GTD
+  */
+  
+  /*
+  * Nastaveni prav k tabulkám pro všechny aktivní osoby
   */
   PROCEDURE NASTAV_PRAVA_TABULEK;
   /*
-  * Vlozeni/oprava aktivity
+  * Vložení/oprava aktivity
+  *
+  *    @param inp_id          id činnosti (pokud je uvedeno id provede se změna tohoto id)
+  *    @param inp_id_person   id osoby
+  *    @param inp_name        název činnosti
+  *    @param inp_description popis činnosti
+  *    @param inp_id_type     stav  činnosti
   */
   PROCEDURE activities_iu(
       inp_id          IN activities.id%type DEFAULT NULL ,
       inp_id_person   IN activities.id_person%type DEFAULT NULL ,
       inp_name        IN activities.name%type DEFAULT NULL ,
       inp_description IN activities.description%type DEFAULT NULL ,
-      inp_id_type     IN activities.id_type%type DEFAULT NULL ,
-      auto_commit     IN BOOLEAN DEFAULT true );
+      inp_id_type     IN activities.id_type%type DEFAULT NULL);
   /*
-  * Smazani aktivity
+  * Smazání aktivity
+  *
+  *    @param inp_id          id činnosti ke smazání
   */
   PROCEDURE activities_del(
-      inp_id      IN activities.id%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id IN activities.id%type DEFAULT NULL);
   /*
-  * Vlozeni/oprava osoby
+  * Vložení/oprava osoby
+  *
+  *    @param inp_id          id osoby (pokud je uvedeno id provede se změna tohoto id)
+  *    @param inp_login       login osoby
+  *    @param inp_fname       jméno
+  *    @param inp_sname popis přijmení
   */
   PROCEDURE persons_iu(
-      inp_id      IN persons.id%type DEFAULT NULL ,
-      inp_login   IN persons.login%type DEFAULT NULL ,
-      inp_fname   IN persons.fname%type DEFAULT NULL ,
-      inp_sname   IN persons.sname%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id    IN persons.id%type DEFAULT NULL ,
+      inp_login IN persons.login%type DEFAULT NULL ,
+      inp_fname IN persons.fname%type DEFAULT NULL ,
+      inp_sname IN persons.sname%type DEFAULT NULL);
   /*
   * Deaktivace osoby
+  *
+  *    @param inp_id          id osoby k deaktivaci
   */
   PROCEDURE persons_del(
-      inp_id      IN persons.id%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id IN persons.id%type DEFAULT NULL);
   /*
-  * Vlozeni/oprava projektu
+  * Vložení/oprava projektu
+  *
+  *    @param inp_id          id projektu (pokud je uvedeno id provede se změna tohoto id)
+  *    @param inp_id_person   id osoby vlastníka
+  *    @param inp_name        název projektu
+  *    @param inp_description popis projektu
+  *    @param inp_id_project_parent nadřazený projekt (root=null)
+  *    @param inp_id_type     stav projektu
+  *    @param out_id          výstupní parametr id vytvořeného projektu
   */
   PROCEDURE projects_iu(
       inp_id                IN projects.id%type DEFAULT NULL ,
@@ -45,16 +68,26 @@ AS
       inp_description       IN projects.description%type DEFAULT NULL ,
       inp_id_project_parent IN projects.id_project_parent%type DEFAULT NULL ,
       inp_id_type           IN projects.id_type%type DEFAULT NULL ,
-      out_id OUT projects.id%type,
-      auto_commit IN BOOLEAN DEFAULT true );
+      out_id OUT projects.id%type);
   /*
   * Deaktivace projektu
+  *
+  *    @param inp_id          id projektu k deaktivaci
   */
   PROCEDURE projects_del(
-      inp_id      IN projects.id%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id IN projects.id%type DEFAULT NULL);
   /*
-  * Vlozeni/oprava ukolu
+  * Vložení/oprava úkolu
+  *
+  *    @param inp_id          id úkolu (pokud je uvedeno id provede se změna tohoto id)
+  *    @param inp_id_creator  id osoby , která úkol vytvořila
+  *    @param inp_id_owner    id osoby vlastníka 
+  *    @param inp_name        název úkolu
+  *    @param inp_description popis úkolu
+  *    @param inp_id_project  id projektu úkolu
+  *    @param inp_id_type     stav úkolu
+  *    @param inp_date_from   Kalendář - datum od
+  *    @param inp_date_to     Kalendář - datum do
   */
   PROCEDURE tasks_iu(
       inp_id          IN tasks.id%type DEFAULT NULL ,
@@ -65,42 +98,50 @@ AS
       inp_id_project  IN tasks.id_project%type DEFAULT NULL ,
       inp_id_type     IN tasks.id_type%type DEFAULT NULL ,
       inp_date_from   IN VARCHAR2 DEFAULT NULL ,
-      inp_date_to     IN VARCHAR2 DEFAULT NULL ,
-      auto_commit     IN BOOLEAN DEFAULT true );
+      inp_date_to     IN VARCHAR2 DEFAULT NULL);
   /*
-  * Deaktivace ukolu
+  * Deaktivace úkolu
+  *
+  *    @param inp_id          id úkolu k deaktivaci  
   */
   PROCEDURE tasks_del(
-      inp_id      IN tasks.id%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id IN tasks.id%type DEFAULT NULL);
   /*
-  * Vlozeni/oprava kontextu
+  * Vložení/oprava kontextu
+  *
+  *    @param inp_id          id kontextu (pokud je uvedeno id provede se změna tohoto id)
+  *    @param inp_name        název kontextu
+  *    @param inp_id_person   id osoby, které patří kontext
   */
   PROCEDURE contexts_iu(
       inp_id        IN contexts.id%type DEFAULT NULL ,
       inp_name      IN contexts.name%type DEFAULT NULL ,
-      inp_id_person IN contexts.id_person%type DEFAULT NULL ,
-      auto_commit   IN BOOLEAN DEFAULT true );
+      inp_id_person IN contexts.id_person%type DEFAULT NULL);
   /*
-  * Smazani kontextu
+  * Smazání kontextu
+  *
+  *    @param inp_id          id kontextu k deaktivaci    
   */
   PROCEDURE contexts_del(
-      inp_id      IN contexts.id%type DEFAULT NULL ,
-      auto_commit IN BOOLEAN DEFAULT true );
+      inp_id IN contexts.id%type DEFAULT NULL);
   /*
-  * Vlozeni clena projektu
+  * Vložení člena projektu
+  *
+  *    @param inp_id_project       id projektu
+  *    @param inp_id_person        id osoby
   */
   PROCEDURE members_iu(
       inp_id_project IN members.id_project%type DEFAULT NULL ,
-      inp_id_person  IN members.id_person%type DEFAULT NULL ,
-      auto_commit    IN BOOLEAN DEFAULT true );
+      inp_id_person  IN members.id_person%type DEFAULT NULL);
   /*
-  * Smazani clena projektu
+  * Smazání člena projektu
+  *
+  *    @param inp_id_project       id projektu
+  *    @param inp_id_person        id osoby
   */
   PROCEDURE members_del(
       inp_id_project IN members.id_project%type DEFAULT NULL ,
-      inp_id_person  IN members.id_person%type DEFAULT NULL ,
-      auto_commit    IN BOOLEAN DEFAULT true );
+      inp_id_person  IN members.id_person%type DEFAULT NULL);
 END API;
 /
 CREATE OR REPLACE PACKAGE BODY API
@@ -130,8 +171,7 @@ PROCEDURE activities_iu(
     inp_id_person   IN activities.id_person%type DEFAULT NULL ,
     inp_name        IN activities.name%type DEFAULT NULL ,
     inp_description IN activities.description%type DEFAULT NULL ,
-    inp_id_type     IN activities.id_type%type DEFAULT NULL ,
-    auto_commit     IN BOOLEAN DEFAULT true )
+    inp_id_type     IN activities.id_type%type DEFAULT NULL )
 AS
   inp_id_row INTEGER;
 BEGIN
@@ -164,28 +204,22 @@ BEGIN
         inp_id_type
       );
   END IF;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END activities_iu;
 PROCEDURE activities_del
   (
-    inp_id      IN activities.id%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true
+    inp_id IN activities.id%type DEFAULT NULL
   )
 AS
 BEGIN
   DELETE FROM pavlim33.activities WHERE id = inp_id;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END activities_del;
 PROCEDURE persons_iu(
-    inp_id      IN persons.id%type DEFAULT NULL ,
-    inp_login   IN persons.login%type DEFAULT NULL ,
-    inp_fname   IN persons.fname%type DEFAULT NULL ,
-    inp_sname   IN persons.sname%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true )
+    inp_id    IN persons.id%type DEFAULT NULL ,
+    inp_login IN persons.login%type DEFAULT NULL ,
+    inp_fname IN persons.fname%type DEFAULT NULL ,
+    inp_sname IN persons.sname%type DEFAULT NULL )
 AS
   inp_id_row INTEGER;
 BEGIN
@@ -217,14 +251,11 @@ BEGIN
   END IF;
   --nastav prava
   NASTAV_PRAVA_TABULEK();
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END persons_iu;
 PROCEDURE persons_del
   (
-    inp_id      IN persons.id%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true
+    inp_id IN persons.id%type DEFAULT NULL
   )
 AS
 BEGIN
@@ -233,9 +264,7 @@ BEGIN
     (SELECT id FROM pavlim33.types WHERE table_name='persons' AND code='N'
     )
   WHERE id = inp_id;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END persons_del;
 PROCEDURE projects_iu(
     inp_id                IN projects.id%type DEFAULT NULL ,
@@ -244,8 +273,7 @@ PROCEDURE projects_iu(
     inp_description       IN projects.description%type DEFAULT NULL ,
     inp_id_project_parent IN projects.id_project_parent%type DEFAULT NULL ,
     inp_id_type           IN projects.id_type%type DEFAULT NULL ,
-    out_id OUT projects.id%type,
-    auto_commit IN BOOLEAN DEFAULT true )
+    out_id OUT projects.id%type )
 AS
   l_cnt INTEGER;
 BEGIN
@@ -326,14 +354,11 @@ BEGIN
         inp_id_type
       );
   END IF;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END projects_iu;
 PROCEDURE projects_del
   (
-    inp_id      IN projects.id%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true
+    inp_id IN projects.id%type DEFAULT NULL
   )
 AS
   l_cnt NUMBER;
@@ -366,9 +391,7 @@ BEGIN
   END LOOP;
   --deaktivace projektu
   UPDATE pavlim33.projects SET status=1 WHERE id = inp_id;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END projects_del;
 PROCEDURE tasks_iu(
     inp_id          IN tasks.id%type DEFAULT NULL ,
@@ -379,8 +402,7 @@ PROCEDURE tasks_iu(
     inp_id_project  IN tasks.id_project%type DEFAULT NULL ,
     inp_id_type     IN tasks.id_type%type DEFAULT NULL ,
     inp_date_from   IN VARCHAR2 DEFAULT NULL ,
-    inp_date_to     IN VARCHAR2 DEFAULT NULL ,
-    auto_commit     IN BOOLEAN DEFAULT true )
+    inp_date_to     IN VARCHAR2 DEFAULT NULL )
 AS
   inp_id_row INTEGER;
   l_cnt      INTEGER;
@@ -461,14 +483,11 @@ BEGIN
         inp_id_type
       );
   END IF;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END tasks_iu;
 PROCEDURE tasks_del
   (
-    inp_id      IN tasks.id%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true
+    inp_id IN tasks.id%type DEFAULT NULL
   )
 AS
   l_cnt  INTEGER;
@@ -496,15 +515,12 @@ BEGIN
     raise_application_error(-20021,rpad('Úkol může smazat pouze vlastník úkolu nebo projektu!',100,chr(10)));
   END IF;
   UPDATE pavlim33.tasks SET status=1 WHERE id = inp_id;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END tasks_del;
 PROCEDURE contexts_iu(
     inp_id        IN contexts.id%type DEFAULT NULL ,
     inp_name      IN contexts.name%type DEFAULT NULL ,
-    inp_id_person IN contexts.id_person%type DEFAULT NULL ,
-    auto_commit   IN BOOLEAN DEFAULT true )
+    inp_id_person IN contexts.id_person%type DEFAULT NULL )
 AS
   inp_id_row INTEGER;
 BEGIN
@@ -531,26 +547,20 @@ BEGIN
         inp_name
       );
   END IF;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END contexts_iu;
 PROCEDURE contexts_del
   (
-    inp_id      IN contexts.id%type DEFAULT NULL ,
-    auto_commit IN BOOLEAN DEFAULT true
+    inp_id IN contexts.id%type DEFAULT NULL
   )
 AS
 BEGIN
   DELETE FROM pavlim33.contexts WHERE id = inp_id;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END contexts_del;
 PROCEDURE members_iu(
     inp_id_project IN members.id_project%type DEFAULT NULL ,
-    inp_id_person  IN members.id_person%type DEFAULT NULL ,
-    auto_commit    IN BOOLEAN DEFAULT true )
+    inp_id_person  IN members.id_person%type DEFAULT NULL )
 AS
   inp_id_row INTEGER;
   l_pocet    INTEGER;
@@ -575,15 +585,12 @@ BEGIN
         inp_id_person
       );
   END IF;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END members_iu;
 PROCEDURE members_del
   (
     inp_id_project IN members.id_project%type DEFAULT NULL ,
-    inp_id_person  IN members.id_person%type DEFAULT NULL ,
-    auto_commit    IN BOOLEAN DEFAULT true
+    inp_id_person  IN members.id_person%type DEFAULT NULL
   )
 AS
 BEGIN
@@ -591,9 +598,7 @@ BEGIN
   FROM pavlim33.members
   WHERE id_person = inp_id_person
   AND id_project  = inp_id_project;
-  IF auto_commit THEN
-    COMMIT;
-  END IF;
+  COMMIT;
 END members_del;
 END API;
 /

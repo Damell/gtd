@@ -260,6 +260,16 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
+		projectsList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int selectedIndex = projectsList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					users = projects.get(selectedIndex).getSkupina();
+					usersList.setListData(users.toArray());
+				}
+			}
+		});
 		JScrollPane projectsScrollPane = new JScrollPane(projectsList);
 
 		JButton createTaskButton = new JButton(Consts.CREATE_TASK);

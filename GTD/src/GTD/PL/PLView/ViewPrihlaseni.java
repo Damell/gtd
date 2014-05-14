@@ -47,7 +47,7 @@ public class ViewPrihlaseni extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(osobaCtrl.loginOsoba(usernameField.getText(), passwordField.getPassword().toString())) {
+				if(osobaCtrl.loginOsoba(usernameField.getText(), new String(passwordField.getPassword()))) {
 					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {

@@ -253,6 +253,11 @@ public class ViewZpracovaniCinnosti extends JPanel implements IView {
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		usersList.setVisibleRowCount(-1);
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getId() == GTDGUI.getMyself().getId()) {
+				usersList.setSelectedIndex(i);
+			}
+		}
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 

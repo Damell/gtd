@@ -23,7 +23,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
+ * Class represents view with unprocessed activities
+ * @author GTD team
  * @version 1.0
  */
 public class ViewActivities extends JPanel implements IView {
@@ -98,7 +99,7 @@ public class ViewActivities extends JPanel implements IView {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.DESC_EMPTY);
 				} else {
-					if (GTDGUI.getGTDGUI().getCinnostController().addCinnost(newActivityTitleField.getText(), newActivityDescField.getText())) {
+					if (GTDGUI.getGTDGUI().getActivityController().addCinnost(newActivityTitleField.getText(), newActivityDescField.getText())) {
 						newActivityTitleField.setText("");
 						newActivityDescField.setText("");
 						refresh();
@@ -113,7 +114,7 @@ public class ViewActivities extends JPanel implements IView {
  				int selectedRow = activityTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Activity selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
-					GTDGUI.getGTDGUI().showZpracovaniCinnosti(selected);
+					GTDGUI.getGTDGUI().showProcessActivity(selected);
 				} else {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.NO_ACTIVITY_SELECTED);
@@ -127,7 +128,7 @@ public class ViewActivities extends JPanel implements IView {
  				int selectedRow = activityTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Activity selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
-					if ( GTDGUI.getGTDGUI().getCinnostController().deleteCinnost(selected) ) {
+					if ( GTDGUI.getGTDGUI().getActivityController().deleteCinnost(selected) ) {
 						refresh();
 					}
 				} else {
@@ -159,7 +160,7 @@ public class ViewActivities extends JPanel implements IView {
 					JTable target = (JTable)e.getSource();
 					int selectedRow = target.getSelectedRow();
 					Activity selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
-					GTDGUI.getGTDGUI().showZpracovaniCinnosti(selected);
+					GTDGUI.getGTDGUI().showProcessActivity(selected);
 				}
 			}
 		});
@@ -168,7 +169,7 @@ public class ViewActivities extends JPanel implements IView {
 	}
 
 	void loadData() {
-		activities = GTDGUI.getGTDGUI().getCinnostController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
+		activities = GTDGUI.getGTDGUI().getActivityController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
 	}
 
 	class ActivityTableModel extends AbstractTableModel {
@@ -211,17 +212,13 @@ public class ViewActivities extends JPanel implements IView {
 
 	}
 
-	/**
-	 * Aktualizuje pohled.
-	 */
+	@Override
 	public void refresh(){
 		loadData();
 		activityTableModel.fireTableDataChanged();
 	}
 
-	/**
-	 * Zobrazí daný pohled.
-	 */
+	@Override
 	public void showView(){
 		mainFrame.addTab(Consts.ACTIVITES, this);
 	}

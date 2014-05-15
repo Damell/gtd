@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- *
+ * Class represents the main frame of the app
+ * @author GTD team
+ * @version 1.0
  */
 public class MainFrame extends JFrame implements WindowListener {
 
@@ -34,6 +36,11 @@ public class MainFrame extends JFrame implements WindowListener {
 		repaint();
 	}
 
+	/**
+	 * This method gives easy access to adding new tabs to the mainframe
+	 * @param title
+	 * @param panel 
+	 */
 	void addTab(String title, JPanel panel) {
 		if(tabbedPane.getTabCount() == 0) {
 			setLayout(new BorderLayout());
@@ -47,6 +54,10 @@ public class MainFrame extends JFrame implements WindowListener {
 	public void windowOpened(WindowEvent e) {
 	}
 
+	/** 
+	 * Listens for windowClosing event and disconnects from database when it happens
+	 * @param e 
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		DatabaseConnection.closeConnection();

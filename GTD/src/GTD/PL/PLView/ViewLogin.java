@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * Třída představující pohled (okno) s přihlašovacím formulářem.
+ * The login view
+ * @author GTD team
  * @version 1.0
  */
 @SuppressWarnings("serial")
@@ -26,7 +27,7 @@ public class ViewLogin extends JPanel implements IView {
 	JPasswordField passwordField;
 	MainFrame mainFrame;
 	JButton loginButton;
-	IPersonController osobaCtrl;
+	IPersonController personCtrl;
 
 	/**
 	 *
@@ -34,7 +35,7 @@ public class ViewLogin extends JPanel implements IView {
 	 */
 	public ViewLogin(MainFrame mainFrame){
 		super();
-		osobaCtrl = GTDGUI.getGTDGUI().getOsobaController();
+		personCtrl = GTDGUI.getGTDGUI().getPersonController();
 		this.mainFrame = mainFrame;
 		init();
 	}
@@ -49,7 +50,7 @@ public class ViewLogin extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(osobaCtrl.loginOsoba(usernameField.getText(), new String(passwordField.getPassword()))) {
+				if(personCtrl.loginOsoba(usernameField.getText(), new String(passwordField.getPassword()))) {
 					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {
@@ -96,25 +97,21 @@ public class ViewLogin extends JPanel implements IView {
 		add(loginButton, c);
 	}
 
-	/**
-	 * Zobrazí daný pohled.
-	 */
+	@Override
 	public void showView(){
 		mainFrame.add(this);
 		GTDGUI.getGTDGUI().refresh();
 	}
 
 	/**
-	 * Smaže daný pohled.
+	 * Hides this view
 	 */
 	public void hideView(){
 		mainFrame.remove(this);
 		GTDGUI.getGTDGUI().refresh();
 	}
 
-	/**
-	 * Aktualizuje pohled.
-	 */
+	@Override
 	public void refresh(){
 
 	}

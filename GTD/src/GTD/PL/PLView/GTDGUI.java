@@ -12,60 +12,54 @@ import GTD.BL.BLInterfaces.ITaskController;
 import GTD.BL.BLOsoby.PersonController;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * Hlavní třída uživatelského rozhraní - obsahuje základní navigaci a kolekci
- * pohledů (views).
+ * Main Class of the GUI - contains references to all main building blocks (mostly panels) of the app and controls interaction between them
+ * @author GTD team
  * @version 1.0
  */
 public class GTDGUI implements IGTDGUI {
 
-	/**
-	 * Kolekce pohledů (obrazovek).
-	 */
-	private List<IView> views;
 	private MainFrame mainFrame;
-
-	// BL reference 
-	private IPersonController osobaController;
-	private IActivityController cinnostController;
-	private IContextController kontextController;
-	private IProjectController projektController;
-	private ITaskController ukolController;
-
 	private Person myself;
-
-	private static IView loginPanel;
-	private static IView cinnostiPanel;
-	private static IView ukolyProjektyPanel;
-	private static IView mojeUkolyPanel;
-	private static IView zpracovaniPanel;
 	private static GTDGUI GTDGUI;
 
+	private static IView loginPanel;
+	private static IView activitiesPanel;
+	private static IView tasksProjectsPanel;
+	private static IView myTasksPanel;
+	private static IView processActivityPanel;
+
+	private IPersonController personController;
+	private IActivityController activityController;
+	private IContextController contextController;
+	private IProjectController projectController;
+	private ITaskController taskController;
+
 	/**
-	 *
+	 * Private constructor -- makes this class a singleton
 	 */
-	public GTDGUI(){
-		views = new ArrayList<>() ;
+	private GTDGUI(){
 		initBL();
 
 		//Init main frame
 		mainFrame = new MainFrame(Consts.APP_TITLE);
 	}
 
+	/**
+	 * Initializes BL
+	 */
 	void initBL() {
-		osobaController = new PersonController();
-		cinnostController = new ActivityController();
-		kontextController = new ContextController();
-		projektController = new ProjectController();
-		ukolController = new TaskController();
+		personController = new PersonController();
+		activityController = new ActivityController();
+		contextController = new ContextController();
+		projectController = new ProjectController();
+		taskController = new TaskController();
 	}
 
 	/**
-	 *
+	 * main method - runs first
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -73,75 +67,53 @@ public class GTDGUI implements IGTDGUI {
 		GTDGUI.showPrihlaseni();
 	}
 
-
-	/**
-	 * Aktualizuje všechny navázané pohledy.
-	 */
 	@Override
 	public void refresh(){
 		mainFrame.revalidate();
 		mainFrame.repaint();
-		if (ukolyProjektyPanel!= null) ukolyProjektyPanel.refresh();
-		if (cinnostiPanel != null) cinnostiPanel.refresh();
-		if (mojeUkolyPanel != null) mojeUkolyPanel.refresh();
+		if (tasksProjectsPanel!= null) tasksProjectsPanel.refresh();
+		if (activitiesPanel != null) activitiesPanel.refresh();
+		if (myTasksPanel != null) myTasksPanel.refresh();
 	}
 
-	/**
-	 * Zobrazí dialog se zpracováním činnosti.
-	 * 
-	 * @param cinnost
-	 */
 	@Override
-	public void showZpracovaniCinnosti(Activity cinnost){
-		zpracovaniPanel = new ViewProcessActivity(cinnost);
-		zpracovaniPanel.showView();
+	public void showProcessActivity(Activity cinnost){
+		processActivityPanel = new ViewProcessActivity(cinnost);
+		processActivityPanel.showView();
 	}
 
 	/**
-	 *
+	 * Shows main UI when the users logs in
 	 */
 	public void showMainWindow() {
-		myself = getOsobaController().getPrihlasenaOsoba();
-		showCinnosti();
+		myself = getPersonController().getPrihlasenaOsoba();
+		showActivities();
 		showUkolyProjekty();
 		showMojeUkoly();
 	}
 
-	/**
-	 * Zobrazí okno s úkoly a projekty všech osob
-	 */
 	@Override
 	public void showUkolyProjekty(){
-		ukolyProjektyPanel = new ViewTasksProjects(mainFrame);
-		ukolyProjektyPanel.showView();
+		tasksProjectsPanel = new ViewTasksProjects(mainFrame);
+		tasksProjectsPanel.showView();
 	}
 
-	/**
-	 * Zobrazí činnosti přihlášené osoby.
-	 */
 	@Override
-	public void showCinnosti(){
-		cinnostiPanel = new ViewActivities(mainFrame);
-		cinnostiPanel.showView();
+	public void showActivities(){
+		activitiesPanel = new ViewActivities(mainFrame);
+		activitiesPanel.showView();
 	}
 
-	/**
-	 * Zobrazí úkoly přihlášené osoby.
-	 */
 	@Override
 	public void showMojeUkoly(){
-		mojeUkolyPanel = new ViewMyTasks(mainFrame);
-		mojeUkolyPanel.showView();
+		myTasksPanel = new ViewMyTasks(mainFrame);
+		myTasksPanel.showView();
 	}
 
-	/**
-	 * Zobrazí přihlašovací okno.
-	 */
 	@Override
 	public void showPrihlaseni(){
 		//Init login panel
 		loginPanel = new ViewLogin(mainFrame);
-		views.add(loginPanel);
 		loginPanel.showView();
 	}
 
@@ -152,59 +124,52 @@ public class GTDGUI implements IGTDGUI {
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of this class
 	 */
 	public static GTDGUI getGTDGUI() {
 		return GTDGUI;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of signed in user
 	 */
 	public static Person getMyself() {
 		return GTDGUI.myself;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of BL class
 	 */
-	public IPersonController getOsobaController() {
-		return osobaController;
+	public IPersonController getPersonController() {
+		return personController;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of BL class
 	 */
-	public IActivityController getCinnostController() {
-		return cinnostController;
+	public IActivityController getActivityController() {
+		return activityController;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of BL class
 	 */
-	public IContextController getKontextController() {
-		return kontextController;
+	public IContextController getContextController() {
+		return contextController;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of BL class
 	 */
-	public IProjectController getProjektController() {
-		return projektController;
+	public IProjectController getProjectController() {
+		return projectController;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return instance of BL class
 	 */
-	public ITaskController getUkolController() {
-		return ukolController;
+	public ITaskController getTaskController() {
+		return taskController;
 	}
 
 }

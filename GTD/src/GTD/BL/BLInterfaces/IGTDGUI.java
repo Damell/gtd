@@ -15,16 +15,16 @@ public interface IGTDGUI {
 	public void refresh();
 
 	/**
-	 * Zobrazí činnosti přihlášené osoby.
+	 * Shows view with actions concerning activities
 	 */
-	public void showCinnosti();
+	public void showActivities();
 
 	/**
 	 * Zobrazí dialog se zpracováním činnosti.
 	 * 
 	 * @param cinnost
 	 */
-	public void showZpracovaniCinnosti(Activity cinnost);
+	public void showProcessActivity(Activity cinnost);
 
 	/**
 	 * Zobrazí okno s úkoly a projekty všech osob

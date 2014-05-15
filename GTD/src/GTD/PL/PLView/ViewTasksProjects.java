@@ -29,15 +29,14 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
- * Třída představující pohled (okno) s úkoly a projekty.
+ * View with all projects and tasks and detail view of any selected
+ * @author GTD team
  * @version 1.0
  */
 public class ViewTasksProjects extends JPanel implements IView {
 	
 	private MainFrame mainFrame;
-	
 	private JPanel menu;
-	
 	private JPanel mainView;
 	private JTree projectsTree;
 	private ProjectTreeModel projectTreeModel;
@@ -86,8 +85,8 @@ public class ViewTasksProjects extends JPanel implements IView {
 	}
 
 	void loadData() {
-		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
-		tasks = GTDGUI.getGTDGUI().getUkolController().getAllUkoly();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
+		tasks = GTDGUI.getGTDGUI().getTaskController().getAllUkoly();
 	}
 
 	void showDetailOfSelected() {
@@ -144,15 +143,8 @@ public class ViewTasksProjects extends JPanel implements IView {
 			c.gridy++;
 			add(new JLabel(Consts.OWNER + ": "), c);
 			c.gridx = 1;
-			Person vlastnik = GTDGUI.getGTDGUI().getOsobaController().getOsoba(task.getVlastnik_id());
+			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getOsoba(task.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
-			/*c.gridx = 0;
-			c.gridy++;
-			add(new JLabel(Consts.CREATOR + ": "), c);
-			c.gridx = 1;
-			Person creator = GTDGUI.getGTDGUI().getOsobaController().getOsoba(task.getTvurce());
-			add(new JLabel(creator.getJmeno() + " " + creator.getPrijmeni()), c);
-			*/
 			if(task.getKalendar() != null && task.getKalendar().isSet()) {
 				c.gridx = 0;
 				c.gridy++;
@@ -193,7 +185,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getUkolController().activateUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().activateUkol(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -219,7 +211,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().finishUkol(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -233,7 +225,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getUkolController().deleteUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().deleteUkol(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -288,7 +280,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 			c.gridy++;
 			add(new JLabel(Consts.OWNER + ": "), c);
 			c.gridx = 1;
-			Person vlastnik = GTDGUI.getGTDGUI().getOsobaController().getOsoba(project.getVlastnik_id());
+			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getOsoba(project.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
 			c.gridx = 0;
 			c.gridy++;
@@ -320,7 +312,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getProjektController().finishProjekt(project)) {
+					if(GTDGUI.getGTDGUI().getProjectController().finishProjekt(project)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -334,7 +326,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getProjektController().deleteProjekt(project)) {
+					if(GTDGUI.getGTDGUI().getProjectController().deleteProjekt(project)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -446,9 +438,6 @@ public class ViewTasksProjects extends JPanel implements IView {
 
 	}
 	
-	/**
-	 * Aktualizuje pohled.
-	 */
 	public void refresh(){
 		TreePath path = projectsTree.getSelectionPath();
 		loadData();
@@ -459,9 +448,6 @@ public class ViewTasksProjects extends JPanel implements IView {
 		
 	}
 	
-	/**
-	 * Zobrazí daný pohled.
-	 */
 	public void showView(){
 		mainFrame.addTab(Consts.TASKS_AND_PROJECTS, this);
 	}

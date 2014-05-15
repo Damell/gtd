@@ -1,18 +1,20 @@
 package GTD.PL.PLView;
 
 /**
- * Rozhraní pro okno (záložku) uživatelského rozhraní.
+ * Interface for tabs and panels in the GUI
+ * Gives access to easy refreshing of the view when data changes
+ * @author GTD team
  * @version 1.0
  */
 public interface IView {
 
 	/**
-	 * Aktualizuje pohled.
+	 * Refreshes the view
 	 */
 	public void refresh();
 
 	/**
-	 * Zobrazí daný pohled.
+	 * Makes the view visible
 	 */
 	public void showView();
 

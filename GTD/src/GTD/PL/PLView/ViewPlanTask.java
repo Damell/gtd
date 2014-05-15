@@ -16,7 +16,9 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 /**
- *
+ * Class extracts the GUI and logic of planning a task
+ * @author GTD team
+ * @version 1.0
  */
 public class ViewPlanTask {
 	
@@ -33,16 +35,7 @@ public class ViewPlanTask {
 		getDatesFromUserToPlanTask(ukol);
 	}
 
-	void planTask (Task ukol, Interval interval) {
-		if(GTDGUI.getGTDGUI().getUkolController().scheduleUkol(ukol, interval)) {
-			GTDGUI.getGTDGUI().refresh();
-		}
-	}
-
-
 	void getDatesFromUserToPlanTask (Task ukol) {
-		Interval interval = null;
-
 		// init date pickers
 		fromModel = new UtilDateModel();
 		JDatePanelImpl fromDatePanel = new JDatePanelImpl(fromModel);
@@ -91,4 +84,11 @@ public class ViewPlanTask {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible (true);
 	}
+
+	void planTask (Task ukol, Interval interval) {
+		if(GTDGUI.getGTDGUI().getTaskController().scheduleUkol(ukol, interval)) {
+			GTDGUI.getGTDGUI().refresh();
+		}
+	}
+
 }

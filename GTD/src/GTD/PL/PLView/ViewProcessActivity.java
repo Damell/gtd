@@ -22,7 +22,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- * Třída představující pohled (okno) s formulářem pro zpracování činnosti.
+ * View representing the processing of activity
+ * @author GTD team
  * @version 1.0
  */
 public class ViewProcessActivity extends JPanel implements IView {
@@ -37,10 +38,10 @@ public class ViewProcessActivity extends JPanel implements IView {
 	private JList usersList;
 
 	/**
-	 * @param cinnost	Zpracovávaná činnost
+	 * @param activity activity to be processed
 	 */
-	public ViewProcessActivity(Activity cinnost){
-		this.cinnost = cinnost;
+	public ViewProcessActivity(Activity activity){
+		this.cinnost = activity;
 		setPreferredSize (new Dimension (400, 85));
 		closeButton = new JButton(Consts.CLOSE);
 		closeButton.addActionListener(new ActionListener() {
@@ -174,14 +175,14 @@ public class ViewProcessActivity extends JPanel implements IView {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new GridBagLayout());
 
-		users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		users = GTDGUI.getGTDGUI().getPersonController().getAllUsers();
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		usersList.setVisibleRowCount(-1);
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
-		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -211,7 +212,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 				for (int i : selectedIndices) {
 					selectedUsers.add(users.get(i));
 				}
-				if (GTDGUI.getGTDGUI().getProjektController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID, selectedUsers, cinnost)) {
+				if (GTDGUI.getGTDGUI().getProjectController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID, selectedUsers, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -250,7 +251,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new GridBagLayout());
 
-		users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+		users = GTDGUI.getGTDGUI().getPersonController().getAllUsers();
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		usersList.setVisibleRowCount(-1);
@@ -262,7 +263,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
-		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -295,7 +296,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 				if (selectedIndex != -1) {
 					ownerId = users.get(selectedIndex).getId();
 				}
-				if (GTDGUI.getGTDGUI().getUkolController().addUkol(cinnost.getNazev(), cinnost.getPopis(), ownerId, projektId, cinnost)) {
+				if (GTDGUI.getGTDGUI().getTaskController().addUkol(cinnost.getNazev(), cinnost.getPopis(), ownerId, projektId, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -334,7 +335,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new GridBagLayout());
 
-		projects = GTDGUI.getGTDGUI().getProjektController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -351,7 +352,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 					projektId = projects.get(selectedIndex).getId();
 				}
 
-				if (GTDGUI.getGTDGUI().getUkolController().addTwoMinutesUkol(cinnost.getNazev(), cinnost.getPopis(), projektId, cinnost)) {
+				if (GTDGUI.getGTDGUI().getTaskController().addTwoMinutesUkol(cinnost.getNazev(), cinnost.getPopis(), projektId, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -382,7 +383,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showUseless() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getCinnostController().deleteCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().deleteCinnost(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.DELETED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {
@@ -396,7 +397,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showArchive() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getCinnostController().archiveCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().archiveCinnost(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.ARCHIVED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {
@@ -410,7 +411,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showPostpone() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getCinnostController().postponeCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().postponeCinnost(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.POSTPONED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {
@@ -421,17 +422,11 @@ public class ViewProcessActivity extends JPanel implements IView {
 		refresh();
 	}
 
-	/**
-	 * Aktualizuje pohled.
-	 */
 	public void refresh(){
 		processFrame.revalidate();
 		processFrame.repaint();
 	}
 
-	/**
-	 * Zobrazí daný pohled.
-	 */
 	public void showView(){
 		processFrame = new JFrame(Consts.PROCESSING);
 		processFrame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);

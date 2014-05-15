@@ -19,7 +19,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- * Třída představující pohled (okno) s nezpracovanými uživatelovými činnostmi.
+ * View containing user's tasks with actions available to them
+ * @author GTD team
  * @version 1.0
  */
 public class ViewMyTasks extends JPanel implements IView {
@@ -103,7 +104,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getUkolController().activateUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().activateUkol(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {
@@ -133,7 +134,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getUkolController().finishUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().finishUkol(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {
@@ -149,7 +150,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getUkolController().deleteUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().deleteUkol(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {
@@ -178,7 +179,7 @@ public class ViewMyTasks extends JPanel implements IView {
 	}
 
 	void loadData() {
-		tasks = GTDGUI.getGTDGUI().getUkolController().getUkolyOsoby(GTDGUI.getMyself());
+		tasks = GTDGUI.getGTDGUI().getTaskController().getUkolyOsoby(GTDGUI.getMyself());
 	}
 
 	class TaskTableModel extends AbstractTableModel {
@@ -230,17 +231,11 @@ public class ViewMyTasks extends JPanel implements IView {
 
 	}
 
-	/**
-	 * Aktualizuje pohled.
-	 */
 	public void refresh(){
 		loadData();
 		tasksTableModel.fireTableDataChanged();
 	}
 
-	/**
-	 * Zobrazí daný pohled.
-	 */
 	public void showView(){
 		mainFrame.addTab(Consts.MY_TASKS, this);
 	}

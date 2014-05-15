@@ -19,13 +19,15 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 /**
- *
+ * Class extracts the GUI logic of changing the owner of project or task
+ * @author GTD team
+ * @version 1.0
  */
 public class ViewChangeOwner {
 	
 	JFrame frame;
 	Action activity;
-	Person osoba;
+	Person person;
 	JList usersList;
 	List<Person> users;
 
@@ -38,23 +40,13 @@ public class ViewChangeOwner {
 		setUser();
 	}
 
-	void changeOwner () {
-		if (activity instanceof Task) {
-			GTDGUI.getGTDGUI().getUkolController().changeOwner((Task) activity, osoba);
-		} else {
-			GTDGUI.getGTDGUI().getProjektController().changeOwner((Project) activity, osoba);
-		}
-		GTDGUI.getGTDGUI().refresh();
-	}
-
-
 	void setUser () {
 		if (activity instanceof Project) {
 			users = ((Project) activity).getSkupina();
 		} else if (((Task) activity).getProjekt() == 0) {
-			users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
+			users = GTDGUI.getGTDGUI().getPersonController().getAllUsers();
 		} else {
-			users = GTDGUI.getGTDGUI().getProjektController().getProjekt(((Task) activity).getProjekt()).getSkupina();
+			users = GTDGUI.getGTDGUI().getProjectController().getProjekt(((Task) activity).getProjekt()).getSkupina();
 		}
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -68,7 +60,7 @@ public class ViewChangeOwner {
 			public void actionPerformed(ActionEvent e) {
 				int selectedIndex = usersList.getSelectedIndex();
 				if (selectedIndex != -1) {
-					osoba = users.get(selectedIndex);
+					person = users.get(selectedIndex);
 					frame.dispose();
 					changeOwner();
 				} else {
@@ -90,4 +82,14 @@ public class ViewChangeOwner {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible (true);
 	}
+
+	void changeOwner () {
+		if (activity instanceof Task) {
+			GTDGUI.getGTDGUI().getTaskController().changeOwner((Task) activity, person);
+		} else {
+			GTDGUI.getGTDGUI().getProjectController().changeOwner((Project) activity, person);
+		}
+		GTDGUI.getGTDGUI().refresh();
+	}
+
 }

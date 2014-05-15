@@ -1,5 +1,6 @@
 package GTD.PL.PLView;
 import GTD.BL.BLInterfaces.IPersonController;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,9 +19,9 @@ import javax.swing.SwingConstants;
  * @author GTD team
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public class ViewLogin extends JPanel implements IView {
 
+	static final long serialVersionUID = 1L;
 	JLabel usernameLabel;
 	JLabel passwordLabel;
 	JTextField usernameField;

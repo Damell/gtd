@@ -34,7 +34,8 @@ import javax.swing.tree.TreePath;
  * @version 1.0
  */
 public class ViewTasksProjects extends JPanel implements IView {
-	
+
+	static final long serialVersionUID = 1L;
 	private MainFrame mainFrame;
 	private JPanel menu;
 	private JPanel mainView;
@@ -102,6 +103,8 @@ public class ViewTasksProjects extends JPanel implements IView {
 	}
 
 	class DetailView extends JPanel {
+		static final long serialVersionUID = 1L;
+
 		GridBagConstraints c;
 		DetailView () {
 			setLayout(new GridBagLayout());

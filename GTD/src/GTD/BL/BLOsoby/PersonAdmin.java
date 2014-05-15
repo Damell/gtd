@@ -15,7 +15,7 @@ public class PersonAdmin {
 	/**
 	 * Aktuálně přihlášený uživatel.
 	 */
-	private Person prihlasenaOsoba;
+	private Person loggedPerson;
 
 	/**
 	 *
@@ -105,16 +105,6 @@ public class PersonAdmin {
 	 * @param login
 	 */
 	private boolean checkNewLogin(String login){
-		return false;
-	}
-
-	/**
-	 * Zkontroluje přihlašovací údaje.
-	 * 
-	 * @param login
-	 * @param heslo
-	 */
-	private boolean checkPrihlaseni(String login, String heslo){
 		return false;
 	}
 

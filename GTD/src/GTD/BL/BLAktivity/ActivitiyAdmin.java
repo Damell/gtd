@@ -10,28 +10,25 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s cinnostmi.
+ * @author GTD team
  * @version 1.0
  */
 public class ActivitiyAdmin {
 
-	private IDAOActivity DAOCinnost;
+	private IDAOActivity DAOActivity;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
-	private PersonAdmin spravceOsob;
+	private PersonAdmin personAdmin;
 
-	/**
-	 *
-	 */
-	public DAOActivity m_DAOCinnost;
-        private IDAOState DAOStav;
+	private IDAOState DAOState;
 
 	/**
 	 *
 	 */
 	public ActivitiyAdmin(){
-		DAOCinnost = new DAOActivity();
-                DAOStav = new DAOState();
+		DAOActivity = new DAOActivity();
+		DAOState = new DAOState();
 	}
 
 	/**
@@ -40,8 +37,8 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean addCinnost(Activity cinnost){
-		return DAOCinnost.createCinnost(cinnost);
+	public boolean addActivity(Activity cinnost){
+		return DAOActivity.createCinnost(cinnost);
 	}
 
 	/**
@@ -50,8 +47,8 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean deleteCinnost(Activity cinnost){
-		return DAOCinnost.deleteCinnost(cinnost);
+	public boolean deleteActivity(Activity cinnost){
+		return DAOActivity.deleteCinnost(cinnost);
 	}
 
 	/**
@@ -60,7 +57,7 @@ public class ActivitiyAdmin {
 	 * @param id
 	 * @return 
 	 */
-	public Activity getCinnost(int id){
+	public Activity getActivity(int id){
 		return null;
 	}
 
@@ -70,7 +67,7 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean updateCinnost(Activity cinnost){
+	public boolean updateActivity(Activity cinnost){
 		return false;
 	}
 
@@ -80,8 +77,8 @@ public class ActivitiyAdmin {
 	 * @param osoba
 	 * @return 
 	 */
-	public List<Activity> getCinnostiOsoby(Person osoba){
-		return DAOCinnost.getCinnostiOsoby(osoba);
+	public List<Activity> getActivitiesOfPerson(Person osoba){
+		return DAOActivity.getCinnostiOsoby(osoba);
 	}
 
 	/**
@@ -90,9 +87,9 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean processCinnost(Activity cinnost){
-		cinnost.setStav(DAOStav.getCinnostZpracovanaID());
-		return DAOCinnost.updateCinnost(cinnost);
+	public boolean processActivity(Activity cinnost){
+		cinnost.setStav(DAOState.getCinnostZpracovanaID());
+		return DAOActivity.updateCinnost(cinnost);
 	}
 
 	/**
@@ -101,9 +98,9 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean archiveCinnost(Activity cinnost){
-		cinnost.setStav(DAOStav.getCinnostArchivovanaID());
-		return DAOCinnost.updateCinnost(cinnost);
+	public boolean archiveActivity(Activity cinnost){
+		cinnost.setStav(DAOState.getCinnostArchivovanaID());
+		return DAOActivity.updateCinnost(cinnost);
 	}
 
 	/**
@@ -112,9 +109,9 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean postponeCinnost(Activity cinnost){
-		cinnost.setStav(DAOStav.getCinnostOdlozenaID());
-		return DAOCinnost.updateCinnost(cinnost);
+	public boolean postponeActivity(Activity cinnost){
+		cinnost.setStav(DAOState.getCinnostOdlozenaID());
+		return DAOActivity.updateCinnost(cinnost);
 	}
 
 }

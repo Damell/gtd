@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IPersonController.
+ * @author GTD team
  * @version 1.0
  */
 public class PersonController implements IPersonController {
 
-	private PersonAdmin spravceOsob;
+	private PersonAdmin personAdmin;
 	private IGTDGUI GUI;
 
 	/**
@@ -19,7 +20,7 @@ public class PersonController implements IPersonController {
 	 */
 	public PersonController(){
 		GUI = GTDGUI.getGTDGUI();
-		spravceOsob = new PersonAdmin();
+		personAdmin = new PersonAdmin();
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	public boolean loginPerson(String login, String heslo){
-		return spravceOsob.loginOsoba(login, heslo);
+		return personAdmin.loginOsoba(login, heslo);
 	}
 
 	/**
@@ -71,9 +72,9 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	public Person getLoggedPerson(){
-		//return spravceOsob.getPerson(GTDGUI.getMyself().getId());
-		//return spravceOsob.getPerson(18);
-                return spravceOsob.getOsobaPrihlasena();
+		//return personAdmin.getPerson(GTDGUI.getMyself().getId());
+		//return personAdmin.getPerson(18);
+                return personAdmin.getOsobaPrihlasena();
 	}
 
 	/**
@@ -84,7 +85,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	public Person getPerson(int id){
-		return spravceOsob.getOsoba(id);
+		return personAdmin.getOsoba(id);
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class PersonController implements IPersonController {
 
 	@Override
 	public List getAllUsers() {
-		return spravceOsob.getAllUsers();
+		return personAdmin.getAllUsers();
 	}
 
 }

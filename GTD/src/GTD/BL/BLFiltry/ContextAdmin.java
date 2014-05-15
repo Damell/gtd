@@ -1,4 +1,5 @@
 package GTD.BL.BLFiltry;
+
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
@@ -6,6 +7,8 @@ import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
+ *
+ * @author GTD team
  * @version 1.0
  */
 public class ContextAdmin {
@@ -15,62 +18,58 @@ public class ContextAdmin {
 	/**
 	 *
 	 */
-	public ContextAdmin(){
-
-	}
-
-	public void finalize() throws Throwable {
+	public ContextAdmin() {
 
 	}
 
 	/**
 	 * Přidá osobě nový kontext.
-	 * 
+	 *
 	 * @param kontext
-	 * @param osoba
-	 * @return 
+	 * @param person
+	 * @return
 	 */
-	public boolean addKontext(Context kontext, Person osoba){
+	public boolean addContext(Context kontext, Person person) {
 		return false;
 	}
 
 	/**
 	 * Smaže kontext.
-	 * 
+	 *
 	 * @param kontext
-	 * @return 
+	 * @return
 	 */
-	public boolean deleteKontext(Context kontext){
+	public boolean deleteContext(Context kontext) {
 		return false;
 	}
 
 	/**
 	 * Vrátí kontext podle jeho ID.
-	 * 
+	 *
 	 * @param id
-	 * @return 
+	 * @return
 	 */
-	public Context getKontext(int id){
+	public Context getContext(int id) {
 		return null;
 	}
 
 	/**
 	 * Uloží zmenený kontext.
-	 * 
+	 *
 	 * @param kontext
-	 * @return 
+	 * @return
 	 */
-	public boolean updateKontext(Context kontext){
+	public boolean updateContext(Context kontext) {
 		return false;
 	}
 
 	/**
 	 * Vrátí všechny kontexty patrící zadané osobe.
-	 * 
+	 *
 	 * @param osoba
-	 * @return 
+	 * @return
 	 */
-	public List getKontextyOsoby(Person osoba){
+	public List getContextsOfPerson(Person osoba) {
 		return null;
 	}
 

@@ -8,19 +8,20 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IProjectController.
+ * @author GTD team
  * @version 1.0
  */
 public class ProjectController implements IProjectController {
 
-	private ProjectAdmin spravceProjektu;
-	private IDAOState DAOStav;
+	private ProjectAdmin projectAdmin;
+	private IDAOState DAOState;
 
 	/**
 	 *
 	 */
 	public ProjectController(){
-		spravceProjektu = new ProjectAdmin();
-		DAOStav = new DAOState();
+		projectAdmin = new ProjectAdmin();
+		DAOState = new DAOState();
 	}
 
 	/**
@@ -38,10 +39,10 @@ public class ProjectController implements IProjectController {
 	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost) {
 		Project rodic = null;
 		if (rodicID != -1) {
-			rodic = spravceProjektu.getProjekt(rodicID);
+			rodic = projectAdmin.getProject(rodicID);
 		}
-		Project newProjekt = new Project(nazev, popis, DAOStav.getProjektAktivniID(), vlastnik, skupina, rodic);
-		return spravceProjektu.addProjekt(newProjekt, cinnost);
+		Project newProjekt = new Project(nazev, popis, DAOState.getProjektAktivniID(), vlastnik, skupina, rodic);
+		return projectAdmin.addProject(newProjekt, cinnost);
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public boolean deleteProject(Project projekt){
-		return spravceProjektu.deleteProjekt(projekt);
+		return projectAdmin.deleteProject(projekt);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public Project getProject(int id){
-		return spravceProjektu.getProjekt(id);
+		return projectAdmin.getProject(id);
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class ProjectController implements IProjectController {
 	@Override
 	public boolean changeOwner(Project projekt, Person novyVlastnik){
 		projekt.setVlastnikID(novyVlastnik.getId());
-		return spravceProjektu.updateProjekt(projekt);
+		return projectAdmin.updateProject(projekt);
 	}
 
 	/**
@@ -100,8 +101,8 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public boolean finishProject(Project projekt){
-		projekt.setStav(DAOStav.getProjektDokoncenyID());
-		return spravceProjektu.finishProjekt(projekt);
+		projekt.setStav(DAOState.getProjektDokoncenyID());
+		return projectAdmin.finishProject(projekt);
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public List getProjectsOfPerson(Person osoba){
-		return spravceProjektu.getProjektyOsoby(osoba);
+		return projectAdmin.getProjectsOfPerson(osoba);
 	}
 
 	/**
@@ -122,7 +123,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public List getAllProjects(){
-		return spravceProjektu.getAllProjekty();
+		return projectAdmin.getAllProjects();
 	}
 
 	/**

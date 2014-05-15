@@ -9,27 +9,28 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s projekty.
+ * @author GTD team
  * @version 1.0
  */
 public class ProjectAdmin {
 
-	private IDAOProject DAOProjekt;
+	private IDAOProject DAOProject;
 	/**
 	 * Odkaz na ActivitiyAdmin - při přidání projektu vzniklého z činnosti je třeba
  tuto činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
 	 */
-	private ActivitiyAdmin spravceCinnosti;
+	private ActivitiyAdmin activityAdmin;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
-	private PersonAdmin spravceOsob;
+	private PersonAdmin personAdmin;
 
 	/**
 	 *
 	 */
 	public ProjectAdmin(){
-		DAOProjekt = new DAOProject();
-		spravceCinnosti = new ActivitiyAdmin();
+		DAOProject = new DAOProject();
+		activityAdmin = new ActivitiyAdmin();
 	}
 
 	/**
@@ -41,11 +42,11 @@ public class ProjectAdmin {
 	 * se pro označení činnosti jako "zpracované".
 	 * @return 
 	 */
-	public boolean addProjekt(Project projekt, Activity cinnost){
+	public boolean addProject(Project projekt, Activity cinnost){
 		if (cinnost != null) {
-			spravceCinnosti.deleteCinnost(cinnost);
+			activityAdmin.deleteActivity(cinnost);
 		}
-		return DAOProjekt.createProjekt(projekt);
+		return DAOProject.createProjekt(projekt);
 	}
 
 	/**
@@ -56,8 +57,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean deleteProjekt(Project projekt){
-		return DAOProjekt.deleteProjekt(projekt);
+	public boolean deleteProject(Project projekt){
+		return DAOProject.deleteProjekt(projekt);
 	}
 
 	/**
@@ -66,8 +67,8 @@ public class ProjectAdmin {
 	 * @param id
 	 * @return 
 	 */
-	public Project getProjekt(int id){
-		return DAOProjekt.getProjekt(id);
+	public Project getProject(int id){
+		return DAOProject.getProjekt(id);
 	}
 
 	/**
@@ -77,8 +78,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean updateProjekt(Project projekt){
-		return DAOProjekt.updateProjekt(projekt);
+	public boolean updateProject(Project projekt){
+		return DAOProject.updateProjekt(projekt);
 	}
 
 	/**
@@ -87,8 +88,8 @@ public class ProjectAdmin {
 	 * @param osoba
 	 * @return 
 	 */
-	public List getProjektyOsoby(Person osoba){
-		return DAOProjekt.getProjektyOsoby(osoba);
+	public List getProjectsOfPerson(Person osoba){
+		return DAOProject.getProjektyOsoby(osoba);
 	}
 
 	/**
@@ -96,8 +97,8 @@ public class ProjectAdmin {
 	 * 
 	 * @return 
 	 */
-	public List getAllProjekty(){
-		return DAOProjekt.getAllProjekty();
+	public List getAllProjects(){
+		return DAOProject.getAllProjekty();
 	}
 
 	/**
@@ -107,8 +108,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean finishProjekt(Project projekt){
-		return DAOProjekt.updateProjekt(projekt);
+	public boolean finishProject(Project projekt){
+		return DAOProject.updateProjekt(projekt);
 	}
 
 }

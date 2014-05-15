@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Trída pro manipulaci s úkoly.
+ * @author GTD team
  * @version 1.0
  */
 public class TaskAdmin {
@@ -16,7 +17,7 @@ public class TaskAdmin {
 	 * Odkaz na ActivitiyAdmin - při přidání úkolu vzniklého z činnosti je třeba tuto
  činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
 	 */
-	private ActivitiyAdmin spravceCinnosti;
+	private ActivitiyAdmin activityAdmin;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
@@ -26,7 +27,7 @@ public class TaskAdmin {
 	 *
 	 */
 	public TaskAdmin(){
-		spravceCinnosti = new ActivitiyAdmin();
+		activityAdmin = new ActivitiyAdmin();
 		DAOUkol = new DAOTask();
 	}
 
@@ -39,9 +40,9 @@ public class TaskAdmin {
 	 * pro označení činnosti jako "zpracované".
 	 * @return 
 	 */
-	public boolean addUkol(Task ukol, Activity cinnost){
+	public boolean addTask(Task ukol, Activity cinnost){
 		if (DAOUkol.createUkol(ukol)) {
-			spravceCinnosti.deleteCinnost(cinnost);
+			activityAdmin.deleteActivity(cinnost);
 			return true;
 		}
 		return false;
@@ -54,7 +55,7 @@ public class TaskAdmin {
 	 * @param ukol
 	 * @return 
 	 */
-	public boolean deleteUkol(Task ukol){
+	public boolean deleteTask(Task ukol){
 		return DAOUkol.deleteUkol(ukol);
 	}
 
@@ -64,7 +65,7 @@ public class TaskAdmin {
 	 * @param id
 	 * @return 
 	 */
-	public Task getUkol(int id){
+	public Task getTask(int id){
 		return DAOUkol.getUkol(id);
 	}
 
@@ -75,7 +76,7 @@ public class TaskAdmin {
 	 * @param ukol
 	 * @return 
 	 */
-	public boolean updateUkol(Task ukol){
+	public boolean updateTask(Task ukol){
 		return DAOUkol.updateUkol(ukol);
 	}
 
@@ -85,7 +86,7 @@ public class TaskAdmin {
 	 * @param kontext
 	 * @return 
 	 */
-	public List getUkolyKontextu(Context kontext){
+	public List getTasksWithContext(Context kontext){
 		return DAOUkol.getUkolyKontextu(kontext);
 	}
 
@@ -93,7 +94,7 @@ public class TaskAdmin {
 	 * Vrátí všechny úkoly
 	 * @return 
 	 */
-	public List getAllUkoly(){
+	public List getAllTasks(){
 		return DAOUkol.getAllUkoly();
 	}
 
@@ -104,7 +105,7 @@ public class TaskAdmin {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean setKontext(Task ukol, Context kontext){
+	public boolean setContext(Task ukol, Context kontext){
 		return false;
 	}
 
@@ -113,7 +114,7 @@ public class TaskAdmin {
 	 * @param osoba
 	 * @return
 	 */
-	public List getUkolyOsoby(Person osoba) {
+	public List getTasksOfPerson(Person osoba) {
 		return DAOUkol.getUkolyOsoby(osoba);
 	}
 

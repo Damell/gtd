@@ -10,20 +10,21 @@ import java.util.List;
 
 /**
  * Třída implementuje interface IActivityController.
+ * @author GTD team
  * @version 1.0
  */
 public class ActivityController implements IActivityController {
 
-	private ActivitiyAdmin spravceCinnosti;
+	private ActivitiyAdmin activityAdmin;
 	private IGTDGUI GUI;
-	private IDAOState DAOStav;
+	private IDAOState DAOState;
 
 	/**
 	 *
 	 */
 	public ActivityController(){
-		spravceCinnosti = new ActivitiyAdmin();
-		DAOStav = new DAOState();
+		activityAdmin = new ActivitiyAdmin();
+		DAOState = new DAOState();
 	}
 
 	/**
@@ -34,8 +35,8 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean addActivity(String nazev, String popis){
-		Activity newCinnost = new Activity(nazev, popis, DAOStav.getCinnostKeZpracovaniID(), GTDGUI.getMyself().getId());
-		return spravceCinnosti.addCinnost(newCinnost);
+		Activity newCinnost = new Activity(nazev, popis, DAOState.getCinnostKeZpracovaniID(), GTDGUI.getMyself().getId());
+		return activityAdmin.addActivity(newCinnost);
 	}
 
 	/**
@@ -45,7 +46,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean deleteActivity(Activity cinnost){
-		return spravceCinnosti.deleteCinnost(cinnost);
+		return activityAdmin.deleteActivity(cinnost);
 	}
 
 	/**
@@ -55,7 +56,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public List<Activity> getActivitiesOfPerson(Person osoba){
-		return spravceCinnosti.getCinnostiOsoby(osoba);
+		return activityAdmin.getActivitiesOfPerson(osoba);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean archiveActivity(Activity cinnost){
-		return spravceCinnosti.archiveCinnost(cinnost);
+		return activityAdmin.archiveActivity(cinnost);
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean postponeActivity(Activity cinnost){
-		return spravceCinnosti.postponeCinnost(cinnost);
+		return activityAdmin.postponeActivity(cinnost);
 	}
 
 }

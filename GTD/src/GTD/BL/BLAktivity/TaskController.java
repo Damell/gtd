@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Třída implementuje interface ITaskController.
+ * @author GTD team
  * @version 1.0
  */
 public class TaskController implements ITaskController {
@@ -45,7 +46,7 @@ public class TaskController implements ITaskController {
 		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
 		Task ukol = new Task(nazev, popis, DAOStav.getUkolVytvorenyID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
 
-		return spravceUkolu.addUkol(ukol, cinnost);
+		return spravceUkolu.addTask(ukol, cinnost);
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
 		Task ukol = new Task(nazev, popis, DAOStav.getUkolHotovyID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
-		return spravceUkolu.addUkol(ukol, cinnost);
+		return spravceUkolu.addTask(ukol, cinnost);
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean deleteTask(Task ukol){
-		return spravceUkolu.deleteUkol(ukol);
+		return spravceUkolu.deleteTask(ukol);
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean activateTask(Task ukol) {
 		ukol.setStav(DAOStav.getUkolAktivniID());
-		return spravceUkolu.updateUkol(ukol);
+		return spravceUkolu.updateTask(ukol);
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class TaskController implements ITaskController {
 	public boolean scheduleTask(Task ukol, Interval interval){
 		ukol.setInterval(interval.getFrom(), interval.getTo());
 		ukol.setStav(DAOStav.getUkolVKalendariID());
-		return spravceUkolu.updateUkol(ukol);
+		return spravceUkolu.updateTask(ukol);
 	}
 
 	/**
@@ -116,7 +117,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean changeOwner(Task ukol, Person novyVlastnik){
 		ukol.setVlastnikID(novyVlastnik.getId());
-		return spravceUkolu.updateUkol(ukol);
+		return spravceUkolu.updateTask(ukol);
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean finishTask(Task ukol){
 		ukol.setStav(DAOStav.getUkolHotovyID());
-		return spravceUkolu.updateUkol(ukol);
+		return spravceUkolu.updateTask(ukol);
 	}
 
 	/**
@@ -159,7 +160,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public List getUkolyOsoby(Person osoba) {
-		return spravceUkolu.getUkolyOsoby(osoba);
+		return spravceUkolu.getTasksOfPerson(osoba);
 	}
 
 	/**
@@ -168,7 +169,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public List getAllUkoly() {
-		return spravceUkolu.getAllUkoly();
+		return spravceUkolu.getAllTasks();
 	}
 
 

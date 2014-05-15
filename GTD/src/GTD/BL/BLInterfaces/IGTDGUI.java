@@ -24,7 +24,7 @@ public interface IGTDGUI {
 	 * 
 	 * @param cinnost
 	 */
-	public void showZpracovaniCinnosti(Cinnost cinnost);
+	public void showZpracovaniCinnosti(Activity cinnost);
 
 	/**
 	 * Zobrazí okno s úkoly a projekty všech osob

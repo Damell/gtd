@@ -1,7 +1,7 @@
 package GTD.PL.PLView;
 
 import GTD.DL.DLEntity.Interval;
-import GTD.DL.DLEntity.Ukol;
+import GTD.DL.DLEntity.Task;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,24 +23,24 @@ public class ViewPlanTask {
 	UtilDateModel fromModel;
 	UtilDateModel toModel;
 	JFrame frame;
-	Ukol ukol;
+	Task ukol;
 
 	/**
 	 *
 	 * @param ukol
 	 */
-	public ViewPlanTask(Ukol ukol) {
+	public ViewPlanTask(Task ukol) {
 		getDatesFromUserToPlanTask(ukol);
 	}
 
-	void planTask (Ukol ukol, Interval interval) {
+	void planTask (Task ukol, Interval interval) {
 		if(GTDGUI.getGTDGUI().getUkolController().scheduleUkol(ukol, interval)) {
 			GTDGUI.getGTDGUI().refresh();
 		}
 	}
 
 
-	void getDatesFromUserToPlanTask (Ukol ukol) {
+	void getDatesFromUserToPlanTask (Task ukol) {
 		Interval interval = null;
 
 		// init date pickers
@@ -61,8 +61,8 @@ public class ViewPlanTask {
 
 		JButton planButton = new JButton(Consts.PLAN_TASK);
 		planButton.addActionListener(new ActionListener() {
-			Ukol ukol;
-			ActionListener setUkol(Ukol ukol) {
+			Task ukol;
+			ActionListener setUkol(Task ukol) {
 				this.ukol = ukol;
 				return this;
 			}

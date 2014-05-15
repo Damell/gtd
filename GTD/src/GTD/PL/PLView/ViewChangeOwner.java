@@ -1,9 +1,9 @@
 package GTD.PL.PLView;
 
-import GTD.DL.DLEntity.Aktivita;
-import GTD.DL.DLEntity.Osoba;
-import GTD.DL.DLEntity.Projekt;
-import GTD.DL.DLEntity.Ukol;
+import GTD.DL.DLEntity.Action;
+import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Project;
+import GTD.DL.DLEntity.Task;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -24,37 +24,37 @@ import javax.swing.ListSelectionModel;
 public class ViewChangeOwner {
 	
 	JFrame frame;
-	Aktivita activity;
-	Osoba osoba;
+	Action activity;
+	Person osoba;
 	JList usersList;
-	List<Osoba> users;
+	List<Person> users;
 
 	/**
 	 *
 	 * @param activity
 	 */
-	public ViewChangeOwner(Aktivita activity) {
+	public ViewChangeOwner(Action activity) {
 		this.activity = activity;
 		setUser();
 	}
 
 	void changeOwner () {
-		if (activity instanceof Ukol) {
-			GTDGUI.getGTDGUI().getUkolController().changeOwner((Ukol) activity, osoba);
+		if (activity instanceof Task) {
+			GTDGUI.getGTDGUI().getUkolController().changeOwner((Task) activity, osoba);
 		} else {
-			GTDGUI.getGTDGUI().getProjektController().changeOwner((Projekt) activity, osoba);
+			GTDGUI.getGTDGUI().getProjektController().changeOwner((Project) activity, osoba);
 		}
 		GTDGUI.getGTDGUI().refresh();
 	}
 
 
 	void setUser () {
-		if (activity instanceof Projekt) {
-			users = ((Projekt) activity).getSkupina();
-		} else if (((Ukol) activity).getProjekt() == 0) {
+		if (activity instanceof Project) {
+			users = ((Project) activity).getSkupina();
+		} else if (((Task) activity).getProjekt() == 0) {
 			users = GTDGUI.getGTDGUI().getOsobaController().getAllUsers();
 		} else {
-			users = GTDGUI.getGTDGUI().getProjektController().getProjekt(((Ukol) activity).getProjekt()).getSkupina();
+			users = GTDGUI.getGTDGUI().getProjektController().getProjekt(((Task) activity).getProjekt()).getSkupina();
 		}
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

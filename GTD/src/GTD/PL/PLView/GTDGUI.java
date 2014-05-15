@@ -1,17 +1,17 @@
 package GTD.PL.PLView;
-import GTD.BL.BLAktivity.CinnostController;
-import GTD.BL.BLAktivity.ProjektController;
-import GTD.BL.BLAktivity.UkolController;
-import GTD.BL.BLFiltry.KontextController;
-import GTD.BL.BLInterfaces.ICinnostController;
+import GTD.BL.BLAktivity.ActivityController;
+import GTD.BL.BLAktivity.ProjectController;
+import GTD.BL.BLAktivity.TaskController;
+import GTD.BL.BLFiltry.ContextController;
+import GTD.BL.BLInterfaces.IActivityController;
 import GTD.BL.BLInterfaces.IGTDGUI;
-import GTD.BL.BLInterfaces.IKontextController;
-import GTD.BL.BLInterfaces.IOsobaController;
-import GTD.BL.BLInterfaces.IProjektController;
-import GTD.BL.BLInterfaces.IUkolController;
-import GTD.BL.BLOsoby.OsobaController;
-import GTD.DL.DLEntity.Cinnost;
-import GTD.DL.DLEntity.Osoba;
+import GTD.BL.BLInterfaces.IContextController;
+import GTD.BL.BLInterfaces.IPersonController;
+import GTD.BL.BLInterfaces.IProjectController;
+import GTD.BL.BLInterfaces.ITaskController;
+import GTD.BL.BLOsoby.PersonController;
+import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.Person;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,13 +30,13 @@ public class GTDGUI implements IGTDGUI {
 	private MainFrame mainFrame;
 
 	// BL reference 
-	private IOsobaController osobaController;
-	private ICinnostController cinnostController;
-	private IKontextController kontextController;
-	private IProjektController projektController;
-	private IUkolController ukolController;
+	private IPersonController osobaController;
+	private IActivityController cinnostController;
+	private IContextController kontextController;
+	private IProjectController projektController;
+	private ITaskController ukolController;
 
-	private Osoba myself;
+	private Person myself;
 
 	private static IView loginPanel;
 	private static IView cinnostiPanel;
@@ -57,11 +57,11 @@ public class GTDGUI implements IGTDGUI {
 	}
 
 	void initBL() {
-		osobaController = new OsobaController();
-		cinnostController = new CinnostController();
-		kontextController = new KontextController();
-		projektController = new ProjektController();
-		ukolController = new UkolController();
+		osobaController = new PersonController();
+		cinnostController = new ActivityController();
+		kontextController = new ContextController();
+		projektController = new ProjectController();
+		ukolController = new TaskController();
 	}
 
 	/**
@@ -92,8 +92,8 @@ public class GTDGUI implements IGTDGUI {
 	 * @param cinnost
 	 */
 	@Override
-	public void showZpracovaniCinnosti(Cinnost cinnost){
-		zpracovaniPanel = new ViewZpracovaniCinnosti(cinnost);
+	public void showZpracovaniCinnosti(Activity cinnost){
+		zpracovaniPanel = new ViewProcessActivity(cinnost);
 		zpracovaniPanel.showView();
 	}
 
@@ -112,7 +112,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	@Override
 	public void showUkolyProjekty(){
-		ukolyProjektyPanel = new ViewUkolyProjekty(mainFrame);
+		ukolyProjektyPanel = new ViewTasksProjects(mainFrame);
 		ukolyProjektyPanel.showView();
 	}
 
@@ -121,7 +121,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	@Override
 	public void showCinnosti(){
-		cinnostiPanel = new ViewCinnosti(mainFrame);
+		cinnostiPanel = new ViewActivities(mainFrame);
 		cinnostiPanel.showView();
 	}
 
@@ -130,7 +130,7 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	@Override
 	public void showMojeUkoly(){
-		mojeUkolyPanel = new ViewMojeUkoly(mainFrame);
+		mojeUkolyPanel = new ViewMyTasks(mainFrame);
 		mojeUkolyPanel.showView();
 	}
 
@@ -140,7 +140,7 @@ public class GTDGUI implements IGTDGUI {
 	@Override
 	public void showPrihlaseni(){
 		//Init login panel
-		loginPanel = new ViewPrihlaseni(mainFrame);
+		loginPanel = new ViewLogin(mainFrame);
 		views.add(loginPanel);
 		loginPanel.showView();
 	}
@@ -163,7 +163,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public static Osoba getMyself() {
+	public static Person getMyself() {
 		return GTDGUI.myself;
 	}
 
@@ -171,7 +171,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public IOsobaController getOsobaController() {
+	public IPersonController getOsobaController() {
 		return osobaController;
 	}
 
@@ -179,7 +179,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public ICinnostController getCinnostController() {
+	public IActivityController getCinnostController() {
 		return cinnostController;
 	}
 
@@ -187,7 +187,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public IKontextController getKontextController() {
+	public IContextController getKontextController() {
 		return kontextController;
 	}
 
@@ -195,7 +195,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public IProjektController getProjektController() {
+	public IProjectController getProjektController() {
 		return projektController;
 	}
 
@@ -203,7 +203,7 @@ public class GTDGUI implements IGTDGUI {
 	 *
 	 * @return
 	 */
-	public IUkolController getUkolController() {
+	public ITaskController getUkolController() {
 		return ukolController;
 	}
 

@@ -151,7 +151,7 @@ public class Project extends Action {
     /**
      * Vratí úkoly v projekty
      * 
-     * @returnList<Ukol>
+     * @return List<Ukol>
      */
     public List<Task> getUkoly() {
         return ukoly;

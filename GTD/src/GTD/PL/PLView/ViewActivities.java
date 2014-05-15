@@ -2,7 +2,6 @@ package GTD.PL.PLView;
 import GTD.DL.DLDAO.DAOState;
 import GTD.DL.DLEntity.Activity;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,7 +89,6 @@ public class ViewActivities extends JPanel implements IView {
 		newActivityTitleField = new JTextField(8);
 		newActivityDescField = new JTextField(14);
 		newActivityButton = new JButton(Consts.ADD_ACTIVITY);
-		newActivityButton.setBackground(Color.red);
 		newActivityButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

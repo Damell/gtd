@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání osob z databáze.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class DAOPerson implements IDAOPerson {

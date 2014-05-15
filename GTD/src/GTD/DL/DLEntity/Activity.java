@@ -3,6 +3,7 @@ package GTD.DL.DLEntity;
 /**
  * Trída predstavuje surovou cinnost tak, jak ji uživatel vymyslí, bez dalšího
  * clenení - je pripravena na prevedení do úkolu nebo projektu.
+ * @author GTD team
  * @version 1.0
  */
 public class Activity extends Action {

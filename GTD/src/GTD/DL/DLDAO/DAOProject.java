@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání projektu z databáze.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class DAOProject implements IDAOProject {

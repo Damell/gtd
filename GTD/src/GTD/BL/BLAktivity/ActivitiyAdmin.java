@@ -38,7 +38,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean addActivity(Activity cinnost){
-		return DAOActivity.createCinnost(cinnost);
+		return DAOActivity.createActivity(cinnost);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean deleteActivity(Activity cinnost){
-		return DAOActivity.deleteCinnost(cinnost);
+		return DAOActivity.deleteActivity(cinnost);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public List<Activity> getActivitiesOfPerson(Person osoba){
-		return DAOActivity.getCinnostiOsoby(osoba);
+		return DAOActivity.getActivitiesOfPerson(osoba);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class ActivitiyAdmin {
 	 */
 	public boolean processActivity(Activity cinnost){
 		cinnost.setStav(DAOState.getCinnostZpracovanaID());
-		return DAOActivity.updateCinnost(cinnost);
+		return DAOActivity.updateActivity(cinnost);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class ActivitiyAdmin {
 	 */
 	public boolean archiveActivity(Activity cinnost){
 		cinnost.setStav(DAOState.getCinnostArchivovanaID());
-		return DAOActivity.updateCinnost(cinnost);
+		return DAOActivity.updateActivity(cinnost);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class ActivitiyAdmin {
 	 */
 	public boolean postponeActivity(Activity cinnost){
 		cinnost.setStav(DAOState.getCinnostOdlozenaID());
-		return DAOActivity.updateCinnost(cinnost);
+		return DAOActivity.updateActivity(cinnost);
 	}
 
 }

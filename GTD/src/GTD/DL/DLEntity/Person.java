@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Trída predstavuje osobu, která je registrována v systému GTD.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Person {

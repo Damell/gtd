@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * Trída predstavuje casový interval pro daný úkol.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Interval {

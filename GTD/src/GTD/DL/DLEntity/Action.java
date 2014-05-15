@@ -3,6 +3,7 @@ package GTD.DL.DLEntity;
 /**
  * Tato trída predstavuje spolecný nadtyp pro trídy Cinnost, Úkol a Projekt.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Action {

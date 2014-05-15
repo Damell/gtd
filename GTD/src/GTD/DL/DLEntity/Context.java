@@ -5,6 +5,7 @@ package GTD.DL.DLEntity;
  * souvislosti lze daný úkol vykonat (pr. práce, doma). Každý uživatel má své
  * kontexty.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Context extends Filter {

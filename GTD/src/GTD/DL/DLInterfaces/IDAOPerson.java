@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Interface pro správu Osob v databázi.
  *
+ * @author GTD team
  * @version 1.0
  */
 public interface IDAOPerson {

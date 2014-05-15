@@ -3,6 +3,7 @@ package GTD.DL.DLInterfaces;
 /**
  * Interface pro získání ID typů
  *
+ * @author GTD team
  * @version 1.0
  */
 public interface IDAOState {

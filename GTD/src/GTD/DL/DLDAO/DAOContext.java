@@ -14,6 +14,7 @@ import java.util.ArrayList;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class DAOContext implements IDAOContext {

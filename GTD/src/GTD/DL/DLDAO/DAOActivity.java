@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání cinností z databáze.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class DAOActivity implements IDAOActivity {
@@ -31,7 +32,7 @@ public class DAOActivity implements IDAOActivity {
      * @param cinnost
      * @return
      */
-    public boolean createCinnost(Activity cinnost) {
+    public boolean createActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -59,7 +60,7 @@ public class DAOActivity implements IDAOActivity {
      * @param cinnost
      * @return
      */
-    public boolean deleteCinnost(Activity cinnost) {
+    public boolean deleteActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.ACTIVITIES_DEL(inp_id  => " + cinnost.getId() + "); end;";
@@ -78,7 +79,7 @@ public class DAOActivity implements IDAOActivity {
      *
      * @return List<Cinnost>
      */
-    public List getAllCinnosti() {
+    public List getAllActivities() {
         List<Activity> cinnosti = new ArrayList<Activity>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -104,7 +105,7 @@ public class DAOActivity implements IDAOActivity {
      * @param id
      * @return cinnost
      */
-    public Activity getCinnost(int id) {
+    public Activity getActivity(int id) {
         Activity cinnost = null;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -127,7 +128,7 @@ public class DAOActivity implements IDAOActivity {
      * @param cinnost
      * @return
      */
-    public boolean updateCinnost(Activity cinnost) {
+    public boolean updateActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //Statement stmt = con.createStatement();
@@ -156,7 +157,7 @@ public class DAOActivity implements IDAOActivity {
      * @return List<Cinnost>
      */
     @Override
-    public List<Activity> getCinnostiOsoby(Person osoba) {
+    public List<Activity> getActivitiesOfPerson(Person osoba) {
         List<Activity> cinnosti = new ArrayList<Activity>();
         Connection con = DatabaseConnection.getConnection();
         try {

@@ -2,13 +2,13 @@ package GTD.DL.DLEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Třída predstavuje projekt - množinu souvisejících úkolu. Project muže krome
  úkolu obsahovat i další projekty (pocet úrovní není omezen). Vlastník
  projektu může delegovat jeho úkoly a podprojekty (v 1.úrovni).
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Project extends Action {

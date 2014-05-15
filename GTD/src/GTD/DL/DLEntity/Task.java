@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * Třída predstavující úkol - realizovatelnou akci.
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Task extends Action {

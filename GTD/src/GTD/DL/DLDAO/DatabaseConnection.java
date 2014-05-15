@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 /**
  * Singleton for holding an instance of database connection
+ * @author GTD team
+ * @version 1.0
  */
 public class DatabaseConnection {
 

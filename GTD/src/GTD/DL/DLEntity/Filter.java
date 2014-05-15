@@ -4,6 +4,7 @@ package GTD.DL.DLEntity;
  * Tato trída predstavuje spolecný nadtyp pro trídy Kontext, Složka (není
  * rešena) a Kategorie (není rešena).
  *
+ * @author GTD team
  * @version 1.0
  */
 public class Filter {

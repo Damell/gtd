@@ -9,6 +9,7 @@ import java.sql.Statement;
 /**
  * Trída zapouzdruje metody pro získání ID stavů objektů
  *
+ * @author GTD team
  * @version 1.0
  */
 public class DAOState implements IDAOState {

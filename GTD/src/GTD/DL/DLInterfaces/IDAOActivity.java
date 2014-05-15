@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Interface pro správu Cinností v databázi.
+ * @author GTD team
  * @version 1.0
  */
 public interface IDAOActivity {
@@ -15,7 +16,7 @@ public interface IDAOActivity {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean createCinnost(Activity cinnost);
+	public boolean createActivity(Activity cinnost);
 
 	/**
 	 * Smaže cinnost z databáze.
@@ -23,13 +24,13 @@ public interface IDAOActivity {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean deleteCinnost(Activity cinnost);
+	public boolean deleteActivity(Activity cinnost);
 
 	/**
 	 * Vrátí všechny cinnosti v systému.
 	 * @return 
 	 */
-	public List getAllCinnosti();
+	public List getAllActivities();
 
 	/**
 	 * Vrátí cinnost podle jejího ID.
@@ -37,7 +38,7 @@ public interface IDAOActivity {
 	 * @param id
 	 * @return 
 	 */
-	public Activity getCinnost(int id);
+	public Activity getActivity(int id);
 
 	/**
 	 * Uloží zmenenou cinnost.
@@ -45,7 +46,7 @@ public interface IDAOActivity {
 	 * @param cinnost
 	 * @return 
 	 */
-	public boolean updateCinnost(Activity cinnost);
+	public boolean updateActivity(Activity cinnost);
 
 	/**
 	 * Vrátí všechny cinnosti patrící zadané osobe.
@@ -53,6 +54,6 @@ public interface IDAOActivity {
 	 * @param osoba
 	 * @return 
 	 */
-	public List getCinnostiOsoby(Person osoba);
+	public List getActivitiesOfPerson(Person osoba);
 
 }

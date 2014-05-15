@@ -46,7 +46,7 @@ public class ProjectAdmin {
 		if (cinnost != null) {
 			activityAdmin.deleteActivity(cinnost);
 		}
-		return DAOProject.createProjekt(projekt);
+		return DAOProject.createProject(projekt);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean deleteProject(Project projekt){
-		return DAOProject.deleteProjekt(projekt);
+		return DAOProject.deleteProject(projekt);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public Project getProject(int id){
-		return DAOProject.getProjekt(id);
+		return DAOProject.getProject(id);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean updateProject(Project projekt){
-		return DAOProject.updateProjekt(projekt);
+		return DAOProject.updateProject(projekt);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public List getProjectsOfPerson(Person osoba){
-		return DAOProject.getProjektyOsoby(osoba);
+		return DAOProject.getProjectsOfPerson(osoba);
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public List getAllProjects(){
-		return DAOProject.getAllProjekty();
+		return DAOProject.getAllProjects();
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean finishProject(Project projekt){
-		return DAOProject.updateProjekt(projekt);
+		return DAOProject.updateProject(projekt);
 	}
 
 }

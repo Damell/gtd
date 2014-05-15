@@ -35,7 +35,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean addActivity(String nazev, String popis){
-		Activity newCinnost = new Activity(nazev, popis, DAOState.getCinnostKeZpracovaniID(), GTDGUI.getMyself().getId());
+		Activity newCinnost = new Activity(nazev, popis, DAOState.getActivityForProcessingID(), GTDGUI.getMyself().getId());
 		return activityAdmin.addActivity(newCinnost);
 	}
 

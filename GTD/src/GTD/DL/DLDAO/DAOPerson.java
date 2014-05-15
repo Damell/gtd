@@ -31,7 +31,7 @@ public class DAOPerson implements IDAOPerson {
      * @param osoba
      * @return
      */
-    public boolean createOsoba(Person osoba) {
+    public boolean createPerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -58,7 +58,7 @@ public class DAOPerson implements IDAOPerson {
      * @param osoba
      * @return
      */
-    public boolean deactivateOsoba(Person osoba) {
+    public boolean deactivatePerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -81,7 +81,7 @@ public class DAOPerson implements IDAOPerson {
      *
      * @return List<Osoba>
      */
-    public List<Person> getAllOsoby() {
+    public List<Person> getAllPersons() {
         List<Person> osoby = new ArrayList<Person>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -106,7 +106,7 @@ public class DAOPerson implements IDAOPerson {
      * @param id
      * @return osoba
      */
-    public Person getOsoba(int id) {
+    public Person getPerson(int id) {
         Person osoba = null;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -128,7 +128,7 @@ public class DAOPerson implements IDAOPerson {
      *
      * @return id
      */
-    public int getOsobaID() {
+    public int getPersonID() {
         int id = 0;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -151,7 +151,7 @@ public class DAOPerson implements IDAOPerson {
      * @param osoba
      * @return
      */
-    public boolean updateOsoba(Person osoba) {
+    public boolean updatePerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -206,7 +206,7 @@ public class DAOPerson implements IDAOPerson {
      * @param login
      * @return true=povolen, false=nepovolen
      */
-    public boolean checkPrihlaseni(String login) {
+    public boolean checkLogin(String login) {
         boolean authenticated = false;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -231,7 +231,7 @@ public class DAOPerson implements IDAOPerson {
      * @return osoba
      */
     @Override
-    public Person getOsoba(String username) {
+    public Person getPerson(String username) {
         Person osoba = null;
         Connection con = DatabaseConnection.getConnection();
         try {

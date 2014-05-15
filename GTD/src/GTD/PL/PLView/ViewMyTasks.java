@@ -64,8 +64,8 @@ public class ViewMyTasks extends JPanel implements IView {
 		JCheckBox activeFilterCheckBox = new JCheckBox(Consts.ACTIVE_TASKS);
 		activeFilterCheckBox.addItemListener(new ItemListener() {
 			RowFilter<TaskTableModel,Integer> activeFilter = new RowFilter<TaskTableModel, Integer>() {
-				int activeID = new DAOState().getUkolAktivniID();
-				int inCalendarID = new DAOState().getUkolVKalendariID();
+				int activeID = new DAOState().getTaskActiveID();
+				int inCalendarID = new DAOState().getTaskPlannedID();
 				@Override
 				public boolean include(RowFilter.Entry<? extends TaskTableModel, ? extends Integer> entry) {
 					int id = entry.getModel().getStav(entry.getIdentifier());

@@ -52,7 +52,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public Person getOsoba(int id){
-		return DAOOsoba.getOsoba(id);
+		return DAOOsoba.getPerson(id);
 	}
         /**
 	 * Vrátí prihlaseneho uživatele.
@@ -60,7 +60,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public Person getOsobaPrihlasena(){
-		return DAOOsoba.getOsoba(DAOOsoba.getOsobaID());
+		return DAOOsoba.getPerson(DAOOsoba.getPersonID());
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public List getAllUsers() {
-		return DAOOsoba.getAllOsoby();
+		return DAOOsoba.getAllPersons();
 	}
 
 	/**

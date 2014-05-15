@@ -34,7 +34,7 @@ public class DAOTask implements IDAOTask {
      * @param ukol
      * @return
      */
-    public boolean createUkol(Task ukol) {
+    public boolean createTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -63,7 +63,7 @@ public class DAOTask implements IDAOTask {
      * @param ukol
      * @return
      */
-    public boolean deleteUkol(Task ukol) {
+    public boolean deleteTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
@@ -86,7 +86,7 @@ public class DAOTask implements IDAOTask {
      *
      * @return List<Ukol>
      */
-    public List getAllUkoly() {
+    public List getAllTasks() {
         List<Task> ukoly = new ArrayList<Task>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -116,7 +116,7 @@ public class DAOTask implements IDAOTask {
      * @param osoba
      * @return List<Ukol>
      */
-    public List getUkolyOsoby(Person osoba) {
+    public List getTasksOfPerson(Person osoba) {
         List<Task> ukoly = new ArrayList<Task>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -153,7 +153,7 @@ public class DAOTask implements IDAOTask {
      * @param id
      * @return ukol
      */
-    public Task getUkol(int id) {
+    public Task getTask(int id) {
         Task ukol = null;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -181,7 +181,7 @@ public class DAOTask implements IDAOTask {
      * @param ukol
      * @return
      */
-    public boolean updateUkol(Task ukol) {
+    public boolean updateTask(Task ukol) {
         String date_from = null;
         String date_to = null;
         if (ukol.getKalendar().isSet()) {
@@ -223,7 +223,7 @@ public class DAOTask implements IDAOTask {
      * @param kontext
      * @return ukoly
      */
-    public List<Task> getUkolyKontextu(Context kontext) {
+    public List<Task> getTasksWithContext(Context kontext) {
         List<Task> ukoly = new ArrayList<Task>();
         Connection con = DatabaseConnection.getConnection();
         try {

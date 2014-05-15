@@ -88,7 +88,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean processActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getCinnostZpracovanaID());
+		cinnost.setStav(DAOState.getActivityProcessedID());
 		return DAOActivity.updateActivity(cinnost);
 	}
 
@@ -99,7 +99,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean archiveActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getCinnostArchivovanaID());
+		cinnost.setStav(DAOState.getActivityArchivedID());
 		return DAOActivity.updateActivity(cinnost);
 	}
 
@@ -110,7 +110,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean postponeActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getCinnostOdlozenaID());
+		cinnost.setStav(DAOState.getActivityPostponedID());
 		return DAOActivity.updateActivity(cinnost);
 	}
 

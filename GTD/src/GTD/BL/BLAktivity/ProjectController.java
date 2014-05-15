@@ -41,7 +41,7 @@ public class ProjectController implements IProjectController {
 		if (rodicID != -1) {
 			rodic = projectAdmin.getProject(rodicID);
 		}
-		Project newProjekt = new Project(nazev, popis, DAOState.getProjektAktivniID(), vlastnik, skupina, rodic);
+		Project newProjekt = new Project(nazev, popis, DAOState.getProjectActiveID(), vlastnik, skupina, rodic);
 		return projectAdmin.addProject(newProjekt, cinnost);
 	}
 
@@ -101,7 +101,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public boolean finishProject(Project projekt){
-		projekt.setStav(DAOState.getProjektDokoncenyID());
+		projekt.setStav(DAOState.getProjectFinishedID());
 		return projectAdmin.finishProject(projekt);
 	}
 

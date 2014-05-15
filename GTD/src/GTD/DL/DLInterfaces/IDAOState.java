@@ -13,103 +13,103 @@ public interface IDAOState {
      *
 	 * @return 
      */
-    public int getCinnostArchivovanaID();
+    public int getActivityArchivedID();
 
     /**
      * Vrátí ID stavu: činost Ke zpracování
      *
 	 * @return 
      */
-    public int getCinnostKeZpracovaniID();
+    public int getActivityForProcessingID();
 
     /**
      * Vrátí ID stavu: činost Zahozena
      *
 	 * @return 
      */
-    public int getCinnostZahozenaID();
+    public int getActivityDroppedID();
 
     /**
      * Vrátí ID stavu: činost Odlozena
      *
 	 * @return 
      */
-    public int getCinnostOdlozenaID();
+    public int getActivityPostponedID();
 
     /**
      * Vrátí ID stavu: činost Odlozena
      *
 	 * @return 
      */
-    public int getCinnostZpracovanaID();
+    public int getActivityProcessedID();
 
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
 	 * @return 
      */
-    public int getOsobaAktivniID();
+    public int getPersonActiveID();
 
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
 	 * @return 
      */
-    public int getOsobaNeaktivniID();
+    public int getPersonNotActiveID();
 
     /**
      * Vrátí ID stavu: konatakt email
      *
 	 * @return 
      */
-    public int getKontaktEmailID();
+    public int getContactEmailID();
 
     /**
      * Vrátí ID stavu: konatakt telefon
      *
 	 * @return 
      */
-    public int getKontaktTelefonID();
+    public int getContactPhoneID();
 
     /**
      * Vrátí ID stavu: projekt Aktivni
      *
 	 * @return 
      */
-    public int getProjektAktivniID();
+    public int getProjectActiveID();
 
     /**
      * Vrátí ID stavu: projekt Dokonceny
      *
 	 * @return 
      */
-    public int getProjektDokoncenyID();
+    public int getProjectFinishedID();
 
     /**
      * Vrátí ID stavu: úkol vytvořený
      *
 	 * @return 
      */
-    public int getUkolVytvorenyID();
+    public int getTaskCreatedID();
 
     /**
      * Vrátí ID stavu: úkol aktivní
      *
 	 * @return 
      */
-    public int getUkolAktivniID();
+    public int getTaskActiveID();
 
     /**
      * Vrátí ID stavu: úkol v kalendáři
      *
 	 * @return 
      */
-    public int getUkolVKalendariID();
+    public int getTaskPlannedID();
 
     /**
      * Vrátí ID stavu: úkol hotový
      *
 	 * @return 
      */
-    public int getUkolHotovyID();
+    public int getTaskFinishedID();
 }

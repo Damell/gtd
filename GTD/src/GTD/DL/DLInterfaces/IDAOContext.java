@@ -17,7 +17,7 @@ public interface IDAOContext {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean createKontext(Context kontext);
+	public boolean createContext(Context kontext);
 
 	/**
 	 * Smaže kontext z databáze.
@@ -25,13 +25,13 @@ public interface IDAOContext {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean deleteKontext(Context kontext);
+	public boolean deleteContext(Context kontext);
 
 	/**
 	 * Vrátí všechny kontexty v systému.
 	 * @return 
 	 */
-	public List getAllKontexty();
+	public List getAllContexts();
 
 	/**
 	 * Vrátí kontext podle jeho ID.
@@ -39,7 +39,7 @@ public interface IDAOContext {
 	 * @param id
 	 * @return 
 	 */
-	public Context getKontext(int id);
+	public Context getContext(int id);
 
 	/**
 	 * Uloží zmenený kontext.
@@ -47,7 +47,7 @@ public interface IDAOContext {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean updateKontext(Context kontext);
+	public boolean updateContext(Context kontext);
 
 	/**
 	 * Vrátí všechny kontexty patrící zadané osobe.
@@ -55,6 +55,6 @@ public interface IDAOContext {
 	 * @param osoba
 	 * @return 
 	 */
-	public List getKontextyOsoby(Person osoba);
+	public List getContextsOfPerson(Person osoba);
 
 }

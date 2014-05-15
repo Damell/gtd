@@ -44,7 +44,7 @@ public class TaskController implements ITaskController {
 	public boolean addTask(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
 
 		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
-		Task ukol = new Task(nazev, popis, DAOStav.getUkolVytvorenyID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
+		Task ukol = new Task(nazev, popis, DAOStav.getTaskCreatedID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
 
 		return spravceUkolu.addTask(ukol, cinnost);
 	}
@@ -61,7 +61,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
-		Task ukol = new Task(nazev, popis, DAOStav.getUkolHotovyID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
+		Task ukol = new Task(nazev, popis, DAOStav.getTaskFinishedID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
 		return spravceUkolu.addTask(ukol, cinnost);
 	}
 
@@ -89,7 +89,7 @@ public class TaskController implements ITaskController {
 
 	@Override
 	public boolean activateTask(Task ukol) {
-		ukol.setStav(DAOStav.getUkolAktivniID());
+		ukol.setStav(DAOStav.getTaskActiveID());
 		return spravceUkolu.updateTask(ukol);
 	}
 
@@ -103,7 +103,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean scheduleTask(Task ukol, Interval interval){
 		ukol.setInterval(interval.getFrom(), interval.getTo());
-		ukol.setStav(DAOStav.getUkolVKalendariID());
+		ukol.setStav(DAOStav.getTaskPlannedID());
 		return spravceUkolu.updateTask(ukol);
 	}
 
@@ -128,7 +128,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean finishTask(Task ukol){
-		ukol.setStav(DAOStav.getUkolHotovyID());
+		ukol.setStav(DAOStav.getTaskFinishedID());
 		return spravceUkolu.updateTask(ukol);
 	}
 

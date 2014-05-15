@@ -20,7 +20,7 @@ public class DAOState implements IDAOState {
 	 * @return id
      */
 	@Override
-    public int getCinnostArchivovanaID() {
+    public int getActivityArchivedID() {
         return this.getID("activities", "A");
     }
 
@@ -30,7 +30,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
 	@Override
-    public int getCinnostKeZpracovaniID() {
+    public int getActivityForProcessingID() {
         return this.getID("activities", "K");
     }
 
@@ -40,7 +40,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
 	@Override
-    public int getCinnostZahozenaID() {
+    public int getActivityDroppedID() {
         return this.getID("activities", "H");
     }
 
@@ -50,7 +50,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getCinnostOdlozenaID() {
+    public int getActivityPostponedID() {
         return this.getID("activities", "O");
     }
 
@@ -60,7 +60,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getCinnostZpracovanaID() {
+    public int getActivityProcessedID() {
         return this.getID("activities", "Z");
     }
 
@@ -70,7 +70,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getOsobaAktivniID() {
+    public int getPersonActiveID() {
         return this.getID("persons", "A");
     }
 
@@ -80,7 +80,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getOsobaNeaktivniID() {
+    public int getPersonNotActiveID() {
         return this.getID("persons", "N");
     }
 
@@ -90,7 +90,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getKontaktEmailID() {
+    public int getContactEmailID() {
         return this.getID("contacts", "E");
     }
 
@@ -100,7 +100,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getKontaktTelefonID() {
+    public int getContactPhoneID() {
         return this.getID("contacts", "T");
     }
 
@@ -110,7 +110,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getProjektAktivniID() {
+    public int getProjectActiveID() {
         return this.getID("projects", "A");
     }
 
@@ -120,7 +120,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getProjektDokoncenyID() {
+    public int getProjectFinishedID() {
         return this.getID("projects", "D");
     }
 
@@ -130,7 +130,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getUkolVytvorenyID() {
+    public int getTaskCreatedID() {
         return this.getID("tasks", "V");
     }
 
@@ -140,7 +140,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getUkolAktivniID() {
+    public int getTaskActiveID() {
         return this.getID("tasks", "A");
     }
 
@@ -150,7 +150,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getUkolVKalendariID() {
+    public int getTaskPlannedID() {
         return this.getID("tasks", "K");
     }
 
@@ -160,7 +160,7 @@ public class DAOState implements IDAOState {
 	 * @return  id
      */
     @Override
-    public int getUkolHotovyID() {
+    public int getTaskFinishedID() {
         return this.getID("tasks", "H");
     }
     

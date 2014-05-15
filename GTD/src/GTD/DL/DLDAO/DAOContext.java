@@ -32,7 +32,7 @@ public class DAOContext implements IDAOContext {
      * @param kontext
 	 * @return 
      */
-    public boolean createKontext(Context kontext) {
+    public boolean createContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.CONTEXTS_IU("
@@ -56,7 +56,7 @@ public class DAOContext implements IDAOContext {
      * @param kontext
 	 * @return 
      */
-    public boolean deleteKontext(Context kontext) {
+    public boolean deleteContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.CONTEXTS_DEL(inp_id  => " + kontext.getKontextId() + "); end;";
@@ -74,7 +74,7 @@ public class DAOContext implements IDAOContext {
      * Vrátí všechny kontexty v systému.
 	 * @return List<Kontext>
      */
-    public List getAllKontexty() {
+    public List getAllContexts() {
         List<Context> kontexty = new ArrayList<Context>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -100,7 +100,7 @@ public class DAOContext implements IDAOContext {
      * @param id
 	 * @return kontext
      */
-    public Context getKontext(int id) {
+    public Context getContext(int id) {
       Context kontext = null;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -124,7 +124,7 @@ public class DAOContext implements IDAOContext {
      * @param kontext
 	 * @return 
      */
-    public boolean updateKontext(Context kontext) {
+    public boolean updateContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.CONTEXTS_IU("
@@ -149,7 +149,7 @@ public class DAOContext implements IDAOContext {
      * @param osoba
 	 * @return List<Kontext> 
      */
-    public List getKontextyOsoby(Person osoba) {
+    public List getContextsOfPerson(Person osoba) {
         List<Context> kontexty = new ArrayList<Context>();
         Connection con = DatabaseConnection.getConnection();
         try {

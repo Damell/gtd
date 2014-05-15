@@ -67,7 +67,7 @@ public class ViewActivities extends JPanel implements IView {
 		JCheckBox toProcessFilterCheckBox = new JCheckBox(Consts.ACTIVITIES_TO_PROCESS);
 		toProcessFilterCheckBox.addItemListener(new ItemListener() {
 			RowFilter<ActivityTableModel,Integer> activeFilter = new RowFilter<ActivityTableModel, Integer>() {
-				int toProcessID = new DAOState().getCinnostKeZpracovaniID();
+				int toProcessID = new DAOState().getActivityForProcessingID();
 				@Override
 				public boolean include(RowFilter.Entry<? extends ActivityTableModel, ? extends Integer> entry) {
 					int id = entry.getModel().getStav(entry.getIdentifier());

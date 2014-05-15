@@ -17,7 +17,7 @@ public interface IDAOProject {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean createProjekt(Project projekt);
+	public boolean createProject(Project projekt);
 
 	/**
 	 * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho úkoly
@@ -26,14 +26,14 @@ public interface IDAOProject {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean deleteProjekt(Project projekt);
+	public boolean deleteProject(Project projekt);
 
 	/**
 	 * Vrátí všechny projekty v systému.
          * 
 	 * @return 
 	 */
-	public List<Project> getAllProjekty();
+	public List<Project> getAllProjects();
 
 	/**
 	 * Vrátí projekt podle jeho ID.
@@ -41,7 +41,7 @@ public interface IDAOProject {
 	 * @param id
 	 * @return 
 	 */
-	public Project getProjekt(int id);
+	public Project getProject(int id);
 
 	/**
 	 * Uloží zmenený projekt.
@@ -49,7 +49,7 @@ public interface IDAOProject {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean updateProjekt(Project projekt);
+	public boolean updateProject(Project projekt);
 
 	/**
 	 * Vrátí všechny projekty patřící zadané osobe.
@@ -57,6 +57,6 @@ public interface IDAOProject {
 	 * @param osoba
 	 * @return 
 	 */
-	public List<Project> getProjektyOsoby(Person osoba);
+	public List<Project> getProjectsOfPerson(Person osoba);
 
 }

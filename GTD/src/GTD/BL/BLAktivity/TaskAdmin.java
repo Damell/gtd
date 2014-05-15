@@ -41,7 +41,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean addTask(Task ukol, Activity cinnost){
-		if (DAOUkol.createUkol(ukol)) {
+		if (DAOUkol.createTask(ukol)) {
 			activityAdmin.deleteActivity(cinnost);
 			return true;
 		}
@@ -56,7 +56,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean deleteTask(Task ukol){
-		return DAOUkol.deleteUkol(ukol);
+		return DAOUkol.deleteTask(ukol);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public Task getTask(int id){
-		return DAOUkol.getUkol(id);
+		return DAOUkol.getTask(id);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean updateTask(Task ukol){
-		return DAOUkol.updateUkol(ukol);
+		return DAOUkol.updateTask(ukol);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public List getTasksWithContext(Context kontext){
-		return DAOUkol.getUkolyKontextu(kontext);
+		return DAOUkol.getTasksWithContext(kontext);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public List getAllTasks(){
-		return DAOUkol.getAllUkoly();
+		return DAOUkol.getAllTasks();
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class TaskAdmin {
 	 * @return
 	 */
 	public List getTasksOfPerson(Person osoba) {
-		return DAOUkol.getUkolyOsoby(osoba);
+		return DAOUkol.getTasksOfPerson(osoba);
 	}
 
 }

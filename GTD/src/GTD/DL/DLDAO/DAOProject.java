@@ -33,7 +33,7 @@ public class DAOProject implements IDAOProject {
      * @param projekt
 	 * @return 
      */
-    public boolean createProjekt(Project projekt) {
+    public boolean createProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -88,7 +88,7 @@ public class DAOProject implements IDAOProject {
      * @param projekt
 	 * @return 
      */
-    public boolean deleteProjekt(Project projekt) {
+    public boolean deleteProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin pavlim33.API.PROJECTS_DEL(inp_id  => " + projekt.getId() + "); end;";
@@ -111,7 +111,7 @@ public class DAOProject implements IDAOProject {
      * Vrátí všechny projekty v systému.
 	 * @return List<Projekt>
      */
-    public List<Project> getAllProjekty() {
+    public List<Project> getAllProjects() {
         List<Project> projekty = new ArrayList<Project>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -159,7 +159,7 @@ public class DAOProject implements IDAOProject {
                 ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects_v where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                 while (rset_podprojekty.next()) {
                     //pridej konkretni projekt
-                    pro.addProjekt(getProjekt(rset_podprojekty.getInt(1)));
+                    pro.addProjekt(getProject(rset_podprojekty.getInt(1)));
                 }
                 rset_podprojekty.close();
                 stmt_podprojekty.close();
@@ -181,7 +181,7 @@ public class DAOProject implements IDAOProject {
      * @param id
 	 * @return projekt
      */
-    public Project getProjekt(int id) {
+    public Project getProject(int id) {
         Project projekt = null;
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -232,7 +232,7 @@ public class DAOProject implements IDAOProject {
                 ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                 while (rset_podprojekty.next()) {
                     //pridej konkretni projekt
-                    Project p = getProjekt(rset_podprojekty.getInt(1));
+                    Project p = getProject(rset_podprojekty.getInt(1));
                     projekt.addProjekt(p);
                 }
                 rset_podprojekty.close();
@@ -255,7 +255,7 @@ public class DAOProject implements IDAOProject {
      * @param projekt
 	 * @return 
      */
-    public boolean updateProjekt(Project projekt) {
+    public boolean updateProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
@@ -313,7 +313,7 @@ public class DAOProject implements IDAOProject {
      * @param osoba
 	 * @return List<Projekt>
      */
-    public List<Project> getProjektyOsoby(Person osoba) {
+    public List<Project> getProjectsOfPerson(Person osoba) {
         List<Project> projekty = new ArrayList<Project>();
         Connection con = DatabaseConnection.getConnection();
         try {
@@ -321,7 +321,7 @@ public class DAOProject implements IDAOProject {
             //Pridej do listu vsechny projektu osoby (vcetne podprojektu)
             ResultSet rset = stmt.executeQuery("select id from pavlim33.projects_v where id_person = " + osoba.getId());
             while (rset.next()) {
-                projekty.add(getProjekt(rset.getInt(1)));
+                projekty.add(getProject(rset.getInt(1)));
             }
             rset.close();
             stmt.close();

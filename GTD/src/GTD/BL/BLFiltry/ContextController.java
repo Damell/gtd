@@ -18,10 +18,6 @@ public class ContextController implements IContextController {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	/**
 	 * Přidá nový kotext zadané osobě.
 	 * 
@@ -29,7 +25,8 @@ public class ContextController implements IContextController {
 	 * @param osoba
 	 * @return 
 	 */
-	public boolean addKontext(Context kontext, Person osoba){
+	@Override
+	public boolean addContext(Context kontext, Person osoba){
 		return false;
 	}
 
@@ -39,7 +36,8 @@ public class ContextController implements IContextController {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean deleteKontext(Context kontext){
+	@Override
+	public boolean deleteContext(Context kontext){
 		return false;
 	}
 
@@ -49,13 +47,15 @@ public class ContextController implements IContextController {
 	 * @param kontext
 	 * @return 
 	 */
-	public boolean updateKontext(Context kontext){
+	@Override
+	public boolean updateContext(Context kontext){
 		return false;
 	}
 
 	/**
 	 * Odešle GUI pokyn k obnovení.
 	 */
+	@Override
 	public void refresh(){
 
 	}

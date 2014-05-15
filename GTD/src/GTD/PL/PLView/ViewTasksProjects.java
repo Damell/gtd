@@ -85,7 +85,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 	}
 
 	void loadData() {
-		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjects();
 		tasks = GTDGUI.getGTDGUI().getTaskController().getAllUkoly();
 	}
 
@@ -143,7 +143,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 			c.gridy++;
 			add(new JLabel(Consts.OWNER + ": "), c);
 			c.gridx = 1;
-			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getOsoba(task.getVlastnik_id());
+			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getPerson(task.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
 			if(task.getKalendar() != null && task.getKalendar().isSet()) {
 				c.gridx = 0;
@@ -185,7 +185,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getTaskController().activateUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().activateTask(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -211,7 +211,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getTaskController().finishUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().finishTask(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -225,7 +225,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getTaskController().deleteUkol(task)) {
+					if(GTDGUI.getGTDGUI().getTaskController().deleteTask(task)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -280,7 +280,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 			c.gridy++;
 			add(new JLabel(Consts.OWNER + ": "), c);
 			c.gridx = 1;
-			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getOsoba(project.getVlastnik_id());
+			Person vlastnik = GTDGUI.getGTDGUI().getPersonController().getPerson(project.getVlastnik_id());
 			add(new JLabel(vlastnik.getJmeno() + " " + vlastnik.getPrijmeni()), c);
 			c.gridx = 0;
 			c.gridy++;
@@ -312,7 +312,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getProjectController().finishProjekt(project)) {
+					if(GTDGUI.getGTDGUI().getProjectController().finishProject(project)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}
@@ -326,7 +326,7 @@ public class ViewTasksProjects extends JPanel implements IView {
 				}
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(GTDGUI.getGTDGUI().getProjectController().deleteProjekt(project)) {
+					if(GTDGUI.getGTDGUI().getProjectController().deleteProject(project)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				}

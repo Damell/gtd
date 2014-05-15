@@ -182,7 +182,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
-		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjects();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -212,7 +212,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 				for (int i : selectedIndices) {
 					selectedUsers.add(users.get(i));
 				}
-				if (GTDGUI.getGTDGUI().getProjectController().addProjekt(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID, selectedUsers, cinnost)) {
+				if (GTDGUI.getGTDGUI().getProjectController().addProject(cinnost.getNazev(), cinnost.getPopis(), GTDGUI.getMyself().getId(), rodicID, selectedUsers, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -263,7 +263,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersScrollPane.setPreferredSize(new Dimension(200, 200));
 
-		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjects();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -296,7 +296,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 				if (selectedIndex != -1) {
 					ownerId = users.get(selectedIndex).getId();
 				}
-				if (GTDGUI.getGTDGUI().getTaskController().addUkol(cinnost.getNazev(), cinnost.getPopis(), ownerId, projektId, cinnost)) {
+				if (GTDGUI.getGTDGUI().getTaskController().addTask(cinnost.getNazev(), cinnost.getPopis(), ownerId, projektId, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -335,7 +335,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new GridBagLayout());
 
-		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjekty();
+		projects = GTDGUI.getGTDGUI().getProjectController().getAllProjects();
 		projectsList = new JList(projects.toArray());
 		projectsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		projectsList.setVisibleRowCount(-1);
@@ -352,7 +352,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 					projektId = projects.get(selectedIndex).getId();
 				}
 
-				if (GTDGUI.getGTDGUI().getTaskController().addTwoMinutesUkol(cinnost.getNazev(), cinnost.getPopis(), projektId, cinnost)) {
+				if (GTDGUI.getGTDGUI().getTaskController().addTwoMinutesTask(cinnost.getNazev(), cinnost.getPopis(), projektId, cinnost)) {
 					GTDGUI.getGTDGUI().refresh();
 					processFrame.dispose();
 				}
@@ -383,7 +383,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showUseless() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getActivityController().deleteCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().deleteActivity(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.DELETED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {
@@ -397,7 +397,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showArchive() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getActivityController().archiveCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().archiveActivity(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.ARCHIVED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {
@@ -411,7 +411,7 @@ public class ViewProcessActivity extends JPanel implements IView {
 	void showPostpone() {
 		this.remove(visiblePanel);
 		visiblePanel = new JPanel(new FlowLayout());
-		if (GTDGUI.getGTDGUI().getActivityController().postponeCinnost(cinnost)) {
+		if (GTDGUI.getGTDGUI().getActivityController().postponeActivity(cinnost)) {
 			visiblePanel.add(new JLabel(Consts.POSTPONED));
 			GTDGUI.getGTDGUI().refresh();
 		} else {

@@ -35,7 +35,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 		 */
 	@Override
-	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost) {
+	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost) {
 		Project rodic = null;
 		if (rodicID != -1) {
 			rodic = spravceProjektu.getProjekt(rodicID);
@@ -51,7 +51,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public boolean deleteProjekt(Project projekt){
+	public boolean deleteProject(Project projekt){
 		return spravceProjektu.deleteProjekt(projekt);
 	}
 
@@ -62,7 +62,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public boolean updateProjekt(Project projekt){
+	public boolean updateProject(Project projekt){
 		return false;
 	}
 
@@ -74,7 +74,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public Project getProjekt(int id){
+	public Project getProject(int id){
 		return spravceProjektu.getProjekt(id);
 	}
 
@@ -99,7 +99,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public boolean finishProjekt(Project projekt){
+	public boolean finishProject(Project projekt){
 		projekt.setStav(DAOStav.getProjektDokoncenyID());
 		return spravceProjektu.finishProjekt(projekt);
 	}
@@ -111,7 +111,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public List getProjektyOsoby(Person osoba){
+	public List getProjectsOfPerson(Person osoba){
 		return spravceProjektu.getProjektyOsoby(osoba);
 	}
 
@@ -121,7 +121,7 @@ public class ProjectController implements IProjectController {
 	 * @return 
 	 */
 	@Override
-	public List getAllProjekty(){
+	public List getAllProjects(){
 		return spravceProjektu.getAllProjekty();
 	}
 

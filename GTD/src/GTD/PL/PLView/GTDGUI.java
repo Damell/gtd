@@ -86,7 +86,7 @@ public class GTDGUI implements IGTDGUI {
 	 * Shows main UI when the users logs in
 	 */
 	public void showMainWindow() {
-		myself = getPersonController().getPrihlasenaOsoba();
+		myself = getPersonController().getLoggedPerson();
 		showActivities();
 		showUkolyProjekty();
 		showMojeUkoly();

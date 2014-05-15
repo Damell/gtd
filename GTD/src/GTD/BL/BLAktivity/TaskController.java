@@ -40,7 +40,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
+	public boolean addTask(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
 
 		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
 		Task ukol = new Task(nazev, popis, DAOStav.getUkolVytvorenyID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
@@ -59,7 +59,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Activity cinnost){
+	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
 		Task ukol = new Task(nazev, popis, DAOStav.getUkolHotovyID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
 		return spravceUkolu.addUkol(ukol, cinnost);
 	}
@@ -71,7 +71,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean deleteUkol(Task ukol){
+	public boolean deleteTask(Task ukol){
 		return spravceUkolu.deleteUkol(ukol);
 	}
 
@@ -82,12 +82,12 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean updateUkol(Task ukol){
+	public boolean updateTask(Task ukol){
 		return false;
 	}
 
 	@Override
-	public boolean activateUkol(Task ukol) {
+	public boolean activateTask(Task ukol) {
 		ukol.setStav(DAOStav.getUkolAktivniID());
 		return spravceUkolu.updateUkol(ukol);
 	}
@@ -100,7 +100,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean scheduleUkol(Task ukol, Interval interval){
+	public boolean scheduleTask(Task ukol, Interval interval){
 		ukol.setInterval(interval.getFrom(), interval.getTo());
 		ukol.setStav(DAOStav.getUkolVKalendariID());
 		return spravceUkolu.updateUkol(ukol);
@@ -126,7 +126,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean finishUkol(Task ukol){
+	public boolean finishTask(Task ukol){
 		ukol.setStav(DAOStav.getUkolHotovyID());
 		return spravceUkolu.updateUkol(ukol);
 	}
@@ -139,7 +139,7 @@ public class TaskController implements ITaskController {
 	 * @return 
 	 */
 	@Override
-	public boolean setKontext(Task ukol, Context kontext){
+	public boolean setContext(Task ukol, Context kontext){
 		return false;
 	}
 

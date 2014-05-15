@@ -104,7 +104,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getTaskController().activateUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().activateTask(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {
@@ -134,7 +134,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getTaskController().finishUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().finishTask(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {
@@ -150,7 +150,7 @@ public class ViewMyTasks extends JPanel implements IView {
 				int selectedRow = tasksTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Task selected = tasks.get(tasksTable.convertRowIndexToModel(selectedRow));
-					if(GTDGUI.getGTDGUI().getTaskController().deleteUkol(selected)) {
+					if(GTDGUI.getGTDGUI().getTaskController().deleteTask(selected)) {
 						GTDGUI.getGTDGUI().refresh();
 					}
 				} else {

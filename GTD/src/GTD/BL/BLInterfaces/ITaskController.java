@@ -8,8 +8,8 @@ import GTD.DL.DLEntity.Task;
 import java.util.List;
 
 /**
- * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
- * Úkoly.
+ * Interface defines the way BL and PL communicates concerning tasks
+ * @author GTD team
  * @version 1.0
  */
 public interface ITaskController {
@@ -17,73 +17,73 @@ public interface ITaskController {
 	/**
 	 * Přidá nový úkol zadaných vlastností.
 	 * 
-	 * @param nazev
-	 * @param popis
-	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
+	 * @param title
+	 * @param desc
+	 * @param activity    Činnost, ze které úkol vznikl (volitelné).
 	 * @param projektId
-	 * @param vlastnikId
-	 * @return 
+	 * @param ownerId
+	 * @return boolean
 	 */
-	public boolean addUkol(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost);
+	public boolean addTask(String title, String desc, int ownerId, int projektId, Activity activity);
 
 	/**
 	 * Smaže úkol (resp. označí jako smazaný).
 	 * 
-	 * @param ukol
-	 * @return 
+	 * @param task
+	 * @return boolean
 	 */
-	public boolean deleteUkol(Task ukol);
+	public boolean deleteTask(Task task);
 
 	/**
 	 * Změní název a/nebo popis úkolu.
 	 * 
-	 * @param ukol
-	 * @return 
+	 * @param task
+	 * @return boolean
 	 */
-	public boolean updateUkol(Task ukol);
+	public boolean updateTask(Task task);
 
 	/**
 	 * Označí úkol jako aktivní.
 	 * 
-	 * @param ukol
-	 * @return 
+	 * @param task
+	 * @return boolean
 	 */
-	public boolean activateUkol(Task ukol);
+	public boolean activateTask(Task task);
 
 	/**
 	 * Přidá úkol do kalendáře.
 	 * 
-	 * @param ukol
+	 * @param task
 	 * @param interval
-	 * @return 
+	 * @return boolean
 	 */
-	public boolean scheduleUkol(Task ukol, Interval interval);
+	public boolean scheduleTask(Task task, Interval interval);
 
 	/**
 	 * Změní vlastníka úkolu.
 	 * 
-	 * @param ukol
-	 * @param novyVlastnik
-	 * @return 
+	 * @param task
+	 * @param newOwner
+	 * @return boolean
 	 */
-	public boolean changeOwner(Task ukol, Person novyVlastnik);
+	public boolean changeOwner(Task task, Person newOwner);
 
 	/**
 	 * Označí úkol jako "dokončený".
 	 * 
-	 * @param ukol
-	 * @return 
+	 * @param task
+	 * @return boolean
 	 */
-	public boolean finishUkol(Task ukol);
+	public boolean finishTask(Task task);
 
 	/**
 	 * Nastaví kontext úkolu.
 	 * 
-	 * @param ukol
-	 * @param kontext
-	 * @return 
+	 * @param task
+	 * @param context
+	 * @return boolean
 	 */
-	public boolean setKontext(Task ukol, Context kontext);
+	public boolean setContext(Task task, Context context);
 
 	/**
 	 * Odešle GUI pokyn k obnovení.
@@ -97,22 +97,22 @@ public interface ITaskController {
 	 * @param nazev
 	 * @param popis
 	 * @param projektId
-	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
-	 * @return 
+	 * @param activity    Činnost, ze které úkol vznikl (volitelné).
+	 * @return boolean
 	 */
-	public boolean addTwoMinutesUkol(String nazev, String popis, int projektId, Activity cinnost);
+	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity activity);
 
 	/**
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
-	 * @param osoba
-	 * @return 
+	 * @param person
+	 * @return List of person's tasks
 	 */
-	public List getUkolyOsoby(Person osoba);
+	public List getUkolyOsoby(Person person);
 
 	/**
 	 * Vrátí všechny úkoly
-	 * @return 
+	 * @return List of all tasks
 	 */
 	public List getAllUkoly();
 }

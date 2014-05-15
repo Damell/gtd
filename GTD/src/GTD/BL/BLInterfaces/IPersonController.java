@@ -4,8 +4,8 @@ import GTD.DL.DLEntity.Person;
 import java.util.List;
 
 /**
- * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
- * Osobami.
+ * Interface defines the way BL and PL communicates concerning persons
+ * @author GTD team
  * @version 1.0
  */
 public interface IPersonController {
@@ -13,27 +13,27 @@ public interface IPersonController {
 	/**
 	 * Zkusí přihlásit uživatele s danými přihlašovacími údaji.
 	 * 
-	 * @param login
-	 * @param heslo
-	 * @return 
+	 * @param username
+	 * @param password
+	 * @return boolean
 	 */
-	public boolean loginOsoba(String login, String heslo);
+	public boolean loginPerson(String username, String password);
 
 	/**
 	 * Vytvoří nového uživatele.
 	 * 
-	 * @param osoba
-	 * @return 
+	 * @param person
+	 * @return boolean
 	 */
-	public boolean addOsoba(Person osoba);
+	public boolean addPerson(Person person);
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
-	 * @param osoba
-	 * @return 
+	 * @param person
+	 * @return boolean
 	 */
-	public boolean deactivateOsoba(Person osoba);
+	public boolean deactivatePerson(Person person);
 
 	/**
 	 * Odešle GUI pokyn k obnovení.
@@ -44,18 +44,18 @@ public interface IPersonController {
 	 * Vrátí přihlášeného uživatele.
 	 * @return 
 	 */
-	public Person getPrihlasenaOsoba();
+	public Person getLoggedPerson();
 
 	/**
 	 * Vrátí uživatele podle ID.
 	 * @param id
 	 * @return 
 	 */
-	public Person getOsoba(int id);
+	public Person getPerson(int id);
 
 	/**
 	 * Vrátí všechny uživatele
-	 * @return 
+	 * @return boolean
 	 */
 	public List getAllUsers();
 

@@ -5,12 +5,13 @@ import GTD.DL.DLEntity.*;
 /**
  * Rozhraní pro komunikaci přímo s hlavní třídou GUI (PL) (v BL používáno po změně
  * dat pro pokyn k aktualizaci dat v GUI).
+ * @author GTD team
  * @version 1.0
  */
 public interface IGTDGUI {
 
 	/**
-	 * Předá dalším vrstvám GUI pokyn k obnovení.
+	 * Refreshes all concerned views
 	 */
 	public void refresh();
 
@@ -20,30 +21,29 @@ public interface IGTDGUI {
 	public void showActivities();
 
 	/**
-	 * Zobrazí dialog se zpracováním činnosti.
+	 * Shows process activity dialog
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 */
-	public void showProcessActivity(Activity cinnost);
+	public void showProcessActivity(Activity activity);
 
 	/**
-	 * Zobrazí okno s úkoly a projekty všech osob
+	 * Shows view with all tasks and projects
 	 */
 	public void showUkolyProjekty();
 
 	/**
-	 * Zobrazí úkoly přihlášené osoby
-	 * 
+	 * Shows tasks of the logged in user
 	 */
 	public void showMojeUkoly();
 
 	/**
-	 * Zobrazí přihlašovací okno.
+	 * Shows the login view
 	 */
 	public void showPrihlaseni();
 
 	/**
-	 * Zobrazí chybovou hlášku.
+	 * Shows an error message
 	 * @param error
 	 */
 	public void showError(String error);

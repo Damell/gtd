@@ -46,7 +46,7 @@ public class ViewChangeOwner {
 		} else if (((Task) activity).getProjekt() == 0) {
 			users = GTDGUI.getGTDGUI().getPersonController().getAllUsers();
 		} else {
-			users = GTDGUI.getGTDGUI().getProjectController().getProjekt(((Task) activity).getProjekt()).getSkupina();
+			users = GTDGUI.getGTDGUI().getProjectController().getProject(((Task) activity).getProjekt()).getSkupina();
 		}
 		usersList = new JList(users.toArray());
 		usersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

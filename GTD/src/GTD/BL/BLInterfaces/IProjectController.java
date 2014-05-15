@@ -6,8 +6,8 @@ import GTD.DL.DLEntity.Project;
 import java.util.List;
 
 /**
- * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
- * Projekty.
+ * Interface defines the way BL and PL communicates concerning projects
+ * @author GTD team
  * @version 1.0
  */
 public interface IProjectController {
@@ -23,7 +23,7 @@ public interface IProjectController {
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
 	 * @return 
 	 */
-	public boolean addProjekt(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost);
+	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost);
 
 	/**
 	 * Smaže projekt (resp. označí jako smazaný).
@@ -31,7 +31,7 @@ public interface IProjectController {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean deleteProjekt(Project projekt);
+	public boolean deleteProject(Project projekt);
 
 	/**
 	 * Změní název a/nebo popis projektu.
@@ -39,7 +39,7 @@ public interface IProjectController {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean updateProjekt(Project projekt);
+	public boolean updateProject(Project projekt);
 
 	/**
 	 * Vrátí konkrétní projekt (GUI toto používá pro nastavení aktuálně zobrazeného
@@ -48,7 +48,7 @@ public interface IProjectController {
 	 * @param id
 	 * @return 
 	 */
-	public Project getProjekt(int id);
+	public Project getProject(int id);
 
 	/**
 	 * Změní vlastníka projektu.
@@ -65,7 +65,7 @@ public interface IProjectController {
 	 * @param projekt
 	 * @return 
 	 */
-	public boolean finishProjekt(Project projekt);
+	public boolean finishProject(Project projekt);
 
 	/**
 	 * Vrátí všechny projekty patřící dané osobě.
@@ -73,14 +73,14 @@ public interface IProjectController {
 	 * @param osoba
 	 * @return 
 	 */
-	public List getProjektyOsoby(Person osoba);
+	public List getProjectsOfPerson(Person osoba);
 
 	/**
 	 * Vrátí všechny projekty 
 	 * 
 	 * @return 
 	 */
-	public List getAllProjekty();
+	public List getAllProjects();
 
 	/**
 	 * Odešle GUI pokyn k obnovení.

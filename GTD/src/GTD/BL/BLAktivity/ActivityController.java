@@ -33,7 +33,7 @@ public class ActivityController implements IActivityController {
 	 * @param popis
 	 */
 	@Override
-	public boolean addCinnost(String nazev, String popis){
+	public boolean addActivity(String nazev, String popis){
 		Activity newCinnost = new Activity(nazev, popis, DAOStav.getCinnostKeZpracovaniID(), GTDGUI.getMyself().getId());
 		return spravceCinnosti.addCinnost(newCinnost);
 	}
@@ -44,7 +44,7 @@ public class ActivityController implements IActivityController {
 	 * @param cinnost
 	 */
 	@Override
-	public boolean deleteCinnost(Activity cinnost){
+	public boolean deleteActivity(Activity cinnost){
 		return spravceCinnosti.deleteCinnost(cinnost);
 	}
 
@@ -54,7 +54,7 @@ public class ActivityController implements IActivityController {
 	 * @param osoba
 	 */
 	@Override
-	public List<Activity> getCinnostiOsoby(Person osoba){
+	public List<Activity> getActivitiesOfPerson(Person osoba){
 		return spravceCinnosti.getCinnostiOsoby(osoba);
 	}
 
@@ -64,7 +64,7 @@ public class ActivityController implements IActivityController {
 	 * @param cinnost
 	 */
 	@Override
-	public boolean processCinnost(Activity cinnost){
+	public boolean processActivity(Activity cinnost){
 		return false;
 	}
 
@@ -74,7 +74,7 @@ public class ActivityController implements IActivityController {
 	 * @param cinnost
 	 */
 	@Override
-	public boolean archiveCinnost(Activity cinnost){
+	public boolean archiveActivity(Activity cinnost){
 		return spravceCinnosti.archiveCinnost(cinnost);
 	}
 
@@ -84,7 +84,7 @@ public class ActivityController implements IActivityController {
 	 * @param cinnost
 	 */
 	@Override
-	public boolean updateCinnost(Activity cinnost){
+	public boolean updateActivity(Activity cinnost){
 		return false;
 	}
 
@@ -102,7 +102,7 @@ public class ActivityController implements IActivityController {
 	 * @param cinnost
 	 */
 	@Override
-	public boolean postponeCinnost(Activity cinnost){
+	public boolean postponeActivity(Activity cinnost){
 		return spravceCinnosti.postponeCinnost(cinnost);
 	}
 

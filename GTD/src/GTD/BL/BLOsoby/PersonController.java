@@ -30,7 +30,7 @@ public class PersonController implements IPersonController {
 	 * @return 
 	 */
 	@Override
-	public boolean loginOsoba(String login, String heslo){
+	public boolean loginPerson(String login, String heslo){
 		return spravceOsob.loginOsoba(login, heslo);
 	}
 
@@ -42,7 +42,7 @@ public class PersonController implements IPersonController {
 	 * @return  
 	 */
 	@Override
-	public boolean addOsoba(Person osoba){
+	public boolean addPerson(Person osoba){
 		return false;
 	}
 
@@ -53,7 +53,7 @@ public class PersonController implements IPersonController {
 	 * @return 
 	 */
 	@Override
-	public boolean deactivateOsoba(Person osoba){
+	public boolean deactivatePerson(Person osoba){
 		return false;
 	}
 
@@ -70,9 +70,9 @@ public class PersonController implements IPersonController {
 	 * @return 
 	 */
 	@Override
-	public Person getPrihlasenaOsoba(){
-		//return spravceOsob.getOsoba(GTDGUI.getMyself().getId());
-		//return spravceOsob.getOsoba(18);
+	public Person getLoggedPerson(){
+		//return spravceOsob.getPerson(GTDGUI.getMyself().getId());
+		//return spravceOsob.getPerson(18);
                 return spravceOsob.getOsobaPrihlasena();
 	}
 
@@ -83,7 +83,7 @@ public class PersonController implements IPersonController {
 	 * @return 
 	 */
 	@Override
-	public Person getOsoba(int id){
+	public Person getPerson(int id){
 		return spravceOsob.getOsoba(id);
 	}
 

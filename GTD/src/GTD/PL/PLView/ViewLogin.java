@@ -50,7 +50,7 @@ public class ViewLogin extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(personCtrl.loginOsoba(usernameField.getText(), new String(passwordField.getPassword()))) {
+				if(personCtrl.loginPerson(usernameField.getText(), new String(passwordField.getPassword()))) {
 					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {

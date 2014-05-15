@@ -86,7 +86,7 @@ public class ViewPlanTask {
 	}
 
 	void planTask (Task ukol, Interval interval) {
-		if(GTDGUI.getGTDGUI().getTaskController().scheduleUkol(ukol, interval)) {
+		if(GTDGUI.getGTDGUI().getTaskController().scheduleTask(ukol, interval)) {
 			GTDGUI.getGTDGUI().refresh();
 		}
 	}

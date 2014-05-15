@@ -99,7 +99,7 @@ public class ViewActivities extends JPanel implements IView {
 					JOptionPane optionPane = new JOptionPane();
 					optionPane.showMessageDialog(mainFrame, Consts.DESC_EMPTY);
 				} else {
-					if (GTDGUI.getGTDGUI().getActivityController().addCinnost(newActivityTitleField.getText(), newActivityDescField.getText())) {
+					if (GTDGUI.getGTDGUI().getActivityController().addActivity(newActivityTitleField.getText(), newActivityDescField.getText())) {
 						newActivityTitleField.setText("");
 						newActivityDescField.setText("");
 						refresh();
@@ -128,7 +128,7 @@ public class ViewActivities extends JPanel implements IView {
  				int selectedRow = activityTable.getSelectedRow();
 				if(selectedRow != -1) {
 					Activity selected = activities.get(activityTable.convertRowIndexToModel(selectedRow));
-					if ( GTDGUI.getGTDGUI().getActivityController().deleteCinnost(selected) ) {
+					if ( GTDGUI.getGTDGUI().getActivityController().deleteActivity(selected) ) {
 						refresh();
 					}
 				} else {
@@ -169,7 +169,7 @@ public class ViewActivities extends JPanel implements IView {
 	}
 
 	void loadData() {
-		activities = GTDGUI.getGTDGUI().getActivityController().getCinnostiOsoby(GTDGUI.getGTDGUI().getMyself());
+		activities = GTDGUI.getGTDGUI().getActivityController().getActivitiesOfPerson(GTDGUI.getGTDGUI().getMyself());
 	}
 
 	class ActivityTableModel extends AbstractTableModel {

@@ -5,60 +5,60 @@ import GTD.DL.DLEntity.Person;
 import java.util.List;
 
 /**
- * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
- * Činnostmi.
+ * Interface defines the way BL and PL communicates concerning activities
+ * @author GTD team
  * @version 1.0
  */
 public interface IActivityController {
 
 	/**
-	 * Přidá novou činnost zadaných vlastností.
+	 * Adds new activity
 	 * 
-	 * @param nazev 
-	 * @param popis 
+	 * @param title 
+	 * @param desc 
 	 * @return  
 	 */
-	public boolean addCinnost(String nazev, String popis);
+	public boolean addActivity(String title, String desc);
 
 	/**
 	 * Smaže činnost.
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 * @return 
 	 */
-	public boolean deleteCinnost(Activity cinnost);
+	public boolean deleteActivity(Activity activity);
 
 	/**
 	 * Vrátí činnosti konkrétní osoby.
 	 * 
-	 * @param osoba
+	 * @param person
 	 * @return 
 	 */
-	public List getCinnostiOsoby(Person osoba);
+	public List getActivitiesOfPerson(Person person);
 
 	/**
 	 * Označí činnost jako "zpracovanou".
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 * @return 
 	 */
-	public boolean processCinnost(Activity cinnost);
+	public boolean processActivity(Activity activity);
 
 	/**
 	 * Označí činnost jako "archivovanou".
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 * @return 
 	 */
-	public boolean archiveCinnost(Activity cinnost);
+	public boolean archiveActivity(Activity activity);
 
 	/**
 	 * Uloží změněnou činnost (změna jména/popisu).
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 * @return 
 	 */
-	public boolean updateCinnost(Activity cinnost);
+	public boolean updateActivity(Activity activity);
 
 	/**
 	 * Odešle GUI pokyn k obnovení.
@@ -68,9 +68,9 @@ public interface IActivityController {
 	/**
 	 * Označí činnost jako "odloženou".
 	 * 
-	 * @param cinnost
+	 * @param activity
 	 * @return 
 	 */
-	public boolean postponeCinnost(Activity cinnost);
+	public boolean postponeActivity(Activity activity);
 
 }

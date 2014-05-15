@@ -4,8 +4,8 @@ import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 
 /**
- * Interface definuje způsob komunikace mezi BL a PL týkající se manipulace s
- * Kontexty.
+ * Interface defines the way BL and PL communicates concerning contexts
+ * @author GTD team
  * @version 1.0
  */
 public interface IContextController {
@@ -13,27 +13,27 @@ public interface IContextController {
 	/**
 	 * Přidá nový kotext zadané osobě.
 	 * 
-	 * @param kontext
-	 * @param osoba
-	 * @return 
+	 * @param context
+	 * @param person
+	 * @return boolean
 	 */
-	public boolean addKontext(Context kontext, Person osoba);
+	public boolean addContext(Context context, Person person);
 
 	/**
 	 * Smaže kontext.
 	 * 
-	 * @param kontext
-	 * @return 
+	 * @param context
+	 * @return boolean
 	 */
-	public boolean deleteKontext(Context kontext);
+	public boolean deleteContext(Context context);
 
 	/**
 	 * Změní název kontextu.
 	 * 
-	 * @param kontext
-	 * @return 
+	 * @param context
+	 * @return boolean
 	 */
-	public boolean updateKontext(Context kontext);
+	public boolean updateContext(Context context);
 
 	/**
 	 * Pošle GUI pokyn k obnovení.

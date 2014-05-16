@@ -1,8 +1,6 @@
 package GTD.BL.BLOsoby;
-import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.BL.BLInterfaces.IPersonController;
 import GTD.DL.DLEntity.Person;
-import GTD.PL.PLView.GTDGUI;
 import java.util.List;
 
 /**
@@ -26,7 +24,6 @@ public class PersonController implements IPersonController {
 	 * 
 	 * @param login
 	 * @param heslo
-	 * @return 
 	 */
 	@Override
 	public boolean loginPerson(String login, String heslo, String hostname, String port, String sid){
@@ -37,8 +34,6 @@ public class PersonController implements IPersonController {
 	 * Vytvoří nového uživatele.
 	 * 
 	 * @param osoba
-	 * @return 
-	 * @return  
 	 */
 	@Override
 	public boolean addPerson(Person osoba){
@@ -49,7 +44,6 @@ public class PersonController implements IPersonController {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	@Override
 	public boolean deactivatePerson(Person osoba){
@@ -66,7 +60,6 @@ public class PersonController implements IPersonController {
 
 	/**
 	 * Vrátí přihlášeného uživatele.
-	 * @return 
 	 */
 	@Override
 	public Person getLoggedPerson(){
@@ -79,7 +72,6 @@ public class PersonController implements IPersonController {
 	 * Vrátí uživatele podle id.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	@Override
 	public Person getPerson(int id){

@@ -15,7 +15,6 @@ public interface IDAOContext {
 	 * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param kontext
-	 * @return 
 	 */
 	public boolean createContext(Context kontext);
 
@@ -23,13 +22,11 @@ public interface IDAOContext {
 	 * Smaže kontext z databáze.
 	 * 
 	 * @param kontext
-	 * @return 
 	 */
 	public boolean deleteContext(Context kontext);
 
 	/**
 	 * Vrátí všechny kontexty v systému.
-	 * @return 
 	 */
 	public List getAllContexts();
 
@@ -37,7 +34,6 @@ public interface IDAOContext {
 	 * Vrátí kontext podle jeho ID.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Context getContext(int id);
 
@@ -45,7 +41,6 @@ public interface IDAOContext {
 	 * Uloží zmenený kontext.
 	 * 
 	 * @param kontext
-	 * @return 
 	 */
 	public boolean updateContext(Context kontext);
 
@@ -53,7 +48,6 @@ public interface IDAOContext {
 	 * Vrátí všechny kontexty patrící zadané osobe.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List getContextsOfPerson(Person osoba);
 

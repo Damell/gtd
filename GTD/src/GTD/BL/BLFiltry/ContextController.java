@@ -23,7 +23,6 @@ public class ContextController implements IContextController {
 	 * 
 	 * @param context
 	 * @param person
-	 * @return 
 	 */
 	@Override
 	public boolean addContext(Context context, Person person){
@@ -34,7 +33,6 @@ public class ContextController implements IContextController {
 	 * Smaže context.
 	 * 
 	 * @param context
-	 * @return 
 	 */
 	@Override
 	public boolean deleteContext(Context context){
@@ -45,7 +43,6 @@ public class ContextController implements IContextController {
 	 * Změní název kontextu.
 	 * 
 	 * @param context
-	 * @return 
 	 */
 	@Override
 	public boolean updateContext(Context context){

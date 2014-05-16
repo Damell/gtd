@@ -21,7 +21,6 @@ public interface IProjectController {
 	 * @param rodicID
 	 * @param skupina
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
-	 * @return 
 	 */
 	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost);
 
@@ -29,7 +28,6 @@ public interface IProjectController {
 	 * Smaže projekt (resp. označí jako smazaný).
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean deleteProject(Project projekt);
 
@@ -37,7 +35,6 @@ public interface IProjectController {
 	 * Změní název a/nebo popis projektu.
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean updateProject(Project projekt);
 
@@ -46,7 +43,6 @@ public interface IProjectController {
 	 * projektu).
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Project getProject(int id);
 
@@ -55,7 +51,6 @@ public interface IProjectController {
 	 * 
 	 * @param projekt
 	 * @param novyVlastnik
-	 * @return 
 	 */
 	public boolean changeOwner(Project projekt, Person novyVlastnik);
 
@@ -63,7 +58,6 @@ public interface IProjectController {
 	 * Označí projekt jako "dokončený".
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean finishProject(Project projekt);
 
@@ -71,14 +65,12 @@ public interface IProjectController {
 	 * Vrátí všechny projekty patřící dané osobě.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List getProjectsOfPerson(Person osoba);
 
 	/**
 	 * Vrátí všechny projekty 
 	 * 
-	 * @return 
 	 */
 	public List getAllProjects();
 

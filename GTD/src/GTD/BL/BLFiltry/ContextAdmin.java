@@ -27,7 +27,6 @@ public class ContextAdmin {
 	 *
 	 * @param kontext
 	 * @param person
-	 * @return
 	 */
 	public boolean addContext(Context kontext, Person person) {
 		return false;
@@ -37,7 +36,6 @@ public class ContextAdmin {
 	 * Smaže kontext.
 	 *
 	 * @param kontext
-	 * @return
 	 */
 	public boolean deleteContext(Context kontext) {
 		return false;
@@ -47,7 +45,6 @@ public class ContextAdmin {
 	 * Vrátí kontext podle jeho ID.
 	 *
 	 * @param id
-	 * @return
 	 */
 	public Context getContext(int id) {
 		return null;
@@ -57,7 +54,6 @@ public class ContextAdmin {
 	 * Uloží zmenený kontext.
 	 *
 	 * @param kontext
-	 * @return
 	 */
 	public boolean updateContext(Context kontext) {
 		return false;
@@ -67,7 +63,6 @@ public class ContextAdmin {
 	 * Vrátí všechny kontexty patrící zadané osobe.
 	 *
 	 * @param osoba
-	 * @return
 	 */
 	public List getContextsOfPerson(Person osoba) {
 		return null;

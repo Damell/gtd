@@ -32,7 +32,6 @@ public class DAOTask implements IDAOTask {
      * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
      *
      * @param ukol
-     * @return
      */
     public boolean createTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -61,7 +60,6 @@ public class DAOTask implements IDAOTask {
      * Smaže úkol z databáze (resp. označí jako smazaný).
      *
      * @param ukol
-     * @return
      */
     public boolean deleteTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
@@ -179,7 +177,6 @@ public class DAOTask implements IDAOTask {
      * Uloží zmenený úkol.
      *
      * @param ukol
-     * @return
      */
     public boolean updateTask(Task ukol) {
         String date_from = null;

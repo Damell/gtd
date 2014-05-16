@@ -38,7 +38,6 @@ public class TaskAdmin {
 	 * @param ukol
 	 * @param cinnost    Činnost, ze které úkol vznikl (pokud existuje) - používá se
 	 * pro označení činnosti jako "zpracované".
-	 * @return 
 	 */
 	public boolean addTask(Task ukol, Activity cinnost){
 		if (daoUkol.createTask(ukol)) {
@@ -53,7 +52,6 @@ public class TaskAdmin {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	public boolean deleteTask(Task ukol){
 		return daoUkol.deleteTask(ukol);
@@ -63,7 +61,6 @@ public class TaskAdmin {
 	 * Vrátí úkol.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Task getTask(int id){
 		return daoUkol.getTask(id);
@@ -74,7 +71,6 @@ public class TaskAdmin {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	public boolean updateTask(Task ukol){
 		return daoUkol.updateTask(ukol);
@@ -84,7 +80,6 @@ public class TaskAdmin {
 	 * Vrátí všechny úkoly daného kontextu.
 	 * 
 	 * @param kontext
-	 * @return 
 	 */
 	public List getTasksWithContext(Context kontext){
 		return daoUkol.getTasksWithContext(kontext);
@@ -92,7 +87,6 @@ public class TaskAdmin {
 
 	/**
 	 * Vrátí všechny úkoly
-	 * @return 
 	 */
 	public List getAllTasks(){
 		return daoUkol.getAllTasks();
@@ -103,7 +97,6 @@ public class TaskAdmin {
 	 * 
 	 * @param ukol
 	 * @param kontext
-	 * @return 
 	 */
 	public boolean setContext(Task ukol, Context kontext){
 		return false;
@@ -112,7 +105,6 @@ public class TaskAdmin {
 	/**
 	 *
 	 * @param osoba
-	 * @return
 	 */
 	public List getTasksOfPerson(Person osoba) {
 		return daoUkol.getTasksOfPerson(osoba);

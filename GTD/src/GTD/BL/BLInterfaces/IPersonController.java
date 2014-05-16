@@ -15,7 +15,6 @@ public interface IPersonController {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return boolean
 	 */
 	public boolean loginPerson(String username, String password, String hostname, String port, String sid);
 
@@ -23,7 +22,6 @@ public interface IPersonController {
 	 * Vytvoří nového uživatele.
 	 * 
 	 * @param person
-	 * @return boolean
 	 */
 	public boolean addPerson(Person person);
 
@@ -31,7 +29,6 @@ public interface IPersonController {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param person
-	 * @return boolean
 	 */
 	public boolean deactivatePerson(Person person);
 
@@ -42,20 +39,17 @@ public interface IPersonController {
 
 	/**
 	 * Vrátí přihlášeného uživatele.
-	 * @return 
 	 */
 	public Person getLoggedPerson();
 
 	/**
 	 * Vrátí uživatele podle ID.
 	 * @param id
-	 * @return 
 	 */
 	public Person getPerson(int id);
 
 	/**
 	 * Vrátí všechny uživatele
-	 * @return boolean
 	 */
 	public List getAllUsers();
 

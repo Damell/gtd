@@ -15,7 +15,6 @@ public interface IContextController {
 	 * 
 	 * @param context
 	 * @param person
-	 * @return boolean
 	 */
 	public boolean addContext(Context context, Person person);
 
@@ -23,7 +22,6 @@ public interface IContextController {
 	 * Smaže kontext.
 	 * 
 	 * @param context
-	 * @return boolean
 	 */
 	public boolean deleteContext(Context context);
 
@@ -31,7 +29,6 @@ public interface IContextController {
 	 * Změní název kontextu.
 	 * 
 	 * @param context
-	 * @return boolean
 	 */
 	public boolean updateContext(Context context);
 

@@ -50,7 +50,6 @@ public class Interval {
     /**
      * Vrátí tru, pikud je interval nastaven
      * 
-     * @return
      */
     public boolean isSet() {
         return from != null && to != null;

@@ -16,7 +16,6 @@ public interface IActivityController {
 	 * 
 	 * @param title 
 	 * @param desc 
-	 * @return  
 	 */
 	public boolean addActivity(String title, String desc);
 
@@ -24,7 +23,6 @@ public interface IActivityController {
 	 * Smaže činnost.
 	 * 
 	 * @param activity
-	 * @return 
 	 */
 	public boolean deleteActivity(Activity activity);
 
@@ -32,7 +30,6 @@ public interface IActivityController {
 	 * Vrátí činnosti konkrétní osoby.
 	 * 
 	 * @param person
-	 * @return 
 	 */
 	public List getActivitiesOfPerson(Person person);
 
@@ -40,7 +37,6 @@ public interface IActivityController {
 	 * Označí činnost jako "zpracovanou".
 	 * 
 	 * @param activity
-	 * @return 
 	 */
 	public boolean processActivity(Activity activity);
 
@@ -48,7 +44,6 @@ public interface IActivityController {
 	 * Označí činnost jako "archivovanou".
 	 * 
 	 * @param activity
-	 * @return 
 	 */
 	public boolean archiveActivity(Activity activity);
 
@@ -56,7 +51,6 @@ public interface IActivityController {
 	 * Uloží změněnou činnost (změna jména/popisu).
 	 * 
 	 * @param activity
-	 * @return 
 	 */
 	public boolean updateActivity(Activity activity);
 
@@ -69,7 +63,6 @@ public interface IActivityController {
 	 * Označí činnost jako "odloženou".
 	 * 
 	 * @param activity
-	 * @return 
 	 */
 	public boolean postponeActivity(Activity activity);
 

@@ -31,7 +31,6 @@ public class DAOProject implements IDAOProject {
      * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
      *
      * @param projekt
-	 * @return 
      */
     public boolean createProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
@@ -86,7 +85,6 @@ public class DAOProject implements IDAOProject {
      * úkoly a podprojekty.
      *
      * @param projekt
-	 * @return 
      */
     public boolean deleteProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
@@ -253,7 +251,6 @@ public class DAOProject implements IDAOProject {
      * Uloží zmenený projekt.
      *
      * @param projekt
-	 * @return 
      */
     public boolean updateProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();

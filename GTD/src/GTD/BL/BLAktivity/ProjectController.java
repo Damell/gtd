@@ -33,7 +33,6 @@ public class ProjectController implements IProjectController {
 	 * @param rodicID
 	 * @param skupina
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
-	 * @return 
 		 */
 	@Override
 	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost) {
@@ -49,7 +48,6 @@ public class ProjectController implements IProjectController {
 	 * Smaže projekt (resp. označí jako smazaný).
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	@Override
 	public boolean deleteProject(Project projekt){
@@ -60,7 +58,6 @@ public class ProjectController implements IProjectController {
 	 * Změní název a/nebo popis projektu.
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	@Override
 	public boolean updateProject(Project projekt){
@@ -72,7 +69,6 @@ public class ProjectController implements IProjectController {
 	 * projektu).
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	@Override
 	public Project getProject(int id){
@@ -85,7 +81,6 @@ public class ProjectController implements IProjectController {
 	 * 
 	 * @param projekt
 	 * @param novyVlastnik
-	 * @return 
 	 */
 	@Override
 	public boolean changeOwner(Project projekt, Person novyVlastnik){
@@ -97,7 +92,6 @@ public class ProjectController implements IProjectController {
 	 * Označí projekt jako "dokončený".
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	@Override
 	public boolean finishProject(Project projekt){
@@ -109,7 +103,6 @@ public class ProjectController implements IProjectController {
 	 * Vrátí všechny projekty patřící dané osobě.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	@Override
 	public List getProjectsOfPerson(Person osoba){
@@ -119,7 +112,6 @@ public class ProjectController implements IProjectController {
 	/**
 	 * Vrátí všechny projekty
 	 * 
-	 * @return 
 	 */
 	@Override
 	public List getAllProjects(){

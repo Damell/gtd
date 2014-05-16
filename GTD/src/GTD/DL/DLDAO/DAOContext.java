@@ -30,7 +30,6 @@ public class DAOContext implements IDAOContext {
      * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
      *
      * @param kontext
-	 * @return 
      */
     public boolean createContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
@@ -54,7 +53,6 @@ public class DAOContext implements IDAOContext {
      * Smaže kontext z databáze.
      *
      * @param kontext
-	 * @return 
      */
     public boolean deleteContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
@@ -122,7 +120,6 @@ public class DAOContext implements IDAOContext {
      * Uloží zmenený kontext.
      *
      * @param kontext
-	 * @return 
      */
     public boolean updateContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();

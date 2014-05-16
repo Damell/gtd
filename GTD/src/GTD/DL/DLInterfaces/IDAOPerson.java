@@ -15,7 +15,6 @@ public interface IDAOPerson {
      * Vytvoří nového uživatele.
      *
      * @param osoba
-	 * @return 
      */
     public boolean createPerson(Person osoba);
 
@@ -23,13 +22,11 @@ public interface IDAOPerson {
      * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
      *
      * @param osoba
-	 * @return 
      */
     public boolean deactivatePerson(Person osoba);
 
     /**
      * Vrátí všechny osoby.
-	 * @return 
      */
     public List getAllPersons();
 
@@ -37,14 +34,12 @@ public interface IDAOPerson {
      * Vrátí osobu podle jejího ID.
      *
      * @param id
-	 * @return 
      */
     public Person getPerson(int id);
 
     /**
      * Vrátí ID prihlasene osoby.
      *
-	 * @return 
      */
     public int getPersonID();
 
@@ -52,7 +47,6 @@ public interface IDAOPerson {
      * Vrátí uživatele na základě uživatelského jména
      *
      * @param username
-	 * @return 
      */
     public Person getPerson(String username);
 
@@ -60,7 +54,6 @@ public interface IDAOPerson {
      * Uloží změny osoby.
      *
      * @param osoba
-	 * @return 
      */
     public boolean updatePerson(Person osoba);
 
@@ -68,7 +61,6 @@ public interface IDAOPerson {
      * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
      *
      * @param login
-	 * @return 
      */
     public boolean checkNewLogin(String login);
 
@@ -76,7 +68,6 @@ public interface IDAOPerson {
      * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
      *
      * @param login
-	 * @return 
      */
     public boolean checkLogin(String login);
 

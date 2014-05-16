@@ -30,7 +30,6 @@ public class DAOActivity implements IDAOActivity {
      * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
      *
      * @param cinnost
-     * @return
      */
     public boolean createActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -58,7 +57,6 @@ public class DAOActivity implements IDAOActivity {
      * Smaže cinnost z databáze.
      *
      * @param cinnost
-     * @return
      */
     public boolean deleteActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
@@ -126,7 +124,6 @@ public class DAOActivity implements IDAOActivity {
      * Uloží zmenenou cinnost.
      *
      * @param cinnost
-     * @return
      */
     public boolean updateActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();

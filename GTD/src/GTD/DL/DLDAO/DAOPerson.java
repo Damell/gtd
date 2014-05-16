@@ -29,7 +29,6 @@ public class DAOPerson implements IDAOPerson {
      * Vytvoří nového uživatele.
      *
      * @param osoba
-     * @return
      */
     public boolean createPerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -56,7 +55,6 @@ public class DAOPerson implements IDAOPerson {
      * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
      *
      * @param osoba
-     * @return
      */
     public boolean deactivatePerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -149,7 +147,6 @@ public class DAOPerson implements IDAOPerson {
      * Uloží změny osoby.
      *
      * @param osoba
-     * @return
      */
     public boolean updatePerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
@@ -177,7 +174,6 @@ public class DAOPerson implements IDAOPerson {
      * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
      *
      * @param login
-     * @return
      */
     public boolean checkNewLogin(String login) {
         int count = 0;
@@ -227,7 +223,7 @@ public class DAOPerson implements IDAOPerson {
     /**
      * Vráti osoby dle zadaného loginu
      *
-     * @param login
+     * @param username
      * @return osoba
      */
     @Override

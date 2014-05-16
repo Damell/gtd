@@ -56,7 +56,6 @@ public class DatabaseConnection {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return
 	 */
 	public static boolean login(String username, String password, String hostname, String port, String sid) {
 		if(instance == null) {

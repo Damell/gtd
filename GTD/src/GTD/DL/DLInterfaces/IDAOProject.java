@@ -15,7 +15,6 @@ public interface IDAOProject {
 	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean createProject(Project projekt);
 
@@ -24,14 +23,12 @@ public interface IDAOProject {
 	 * a podprojekty.
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean deleteProject(Project projekt);
 
 	/**
 	 * Vrátí všechny projekty v systému.
          * 
-	 * @return 
 	 */
 	public List<Project> getAllProjects();
 
@@ -39,7 +36,6 @@ public interface IDAOProject {
 	 * Vrátí projekt podle jeho ID.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Project getProject(int id);
 
@@ -47,7 +43,6 @@ public interface IDAOProject {
 	 * Uloží zmenený projekt.
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean updateProject(Project projekt);
 
@@ -55,7 +50,6 @@ public interface IDAOProject {
 	 * Vrátí všechny projekty patřící zadané osobe.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List<Project> getProjectsOfPerson(Person osoba);
 

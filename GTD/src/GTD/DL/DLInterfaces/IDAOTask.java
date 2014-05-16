@@ -16,7 +16,6 @@ public interface IDAOTask {
 	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	public boolean createTask(Task ukol);
 
@@ -24,13 +23,11 @@ public interface IDAOTask {
 	 * Smaže úkol z databáze (resp. označí jako smazaný).
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	public boolean deleteTask(Task ukol);
 
 	/**
 	 * Vrátí všechny úkoly v systému.
-	 * @return 
 	 */
 	public List getAllTasks();
 
@@ -38,7 +35,6 @@ public interface IDAOTask {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List getTasksOfPerson(Person osoba);
 
@@ -46,7 +42,6 @@ public interface IDAOTask {
 	 * Vrátí úkol podle jeho ID.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Task getTask(int id);
 
@@ -54,7 +49,6 @@ public interface IDAOTask {
 	 * Uloží zmenený úkol.
 	 * 
 	 * @param úkol
-	 * @return 
 	 */
 	public boolean updateTask(Task úkol);
 
@@ -62,7 +56,6 @@ public interface IDAOTask {
 	 * Vrátí všechny úkoly daného kontextu.
 	 * 
 	 * @param kontext
-	 * @return 
 	 */
 	public List getTasksWithContext(Context kontext);
 

@@ -35,7 +35,6 @@ public class ActivitiyAdmin {
 	 * Vytvorí novou cinnost.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean addActivity(Activity cinnost){
 		return daoActivity.createActivity(cinnost);
@@ -45,7 +44,6 @@ public class ActivitiyAdmin {
 	 * Smaže činnost. Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean deleteActivity(Activity cinnost){
 		return daoActivity.deleteActivity(cinnost);
@@ -55,7 +53,6 @@ public class ActivitiyAdmin {
 	 * Vrátí cinnost na základě jejího ID.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Activity getActivity(int id){
 		return null;
@@ -65,7 +62,6 @@ public class ActivitiyAdmin {
 	 * Uloží změněnou činnost. Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean updateActivity(Activity cinnost){
 		return false;
@@ -75,7 +71,6 @@ public class ActivitiyAdmin {
 	 * Vrátí všechny cinnosti osoby.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List<Activity> getActivitiesOfPerson(Person osoba){
 		return daoActivity.getActivitiesOfPerson(osoba);
@@ -85,7 +80,6 @@ public class ActivitiyAdmin {
 	 * Označí činnost jako "zpracovanou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean processActivity(Activity cinnost){
 		cinnost.setStav(daoState.getActivityProcessedID());
@@ -96,7 +90,6 @@ public class ActivitiyAdmin {
 	 * Označí činnost jako "archivovanou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean archiveActivity(Activity cinnost){
 		cinnost.setStav(daoState.getActivityArchivedID());
@@ -107,7 +100,6 @@ public class ActivitiyAdmin {
 	 * Označí činnost jako "odloženou". Toto může udělat pouze vlastník činnosti.
 	 * 
 	 * @param cinnost
-	 * @return 
 	 */
 	public boolean postponeActivity(Activity cinnost){
 		cinnost.setStav(daoState.getActivityPostponedID());

@@ -1,6 +1,5 @@
 package GTD.BL.BLAktivity;
 import GTD.BL.BLInterfaces.IActivityController;
-import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLDAO.DAOState;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;

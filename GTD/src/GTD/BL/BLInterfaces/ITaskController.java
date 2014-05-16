@@ -22,7 +22,6 @@ public interface ITaskController {
 	 * @param activity    Činnost, ze které úkol vznikl (volitelné).
 	 * @param projektId
 	 * @param ownerId
-	 * @return boolean
 	 */
 	public boolean addTask(String title, String desc, int ownerId, int projektId, Activity activity);
 
@@ -30,7 +29,6 @@ public interface ITaskController {
 	 * Smaže úkol (resp. označí jako smazaný).
 	 * 
 	 * @param task
-	 * @return boolean
 	 */
 	public boolean deleteTask(Task task);
 
@@ -38,7 +36,6 @@ public interface ITaskController {
 	 * Změní název a/nebo popis úkolu.
 	 * 
 	 * @param task
-	 * @return boolean
 	 */
 	public boolean updateTask(Task task);
 
@@ -46,7 +43,6 @@ public interface ITaskController {
 	 * Označí úkol jako aktivní.
 	 * 
 	 * @param task
-	 * @return boolean
 	 */
 	public boolean activateTask(Task task);
 
@@ -55,7 +51,6 @@ public interface ITaskController {
 	 * 
 	 * @param task
 	 * @param interval
-	 * @return boolean
 	 */
 	public boolean scheduleTask(Task task, Interval interval);
 
@@ -64,7 +59,6 @@ public interface ITaskController {
 	 * 
 	 * @param task
 	 * @param newOwner
-	 * @return boolean
 	 */
 	public boolean changeOwner(Task task, Person newOwner);
 
@@ -72,7 +66,6 @@ public interface ITaskController {
 	 * Označí úkol jako "dokončený".
 	 * 
 	 * @param task
-	 * @return boolean
 	 */
 	public boolean finishTask(Task task);
 
@@ -81,7 +74,6 @@ public interface ITaskController {
 	 * 
 	 * @param task
 	 * @param context
-	 * @return boolean
 	 */
 	public boolean setContext(Task task, Context context);
 
@@ -98,7 +90,6 @@ public interface ITaskController {
 	 * @param popis
 	 * @param projektId
 	 * @param activity    Činnost, ze které úkol vznikl (volitelné).
-	 * @return boolean
 	 */
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity activity);
 
@@ -106,13 +97,11 @@ public interface ITaskController {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param person
-	 * @return List of person's tasks
 	 */
 	public List getUkolyOsoby(Person person);
 
 	/**
 	 * Vrátí všechny úkoly
-	 * @return List of all tasks
 	 */
 	public List getAllUkoly();
 }

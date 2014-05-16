@@ -28,7 +28,6 @@ public class PersonAdmin {
 	 * Vytvorí nového uživatele.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public boolean addOsoba(Person osoba){
 		return false;
@@ -38,7 +37,6 @@ public class PersonAdmin {
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public boolean deactivateOsoba(Person osoba){
 		return false;
@@ -49,7 +47,6 @@ public class PersonAdmin {
 	 * Vrátí uživatele.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Person getOsoba(int id){
 		return daoOsoba.getPerson(id);
@@ -57,7 +54,6 @@ public class PersonAdmin {
         /**
 	 * Vrátí prihlaseneho uživatele.
 	 * 
-	 * @return 
 	 */
 	public Person getOsobaPrihlasena(){
 		return daoOsoba.getPerson(daoOsoba.getPersonID());
@@ -65,7 +61,6 @@ public class PersonAdmin {
 
 	/**
 	 * Vrátí všechny uživatele
-	 * @return 
 	 */
 	public List getAllUsers() {
 		return daoOsoba.getAllPersons();
@@ -75,7 +70,6 @@ public class PersonAdmin {
 	 * Uloží zmeny profilu uživatele.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public boolean updateOsoba(Person osoba){
 		return false;
@@ -86,7 +80,6 @@ public class PersonAdmin {
 	 * 
 	 * @param login
 	 * @param heslo
-	 * @return 
 	 */
 	public boolean loginOsoba(String login, String heslo, String hostname, String port, String sid){
 		return DatabaseConnection.login(login, heslo, hostname, port, sid);

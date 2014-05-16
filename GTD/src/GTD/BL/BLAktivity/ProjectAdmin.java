@@ -40,7 +40,6 @@ public class ProjectAdmin {
 	 * @param projekt
 	 * @param cinnost    Činnost, ze které projekt vznikl (pokud existuje) - používá
 	 * se pro označení činnosti jako "zpracované".
-	 * @return 
 	 */
 	public boolean addProject(Project projekt, Activity cinnost){
 		if (cinnost != null) {
@@ -55,7 +54,6 @@ public class ProjectAdmin {
  projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean deleteProject(Project projekt){
 		return daoProject.deleteProject(projekt);
@@ -65,7 +63,6 @@ public class ProjectAdmin {
 	 * Vrátí projekt podle jeho ID.
 	 * 
 	 * @param id
-	 * @return 
 	 */
 	public Project getProject(int id){
 		return daoProject.getProject(id);
@@ -76,7 +73,6 @@ public class ProjectAdmin {
 	 * nebo vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean updateProject(Project projekt){
 		return daoProject.updateProject(projekt);
@@ -86,7 +82,6 @@ public class ProjectAdmin {
 	 * Vrátí všechny projekty patrící zadané osobe.
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	public List getProjectsOfPerson(Person osoba){
 		return daoProject.getProjectsOfPerson(osoba);
@@ -95,7 +90,6 @@ public class ProjectAdmin {
 	/**
 	 * Vrátí všechny projekty
 	 * 
-	 * @return 
 	 */
 	public List getAllProjects(){
 		return daoProject.getAllProjects();
@@ -106,7 +100,6 @@ public class ProjectAdmin {
 	 * vlastník nadřazeného projektu (v 1.úrovni).
 	 * 
 	 * @param projekt
-	 * @return 
 	 */
 	public boolean finishProject(Project projekt){
 		return daoProject.updateProject(projekt);

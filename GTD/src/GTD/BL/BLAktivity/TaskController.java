@@ -37,7 +37,6 @@ public class TaskController implements ITaskController {
 	 * @param vlastnikId
 	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
-	 * @return 
 	 */
 	@Override
 	public boolean addTask(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
@@ -56,7 +55,6 @@ public class TaskController implements ITaskController {
 	 * @param popis
 	 * @param projektId
 	 * @param cinnost    Činnost, ze které úkol vznikl (volitelné).
-	 * @return 
 	 */
 	@Override
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
@@ -68,7 +66,6 @@ public class TaskController implements ITaskController {
 	 * Smaže úkol (resp. označí jako smazaný).
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	@Override
 	public boolean deleteTask(Task ukol){
@@ -79,7 +76,6 @@ public class TaskController implements ITaskController {
 	 * Změní název a/nebo popis úkolu.
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	@Override
 	public boolean updateTask(Task ukol){
@@ -97,7 +93,6 @@ public class TaskController implements ITaskController {
 	 * 
 	 * @param ukol
 	 * @param interval
-	 * @return 
 	 */
 	@Override
 	public boolean scheduleTask(Task ukol, Interval interval){
@@ -111,7 +106,6 @@ public class TaskController implements ITaskController {
 	 * 
 	 * @param ukol
 	 * @param novyVlastnik
-	 * @return 
 	 */
 	@Override
 	public boolean changeOwner(Task ukol, Person novyVlastnik){
@@ -123,7 +117,6 @@ public class TaskController implements ITaskController {
 	 * Označí úkol jako "dokončený".
 	 * 
 	 * @param ukol
-	 * @return 
 	 */
 	@Override
 	public boolean finishTask(Task ukol){
@@ -136,7 +129,6 @@ public class TaskController implements ITaskController {
 	 * 
 	 * @param ukol
 	 * @param kontext
-	 * @return 
 	 */
 	@Override
 	public boolean setContext(Task ukol, Context kontext){
@@ -155,7 +147,6 @@ public class TaskController implements ITaskController {
 	 * Vrátí všechny úkoly přiřazené dané osobě
 	 * 
 	 * @param osoba
-	 * @return 
 	 */
 	@Override
 	public List getUkolyOsoby(Person osoba) {
@@ -164,7 +155,6 @@ public class TaskController implements ITaskController {
 
 	/**
 	 * Vrátí všechny úkoly
-	 * @return 
 	 */
 	@Override
 	public List getAllUkoly() {

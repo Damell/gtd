@@ -17,7 +17,7 @@ public interface IPersonController {
 	 * @param password
 	 * @return boolean
 	 */
-	public boolean loginPerson(String username, String password);
+	public boolean loginPerson(String username, String password, String hostname, String port, String sid);
 
 	/**
 	 * Vytvoří nového uživatele.

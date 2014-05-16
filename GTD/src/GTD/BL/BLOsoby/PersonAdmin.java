@@ -88,8 +88,8 @@ public class PersonAdmin {
 	 * @param heslo
 	 * @return 
 	 */
-	public boolean loginOsoba(String login, String heslo){
-		return DatabaseConnection.login(login, heslo);
+	public boolean loginOsoba(String login, String heslo, String hostname, String port, String sid){
+		return DatabaseConnection.login(login, heslo, hostname, port, sid);
 	}
 
 	/**

@@ -24,6 +24,7 @@ public class GTDGUI implements IGTDGUI {
 	private MainFrame mainFrame;
 	private Person myself;
 	private static GTDGUI GTDGUI;
+	private Config config;
 
 	private static IView loginPanel;
 	private static IView activitiesPanel;
@@ -64,7 +65,15 @@ public class GTDGUI implements IGTDGUI {
 	 */
 	public static void main(String[] args) {
 		GTDGUI = new GTDGUI();
+		GTDGUI.loadConfig();
 		GTDGUI.showPrihlaseni();
+	}
+
+	/**
+	 * Loads config file
+	 */
+	void loadConfig() {
+		config = new Config();
 	}
 
 	@Override
@@ -113,7 +122,7 @@ public class GTDGUI implements IGTDGUI {
 	@Override
 	public void showPrihlaseni(){
 		//Init login panel
-		loginPanel = new ViewLogin(mainFrame);
+		loginPanel = new ViewLogin(mainFrame, config);
 		loginPanel.showView();
 	}
 

@@ -24,7 +24,7 @@ public class DatabaseConnection {
         * @param username
         * @param password
         */
-	private DatabaseConnection(String username, String password) throws SQLException {
+	private DatabaseConnection(String username, String password, String hostname, String port, String sid) throws SQLException {
 		// pavlim33 oracleGTD
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -34,14 +34,14 @@ public class DatabaseConnection {
 			return;
 		}
 		connection = DriverManager.getConnection(
-			"jdbc:oracle:thin:@oracle.fit.cvut.cz:1521:ORACLE",
+			"jdbc:oracle:thin:@" + hostname + ":" + port + ":" + sid,
 			username,
 			password);
 	}
 
 	/**
 	 * Vrátí instanci připojení
-         * 
+	 * 
 	 * @return instance.connection
 	 */
 	public static Connection getConnection() {
@@ -53,15 +53,15 @@ public class DatabaseConnection {
 
 	/**
 	 * Přihlášení do databáze
-         * 
+	 * 
 	 * @param username
 	 * @param password
 	 * @return
 	 */
-	public static boolean login(String username, String password) {
+	public static boolean login(String username, String password, String hostname, String port, String sid) {
 		if(instance == null) {
 			try {
-				instance = new DatabaseConnection(username, password);
+				instance = new DatabaseConnection(username, password, hostname, port, sid);
 			} catch (SQLException e) {
 				System.out.println("Connection Failed! Check output console");
 				//e.printStackTrace();
@@ -88,7 +88,7 @@ public class DatabaseConnection {
 
 	/**
 	 * Vrátí id databázového připojení
-         * 
+	 * 
 	 * @return id
 	 */
 	public static int getID() {
@@ -97,7 +97,7 @@ public class DatabaseConnection {
 
 	/**
 	 * Vrátí login přihlášeného uživatele
-         * 
+	 * 
 	 * @return username
 	 */
 	public String getUsername() {
@@ -106,7 +106,7 @@ public class DatabaseConnection {
 
 	/**
 	 * Zobrazí okno s chybovou hláškou
-         * 
+	 * 
 	 * @param error
 	 */
 	public static void showError(String error) {

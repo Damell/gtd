@@ -21,21 +21,23 @@ import javax.swing.SwingConstants;
 public class ViewLogin extends JPanel implements IView {
 
 	static final long serialVersionUID = 1L;
-	JLabel usernameLabel;
-	JLabel passwordLabel;
-	JTextField usernameField;
-	JPasswordField passwordField;
-	MainFrame mainFrame;
-	JButton loginButton;
-	IPersonController personCtrl;
+	private Config config;
+	private JLabel usernameLabel;
+	private JLabel passwordLabel;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+	private MainFrame mainFrame;
+	private JButton loginButton;
+	private IPersonController personCtrl;
 
 	/**
 	 *
 	 * @param mainFrame
 	 */
-	public ViewLogin(MainFrame mainFrame){
+	public ViewLogin(MainFrame mainFrame, Config config){
 		super();
-		personCtrl = GTDGUI.getGTDGUI().getPersonController();
+		this.config = config;
+		this.personCtrl = GTDGUI.getGTDGUI().getPersonController();
 		this.mainFrame = mainFrame;
 		init();
 	}
@@ -50,7 +52,7 @@ public class ViewLogin extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(personCtrl.loginPerson(usernameField.getText(), new String(passwordField.getPassword()))) {
+				if(personCtrl.loginPerson(usernameField.getText(), new String(passwordField.getPassword()), config.getHostname(), config.getPort(), config.getSID())) {
 					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {

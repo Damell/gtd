@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PersonAdmin {
 
-	private IDAOPerson DAOOsoba;
+	private IDAOPerson daoOsoba;
 	/**
 	 * Aktuálně přihlášený uživatel.
 	 */
@@ -21,7 +21,7 @@ public class PersonAdmin {
 	 *
 	 */
 	public PersonAdmin(){
-		DAOOsoba = new DAOPerson();
+		daoOsoba = new DAOPerson();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public Person getOsoba(int id){
-		return DAOOsoba.getPerson(id);
+		return daoOsoba.getPerson(id);
 	}
         /**
 	 * Vrátí prihlaseneho uživatele.
@@ -60,7 +60,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public Person getOsobaPrihlasena(){
-		return DAOOsoba.getPerson(DAOOsoba.getPersonID());
+		return daoOsoba.getPerson(daoOsoba.getPersonID());
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PersonAdmin {
 	 * @return 
 	 */
 	public List getAllUsers() {
-		return DAOOsoba.getAllPersons();
+		return daoOsoba.getAllPersons();
 	}
 
 	/**

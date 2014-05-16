@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ProjectAdmin {
 
-	private IDAOProject DAOProject;
+	private IDAOProject daoProject;
 	/**
 	 * Odkaz na ActivitiyAdmin - při přidání projektu vzniklého z činnosti je třeba
  tuto činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
@@ -29,7 +29,7 @@ public class ProjectAdmin {
 	 *
 	 */
 	public ProjectAdmin(){
-		DAOProject = new DAOProject();
+		daoProject = new DAOProject();
 		activityAdmin = new ActivitiyAdmin();
 	}
 
@@ -46,7 +46,7 @@ public class ProjectAdmin {
 		if (cinnost != null) {
 			activityAdmin.deleteActivity(cinnost);
 		}
-		return DAOProject.createProject(projekt);
+		return daoProject.createProject(projekt);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean deleteProject(Project projekt){
-		return DAOProject.deleteProject(projekt);
+		return daoProject.deleteProject(projekt);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public Project getProject(int id){
-		return DAOProject.getProject(id);
+		return daoProject.getProject(id);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean updateProject(Project projekt){
-		return DAOProject.updateProject(projekt);
+		return daoProject.updateProject(projekt);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public List getProjectsOfPerson(Person osoba){
-		return DAOProject.getProjectsOfPerson(osoba);
+		return daoProject.getProjectsOfPerson(osoba);
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public List getAllProjects(){
-		return DAOProject.getAllProjects();
+		return daoProject.getAllProjects();
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ProjectAdmin {
 	 * @return 
 	 */
 	public boolean finishProject(Project projekt){
-		return DAOProject.updateProject(projekt);
+		return daoProject.updateProject(projekt);
 	}
 
 }

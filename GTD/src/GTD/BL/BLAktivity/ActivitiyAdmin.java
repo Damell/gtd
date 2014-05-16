@@ -15,20 +15,20 @@ import java.util.List;
  */
 public class ActivitiyAdmin {
 
-	private IDAOActivity DAOActivity;
+	private IDAOActivity daoActivity;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
 	private PersonAdmin personAdmin;
 
-	private IDAOState DAOState;
+	private IDAOState daoState;
 
 	/**
 	 *
 	 */
 	public ActivitiyAdmin(){
-		DAOActivity = new DAOActivity();
-		DAOState = new DAOState();
+		daoActivity = new DAOActivity();
+		daoState = new DAOState();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean addActivity(Activity cinnost){
-		return DAOActivity.createActivity(cinnost);
+		return daoActivity.createActivity(cinnost);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean deleteActivity(Activity cinnost){
-		return DAOActivity.deleteActivity(cinnost);
+		return daoActivity.deleteActivity(cinnost);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public List<Activity> getActivitiesOfPerson(Person osoba){
-		return DAOActivity.getActivitiesOfPerson(osoba);
+		return daoActivity.getActivitiesOfPerson(osoba);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean processActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getActivityProcessedID());
-		return DAOActivity.updateActivity(cinnost);
+		cinnost.setStav(daoState.getActivityProcessedID());
+		return daoActivity.updateActivity(cinnost);
 	}
 
 	/**
@@ -99,8 +99,8 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean archiveActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getActivityArchivedID());
-		return DAOActivity.updateActivity(cinnost);
+		cinnost.setStav(daoState.getActivityArchivedID());
+		return daoActivity.updateActivity(cinnost);
 	}
 
 	/**
@@ -110,8 +110,8 @@ public class ActivitiyAdmin {
 	 * @return 
 	 */
 	public boolean postponeActivity(Activity cinnost){
-		cinnost.setStav(DAOState.getActivityPostponedID());
-		return DAOActivity.updateActivity(cinnost);
+		cinnost.setStav(daoState.getActivityPostponedID());
+		return daoActivity.updateActivity(cinnost);
 	}
 
 }

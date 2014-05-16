@@ -14,14 +14,14 @@ import java.util.List;
 public class ProjectController implements IProjectController {
 
 	private ProjectAdmin projectAdmin;
-	private IDAOState DAOState;
+	private IDAOState daoState;
 
 	/**
 	 *
 	 */
 	public ProjectController(){
 		projectAdmin = new ProjectAdmin();
-		DAOState = new DAOState();
+		daoState = new DAOState();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class ProjectController implements IProjectController {
 		if (rodicID != -1) {
 			rodic = projectAdmin.getProject(rodicID);
 		}
-		Project newProjekt = new Project(nazev, popis, DAOState.getProjectActiveID(), vlastnik, skupina, rodic);
+		Project newProjekt = new Project(nazev, popis, daoState.getProjectActiveID(), vlastnik, skupina, rodic);
 		return projectAdmin.addProject(newProjekt, cinnost);
 	}
 
@@ -101,7 +101,7 @@ public class ProjectController implements IProjectController {
 	 */
 	@Override
 	public boolean finishProject(Project projekt){
-		projekt.setStav(DAOState.getProjectFinishedID());
+		projekt.setStav(daoState.getProjectFinishedID());
 		return projectAdmin.finishProject(projekt);
 	}
 

@@ -10,11 +10,11 @@ public class Contact {
 	/**
 	 * Contact pro zasílání upozornění
 	 */
-	private String Kontakt;
+	private String kontakt;
 	/**
 	 * typ spojení (email, telefon, ...)
 	 */
-	private String Typ;
+	private String typ;
 
 	/**
 	 * Konstruktor kontaktu

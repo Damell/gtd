@@ -23,7 +23,7 @@ public class GTDGUI implements IGTDGUI {
 
 	private MainFrame mainFrame;
 	private Person myself;
-	private static GTDGUI GTDGUI;
+	private static GTDGUI gtdgui;
 	private Config config;
 
 	private static IView loginPanel;
@@ -64,9 +64,9 @@ public class GTDGUI implements IGTDGUI {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		GTDGUI = new GTDGUI();
-		GTDGUI.loadConfig();
-		GTDGUI.showPrihlaseni();
+		gtdgui = new GTDGUI();
+		gtdgui.loadConfig();
+		gtdgui.showPrihlaseni();
 	}
 
 	/**
@@ -136,14 +136,14 @@ public class GTDGUI implements IGTDGUI {
 	 * @return instance of this class
 	 */
 	public static GTDGUI getGTDGUI() {
-		return GTDGUI;
+		return gtdgui;
 	}
 
 	/**
 	 * @return instance of signed in user
 	 */
 	public static Person getMyself() {
-		return GTDGUI.myself;
+		return gtdgui.myself;
 	}
 
 	/**

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TaskAdmin {
 
-	private IDAOTask DAOUkol;
+	private IDAOTask daoUkol;
 	/**
 	 * Odkaz na ActivitiyAdmin - při přidání úkolu vzniklého z činnosti je třeba tuto
  činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
@@ -28,7 +28,7 @@ public class TaskAdmin {
 	 */
 	public TaskAdmin(){
 		activityAdmin = new ActivitiyAdmin();
-		DAOUkol = new DAOTask();
+		daoUkol = new DAOTask();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean addTask(Task ukol, Activity cinnost){
-		if (DAOUkol.createTask(ukol)) {
+		if (daoUkol.createTask(ukol)) {
 			activityAdmin.deleteActivity(cinnost);
 			return true;
 		}
@@ -56,7 +56,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean deleteTask(Task ukol){
-		return DAOUkol.deleteTask(ukol);
+		return daoUkol.deleteTask(ukol);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public Task getTask(int id){
-		return DAOUkol.getTask(id);
+		return daoUkol.getTask(id);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public boolean updateTask(Task ukol){
-		return DAOUkol.updateTask(ukol);
+		return daoUkol.updateTask(ukol);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public List getTasksWithContext(Context kontext){
-		return DAOUkol.getTasksWithContext(kontext);
+		return daoUkol.getTasksWithContext(kontext);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class TaskAdmin {
 	 * @return 
 	 */
 	public List getAllTasks(){
-		return DAOUkol.getAllTasks();
+		return daoUkol.getAllTasks();
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class TaskAdmin {
 	 * @return
 	 */
 	public List getTasksOfPerson(Person osoba) {
-		return DAOUkol.getTasksOfPerson(osoba);
+		return daoUkol.getTasksOfPerson(osoba);
 	}
 
 }

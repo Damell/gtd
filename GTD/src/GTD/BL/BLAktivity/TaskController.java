@@ -19,15 +19,14 @@ import java.util.List;
 public class TaskController implements ITaskController {
 
 	private TaskAdmin spravceUkolu;
-	private IDAOState DAOStav;
-	private IGTDGUI GUI;
+	private IDAOState daoStav;
 
 	/**
 	 *
 	 */
 	public TaskController(){
 		spravceUkolu = new TaskAdmin();
-		DAOStav = new DAOState();
+		daoStav = new DAOState();
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class TaskController implements ITaskController {
 	public boolean addTask(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
 
 		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
-		Task ukol = new Task(nazev, popis, DAOStav.getTaskCreatedID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
+		Task ukol = new Task(nazev, popis, daoStav.getTaskCreatedID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
 
 		return spravceUkolu.addTask(ukol, cinnost);
 	}
@@ -61,7 +60,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
-		Task ukol = new Task(nazev, popis, DAOStav.getTaskFinishedID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
+		Task ukol = new Task(nazev, popis, daoStav.getTaskFinishedID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
 		return spravceUkolu.addTask(ukol, cinnost);
 	}
 
@@ -89,7 +88,7 @@ public class TaskController implements ITaskController {
 
 	@Override
 	public boolean activateTask(Task ukol) {
-		ukol.setStav(DAOStav.getTaskActiveID());
+		ukol.setStav(daoStav.getTaskActiveID());
 		return spravceUkolu.updateTask(ukol);
 	}
 
@@ -103,7 +102,7 @@ public class TaskController implements ITaskController {
 	@Override
 	public boolean scheduleTask(Task ukol, Interval interval){
 		ukol.setInterval(interval.getFrom(), interval.getTo());
-		ukol.setStav(DAOStav.getTaskPlannedID());
+		ukol.setStav(daoStav.getTaskPlannedID());
 		return spravceUkolu.updateTask(ukol);
 	}
 
@@ -128,7 +127,7 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean finishTask(Task ukol){
-		ukol.setStav(DAOStav.getTaskFinishedID());
+		ukol.setStav(daoStav.getTaskFinishedID());
 		return spravceUkolu.updateTask(ukol);
 	}
 

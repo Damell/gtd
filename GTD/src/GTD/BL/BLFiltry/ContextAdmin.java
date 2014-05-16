@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ContextAdmin {
 
-	private IDAOContext DAOKontext;
+	private IDAOContext daoKontext;
 
 	/**
 	 *

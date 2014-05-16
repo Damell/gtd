@@ -16,15 +16,14 @@ import java.util.List;
 public class ActivityController implements IActivityController {
 
 	private ActivitiyAdmin activityAdmin;
-	private IGTDGUI GUI;
-	private IDAOState DAOState;
+	private IDAOState daoState;
 
 	/**
 	 *
 	 */
 	public ActivityController(){
 		activityAdmin = new ActivitiyAdmin();
-		DAOState = new DAOState();
+		daoState = new DAOState();
 	}
 
 	/**
@@ -35,7 +34,7 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public boolean addActivity(String nazev, String popis){
-		Activity newCinnost = new Activity(nazev, popis, DAOState.getActivityForProcessingID(), GTDGUI.getMyself().getId());
+		Activity newCinnost = new Activity(nazev, popis, daoState.getActivityForProcessingID(), GTDGUI.getMyself().getId());
 		return activityAdmin.addActivity(newCinnost);
 	}
 

@@ -12,13 +12,18 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- *
+ * Loads config.properties file with info about database to be connected to. Properties are
+ * - dbhostname Hostname
+ * - dbport Port
+ * - dbsid SID
+ * 
  * @author damell
+ * @version 1.0
  */
 public class Config {
 	
-	Properties prop;
-	InputStream input = null;
+	private Properties prop;
+	private InputStream input = null;
 	
 	Config() {
 		prop = new Properties();

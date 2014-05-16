@@ -13,13 +13,11 @@ import java.util.List;
 public class PersonController implements IPersonController {
 
 	private PersonAdmin personAdmin;
-	private IGTDGUI GUI;
 
 	/**
 	 *
 	 */
 	public PersonController(){
-		GUI = GTDGUI.getGTDGUI();
 		personAdmin = new PersonAdmin();
 	}
 

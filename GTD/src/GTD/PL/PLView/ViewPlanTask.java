@@ -22,10 +22,10 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
  */
 public class ViewPlanTask {
 	
-	UtilDateModel fromModel;
-	UtilDateModel toModel;
-	JFrame frame;
-	Task ukol;
+	private UtilDateModel fromModel;
+	private UtilDateModel toModel;
+	private JFrame frame;
+	private Task ukol;
 
 	/**
 	 *

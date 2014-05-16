@@ -25,11 +25,11 @@ import javax.swing.ListSelectionModel;
  */
 public class ViewChangeOwner {
 	
-	JFrame frame;
-	Action activity;
-	Person person;
-	JList usersList;
-	List<Person> users;
+	private JFrame frame;
+	private Action activity;
+	private Person person;
+	private JList usersList;
+	private List<Person> users;
 
 	/**
 	 *

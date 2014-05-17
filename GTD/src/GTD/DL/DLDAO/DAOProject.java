@@ -40,7 +40,7 @@ public class DAOProject implements IDAOProject {
             if (projekt.getRodic() != null) {
                 rodic = projekt.getRodic().getId() + "";
             }
-            String jobquery = "begin pavlim33.API.PROJECTS_IU("
+            String jobquery = "begin API.PROJECTS_IU("
                     + "inp_id_person  => ? "
                     + ",inp_name => ? "
                     + ",inp_description => ? "
@@ -64,7 +64,7 @@ public class DAOProject implements IDAOProject {
             for (int i = 0; i < projekt.getSkupina().size(); i++) {
                 //System.out.println(projekt.getSkupina().get(i));
                 //System.out.println(callStmt.getObject(6));
-                String jobquery_members = "begin pavlim33.API.MEMBERS_IU("
+                String jobquery_members = "begin API.MEMBERS_IU("
                         + "inp_id_person  =>" + projekt.getSkupina().get(i).getId()
                         + ",inp_id_project => " + callStmt.getObject(6)
                         + "); end;";
@@ -89,7 +89,7 @@ public class DAOProject implements IDAOProject {
     public boolean deleteProject(Project projekt) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.PROJECTS_DEL(inp_id  => " + projekt.getId() + "); end;";
+            String jobquery = "begin API.PROJECTS_DEL(inp_id  => " + projekt.getId() + "); end;";
             //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
@@ -115,13 +115,13 @@ public class DAOProject implements IDAOProject {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v");
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from projects_v");
             while (rset.next()) {
                 Project pro = new Project(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
 
                 //Nastav rodice projektu
                 Statement stmt_rodic = con.createStatement();
-                ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
+                ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
                 while (rset_rodic.next()) {
                     pro.setProjectrodic(rset_rodic.getInt(1), rset_rodic.getString(2), rset_rodic.getString(3), rset_rodic.getInt(4), rset_rodic.getString(5), rset_rodic.getInt(6));
                 }
@@ -130,7 +130,7 @@ public class DAOProject implements IDAOProject {
 
                 //Pridej osoby do projektu
                 Statement stmt_osoby = con.createStatement();
-                ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_project = " + rset.getInt(1));
+                ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from members_v where id_project = " + rset.getInt(1));
                 while (rset_osoby.next()) {
                     Person oso = new Person(rset_osoby.getInt(1), rset_osoby.getString(2), rset_osoby.getString(3), rset_osoby.getString(4));
                     pro.addOsoba(oso);
@@ -140,7 +140,7 @@ public class DAOProject implements IDAOProject {
 
                 //Pridej ukoly do projektu
                 Statement stmt_ukoly = con.createStatement();
-                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_project = " + rset.getInt(1));
+                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id_project = " + rset.getInt(1));
                 while (rset_ukoly.next()) {
                     Task ukl = new Task(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(11));
                     //nastav interval
@@ -154,7 +154,7 @@ public class DAOProject implements IDAOProject {
 
                 //Pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
                 Statement stmt_podprojekty = con.createStatement();
-                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects_v where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
+                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from projects_v where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                 while (rset_podprojekty.next()) {
                     //pridej konkretni projekt
                     pro.addProjekt(getProject(rset_podprojekty.getInt(1)));
@@ -185,14 +185,14 @@ public class DAOProject implements IDAOProject {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + id + ",0)");
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from projects_v where nvl(id,0) = nvl(" + id + ",0)");
             while (rset.next()) {
                 projekt = new Project(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
 
                 //Nastav rodice projektu
                 if (rset.getInt(7) != 0) {
                     Statement stmt_rodic = con.createStatement();
-                    ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from pavlim33.projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
+                    ResultSet rset_rodic = stmt_rodic.executeQuery("select id, name, description, id_type, type_name, id_person, id_project_parent from projects_v where nvl(id,0) = nvl(" + rset.getInt(7) + ",0)");
                     while (rset_rodic.next()) {
                         projekt.setProjectrodic(rset_rodic.getInt(1), rset_rodic.getString(2), rset_rodic.getString(3), rset_rodic.getInt(4), rset_rodic.getString(5), rset_rodic.getInt(6));
                     }
@@ -203,7 +203,7 @@ public class DAOProject implements IDAOProject {
                 //System.out.println(rset.getInt(1));
                 //Pridej osoby do projektu
                 Statement stmt_osoby = con.createStatement();
-                ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from pavlim33.members_v where id_project = " + rset.getInt(1));
+                ResultSet rset_osoby = stmt_osoby.executeQuery("select id_person, login, fname, sname from members_v where id_project = " + rset.getInt(1));
                 while (rset_osoby.next()) {
                     Person oso = new Person(rset_osoby.getInt(1), rset_osoby.getString(2), rset_osoby.getString(3), rset_osoby.getString(4));
                     projekt.addOsoba(oso);
@@ -213,7 +213,7 @@ public class DAOProject implements IDAOProject {
 
                 //Pridej ukolu do projektu
                 Statement stmt_ukoly = con.createStatement();
-                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_project = " + rset.getInt(1));
+                ResultSet rset_ukoly = stmt_ukoly.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id_project = " + rset.getInt(1));
                 while (rset_ukoly.next()) {
                     Task ukl = new Task(rset_ukoly.getInt(1), rset_ukoly.getString(2), rset_ukoly.getString(3), rset_ukoly.getInt(4), rset_ukoly.getString(5), rset_ukoly.getInt(6), rset_ukoly.getInt(11));
                     //nastav interval
@@ -227,7 +227,7 @@ public class DAOProject implements IDAOProject {
 
                 //pro kazdy podprojekt spust pridani do seznamu podprojektu (reverzni volani funkce)
                 Statement stmt_podprojekty = con.createStatement();
-                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from pavlim33.projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
+                ResultSet rset_podprojekty = stmt_podprojekty.executeQuery("select id from projects where nvl(id_project_parent,0) = nvl(" + rset.getInt(1) + ",0)");
                 while (rset_podprojekty.next()) {
                     //pridej konkretni projekt
                     Project p = getProject(rset_podprojekty.getInt(1));
@@ -260,7 +260,7 @@ public class DAOProject implements IDAOProject {
             if (projekt.getRodic() != null) {
                 rodic = projekt.getRodic().getId() + "";
             }
-            String jobquery = "begin pavlim33.API.PROJECTS_IU("
+            String jobquery = "begin API.PROJECTS_IU("
                     + "inp_id_person  => ? "
                     + ",inp_name => ? "
                     + ",inp_description => ? "
@@ -284,7 +284,7 @@ public class DAOProject implements IDAOProject {
 
             //přidat všechny osoby ze skupiny toho projektu
             for (int i = 0; i < projekt.getSkupina().size(); i++) {
-                String jobquery_members = "begin pavlim33.API.MEMBERS_IU("
+                String jobquery_members = "begin API.MEMBERS_IU("
                         + "inp_id_person  =>" + projekt.getSkupina().get(i).getId()
                         + ",inp_id_project => " + projekt.getId()
                         + "); end;";
@@ -316,7 +316,7 @@ public class DAOProject implements IDAOProject {
         try {
             Statement stmt = con.createStatement();
             //Pridej do listu vsechny projektu osoby (vcetne podprojektu)
-            ResultSet rset = stmt.executeQuery("select id from pavlim33.projects_v where id_person = " + osoba.getId());
+            ResultSet rset = stmt.executeQuery("select id from projects_v where id_person = " + osoba.getId());
             while (rset.next()) {
                 projekty.add(getProject(rset.getInt(1)));
             }

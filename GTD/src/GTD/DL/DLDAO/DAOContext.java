@@ -34,7 +34,7 @@ public class DAOContext implements IDAOContext {
     public boolean createContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
+            String jobquery = "begin API.CONTEXTS_IU("
                     + "inp_name  => '" + kontext.getKontextNazev() + "'"
                     + "inp_id_person  =>" + DatabaseConnection.getID()
                     + "); end;";
@@ -57,7 +57,7 @@ public class DAOContext implements IDAOContext {
     public boolean deleteContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_DEL(inp_id  => " + kontext.getKontextId() + "); end;";
+            String jobquery = "begin API.CONTEXTS_DEL(inp_id  => " + kontext.getKontextId() + "); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -78,7 +78,7 @@ public class DAOContext implements IDAOContext {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts");
+            ResultSet rset = stmt.executeQuery("select id, name from contexts");
             while (rset.next()) {
                 Context kon = new Context(rset.getInt(1), rset.getString(2));
                 //System.out.println(ukl);
@@ -103,7 +103,7 @@ public class DAOContext implements IDAOContext {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
+            ResultSet rset = stmt.executeQuery("select id, name from contexts where "
                     + "id = " + id);
             while (rset.next()) {
                 kontext = new Context(rset.getInt(1), rset.getString(2));
@@ -124,7 +124,7 @@ public class DAOContext implements IDAOContext {
     public boolean updateContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
+            String jobquery = "begin API.CONTEXTS_IU("
                     + "inp_id  =>" + kontext.getKontextId()
                     + "inp_id_name  => '" + kontext.getKontextNazev() + "'"
                     + "inp_id_person  =>" + DatabaseConnection.getID()
@@ -152,7 +152,7 @@ public class DAOContext implements IDAOContext {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
+            ResultSet rset = stmt.executeQuery("select id, name from contexts where "
                     + "id_person = " + osoba.getId());
             while (rset.next()) {
                 Context kon = new Context(rset.getInt(1), rset.getString(2));

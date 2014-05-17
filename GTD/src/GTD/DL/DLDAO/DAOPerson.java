@@ -34,7 +34,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.PERSONS_IU("
+            String jobquery = "begin API.PERSONS_IU("
                     + "inp_login  => '" + osoba.getLogin() + "'"
                     + ",inp_fname => '" + osoba.getJmeno() + "'"
                     + ",inp_sname => '" + osoba.getPrijmeni() + "'"
@@ -60,7 +60,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.PERSONS_DEL("
+            String jobquery = "begin API.PERSONS_DEL("
                     + "inp_id  => '" + osoba.getId() + "'"
                     + "); end;";
             //System.out.println(jobquery);
@@ -85,7 +85,7 @@ public class DAOPerson implements IDAOPerson {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.persons_v");
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from persons_v");
             while (rset.next()) {
                 Person oso = new Person(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
                 osoby.add(oso);
@@ -109,7 +109,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.persons_v where id =" + id);
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from persons_v where id =" + id);
             while (rset.next()) {
                 osoba = new Person(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }
@@ -131,7 +131,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT id from pavlim33.persons where upper(login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')");
+            ResultSet rset = stmt.executeQuery("SELECT id from persons where upper(login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')");
             while (rset.next()) {
                 id = rset.getInt(1);
             }
@@ -152,7 +152,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.PERSONS_IU("
+            String jobquery = "begin API.PERSONS_IU("
                     + "inp_id  => " + osoba.getId()
                     + "inp_login  => '" + osoba.getLogin() + "'"
                     + ",inp_fname => '" + osoba.getJmeno() + "'"
@@ -180,7 +180,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id from pavlim33.members_v where login = '" + login + "'");
+            ResultSet rset = stmt.executeQuery("select id from members_v where login = '" + login + "'");
             while (rset.next()) {
                 count++;
             }
@@ -208,7 +208,7 @@ public class DAOPerson implements IDAOPerson {
         try {
             Statement stmt = con.createStatement();
             ResultSet rset = stmt
-                    .executeQuery("select login, pass_hash from pavlim33.persons_v where login ='" + login + "'");
+                    .executeQuery("select login, pass_hash from persons_v where login ='" + login + "'");
             while (rset.next()) {
                 authenticated = true;
             }
@@ -232,7 +232,7 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from pavlim33.members_v where login = '" + username + "'");
+            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from members_v where login = '" + username + "'");
             while (rset.next()) {
                 osoba = new Person(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }

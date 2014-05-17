@@ -35,7 +35,7 @@ public class DAOActivity implements IDAOActivity {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.ACTIVITIES_IU("
+            String jobquery = "begin API.ACTIVITIES_IU("
                     + "inp_id_person  =>" + cinnost.getVlastnik_id()
                     + ",inp_name => '" + cinnost.getNazev() + "'"
                     + ",inp_description => '" + cinnost.getPopis() + "'"
@@ -61,7 +61,7 @@ public class DAOActivity implements IDAOActivity {
     public boolean deleteActivity(Activity cinnost) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.ACTIVITIES_DEL(inp_id  => " + cinnost.getId() + "); end;";
+            String jobquery = "begin API.ACTIVITIES_DEL(inp_id  => " + cinnost.getId() + "); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -83,7 +83,7 @@ public class DAOActivity implements IDAOActivity {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v");
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from activities_v");
             while (rset.next()) {
                 Activity cin = new Activity(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
                 //System.out.println(cin);
@@ -108,7 +108,7 @@ public class DAOActivity implements IDAOActivity {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id =" + id);
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from activities_v where id =" + id);
             while (rset.next()) {
                 cinnost = new Activity(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
             }
@@ -130,7 +130,7 @@ public class DAOActivity implements IDAOActivity {
         try {
             //Statement stmt = con.createStatement();
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.ACTIVITIES_IU("
+            String jobquery = "begin API.ACTIVITIES_IU("
                     + "inp_id_person    =>" + cinnost.getVlastnik_id()
                     + ",inp_id =>" + cinnost.getId()
                     + ",inp_name => '" + cinnost.getNazev() + "'"
@@ -159,7 +159,7 @@ public class DAOActivity implements IDAOActivity {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from pavlim33.activities_v where id_person = " + osoba.getId());
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_person from activities_v where id_person = " + osoba.getId());
             while (rset.next()) {
                 Activity cin = new Activity(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6));
                 //System.out.println(cin);

@@ -37,7 +37,7 @@ public class DAOTask implements IDAOTask {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.TASKS_IU("
+            String jobquery = "begin API.TASKS_IU("
                     + "inp_id_owner  =>" + ukol.getVlastnik_id()
                     + ",inp_id_creator  =>" + ukol.getTvurce()
                     + ",inp_name => '" + ukol.getNazev() + "'"
@@ -64,7 +64,7 @@ public class DAOTask implements IDAOTask {
     public boolean deleteTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin pavlim33.API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
+            String jobquery = "begin API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
             callStmt.execute();
             callStmt.close();
@@ -90,7 +90,7 @@ public class DAOTask implements IDAOTask {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v");
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v");
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
                 //nastav interval
@@ -124,7 +124,7 @@ public class DAOTask implements IDAOTask {
                     + "id, name, description, id_type, type_name, id_owner, "
                     + "date_from, date_to, id_context, context_name, "
                     + "id_project, project_name, project_description "
-                    + "from pavlim33.tasks_v "
+                    + "from tasks_v "
                     + "where id_owner = " + osoba.getId());
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
@@ -157,7 +157,7 @@ public class DAOTask implements IDAOTask {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id = " + id);
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id = " + id);
             while (rset.next()) {
                 ukol = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
                 //nastav interval
@@ -189,7 +189,7 @@ public class DAOTask implements IDAOTask {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.TASKS_IU("
+            String jobquery = "begin API.TASKS_IU("
                     + "inp_id_owner  =>" + ukol.getVlastnik_id()
                     + ",inp_id  =>" + ukol.getId()
                     + ",inp_name => '" + ukol.getNazev() + "'"
@@ -226,7 +226,7 @@ public class DAOTask implements IDAOTask {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_context=" + kontext.getKontextId());
+            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id_context=" + kontext.getKontextId());
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
                 //nastav interval

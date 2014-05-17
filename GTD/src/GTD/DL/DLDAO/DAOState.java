@@ -177,7 +177,7 @@ public class DAOState implements IDAOState {
         Connection con = DatabaseConnection.getConnection();
         try {
             Statement stmt = con.createStatement();
-            String jobquery = "select id from pavlim33.types where "
+            String jobquery = "select id from types where "
                     + "table_name = '" + table_name + "' "
                     + "and code = '" + code + "'";
             //System.out.println(jobquery);

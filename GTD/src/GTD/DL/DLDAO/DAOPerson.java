@@ -4,6 +4,7 @@ import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOPerson;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,15 +34,15 @@ public class DAOPerson implements IDAOPerson {
     public boolean createPerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin API.PERSONS_IU("
-                    + "inp_login  => '" + osoba.getLogin() + "'"
-                    + ",inp_fname => '" + osoba.getJmeno() + "'"
-                    + ",inp_sname => '" + osoba.getPrijmeni() + "'"
+                    + "inp_login  => ? "
+                    + ",inp_fname => ? "
+                    + ",inp_sname => ? "
                     + "); end;";
-            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
-            //vystupni parametry, zatim nepotrebuji
+            callStmt.setString(1, osoba.getLogin());
+            callStmt.setString(2, osoba.getJmeno());
+            callStmt.setString(3, osoba.getPrijmeni());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -60,11 +61,9 @@ public class DAOPerson implements IDAOPerson {
         Connection con = DatabaseConnection.getConnection();
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin API.PERSONS_DEL("
-                    + "inp_id  => '" + osoba.getId() + "'"
-                    + "); end;";
-            //System.out.println(jobquery);
+            String jobquery = "begin API.PERSONS_DEL(inp_id  => ? ); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, osoba.getId());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -108,8 +107,10 @@ public class DAOPerson implements IDAOPerson {
         Person osoba = null;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from persons_v where id =" + id);
+            String jobquery = "select id, login, fname, sname from persons_v where id = ? ";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setInt(1, id);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 osoba = new Person(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }
@@ -151,16 +152,16 @@ public class DAOPerson implements IDAOPerson {
     public boolean updatePerson(Person osoba) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin API.PERSONS_IU("
-                    + "inp_id  => " + osoba.getId()
-                    + "inp_login  => '" + osoba.getLogin() + "'"
-                    + ",inp_fname => '" + osoba.getJmeno() + "'"
-                    + ",inp_sname => '" + osoba.getPrijmeni() + "'"
+                    + "inp_id  => ? "
+                    + "inp_login  => ? "
+                    + ",inp_fname => ? "
+                    + ",inp_sname => ? "
                     + "); end;";
-            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
-            //vystupni parametry, zatim nepotrebuji
+            callStmt.setInt(1, osoba.getId());
+            callStmt.setString(2, osoba.getLogin());
+            callStmt.setString(3, osoba.getPrijmeni());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -179,8 +180,10 @@ public class DAOPerson implements IDAOPerson {
         int count = 0;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id from members_v where login = '" + login + "'");
+            String jobquery = "select id from persons where login = ? ";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setString(1, login);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 count++;
             }
@@ -206,9 +209,10 @@ public class DAOPerson implements IDAOPerson {
         boolean authenticated = false;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt
-                    .executeQuery("select login, pass_hash from persons_v where login ='" + login + "'");
+            String jobquery = "select id from persons_v where login = ?";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setString(1, login);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 authenticated = true;
             }
@@ -231,8 +235,10 @@ public class DAOPerson implements IDAOPerson {
         Person osoba = null;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, login, fname, sname from members_v where login = '" + username + "'");
+            String jobquery = "select id, login, fname, sname from persons_v where login = ? ";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setString(1, username);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 osoba = new Person(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
             }

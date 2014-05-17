@@ -69,9 +69,16 @@ public class DatabaseConnection {
             try {
                 instance = new DatabaseConnection(username, password, hostname, port, sid);
                 instance.schema = schema;
-                //set defaukt schema
-                Connection con = DatabaseConnection.getConnection();
-                con.setSchema(DatabaseConnection.getSchema());
+                try {
+                    //set defaukt schema
+                    Connection con = DatabaseConnection.getConnection();
+                    con.setSchema(DatabaseConnection.getSchema());
+                } catch (SQLException e) {
+                    System.out.println("Connection Failed! Inaccessible database schema.");
+                    //e.printStackTrace();
+                    instance = null;
+                    return false;
+                }
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console");
                 //e.printStackTrace();

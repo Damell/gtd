@@ -5,6 +5,7 @@ import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,10 +20,10 @@ import java.util.ArrayList;
  */
 public class DAOContext implements IDAOContext {
 
-	/**
-	 * Kontruktor kontextu
-	 */
-	public DAOContext() {
+    /**
+     * Kontruktor kontextu
+     */
+    public DAOContext() {
 
     }
 
@@ -35,11 +36,12 @@ public class DAOContext implements IDAOContext {
         Connection con = DatabaseConnection.getConnection();
         try {
             String jobquery = "begin API.CONTEXTS_IU("
-                    + "inp_name  => '" + kontext.getKontextNazev() + "'"
-                    + "inp_id_person  =>" + DatabaseConnection.getID()
+                    + "inp_name  => ? "
+                    + "inp_id_person  => ? "
                     + "); end;";
-            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setString(1, kontext.getKontextNazev());
+            callStmt.setInt(2, DatabaseConnection.getID());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -57,8 +59,9 @@ public class DAOContext implements IDAOContext {
     public boolean deleteContext(Context kontext) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin API.CONTEXTS_DEL(inp_id  => " + kontext.getKontextId() + "); end;";
+            String jobquery = "begin API.CONTEXTS_DEL(inp_id  => ? ); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, kontext.getKontextId());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -70,7 +73,8 @@ public class DAOContext implements IDAOContext {
 
     /**
      * Vrátí všechny kontexty v systému.
-	 * @return List<Kontext>
+     *
+     * @return List<Kontext>
      */
     public List getAllContexts() {
         List<Context> kontexty = new ArrayList<Context>();
@@ -96,15 +100,18 @@ public class DAOContext implements IDAOContext {
      * Vrátí kontext podle jeho ID.
      *
      * @param id
-	 * @return kontext
+     * @return kontext
      */
     public Context getContext(int id) {
-      Context kontext = null;
+        Context kontext = null;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, name from contexts where "
-                    + "id = " + id);
+            String jobquery = "select id, name "
+                    + "from contexts "
+                    + "where id = ? ";// + id);
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setInt(1, id);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 kontext = new Context(rset.getInt(1), rset.getString(2));
             }
@@ -129,8 +136,10 @@ public class DAOContext implements IDAOContext {
                     + "inp_id_name  => '" + kontext.getKontextNazev() + "'"
                     + "inp_id_person  =>" + DatabaseConnection.getID()
                     + "); end;";
-            System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, kontext.getKontextId());
+            callStmt.setString(2, kontext.getKontextNazev());
+            callStmt.setInt(2, DatabaseConnection.getID());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -144,19 +153,20 @@ public class DAOContext implements IDAOContext {
      * Vrátí všechny kontexty patrící zadané osobe.
      *
      * @param osoba
-	 * @return List<Kontext> 
+     * @return List<Kontext>
      */
     public List getContextsOfPerson(Person osoba) {
         List<Context> kontexty = new ArrayList<Context>();
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name from contexts where "
-                    + "id_person = " + osoba.getId());
+            String jobquery = "select id, name "
+                    + "from contexts "
+                    + "where id_person = ? ";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setInt(1, osoba.getId());
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 Context kon = new Context(rset.getInt(1), rset.getString(2));
-                //System.out.println(ukl);
                 kontexty.add(kon);
             }
             rset.close();

@@ -2,6 +2,7 @@ package GTD.DL.DLDAO;
 
 import GTD.DL.DLInterfaces.IDAOState;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,9 +18,9 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: činnost Archivovaná
      *
-	 * @return id
+     * @return id
      */
-	@Override
+    @Override
     public int getActivityArchivedID() {
         return this.getID("activities", "A");
     }
@@ -27,9 +28,9 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: činost Ke zpracování
      *
-	 * @return  id
+     * @return id
      */
-	@Override
+    @Override
     public int getActivityForProcessingID() {
         return this.getID("activities", "K");
     }
@@ -37,9 +38,9 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: činost Zahozena
      *
-	 * @return  id
+     * @return id
      */
-	@Override
+    @Override
     public int getActivityDroppedID() {
         return this.getID("activities", "H");
     }
@@ -47,7 +48,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: činost Odlozena
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getActivityPostponedID() {
@@ -57,7 +58,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: činost Odlozena
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getActivityProcessedID() {
@@ -67,7 +68,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getPersonActiveID() {
@@ -77,7 +78,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: osoby Aktivni
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getPersonNotActiveID() {
@@ -87,7 +88,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: konatakt email
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getContactEmailID() {
@@ -97,7 +98,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: konatakt telefon
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getContactPhoneID() {
@@ -107,7 +108,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: projekt Aktivni
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getProjectActiveID() {
@@ -117,7 +118,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: projekt Dokonceny
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getProjectFinishedID() {
@@ -127,7 +128,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: ukol Vytvoreny
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getTaskCreatedID() {
@@ -137,7 +138,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: ukol Aktivni
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getTaskActiveID() {
@@ -147,7 +148,7 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: ukol V kalendari
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getTaskPlannedID() {
@@ -157,17 +158,16 @@ public class DAOState implements IDAOState {
     /**
      * Vrátí ID stavu: ukol Hotovy
      *
-	 * @return  id
+     * @return id
      */
     @Override
     public int getTaskFinishedID() {
         return this.getID("tasks", "H");
     }
-    
 
     /**
      * Vrátí ID stavu dle tabulky a kodu stavu
-     * 
+     *
      * @param název tabulky (tasks,project,..)
      * @param kód stavu
      *
@@ -176,12 +176,14 @@ public class DAOState implements IDAOState {
         int pid = -1;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            String jobquery = "select id from types where "
-                    + "table_name = '" + table_name + "' "
-                    + "and code = '" + code + "'";
-            //System.out.println(jobquery);
-            ResultSet rset = stmt.executeQuery(jobquery);
+            String jobquery = "select id from types "
+                    + "where "
+                    + "table_name = ? "
+                    + "and code = ? ";
+            PreparedStatement stmt = con.prepareStatement(jobquery);
+            stmt.setString(1, table_name);
+            stmt.setString(2, code);
+            ResultSet rset = stmt.executeQuery();
             while (rset.next()) {
                 pid = rset.getInt(1);
             }

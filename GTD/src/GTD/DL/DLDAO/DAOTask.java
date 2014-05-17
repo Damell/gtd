@@ -6,6 +6,7 @@ import GTD.DL.DLEntity.Task;
 import GTD.DL.DLInterfaces.IDAOTask;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,15 +39,20 @@ public class DAOTask implements IDAOTask {
         try {
             //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin API.TASKS_IU("
-                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
-                    + ",inp_id_creator  =>" + ukol.getTvurce()
-                    + ",inp_name => '" + ukol.getNazev() + "'"
-                    + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt()
-                    + ",inp_id_type => " + ukol.getStav()
+                    + "inp_id_owner  => ? "
+                    + ",inp_id_creator  => ? "
+                    + ",inp_name => ? "
+                    + ",inp_description => ? "
+                    + ",inp_id_project => ? "
+                    + ",inp_id_type => ? "
                     + "); end;";
-            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, ukol.getVlastnik_id());
+            callStmt.setInt(2, ukol.getTvurce());
+            callStmt.setString(3, ukol.getNazev());
+            callStmt.setString(4, ukol.getPopis());
+            callStmt.setInt(5, ukol.getProjekt());
+            callStmt.setInt(6, ukol.getStav());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -64,8 +70,9 @@ public class DAOTask implements IDAOTask {
     public boolean deleteTask(Task ukol) {
         Connection con = DatabaseConnection.getConnection();
         try {
-            String jobquery = "begin API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
+            String jobquery = "begin API.TASKS_DEL(inp_id  => ? ); end;";
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, ukol.getId());
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -90,7 +97,10 @@ public class DAOTask implements IDAOTask {
         try {
             Statement stmt = con.createStatement();
             //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v");
+            ResultSet rset = stmt.executeQuery("select "
+                    + "id, name, description, id_type, type_name, "
+                    + "id_owner, date_from, date_to, id_context, context_name, id_project "
+                    + "from tasks_v");
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
                 //nastav interval
@@ -118,14 +128,16 @@ public class DAOTask implements IDAOTask {
         List<Task> ukoly = new ArrayList<Task>();
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select "
+            String jobquery = "select "
                     + "id, name, description, id_type, type_name, id_owner, "
                     + "date_from, date_to, id_context, context_name, "
                     + "id_project, project_name, project_description "
                     + "from tasks_v "
-                    + "where id_owner = " + osoba.getId());
+                    + "where id_owner = ? ";
+            PreparedStatement prepStmt = con.prepareStatement(jobquery);
+            prepStmt.setInt(1, osoba.getId());
+            ResultSet rset = prepStmt.executeQuery();
+
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
                 //nastav interval
@@ -138,7 +150,7 @@ public class DAOTask implements IDAOTask {
                 ukoly.add(ukl);
             }
             rset.close();
-            stmt.close();
+            prepStmt.close();
         } catch (SQLException e) {
             DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
@@ -155,9 +167,14 @@ public class DAOTask implements IDAOTask {
         Task ukol = null;
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id = " + id);
+            String jobquery = "select id, name, description, id_type, type_name, id_owner, "
+                    + "date_from, date_to, id_context, context_name, id_project "
+                    + "from tasks_v "
+                    + "where id = ? ";
+            PreparedStatement prepStmt = con.prepareStatement(jobquery);
+            prepStmt.setInt(1, id);
+            ResultSet rset = prepStmt.executeQuery();
+
             while (rset.next()) {
                 ukol = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
                 //nastav interval
@@ -166,7 +183,7 @@ public class DAOTask implements IDAOTask {
                 ukol.setKontext(rset.getInt(9), rset.getString(10));
             }
             rset.close();
-            stmt.close();
+            prepStmt.close();
         } catch (SQLException e) {
             DatabaseConnection.showError("DB query error: " + e.getMessage());
         }
@@ -188,19 +205,25 @@ public class DAOTask implements IDAOTask {
 
         Connection con = DatabaseConnection.getConnection();
         try {
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
             String jobquery = "begin API.TASKS_IU("
-                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
-                    + ",inp_id  =>" + ukol.getId()
-                    + ",inp_name => '" + ukol.getNazev() + "'"
-                    + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt()
-                    + ",inp_id_type => " + ukol.getStav()
-                    + ",inp_date_from => '" + date_from + "'"
-                    + ",inp_date_to => '" + date_to + "'"
+                    + "inp_id_owner  => ? "
+                    + ",inp_id  => ? "
+                    + ",inp_name => ? "
+                    + ",inp_description => ? "
+                    + ",inp_id_project => ? "
+                    + ",inp_id_type => ? "
+                    + ",inp_date_from => ? "
+                    + ",inp_date_to => ? "
                     + "); end;";
-            //System.out.println(jobquery);
             CallableStatement callStmt = con.prepareCall(jobquery);
+            callStmt.setInt(1, ukol.getVlastnik_id());
+            callStmt.setInt(2, ukol.getId());
+            callStmt.setString(3, ukol.getNazev());
+            callStmt.setString(4, ukol.getPopis());
+            callStmt.setInt(5, ukol.getProjekt());
+            callStmt.setInt(6, ukol.getStav());
+            callStmt.setString(7, date_from);
+            callStmt.setString(8, date_to);
             callStmt.execute();
             callStmt.close();
         } catch (SQLException e) {
@@ -224,9 +247,14 @@ public class DAOTask implements IDAOTask {
         List<Task> ukoly = new ArrayList<Task>();
         Connection con = DatabaseConnection.getConnection();
         try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from tasks_v where id_context=" + kontext.getKontextId());
+            String jobquery = "select "
+                    + "id, name, description, id_type, type_name, id_owner, "
+                    + "date_from, date_to, id_context, context_name, id_project "
+                    + "from tasks_v "
+                    + "where id_context = ? ";
+            PreparedStatement prepStmt = con.prepareStatement(jobquery);
+            prepStmt.setInt(1, kontext.getKontextId());
+            ResultSet rset = prepStmt.executeQuery();
             while (rset.next()) {
                 Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
                 //nastav interval
@@ -237,7 +265,7 @@ public class DAOTask implements IDAOTask {
                 ukoly.add(ukl);
             }
             rset.close();
-            stmt.close();
+            prepStmt.close();
         } catch (SQLException e) {
             DatabaseConnection.showError("DB query error: " + e.getMessage());
         }

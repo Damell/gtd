@@ -32,7 +32,6 @@ public class Activity extends Action {
 	 */
 	public Activity(String nazev, String popis, int stav, int vlastnik_id) {
 		super(nazev, popis, stav, vlastnik_id);
-
 	}
 
 }

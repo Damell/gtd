@@ -49,4 +49,7 @@ public class Config {
 		return prop.getProperty("dbsid");
 	}
 	
+	public String getSchema () {
+		return prop.getProperty("dbschema");
+	}
 }

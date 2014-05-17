@@ -26,8 +26,8 @@ public class PersonController implements IPersonController {
 	 * @param heslo
 	 */
 	@Override
-	public boolean loginPerson(String login, String heslo, String hostname, String port, String sid){
-		return personAdmin.loginOsoba(login, heslo, hostname, port, sid);
+	public boolean loginPerson(String login, String heslo, String hostname, String port, String sid, String schema){
+		return personAdmin.loginOsoba(login, heslo, hostname, port, sid, schema);
 	}
 
 	/**

@@ -17,6 +17,7 @@ public class DatabaseConnection {
 	private Connection connection;
 	private int id;
 	private String username;
+	private String schema;
 
         /**
         * Připojení do databáze
@@ -56,11 +57,16 @@ public class DatabaseConnection {
 	 * 
 	 * @param username
 	 * @param password
+	 * @param hostname
+	 * @param port
+	 * @param sid
+	 * @param schema
 	 */
-	public static boolean login(String username, String password, String hostname, String port, String sid) {
+	public static boolean login(String username, String password, String hostname, String port, String sid, String schema) {
 		if(instance == null) {
 			try {
 				instance = new DatabaseConnection(username, password, hostname, port, sid);
+				instance.schema = schema;
 			} catch (SQLException e) {
 				System.out.println("Connection Failed! Check output console");
 				//e.printStackTrace();
@@ -111,5 +117,12 @@ public class DatabaseConnection {
 	public static void showError(String error) {
 		GTDGUI.getGTDGUI().showError(error);
 		System.err.println(error);
+	}
+
+	/**
+	 * Vratí databázové schéma
+	 */
+	public String getSchema () {
+		return schema;
 	}
 }

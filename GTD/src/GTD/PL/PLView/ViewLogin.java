@@ -52,7 +52,7 @@ public class ViewLogin extends JPanel implements IView {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(personCtrl.loginPerson(usernameField.getText(), new String(passwordField.getPassword()), config.getHostname(), config.getPort(), config.getSID())) {
+				if(personCtrl.loginPerson(usernameField.getText(), new String(passwordField.getPassword()), config.getHostname(), config.getPort(), config.getSID(), config.getSchema())) {
 					hideView();
 					GTDGUI.getGTDGUI().showMainWindow();
 				} else {

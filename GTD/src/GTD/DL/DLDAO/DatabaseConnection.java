@@ -122,7 +122,7 @@ public class DatabaseConnection {
 	/**
 	 * Vratí databázové schéma
 	 */
-	public String getSchema () {
-		return schema;
+	public static String getSchema () {
+		return DatabaseConnection.instance.schema;
 	}
 }

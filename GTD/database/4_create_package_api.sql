@@ -3,9 +3,8 @@ AS
   /*
   * API rozhraní pro aplikaci GTD
   */
-  
   /*
-  * Nastaveni prav k tabulkám pro všechny aktivní osoby
+  * Nastaveni prava k potrebnym tabulkam, view a package pro všechny aktivní osoby
   */
   PROCEDURE NASTAV_PRAVA_TABULEK;
   /*
@@ -81,7 +80,7 @@ AS
   *
   *    @param inp_id          id úkolu (pokud je uvedeno id provede se změna tohoto id)
   *    @param inp_id_creator  id osoby , která úkol vytvořila
-  *    @param inp_id_owner    id osoby vlastníka 
+  *    @param inp_id_owner    id osoby vlastníka
   *    @param inp_name        název úkolu
   *    @param inp_description popis úkolu
   *    @param inp_id_project  id projektu úkolu
@@ -102,7 +101,7 @@ AS
   /*
   * Deaktivace úkolu
   *
-  *    @param inp_id          id úkolu k deaktivaci  
+  *    @param inp_id          id úkolu k deaktivaci
   */
   PROCEDURE tasks_del(
       inp_id IN tasks.id%type DEFAULT NULL);
@@ -120,7 +119,7 @@ AS
   /*
   * Smazání kontextu
   *
-  *    @param inp_id          id kontextu k deaktivaci    
+  *    @param inp_id          id kontextu k deaktivaci
   */
   PROCEDURE contexts_del(
       inp_id IN contexts.id%type DEFAULT NULL);
@@ -149,21 +148,34 @@ AS
 PROCEDURE NASTAV_PRAVA_TABULEK
 IS
 BEGIN
-  FOR t IN
-  (SELECT table_name FROM user_tables
+  FOR i IN
+  (SELECT login FROM persons_v
   )
   LOOP
-    FOR i IN
-    (SELECT login FROM pavlim33.persons_v
-    )
-    LOOP
-      BEGIN
-        EXECUTE IMMEDIATE 'grant select, insert, update, delete on '||t.table_name||' to '||upper(i.login);
-      EXCEPTION
-      WHEN OTHERS THEN
-        dbms_output.put_line('Uzivateli '||i.login||' nebylo nastaveno opravneni');--raise_application_error(-20000,'Uzivatel '||i.login||' nema ucet v oracle databazi');
-      END;
-    END LOOP;
+    BEGIN
+      --table
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on ACTIVITIES to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on CONTACTS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on CONTEXTS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on INTERVALS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on MEMBERS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select                         on PERSONS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on PROJECTS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on TASKS to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select                         on TYPES to '||upper(i.login);
+      --view
+      EXECUTE IMMEDIATE 'grant select on ACTIVITIES_V to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select on MEMBERS_V to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select on PERSONS_V to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select on PROJECTS_V to '||upper(i.login);
+      EXECUTE IMMEDIATE 'grant select on TASKS_V to '||upper(i.login);
+      --package
+      EXECUTE IMMEDIATE ' GRANT EXECUTE ON API to '||upper(i.login);
+    EXCEPTION
+    WHEN OTHERS THEN
+      dbms_output.put_line('Uzivateli '||i.login||' nebylo nastaveno opravneni');
+      --raise_application_error(-20000,'Uzivatel '||i.login||' nema ucet v oracle databazi');
+    END;
   END LOOP;
 END NASTAV_PRAVA_TABULEK;
 PROCEDURE activities_iu(
@@ -177,7 +189,7 @@ AS
 BEGIN
   IF (inp_id > 0) THEN
     --update
-    UPDATE pavlim33.activities a
+    UPDATE activities a
     SET id_person=inp_id_person ,
       name       =inp_name ,
       description=inp_description ,
@@ -185,9 +197,9 @@ BEGIN
     WHERE a.id   =inp_id;
   ELSE
     -- insert
-    SELECT pavlim33.insert_seq.nextval INTO inp_id_row FROM dual;
+    SELECT insert_seq.nextval INTO inp_id_row FROM dual;
     INSERT
-    INTO pavlim33.activities
+    INTO activities
       (
         id ,
         id_person ,
@@ -212,7 +224,7 @@ PROCEDURE activities_del
   )
 AS
 BEGIN
-  DELETE FROM pavlim33.activities WHERE id = inp_id;
+  DELETE FROM activities WHERE id = inp_id;
   COMMIT;
 END activities_del;
 PROCEDURE persons_iu(
@@ -225,16 +237,16 @@ AS
 BEGIN
   IF (inp_id > 0) THEN
     --update
-    UPDATE pavlim33.persons a
+    UPDATE persons a
     SET login  =inp_login ,
       fname    =inp_fname ,
       sname    =inp_sname
     WHERE a.id =inp_id;
   ELSE
     -- insert
-    SELECT pavlim33.insert_seq.nextval INTO inp_id_row FROM dual;
+    SELECT insert_seq.nextval INTO inp_id_row FROM dual;
     INSERT
-    INTO pavlim33.persons
+    INTO persons
       (
         id ,
         login ,
@@ -248,7 +260,8 @@ BEGIN
         inp_login ,
         inp_fname ,
         inp_sname,
-        (select id from types where table_name = 'persons' and code='A')--aktivni
+        (SELECT id FROM types WHERE table_name = 'persons' AND code='A'
+        )--aktivni
       );
   END IF;
   --nastav prava
@@ -261,9 +274,9 @@ PROCEDURE persons_del
   )
 AS
 BEGIN
-  UPDATE pavlim33.persons
+  UPDATE persons
   SET id_type =
-    (SELECT id FROM pavlim33.types WHERE table_name='persons' AND code='N'
+    (SELECT id FROM types WHERE table_name='persons' AND code='N'
     )
   WHERE id = inp_id;
   COMMIT;
@@ -283,7 +296,7 @@ BEGIN
     --kontrola zmeny na dokonceno
     SELECT COUNT(*)
     INTO l_cnt
-    FROM pavlim33.types
+    FROM types
     WHERE table_name='projects'
     AND code        ='D'
     AND id          =inp_id_type;
@@ -291,8 +304,8 @@ BEGIN
       --zda jsou vsechnu podukoly a podprojekty dokoncene
       SELECT COUNT(*)
       INTO l_cnt
-      FROM pavlim33.tasks_v t
-      JOIN pavlim33.types tp
+      FROM tasks_v t
+      JOIN types tp
       ON (t.id_type      =tp.id)
       WHERE t.id_project = inp_id
       AND tp.code       <> 'H'; --hotovy
@@ -302,8 +315,8 @@ BEGIN
       --zda jsou vsechnu podukoly a podprojekty dokoncene
       SELECT COUNT(*)
       INTO l_cnt
-      FROM pavlim33.projects_v t
-      JOIN pavlim33.types tp
+      FROM projects_v t
+      JOIN types tp
       ON (t.id_type           =tp.id)
       WHERE id_project_parent = inp_id
       AND tp.code            <> 'D'; --Dokonceny
@@ -314,15 +327,15 @@ BEGIN
     --kontrola Projekt může změnit pouze vlastník!
     SELECT COUNT(*)
     INTO l_cnt
-    FROM pavlim33.persons p,
-      pavlim33.projects_v v
+    FROM persons p,
+      projects_v v
     WHERE upper(p.login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')
     AND v.id            =inp_id
     AND p.id            =v.id_person;
     IF (l_cnt           =0) THEN
       raise_application_error(-20021,rpad('Projekt může změnit pouze vlastník!',100,chr(10)));
     END IF;
-    UPDATE pavlim33.projects a
+    UPDATE projects a
     SET id_person       =inp_id_person ,
       name              =inp_name ,
       description       =inp_description ,
@@ -331,13 +344,13 @@ BEGIN
     WHERE a.id          =inp_id;
     --smaz vsechny cleny skupiny. Java metoda vlozi nove
     DELETE
-    FROM pavlim33.members
+    FROM members
     WHERE id_project=inp_id;
   ELSE
     -- insert
-    SELECT pavlim33.insert_seq.nextval INTO out_id FROM dual;
+    SELECT insert_seq.nextval INTO out_id FROM dual;
     INSERT
-    INTO pavlim33.projects
+    INTO projects
       (
         id ,
         id_person ,
@@ -368,8 +381,8 @@ BEGIN
   --kontrola Projekt může smazat pouze vlastník!
   SELECT COUNT(*)
   INTO l_cnt
-  FROM pavlim33.persons p,
-    pavlim33.projects_v v
+  FROM persons p,
+    projects_v v
   WHERE upper(p.login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')
   AND v.id            =inp_id
   AND p.id            =v.id_person;
@@ -379,20 +392,20 @@ BEGIN
   --Projekt obsahuje aktivní podprojekt!
   SELECT COUNT(*)
   INTO l_cnt
-  FROM pavlim33.projects_v v
+  FROM projects_v v
   WHERE v.ID_PROJECT_PARENT =inp_id;
   IF (l_cnt                <> 0) THEN
     raise_application_error(-20021, rpad('Projekt obsahuje aktivní podprojekt!',100,chr(10)));
   END IF;
   --Zároveň se provede deaktivace všech ůkolů v projektu.
   FOR i IN
-  (SELECT id FROM pavlim33.tasks_v WHERE id_project = inp_id
+  (SELECT id FROM tasks_v WHERE id_project = inp_id
   )
   LOOP
     tasks_del(inp_id);
   END LOOP;
   --deaktivace projektu
-  UPDATE pavlim33.projects SET status=1 WHERE id = inp_id;
+  UPDATE projects SET status=1 WHERE id = inp_id;
   COMMIT;
 END projects_del;
 PROCEDURE tasks_iu(
@@ -413,16 +426,16 @@ BEGIN
   IF (inp_id > 0) THEN
     SELECT COUNT(*)
     INTO l_cnt
-    FROM pavlim33.persons p,
-      pavlim33.tasks_v v
+    FROM persons p,
+      tasks_v v
     WHERE upper(p.login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')
     AND v.id            =inp_id
     AND p.id            =v.id_owner;
     SELECT COUNT(*)
     INTO l_cnt2
-    FROM pavlim33.persons p,
-      pavlim33.tasks_v v
-    JOIN pavlim33.projects_v pr
+    FROM persons p,
+      tasks_v v
+    JOIN projects_v pr
     ON (v.ID_PROJECT                =pr.id)
     WHERE upper(p.login)            =SYS_CONTEXT ('USERENV', 'SESSION_USER')
     AND v.id                        =inp_id
@@ -432,7 +445,7 @@ BEGIN
     END IF;
     --END IF;
     --update
-    UPDATE pavlim33.tasks a
+    UPDATE tasks a
     SET id_owner  =inp_id_owner,
       name        =inp_name ,
       description =inp_description ,
@@ -441,9 +454,9 @@ BEGIN
     WHERE a.id    =inp_id;
     --interval vznika az po zalozeni ukolu
     IF ( inp_date_from != 'null' AND inp_date_to != 'null' ) THEN
-      DELETE FROM pavlim33.intervals WHERE id_task = inp_id;
+      DELETE FROM intervals WHERE id_task = inp_id;
       INSERT
-      INTO pavlim33.intervals
+      INTO intervals
         (
           id_task,
           date_from,
@@ -458,9 +471,9 @@ BEGIN
     END IF;
   ELSE
     -- insert
-    SELECT pavlim33.insert_seq.nextval INTO inp_id_row FROM dual;
+    SELECT insert_seq.nextval INTO inp_id_row FROM dual;
     INSERT
-    INTO pavlim33.tasks
+    INTO tasks
       (
         id ,
         id_creator ,
@@ -495,20 +508,20 @@ AS
   l_cnt  INTEGER;
   l_cnt2 INTEGER;
 BEGIN
-  --DELETE FROM pavlim33.tasks WHERE id = inp_id;
+  --DELETE FROM tasks WHERE id = inp_id;
   --kontrola Projekt může smazat pouze vlastník!
   SELECT COUNT(*)
   INTO l_cnt
-  FROM pavlim33.persons p,
-    pavlim33.tasks_v v
+  FROM persons p,
+    tasks_v v
   WHERE upper(p.login)=SYS_CONTEXT ('USERENV', 'SESSION_USER')
   AND v.id            =inp_id
   AND p.id            =v.id_owner;
   SELECT COUNT(*)
   INTO l_cnt2
-  FROM pavlim33.persons p,
-    pavlim33.tasks_v v
-  JOIN pavlim33.projects_v pr
+  FROM persons p,
+    tasks_v v
+  JOIN projects_v pr
   ON (v.ID_PROJECT                =pr.id)
   WHERE upper(p.login)            =SYS_CONTEXT ('USERENV', 'SESSION_USER')
   AND v.id                        =inp_id
@@ -516,7 +529,7 @@ BEGIN
   IF (NVL(l_cnt,0)          +NVL(l_cnt2,0) =0) THEN
     raise_application_error(-20021,rpad('Úkol může smazat pouze vlastník úkolu nebo projektu!',100,chr(10)));
   END IF;
-  UPDATE pavlim33.tasks SET status=1 WHERE id = inp_id;
+  UPDATE tasks SET status=1 WHERE id = inp_id;
   COMMIT;
 END tasks_del;
 PROCEDURE contexts_iu(
@@ -528,15 +541,15 @@ AS
 BEGIN
   IF (inp_id > 0) THEN
     --update
-    UPDATE pavlim33.contexts a
+    UPDATE contexts a
     SET name       =inp_name
     WHERE a.id     =inp_id
     AND a.ID_PERSON=inp_id_person;
   ELSE
     -- insert
-    SELECT pavlim33.insert_seq.nextval INTO inp_id_row FROM dual;
+    SELECT insert_seq.nextval INTO inp_id_row FROM dual;
     INSERT
-    INTO pavlim33.contexts
+    INTO contexts
       (
         id ,
         id_person ,
@@ -557,7 +570,7 @@ PROCEDURE contexts_del
   )
 AS
 BEGIN
-  DELETE FROM pavlim33.contexts WHERE id = inp_id;
+  DELETE FROM contexts WHERE id = inp_id;
   COMMIT;
 END contexts_del;
 PROCEDURE members_iu(
@@ -570,13 +583,13 @@ BEGIN
   -- insert, kontrola zda jiz existuje
   SELECT COUNT(*)
   INTO l_pocet
-  FROM pavlim33.members
+  FROM members
   WHERE id_project=inp_id_project
   AND id_person   =inp_id_person;
   IF ( l_pocet    = 0) THEN
-    SELECT pavlim33.insert_seq.nextval INTO inp_id_row FROM dual;
+    SELECT insert_seq.nextval INTO inp_id_row FROM dual;
     INSERT
-    INTO pavlim33.members
+    INTO members
       (
         id_project ,
         id_person
@@ -597,11 +610,10 @@ PROCEDURE members_del
 AS
 BEGIN
   DELETE
-  FROM pavlim33.members
+  FROM members
   WHERE id_person = inp_id_person
   AND id_project  = inp_id_project;
   COMMIT;
 END members_del;
 END API;
 /
-GRANT EXECUTE ON PAVLIM33.API TO PUBLIC;

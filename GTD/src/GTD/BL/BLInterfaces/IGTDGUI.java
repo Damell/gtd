@@ -1,12 +1,13 @@
 package GTD.BL.BLInterfaces;
 
-import GTD.DL.DLEntity.*;
+import GTD.DL.DLEntity.Activity;
 
 /**
  * Rozhraní pro komunikaci přímo s hlavní třídou GUI (PL) (v BL používáno po změně
  * dat pro pokyn k aktualizaci dat v GUI).
  * @author GTD team
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IGTDGUI {
 
@@ -21,16 +22,11 @@ public interface IGTDGUI {
 	public void showActivities();
 
 	/**
-	 * Shows process activity dialog
+	 * Shows an error message
 	 * 
-	 * @param activity
+	 * @param error    error
 	 */
-	public void showProcessActivity(Activity activity);
-
-	/**
-	 * Shows view with all tasks and projects
-	 */
-	public void showUkolyProjekty();
+	public void showError(String error);
 
 	/**
 	 * Shows tasks of the logged in user
@@ -43,9 +39,15 @@ public interface IGTDGUI {
 	public void showPrihlaseni();
 
 	/**
-	 * Shows an error message
-	 * @param error
+	 * Shows process activity dialog
+	 * 
+	 * @param activity    activity
 	 */
-	public void showError(String error);
+	public void showProcessActivity(Activity activity);
+
+	/**
+	 * Shows view with all tasks and projects
+	 */
+	public void showUkolyProjekty();
 
 }

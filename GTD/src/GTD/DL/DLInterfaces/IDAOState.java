@@ -1,100 +1,102 @@
 package GTD.DL.DLInterfaces;
 
+
 /**
  * Interface pro získání ID typů
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IDAOState {
 
-    /**
-     * Vrátí ID stavu: činnost Archivovaná
-     *
-     */
-    public int getActivityArchivedID();
+	/**
+	 * Vrátí ID stavu: činnost Archivovaná
+	 * @return
+	 */
+	public int getCinnostArchivovanaID();
 
-    /**
-     * Vrátí ID stavu: činost Ke zpracování
-     *
-     */
-    public int getActivityForProcessingID();
+	/**
+	 * Vrátí ID stavu: činost Ke zpracování
+	 * @return
+	 */
+	public int getCinnostKeZpracovaniID();
 
-    /**
-     * Vrátí ID stavu: činost Zahozena
-     *
-     */
-    public int getActivityDroppedID();
+	/**
+	 * Vrátí ID stavu: činost Odlozena
+	 * @return
+	 */
+	public int getCinnostOdlozenaID();
 
-    /**
-     * Vrátí ID stavu: činost Odlozena
-     *
-     */
-    public int getActivityPostponedID();
+	/**
+	 * Vrátí ID stavu: činost Zahozena
+	 * @return
+	 */
+	public int getCinnostZahozenaID();
 
-    /**
-     * Vrátí ID stavu: činost Odlozena
-     *
-     */
-    public int getActivityProcessedID();
+	/**
+	 * Vrátí ID stavu: činost Odlozena
+	 * @return
+	 */
+	public int getCinnostZpracovanaID();
 
-    /**
-     * Vrátí ID stavu: osoby Aktivni
-     *
-     */
-    public int getPersonActiveID();
+	/**
+	 * Vrátí ID stavu: konatakt email
+	 * @return
+	 */
+	public int getKontaktEmailID();
 
-    /**
-     * Vrátí ID stavu: osoby Aktivni
-     *
-     */
-    public int getPersonNotActiveID();
+	/**
+	 * Vrátí ID stavu: konatakt telefon
+	 * @return
+	 */
+	public int getKontaktTelefonID();
 
-    /**
-     * Vrátí ID stavu: konatakt email
-     *
-     */
-    public int getContactEmailID();
+	/**
+	 * Vrátí ID stavu: osoby Aktivni
+	 * @return
+	 */
+	public int getOsobaAktivniID();
 
-    /**
-     * Vrátí ID stavu: konatakt telefon
-     *
-     */
-    public int getContactPhoneID();
+	/**
+	 * Vrátí ID stavu: osoby Aktivni
+	 * @return
+	 */
+	public int getOsobaNeaktivniID();
 
-    /**
-     * Vrátí ID stavu: projekt Aktivni
-     *
-     */
-    public int getProjectActiveID();
+	/**
+	 * Vrátí ID stavu: projekt Aktivni
+	 * @return
+	 */
+	public int getProjektAktivniID();
 
-    /**
-     * Vrátí ID stavu: projekt Dokonceny
-     *
-     */
-    public int getProjectFinishedID();
+	/**
+	 * Vrátí ID stavu: projekt Dokonceny
+	 * @return
+	 */
+	public int getProjektDokoncenyID();
 
-    /**
-     * Vrátí ID stavu: úkol vytvořený
-     *
-     */
-    public int getTaskCreatedID();
+	/**
+	 * Vrátí ID stavu: úkol aktivní
+	 * @return
+	 */
+	public int getUkolAktivniID();
 
-    /**
-     * Vrátí ID stavu: úkol aktivní
-     *
-     */
-    public int getTaskActiveID();
+	/**
+	 * Vrátí ID stavu: úkol hotový
+	 * @return
+	 */
+	public int getUkolHotovyID();
 
-    /**
-     * Vrátí ID stavu: úkol v kalendáři
-     *
-     */
-    public int getTaskPlannedID();
+	/**
+	 * Vrátí ID stavu: úkol v kalendáři
+	 * @return
+	 */
+	public int getUkolVKalendariID();
 
-    /**
-     * Vrátí ID stavu: úkol hotový
-     *
-     */
-    public int getTaskFinishedID();
+	/**
+	 * Vrátí ID stavu: úkol vytvořený
+	 * @return
+	 */
+	public int getUkolVytvorenyID();
+
 }

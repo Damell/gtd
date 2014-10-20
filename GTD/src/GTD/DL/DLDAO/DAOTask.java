@@ -1,247 +1,97 @@
 package GTD.DL.DLDAO;
 
+import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
-import GTD.DL.DLEntity.Task;
 import GTD.DL.DLInterfaces.IDAOTask;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:52
  */
 public class DAOTask implements IDAOTask {
 
-    /**
-     * Konstruktor úkolu
-     */
-    public DAOTask() {
 
-    }
 
-    /**
-     * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
-     *
-     * @param ukol
-     */
-    public boolean createTask(Task ukol) {
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.TASKS_IU("
-                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
-                    + ",inp_id_creator  =>" + ukol.getTvurce()
-                    + ",inp_name => '" + ukol.getNazev() + "'"
-                    + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt()
-                    + ",inp_id_type => " + ukol.getStav()
-                    + "); end;";
-            //System.out.println(jobquery);
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
+	public void finalize() throws Throwable {
 
-    /**
-     * Smaže úkol z databáze (resp. označí jako smazaný).
-     *
-     * @param ukol
-     */
-    public boolean deleteTask(Task ukol) {
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            String jobquery = "begin pavlim33.API.TASKS_DEL(inp_id  => " + ukol.getId() + "); end;";
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            if (e.getErrorCode() == 20021) {
-                DatabaseConnection.showError("Chyba: " + e.getMessage().substring(10, 100).trim());
-            } else {
-                DatabaseConnection.showError("DB query error: " + e.getMessage());
-            }
-            return false;
-        }
-        return true;
-    }
+	}
 
-    /**
-     * Vrátí všechny úkoly v systému.
-     *
-     * @return List<Ukol>
-     */
-    public List getAllTasks() {
-        List<Task> ukoly = new ArrayList<Task>();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v");
-            while (rset.next()) {
-                Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
-                //nastav interval
-                ukl.setInterval(rset.getDate(7), rset.getDate(8));
-                //nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
-                ukl.setKontext(rset.getInt(9), rset.getString(10));
-                //System.out.println(ukl);
-                ukoly.add(ukl);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return ukoly;
-    }
+	/**
+	 * Konstruktor úkolu
+	 */
+	public DAOTask(){
 
-    /**
-     * Vrátí úkoly osoby.
-     *
-     * @param osoba
-     * @return List<Ukol>
-     */
-    public List getTasksOfPerson(Person osoba) {
-        List<Task> ukoly = new ArrayList<Task>();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select "
-                    + "id, name, description, id_type, type_name, id_owner, "
-                    + "date_from, date_to, id_context, context_name, "
-                    + "id_project, project_name, project_description "
-                    + "from pavlim33.tasks_v "
-                    + "where id_owner = " + osoba.getId());
-            while (rset.next()) {
-                Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(11));
-                //nastav interval
-                ukl.setInterval(rset.getDate(7), rset.getDate(8));
-                //nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
-                ukl.setKontext(rset.getInt(9), rset.getString(10));
-                //nastav popis a nazev projektu
-                ukl.setProjekt(rset.getInt(11), rset.getString(12), rset.getString(13));
-                //System.out.println(ukl);
-                ukoly.add(ukl);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return ukoly;
-    }
+	}
 
-    /**
-     * Vrátí úkol podle jeho ID.
-     *
-     * @param id
-     * @return ukol
-     */
-    public Task getTask(int id) {
-        Task ukol = null;
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id = " + id);
-            while (rset.next()) {
-                ukol = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
-                //nastav interval
-                ukol.setInterval(rset.getDate(7), rset.getDate(8));
-                //nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
-                ukol.setKontext(rset.getInt(9), rset.getString(10));
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return ukol;
-    }
+	/**
+	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
+	 * @return
+	 * 
+	 * @param ukol
+	 */
+	public boolean createUkol(Task ukol){
+		return false;
+	}
 
-    /**
-     * Uloží zmenený úkol.
-     *
-     * @param ukol
-     */
-    public boolean updateTask(Task ukol) {
-        String date_from = null;
-        String date_to = null;
-        if (ukol.getKalendar().isSet()) {
-            date_from = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getFrom());
-            date_to = new SimpleDateFormat("dd.MM.yyyy").format(ukol.getKalendar().getTo());
-        }
+	/**
+	 * Smaže úkol z databáze (resp. označí jako smazaný).
+	 * @return
+	 * 
+	 * @param ukol
+	 */
+	public boolean deleteUkol(Task ukol){
+		return false;
+	}
 
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            //http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-            String jobquery = "begin pavlim33.API.TASKS_IU("
-                    + "inp_id_owner  =>" + ukol.getVlastnik_id()
-                    + ",inp_id  =>" + ukol.getId()
-                    + ",inp_name => '" + ukol.getNazev() + "'"
-                    + ",inp_description => '" + ukol.getPopis() + "'"
-                    + ",inp_id_project => " + ukol.getProjekt()
-                    + ",inp_id_type => " + ukol.getStav()
-                    + ",inp_date_from => '" + date_from + "'"
-                    + ",inp_date_to => '" + date_to + "'"
-                    + "); end;";
-            //System.out.println(jobquery);
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            if (e.getErrorCode() == 20021) {
-                DatabaseConnection.showError("Chyba: " + e.getMessage().substring(10, 100).trim());
-            } else {
-                DatabaseConnection.showError("DB query error: " + e.getMessage());
-            }
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Vrátí všechny úkoly v systému.
+	 * @return List<Ukol>
+	 */
+	public List getAllUkoly(){
+		return null;
+	}
 
-    /**
-     * Vrátí všechny úkoly daného kontextu.
-     *
-     * @param kontext
-     * @return ukoly
-     */
-    public List<Task> getTasksWithContext(Context kontext) {
-        List<Task> ukoly = new ArrayList<Task>();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name, description, id_type, type_name, id_owner, date_from, date_to, id_context, context_name, id_project from pavlim33.tasks_v where id_context=" + kontext.getKontextId());
-            while (rset.next()) {
-                Task ukl = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getString(5), rset.getInt(6), rset.getInt(7));
-                //nastav interval
-                ukl.setInterval(rset.getDate(7), rset.getDate(8));
-                //nastav kontext ukolu vlastnika// zobrazit jen vlastnikovy?
-                ukl.setKontext(rset.getInt(9), rset.getString(10));
-                System.out.println(ukl);
-                ukoly.add(ukl);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return ukoly;
-    }
+	/**
+	 * Vrátí úkol podle jeho ID.
+	 * @return ukol
+	 * 
+	 * @param id
+	 */
+	public Task getUkol(int id){
+		return null;
+	}
+
+	/**
+	 * Vrátí všechny úkoly daného kontextu.
+	 * @return ukoly
+	 * 
+	 * @param kontext
+	 */
+	public List<Task> getUkolyKontextu(Context kontext){
+		return null;
+	}
+
+	/**
+	 * Vrátí úkoly osoby.
+	 * @return List<Ukol>
+	 * 
+	 * @param osoba
+	 */
+	public List getUkolyOsoby(Person osoba){
+		return null;
+	}
+
+	/**
+	 * Uloží zmenený úkol.
+	 * @return
+	 * 
+	 * @param ukol
+	 */
+	public boolean updateUkol(Task ukol){
+		return false;
+	}
 
 }

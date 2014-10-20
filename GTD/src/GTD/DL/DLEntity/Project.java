@@ -1,169 +1,155 @@
 package GTD.DL.DLEntity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Třída predstavuje projekt - množinu souvisejících úkolu. Project muže krome
- úkolu obsahovat i další projekty (pocet úrovní není omezen). Vlastník
- projektu může delegovat jeho úkoly a podprojekty (v 1.úrovni).
- *
- * @author GTD team
+ * úkolu obsahovat i další projekty (pocet úrovní není omezen). Vlastník projektu
+ * může delegovat jeho úkoly a podprojekty (v 1.úrovni).
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:55
  */
 public class Project extends Action {
 
-    /**
-     * Rodič - nadřazený projekt.
-     */
-    private Project rodic;
-    /**
-     * Skupina osob pracujících na projektu - slouží pro delegování aktivit v
-     * rámci projektu.
-     */
-    private List<Person> skupina;
-    /**
-     * Úkoly projektu.
-     */
-    private List<Task> ukoly;
-    /**
-     * Podprojekty projektu.
-     */
-    private List<Project> projekty;
+	/**
+	 * Podprojekty projektu.
+	 */
+	private List<Project> projekty;
+	/**
+	 * Rodič - nadřazený projekt.
+	 */
+	private Project rodic;
+	/**
+	 * Skupina osob pracujících na projektu - slouží pro delegování aktivit v rámci
+	 * projektu.
+	 */
+	private List<Person> skupina;
+	/**
+	 * Úkoly projektu.
+	 */
+	private List<Task> ukoly;
 
-    /**
-     * Konstruktor projektu
-     */
-    public Project() {
-        this.projekty = new ArrayList<>();
-        this.ukoly = new ArrayList<>();
-        this.skupina = new ArrayList<>();
-        this.rodic = null;
-    }
 
-    /**
-     * Konstruktor projektu
-     *
-     * @param id
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param stavPopis
-     * @param vlastnik_id
-     */
-    public Project(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
-        super(id, nazev, popis, stav, stavPopis, vlastnik_id);
-        this.projekty = new ArrayList<>();
-        this.ukoly = new ArrayList<>();
-        this.skupina = new ArrayList<>();
-        this.rodic = null;
-    }
 
-    /**
-     * Konstruktor projektu
-     *
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param vlastnik_id
-     * @param skupina
-     * @param rodic
-     */
-    public Project(String nazev, String popis, int stav, int vlastnik_id, List<Person> skupina, Project rodic) {
-        super(nazev, popis, stav, vlastnik_id);
-        this.projekty = new ArrayList<>();
-        this.ukoly = new ArrayList<>();
-        this.skupina = skupina;
-        this.rodic = rodic;
-    }
+	public void finalize() throws Throwable {
+		super.finalize();
+	}
 
-    /*
-     * Nastav rodice projektu
-     *
-     * @param id
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param stavPopis
-     * @param vlastnik_id
-     */
-    public void setProjectrodic(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
-        if (rodic == null) {
-            this.rodic = new Project();
-        }
-        this.rodic.setAktivita(id, nazev, popis, stav, stavPopis, vlastnik_id);
-    }
-    /*
-     * Pridej osobu do projektu
-     *
-     * @param osoba
-     */
-    public void addOsoba(Person osoba) {
-        this.skupina.add(osoba);
-    }
-    /*
-     * Pridej ukol do projektu
-     *
-     * @param ukol
-     */
-    public void addUkol(Task ukol) {
-        this.ukoly.add(ukol);
-    }
-    /*
-     * Pridej podprojekt do projektu
-     *
-     * @param projekt
-     */
-    public void addProjekt(Project projekt) {
-        this.projekty.add(projekt);
-    }
+	/**
+	 * Konstruktor projektu
+	 * 
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param vlastnik_id
+	 * @param skupina
+	 * @param rodic    rodic
+	 */
+	public Project(String nazev, String popis, int stav, int vlastnik_id, List<Person> skupina, Project rodic){
 
-      
-    /*
-     * Vrátí název a popis projektu
-     *
-     * @return nazev_popis
-     */
-    @Override
-    public String toString() {
-        //return super.toString() + "rodic=" + rodic + ", skupina=" + skupina + ", ukoly=" + ukoly + ", projekty=" + projekty + '}';
-        return super.toString();
-    }
+	}
 
-    /**
-     * Vrati id rodice projektu
-     * 
-     * @return id
-     */
-    public Project getRodic() {
-        return rodic;
-    }
+	/**
+	 * Konstruktor projektu
+	 * 
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id    vlastnik_id
+	 */
+	public Project(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
 
-    /**
-     * Vrati skupinu v projektu
-     *
-     * @return List<Osoba>
-     */
-    public List<Person> getSkupina() {
-        return skupina;
-    }
+	}
 
-    /**
-     * Vratí úkoly v projekty
-     * 
-     * @return List<Ukol>
-     */
-    public List<Task> getUkoly() {
-        return ukoly;
-    }
+	/**
+	 * Konstruktor projektu
+	 */
+	public Project(){
 
-    /**
-     * Vrátí podprojekty
-     * 
-     * @return List<Projekt>
-     */
-    public List<Project> getProjekty() {
-        return projekty;
-    }
+	}
+
+	/**
+	 * Pridej osobu do projektu
+	 * 
+	 * @param osoba    osoba
+	 */
+	public void addOsoba(Person osoba){
+
+	}
+
+	/**
+	 * Pridej podprojekt do projektu
+	 * 
+	 * @param projekt    projekt
+	 */
+	public void addProjekt(Project projekt){
+
+	}
+
+	/**
+	 * Pridej ukol do projektu
+	 * 
+	 * @param ukol    ukol
+	 */
+	public void addUkol(Task ukol){
+
+	}
+
+	/**
+	 * Vrátí podprojekty
+	 * @return List<Projekt>
+	 */
+	public List<Project> getProjekty(){
+		return null;
+	}
+
+	/**
+	 * Vrati id rodice projektu
+	 * @return id
+	 */
+	public Project getRodic(){
+		return null;
+	}
+
+	/**
+	 * Vrati skupinu v projektu
+	 * @return List<Osoba>
+	 */
+	public List<Person> getSkupina(){
+		return null;
+	}
+
+	/**
+	 * Vratí úkoly v projekty
+	 * @returnList<Ukol>
+	 */
+	public List<Task> getUkoly(){
+		return null;
+	}
+
+	/**
+	 * Nastav rodice projektu
+	 * 
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id    vlastnik_id
+	 */
+	public void setProjectrodic(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
+
+	}
+
+	/**
+	 * Vrátí název a popis projektu
+	 * @return nazev_popis
+	 */
+	@Override
+	public String toString(){
+		return "";
+	}
 
 }

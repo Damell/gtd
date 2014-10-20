@@ -1,37 +1,34 @@
 package GTD.BL.BLOsoby;
-import GTD.BL.BLInterfaces.IPersonController;
+
+import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLEntity.Person;
-import java.util.List;
+import GTD.BL.BLInterfaces.IPersonController;
 
 /**
  * Třída implementuje interface IPersonController.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:54
  */
 public class PersonController implements IPersonController {
 
-	private PersonAdmin personAdmin;
+	private IGTDGUI GUI;
+	private PersonAdmin spravceOsob;
 
-	/**
-	 *
-	 */
-	public PersonController(){
-		personAdmin = new PersonAdmin();
+
+
+	public void finalize() throws Throwable {
+
 	}
 
-	/**
-	 * Zkusí přihlásit uživatele s danými přihlašovacími údaji.
-	 * 
-	 * @param login
-	 * @param heslo
-	 */
-	@Override
-	public boolean loginPerson(String login, String heslo, String hostname, String port, String sid, String schema){
-		return personAdmin.loginOsoba(login, heslo, hostname, port, sid, schema);
+	public PersonController(){
+
 	}
 
 	/**
 	 * Vytvoří nového uživatele.
+	 * @return
+	 * @return
 	 * 
 	 * @param osoba
 	 */
@@ -42,6 +39,7 @@ public class PersonController implements IPersonController {
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
+	 * @return
 	 * 
 	 * @param osoba
 	 */
@@ -50,32 +48,41 @@ public class PersonController implements IPersonController {
 		return false;
 	}
 
-	/**
-	 * Odešle GUI pokyn k obnovení.
-	 */
 	@Override
-	public void refresh(){
-
+	public List getAllUsers(){
+		return null;
 	}
 
 	/**
 	 * Vrátí přihlášeného uživatele.
+	 * @return
 	 */
 	@Override
 	public Person getLoggedPerson(){
-		//return personAdmin.getPerson(GTDGUI.getMyself().getId());
-		//return personAdmin.getPerson(18);
-                return personAdmin.getOsobaPrihlasena();
+		return null;
 	}
 
 	/**
 	 * Vrátí uživatele podle id.
+	 * @return
 	 * 
 	 * @param id
 	 */
 	@Override
 	public Person getPerson(int id){
-		return personAdmin.getOsoba(id);
+		return null;
+	}
+
+	/**
+	 * Zkusí přihlásit uživatele s danými přihlašovacími údaji.
+	 * @return
+	 * 
+	 * @param login
+	 * @param heslo
+	 */
+	@Override
+	public boolean loginPerson(String login, String heslo){
+		return false;
 	}
 
 	/**
@@ -86,9 +93,12 @@ public class PersonController implements IPersonController {
 
 	}
 
+	/**
+	 * Odešle GUI pokyn k obnovení.
+	 */
 	@Override
-	public List getAllUsers() {
-		return personAdmin.getAllUsers();
+	public void refresh(){
+
 	}
 
 }

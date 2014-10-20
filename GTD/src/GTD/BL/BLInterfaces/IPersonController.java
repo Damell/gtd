@@ -1,25 +1,18 @@
 package GTD.BL.BLInterfaces;
 
 import GTD.DL.DLEntity.Person;
-import java.util.List;
 
 /**
  * Interface defines the way BL and PL communicates concerning persons
  * @author GTD team
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IPersonController {
 
 	/**
-	 * Zkusí přihlásit uživatele s danými přihlašovacími údaji.
-	 * 
-	 * @param username
-	 * @param password
-	 */
-	public boolean loginPerson(String username, String password, String hostname, String port, String sid, String schema);
-
-	/**
 	 * Vytvoří nového uživatele.
+	 * @return boolean
 	 * 
 	 * @param person
 	 */
@@ -27,35 +20,49 @@ public interface IPersonController {
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
+	 * @return boolean
 	 * 
 	 * @param person
 	 */
 	public boolean deactivatePerson(Person person);
 
 	/**
-	 * Odešle GUI pokyn k obnovení.
+	 * Vrátí všechny uživatele
+	 * @return boolean
 	 */
-	public void refresh();
+	public List getAllUsers();
 
 	/**
 	 * Vrátí přihlášeného uživatele.
+	 * @return
 	 */
 	public Person getLoggedPerson();
 
 	/**
 	 * Vrátí uživatele podle ID.
+	 * @return
+	 * 
 	 * @param id
 	 */
 	public Person getPerson(int id);
 
 	/**
-	 * Vrátí všechny uživatele
+	 * Zkusí přihlásit uživatele s danými přihlašovacími údaji.
+	 * @return boolean
+	 * 
+	 * @param username
+	 * @param password
 	 */
-	public List getAllUsers();
+	public boolean loginPerson(String username, String password);
 
 	/**
 	 * Odhlásí aktuálního uživatele.
 	 */
 	public void logout();
+
+	/**
+	 * Odešle GUI pokyn k obnovení.
+	 */
+	public void refresh();
 
 }

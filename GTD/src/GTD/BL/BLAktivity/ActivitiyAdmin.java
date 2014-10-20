@@ -1,109 +1,116 @@
 package GTD.BL.BLAktivity;
-import GTD.BL.BLOsoby.PersonAdmin;
-import GTD.DL.DLEntity.Activity;
-import GTD.DL.DLDAO.DAOActivity;
-import GTD.DL.DLDAO.DAOState;
-import GTD.DL.DLEntity.Person;
+
 import GTD.DL.DLInterfaces.IDAOActivity;
 import GTD.DL.DLInterfaces.IDAOState;
-import java.util.List;
+import GTD.DL.DLDAO.DAOActivity;
+import GTD.BL.BLOsoby.PersonAdmin;
+import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.Person;
 
 /**
  * Trída pro manipulaci s cinnostmi.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:50
  */
 public class ActivitiyAdmin {
 
-	private IDAOActivity daoActivity;
+	private IDAOActivity DAOCinnost;
+	private IDAOState DAOStav;
+	public DAOActivity m_DAOCinnost;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
-	private PersonAdmin personAdmin;
+	private PersonAdmin spravceOsob;
 
-	private IDAOState daoState;
 
-	/**
-	 *
-	 */
+
+	public void finalize() throws Throwable {
+
+	}
+
 	public ActivitiyAdmin(){
-		daoActivity = new DAOActivity();
-		daoState = new DAOState();
+
 	}
 
 	/**
 	 * Vytvorí novou cinnost.
+	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean addActivity(Activity cinnost){
-		return daoActivity.createActivity(cinnost);
-	}
-
-	/**
-	 * Smaže činnost. Toto může udělat pouze vlastník činnosti.
-	 * 
-	 * @param cinnost
-	 */
-	public boolean deleteActivity(Activity cinnost){
-		return daoActivity.deleteActivity(cinnost);
-	}
-
-	/**
-	 * Vrátí cinnost na základě jejího ID.
-	 * 
-	 * @param id
-	 */
-	public Activity getActivity(int id){
-		return null;
-	}
-
-	/**
-	 * Uloží změněnou činnost. Toto může udělat pouze vlastník činnosti.
-	 * 
-	 * @param cinnost
-	 */
-	public boolean updateActivity(Activity cinnost){
+	public boolean addCinnost(Activity cinnost){
 		return false;
 	}
 
 	/**
+	 * Označí činnost jako "archivovanou". Toto může udělat pouze vlastník činnosti.
+	 * @return
+	 * 
+	 * @param cinnost
+	 */
+	public boolean archiveCinnost(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Smaže činnost. Toto může udělat pouze vlastník činnosti.
+	 * @return
+	 * 
+	 * @param cinnost
+	 */
+	public boolean deleteCinnost(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Vrátí cinnost na základě jejího ID.
+	 * @return
+	 * 
+	 * @param id
+	 */
+	public Activity getCinnost(int id){
+		return null;
+	}
+
+	/**
 	 * Vrátí všechny cinnosti osoby.
+	 * @return
 	 * 
 	 * @param osoba
 	 */
-	public List<Activity> getActivitiesOfPerson(Person osoba){
-		return daoActivity.getActivitiesOfPerson(osoba);
-	}
-
-	/**
-	 * Označí činnost jako "zpracovanou". Toto může udělat pouze vlastník činnosti.
-	 * 
-	 * @param cinnost
-	 */
-	public boolean processActivity(Activity cinnost){
-		cinnost.setStav(daoState.getActivityProcessedID());
-		return daoActivity.updateActivity(cinnost);
-	}
-
-	/**
-	 * Označí činnost jako "archivovanou". Toto může udělat pouze vlastník činnosti.
-	 * 
-	 * @param cinnost
-	 */
-	public boolean archiveActivity(Activity cinnost){
-		cinnost.setStav(daoState.getActivityArchivedID());
-		return daoActivity.updateActivity(cinnost);
+	public List<Activity> getCinnostiOsoby(Person osoba){
+		return null;
 	}
 
 	/**
 	 * Označí činnost jako "odloženou". Toto může udělat pouze vlastník činnosti.
+	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean postponeActivity(Activity cinnost){
-		cinnost.setStav(daoState.getActivityPostponedID());
-		return daoActivity.updateActivity(cinnost);
+	public boolean postponeCinnost(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Označí činnost jako "zpracovanou". Toto může udělat pouze vlastník činnosti.
+	 * @return
+	 * 
+	 * @param cinnost
+	 */
+	public boolean processCinnost(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Uloží změněnou činnost. Toto může udělat pouze vlastník činnosti.
+	 * @return
+	 * 
+	 * @param cinnost
+	 */
+	public boolean updateCinnost(Activity cinnost){
+		return false;
 	}
 
 }

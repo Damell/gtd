@@ -1,187 +1,173 @@
 package GTD.DL.DLEntity;
 
+
 /**
  * Tato trída predstavuje spolecný nadtyp pro trídy Cinnost, Úkol a Projekt.
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:50
  */
 public class Action {
 
-    private int id;
-    /**
-     * Název aktivity
-     */
-    private String nazev;
-    /**
-     * Popis aktivity
-     */
-    private String popis;
-    /**
-     * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy
-     * definované v databázi).
-     */
-    private int stav;
-    /**
-     * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v
-     * případě úkolu a projektu dokončit a delegovat).
-     */
-    private int vlastnik_id;
-    /**
-     * Název stavu aktivity
-     */
-    private String stavPopis;
+	private int id;
+	/**
+	 * Název aktivity
+	 */
+	private String nazev;
+	/**
+	 * Popis aktivity
+	 */
+	private String popis;
+	/**
+	 * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy definované v
+	 * databázi).
+	 */
+	private int stav;
+	/**
+	 * Název stavu aktivity
+	 */
+	private String stavPopis;
+	/**
+	 * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v
+	 * případě úkolu a projektu dokončit a delegovat).
+	 */
+	private int vlastnik_id;
 
-    /**
-     * Konstruktor aktivity
-     */
-    public Action() {
 
-    }
 
-    /**
-     * Konstruktor aktivity
-     *
-     * @param id
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param stavPopis
-     * @param vlastnik_id
-     */
-    public Action(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
-        this.id = id;
-        this.nazev = nazev;
-        this.popis = popis;
-        this.stav = stav;
-        this.stavPopis = stavPopis;
-        this.vlastnik_id = vlastnik_id;
-    }
+	public void finalize() throws Throwable {
 
-    /**
-     * Konstruktor aktivity
-     *
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param vlastnik_id
-     */
-    public Action(String nazev, String popis, int stav, int vlastnik_id) {
-        this.nazev = nazev;
-        this.popis = popis;
-        this.stav = stav;
-        this.vlastnik_id = vlastnik_id;
-    }
+	}
 
-    /*
-     * Nastav aktivitu
-     *
-     * @param id
-     * @param nazev
-     * @param popis
-     * @param stav
-     * @param stavPopis
-     * @param vlastnik_id
-     */
-    public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id) {
-        this.id = id;
-        this.nazev = nazev;
-        this.popis = popis;
-        this.stav = stav;
-        this.stavPopis = stavPopis;
-        this.vlastnik_id = vlastnik_id;
-    }
+	/**
+	 * Konstruktor aktivity
+	 * 
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param vlastnik_id    vlastnik_id
+	 */
+	public Action(String nazev, String popis, int stav, int vlastnik_id){
 
-    /**
-     * Nastavi id aktivity
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+	}
 
-    /**
-     * Nastav stav aktivity
-     *
-     * @param stav
-     */
-    public void setStav(int stav) {
-        this.stav = stav;
-    }
+	/**
+	 * Konstruktor aktivity
+	 * 
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id    vlastnik_id
+	 */
+	public Action(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
 
-    /**
-     * Nastav vlastníka aktivity
-     *
-     * @param id
-     */
-    public void setVlastnikID(int id) {
-        this.vlastnik_id = id;
-    }
+	}
 
-    /**
-     * Vrátí id aktivity
-     *
-     * @return id
-     */
-    public int getId() {
-        return id;
-    }
+	/**
+	 * Konstruktor aktivity
+	 */
+	public Action(){
 
-    /**
-     * Vrátí název aktivity
-     *
-     * @return nazev
-     */
-    public String getNazev() {
-        return nazev;
-    }
+	}
 
-    /**
-     * Vrátí popis aktivity
-     *
-     * @return popis
-     */
-    public String getPopis() {
-        return popis;
-    }
+	/**
+	 * Vrátí id aktivity
+	 * @return id
+	 */
+	public int getId(){
+		return 0;
+	}
 
-    /**
-     * Vrátí id stavu aktivity
-     *
-     * @return id
-     */
-    public int getStav() {
-        return stav;
-    }
+	/**
+	 * Vrátí název aktivity
+	 * @return nazev
+	 */
+	public String getNazev(){
+		return "";
+	}
 
-    /**
-     * Vrátí id vlastníka aktivity
-     *
-     * @return vlastnik_id
-     */
-    public int getVlastnik_id() {
-        return vlastnik_id;
-    }
+	/**
+	 * Vrátí popis aktivity
+	 * @return popis
+	 */
+	public String getPopis(){
+		return "";
+	}
 
-    /**
-     * Vrátí popis stavu aktivity
-     *
-     * @return popis
-     */
-    public String getStavPopis() {
-        return stavPopis;
-    }
+	/**
+	 * Vrátí id stavu aktivity
+	 * @return id
+	 */
+	public int getStav(){
+		return 0;
+	}
 
-    /**
-     * Vrátí název a popis aktivity v jendom řetězci
-     *
-     * @return popis
-     */
-    @Override
-    public String toString() {
-        return nazev + " :: " + popis;
-        //return "Action{" + "id=" + id + ", nazev=" + nazev + ", popis=" + popis + ", stav=" + stav + ", vlastnik_id=" + vlastnik_id + ", stavPopis=" + stavPopis + '}';
-    }
+	/**
+	 * Vrátí popis stavu aktivity
+	 * @return popis
+	 */
+	public String getStavPopis(){
+		return "";
+	}
+
+	/**
+	 * Vrátí id vlastníka aktivity
+	 * @return vlastnik_id
+	 */
+	public int getVlastnik_id(){
+		return 0;
+	}
+
+	/**
+	 * Nastav aktivitu
+	 * 
+	 * @param id
+	 * @param nazev
+	 * @param popis
+	 * @param stav
+	 * @param stavPopis
+	 * @param vlastnik_id    vlastnik_id
+	 */
+	public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
+
+	}
+
+	/**
+	 * Nastavi id aktivity
+	 * 
+	 * @param id    id
+	 */
+	public void setId(int id){
+
+	}
+
+	/**
+	 * Nastav stav aktivity
+	 * 
+	 * @param stav    stav
+	 */
+	public void setStav(int stav){
+
+	}
+
+	/**
+	 * Nastav vlastníka aktivity
+	 * 
+	 * @param id    id
+	 */
+	public void setVlastnikID(int id){
+
+	}
+
+	/**
+	 * Vrátí název a popis aktivity v jendom řetězci
+	 * @return popis
+	 */
+	@Override
+	public String toString(){
+		return "";
+	}
 
 }

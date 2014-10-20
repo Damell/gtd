@@ -1,31 +1,35 @@
 package GTD.BL.BLAktivity;
 
-import GTD.BL.BLInterfaces.*;
-import GTD.DL.DLDAO.DAOState;
-import GTD.DL.DLEntity.*;
 import GTD.DL.DLInterfaces.IDAOState;
-import java.util.List;
+import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.Project;
+import GTD.DL.DLEntity.Person;
+import GTD.BL.BLInterfaces.IProjectController;
 
 /**
  * Třída implementuje interface IProjectController.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:55
  */
 public class ProjectController implements IProjectController {
 
-	private ProjectAdmin projectAdmin;
-	private IDAOState daoState;
+	private IDAOState DAOStav;
+	private ProjectAdmin spravceProjektu;
 
-	/**
-	 *
-	 */
+
+
+	public void finalize() throws Throwable {
+
+	}
+
 	public ProjectController(){
-		projectAdmin = new ProjectAdmin();
-		daoState = new DAOState();
+
 	}
 
 	/**
 	 * Přidá nový projekt zadaných vlastností.
+	 * @return
 	 * 
 	 * @param nazev
 	 * @param popis
@@ -33,89 +37,77 @@ public class ProjectController implements IProjectController {
 	 * @param rodicID
 	 * @param skupina
 	 * @param cinnost    Činnost, ze které projekt vznikl (volitelné).
-		 */
+	 */
 	@Override
-	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost) {
-		Project rodic = null;
-		if (rodicID != -1) {
-			rodic = projectAdmin.getProject(rodicID);
-		}
-		Project newProjekt = new Project(nazev, popis, daoState.getProjectActiveID(), vlastnik, skupina, rodic);
-		return projectAdmin.addProject(newProjekt, cinnost);
+	public boolean addProject(String nazev, String popis, int vlastnik, int rodicID, List<Person> skupina, Activity cinnost){
+		return false;
 	}
 
 	/**
 	 * Smaže projekt (resp. označí jako smazaný).
+	 * @return
 	 * 
 	 * @param projekt
 	 */
 	@Override
 	public boolean deleteProject(Project projekt){
-		return projectAdmin.deleteProject(projekt);
+		return false;
 	}
 
 	/**
-	 * Změní název a/nebo popis projektu.
+	 * Označí projekt jako "dokončený".
+	 * @return
 	 * 
 	 * @param projekt
 	 */
 	@Override
-	public boolean updateProject(Project projekt){
+	public boolean finishProject(Project projekt){
 		return false;
+	}
+
+	/**
+	 * Vrátí všechny projekty
+	 * @return
+	 */
+	@Override
+	public List getAllProjects(){
+		return null;
 	}
 
 	/**
 	 * Vrátí konkrétní projekt (GUI toto používá pro nastavení aktuálně zobrazeného
 	 * projektu).
+	 * @return
 	 * 
 	 * @param id
 	 */
 	@Override
 	public Project getProject(int id){
-		return projectAdmin.getProject(id);
+		return null;
+	}
+
+	/**
+	 * Vrátí všechny projekty patřící dané osobě.
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	@Override
+	public List getProjectsOfPerson(Person osoba){
+		return null;
 	}
 
 	/**
 	 * Změní vlastníka projektu. Změnit vlastníka projektu může jen jeho vlastník nebo
 	 * vlastník prvního nadřazeného projektu.
+	 * @return
 	 * 
 	 * @param projekt
 	 * @param novyVlastnik
 	 */
 	@Override
 	public boolean changeOwner(Project projekt, Person novyVlastnik){
-		projekt.setVlastnikID(novyVlastnik.getId());
-		return projectAdmin.updateProject(projekt);
-	}
-
-	/**
-	 * Označí projekt jako "dokončený".
-	 * 
-	 * @param projekt
-	 */
-	@Override
-	public boolean finishProject(Project projekt){
-		projekt.setStav(daoState.getProjectFinishedID());
-		return projectAdmin.finishProject(projekt);
-	}
-
-	/**
-	 * Vrátí všechny projekty patřící dané osobě.
-	 * 
-	 * @param osoba
-	 */
-	@Override
-	public List getProjectsOfPerson(Person osoba){
-		return projectAdmin.getProjectsOfPerson(osoba);
-	}
-
-	/**
-	 * Vrátí všechny projekty
-	 * 
-	 */
-	@Override
-	public List getAllProjects(){
-		return projectAdmin.getAllProjects();
+		return false;
 	}
 
 	/**
@@ -124,6 +116,17 @@ public class ProjectController implements IProjectController {
 	@Override
 	public void refresh(){
 
+	}
+
+	/**
+	 * Změní název a/nebo popis projektu.
+	 * @return
+	 * 
+	 * @param projekt
+	 */
+	@Override
+	public boolean updateProject(Project projekt){
+		return false;
 	}
 
 }

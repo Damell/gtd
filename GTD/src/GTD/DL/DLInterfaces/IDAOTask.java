@@ -1,62 +1,69 @@
 package GTD.DL.DLInterfaces;
 
+import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
-import GTD.DL.DLEntity.Task;
-import java.util.List;
 
 /**
  * Interface pro správu Úkolu v databázi.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IDAOTask {
 
 	/**
 	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
+	 * @return
 	 * 
 	 * @param ukol
 	 */
-	public boolean createTask(Task ukol);
+	public boolean createUkol(Task ukol);
 
 	/**
 	 * Smaže úkol z databáze (resp. označí jako smazaný).
+	 * @return
 	 * 
 	 * @param ukol
 	 */
-	public boolean deleteTask(Task ukol);
+	public boolean deleteUkol(Task ukol);
 
 	/**
 	 * Vrátí všechny úkoly v systému.
+	 * @return
 	 */
-	public List getAllTasks();
-
-	/**
-	 * Vrátí všechny úkoly přiřazené dané osobě
-	 * 
-	 * @param osoba
-	 */
-	public List getTasksOfPerson(Person osoba);
+	public List getAllUkoly();
 
 	/**
 	 * Vrátí úkol podle jeho ID.
+	 * @return
 	 * 
 	 * @param id
 	 */
-	public Task getTask(int id);
-
-	/**
-	 * Uloží zmenený úkol.
-	 * 
-	 * @param úkol
-	 */
-	public boolean updateTask(Task úkol);
+	public Task getUkol(int id);
 
 	/**
 	 * Vrátí všechny úkoly daného kontextu.
+	 * @return
 	 * 
 	 * @param kontext
 	 */
-	public List getTasksWithContext(Context kontext);
+	public List getUkolyKontextu(Context kontext);
+
+	/**
+	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	public List getUkolyOsoby(Person osoba);
+
+	/**
+	 * Uloží zmenený úkol.
+	 * @return
+	 * 
+	 * @param úkol
+	 */
+	public boolean updateUkol(Task úkol);
 
 }

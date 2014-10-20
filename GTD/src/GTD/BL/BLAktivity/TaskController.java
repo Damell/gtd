@@ -1,36 +1,48 @@
 package GTD.BL.BLAktivity;
-import GTD.BL.BLInterfaces.IGTDGUI;
-import GTD.BL.BLInterfaces.ITaskController;
-import GTD.DL.DLDAO.DAOState;
-import GTD.DL.DLEntity.Activity;
-import GTD.DL.DLEntity.Interval;
-import GTD.DL.DLEntity.Context;
-import GTD.DL.DLEntity.Person;
-import GTD.DL.DLEntity.Task;
+
 import GTD.DL.DLInterfaces.IDAOState;
-import GTD.PL.PLView.GTDGUI;
-import java.util.List;
+import GTD.BL.BLInterfaces.IGTDGUI;
+import GTD.DL.DLEntity.Task;
+import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Context;
+import GTD.DL.DLEntity.Interval;
+import GTD.BL.BLInterfaces.ITaskController;
 
 /**
  * Třída implementuje interface ITaskController.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:55
  */
 public class TaskController implements ITaskController {
 
+	private IDAOState DAOStav;
+	private IGTDGUI GUI;
 	private TaskAdmin spravceUkolu;
-	private IDAOState daoStav;
+
+
+
+	public void finalize() throws Throwable {
+
+	}
+
+	public TaskController(){
+
+	}
 
 	/**
-	 *
+	 * 
+	 * @param ukol
 	 */
-	public TaskController(){
-		spravceUkolu = new TaskAdmin();
-		daoStav = new DAOState();
+	@Override
+	public boolean activateTask(Task ukol){
+		return false;
 	}
 
 	/**
 	 * Přidá nový úkol zadaných vlastností.
+	 * @return
 	 * 
 	 * @param nazev
 	 * @param popis
@@ -40,16 +52,13 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean addTask(String nazev, String popis, int vlastnikId, int projektId, Activity cinnost){
-
-		if (vlastnikId == -1) vlastnikId = GTDGUI.getMyself().getId();
-		Task ukol = new Task(nazev, popis, daoStav.getTaskCreatedID(), GTDGUI.getMyself().getId(), vlastnikId, projektId);
-
-		return spravceUkolu.addTask(ukol, cinnost);
+		return false;
 	}
 
 	/**
 	 * Vytvoří úkol a hned ho označí jako "hotový" (používá se při zpracování činnosti,
 	 * pokud ji mohu a chci dokončit do 2 minut).
+	 * @return
 	 * 
 	 * @param nazev
 	 * @param popis
@@ -58,80 +67,60 @@ public class TaskController implements ITaskController {
 	 */
 	@Override
 	public boolean addTwoMinutesTask(String nazev, String popis, int projektId, Activity cinnost){
-		Task ukol = new Task(nazev, popis, daoStav.getTaskFinishedID(), GTDGUI.getMyself().getId(), GTDGUI.getMyself().getId(), projektId);
-		return spravceUkolu.addTask(ukol, cinnost);
+		return false;
 	}
 
 	/**
 	 * Smaže úkol (resp. označí jako smazaný).
+	 * @return
 	 * 
 	 * @param ukol
 	 */
 	@Override
 	public boolean deleteTask(Task ukol){
-		return spravceUkolu.deleteTask(ukol);
-	}
-
-	/**
-	 * Změní název a/nebo popis úkolu.
-	 * 
-	 * @param ukol
-	 */
-	@Override
-	public boolean updateTask(Task ukol){
 		return false;
 	}
 
+	/**
+	 * Označí úkol jako "dokončený".
+	 * @return
+	 * 
+	 * @param ukol
+	 */
 	@Override
-	public boolean activateTask(Task ukol) {
-		ukol.setStav(daoStav.getTaskActiveID());
-		return spravceUkolu.updateTask(ukol);
+	public boolean finishTask(Task ukol){
+		return false;
 	}
 
 	/**
-	 * Přidá úkol do kalendáře.
-	 * 
-	 * @param ukol
-	 * @param interval
+	 * Vrátí všechny úkoly
+	 * @return
 	 */
 	@Override
-	public boolean scheduleTask(Task ukol, Interval interval){
-		ukol.setInterval(interval.getFrom(), interval.getTo());
-		ukol.setStav(daoStav.getTaskPlannedID());
-		return spravceUkolu.updateTask(ukol);
+	public List getAllUkoly(){
+		return null;
+	}
+
+	/**
+	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	@Override
+	public List getUkolyOsoby(Person osoba){
+		return null;
 	}
 
 	/**
 	 * Změní vlastníka úkolu.
+	 * @return
 	 * 
 	 * @param ukol
 	 * @param novyVlastnik
 	 */
 	@Override
 	public boolean changeOwner(Task ukol, Person novyVlastnik){
-		ukol.setVlastnikID(novyVlastnik.getId());
-		return spravceUkolu.updateTask(ukol);
-	}
-
-	/**
-	 * Označí úkol jako "dokončený".
-	 * 
-	 * @param ukol
-	 */
-	@Override
-	public boolean finishTask(Task ukol){
-		ukol.setStav(daoStav.getTaskFinishedID());
-		return spravceUkolu.updateTask(ukol);
-	}
-
-	/**
-	 * Nastaví kontext úkolu.
-	 * 
-	 * @param ukol
-	 * @param kontext
-	 */
-	@Override
-	public boolean setContext(Task ukol, Context kontext){
 		return false;
 	}
 
@@ -144,22 +133,38 @@ public class TaskController implements ITaskController {
 	}
 
 	/**
-	 * Vrátí všechny úkoly přiřazené dané osobě
+	 * Nastaví kontext úkolu.
+	 * @return
 	 * 
-	 * @param osoba
+	 * @param ukol
+	 * @param kontext
 	 */
 	@Override
-	public List getUkolyOsoby(Person osoba) {
-		return spravceUkolu.getTasksOfPerson(osoba);
+	public boolean setContext(Task ukol, Context kontext){
+		return false;
 	}
 
 	/**
-	 * Vrátí všechny úkoly
+	 * Přidá úkol do kalendáře.
+	 * @return
+	 * 
+	 * @param ukol
+	 * @param interval
 	 */
 	@Override
-	public List getAllUkoly() {
-		return spravceUkolu.getAllTasks();
+	public boolean scheduleTask(Task ukol, Interval interval){
+		return false;
 	}
 
+	/**
+	 * Změní název a/nebo popis úkolu.
+	 * @return
+	 * 
+	 * @param ukol
+	 */
+	@Override
+	public boolean updateTask(Task ukol){
+		return false;
+	}
 
 }

@@ -1,74 +1,81 @@
 package GTD.DL.DLInterfaces;
 
 import GTD.DL.DLEntity.Person;
-import java.util.List;
 
 /**
  * Interface pro správu Osob v databázi.
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IDAOPerson {
 
-    /**
-     * Vytvoří nového uživatele.
-     *
-     * @param osoba
-     */
-    public boolean createPerson(Person osoba);
+	/**
+	 * Vytvoří nového uživatele.
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	public boolean createOsoba(Person osoba);
 
-    /**
-     * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
-     *
-     * @param osoba
-     */
-    public boolean deactivatePerson(Person osoba);
+	/**
+	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	public boolean deactivateOsoba(Person osoba);
 
-    /**
-     * Vrátí všechny osoby.
-     */
-    public List getAllPersons();
+	/**
+	 * Vrátí všechny osoby.
+	 * @return
+	 */
+	public List getAllOsoby();
 
-    /**
-     * Vrátí osobu podle jejího ID.
-     *
-     * @param id
-     */
-    public Person getPerson(int id);
+	/**
+	 * Vrátí uživatele na základě uživatelského jména
+	 * @return
+	 * 
+	 * @param username
+	 */
+	public Person getOsoba(String username);
 
-    /**
-     * Vrátí ID prihlasene osoby.
-     *
-     */
-    public int getPersonID();
+	/**
+	 * Vrátí osobu podle jejího ID.
+	 * @return
+	 * 
+	 * @param id
+	 */
+	public Person getOsoba(int id);
 
-    /**
-     * Vrátí uživatele na základě uživatelského jména
-     *
-     * @param username
-     */
-    public Person getPerson(String username);
+	/**
+	 * Vrátí ID prihlasene osoby.
+	 * @return
+	 */
+	public int getOsobaID();
 
-    /**
-     * Uloží změny osoby.
-     *
-     * @param osoba
-     */
-    public boolean updatePerson(Person osoba);
+	/**
+	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
+	 * @return
+	 * 
+	 * @param login
+	 */
+	public boolean checkNewLogin(String login);
 
-    /**
-     * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
-     *
-     * @param login
-     */
-    public boolean checkNewLogin(String login);
+	/**
+	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
+	 * @return
+	 * 
+	 * @param login
+	 */
+	public boolean checkPrihlaseni(String login);
 
-    /**
-     * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
-     *
-     * @param login
-     */
-    public boolean checkLogin(String login);
+	/**
+	 * Uloží změny osoby.
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	public boolean updateOsoba(Person osoba);
 
 }

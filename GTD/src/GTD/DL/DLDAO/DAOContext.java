@@ -3,168 +3,84 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:51
  */
 public class DAOContext implements IDAOContext {
+
+
+
+	public void finalize() throws Throwable {
+
+	}
 
 	/**
 	 * Kontruktor kontextu
 	 */
-	public DAOContext() {
+	public DAOContext(){
 
-    }
+	}
 
-    /**
-     * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
-     *
-     * @param kontext
-     */
-    public boolean createContext(Context kontext) {
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
-                    + "inp_name  => '" + kontext.getKontextNazev() + "'"
-                    + "inp_id_person  =>" + DatabaseConnection.getID()
-                    + "); end;";
-            System.out.println(jobquery);
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
+	 * @return
+	 * 
+	 * @param kontext
+	 */
+	public boolean createKontext(Context kontext){
+		return false;
+	}
 
-    /**
-     * Smaže kontext z databáze.
-     *
-     * @param kontext
-     */
-    public boolean deleteContext(Context kontext) {
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_DEL(inp_id  => " + kontext.getKontextId() + "); end;";
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Smaže kontext z databáze.
+	 * @return
+	 * 
+	 * @param kontext
+	 */
+	public boolean deleteKontext(Context kontext){
+		return false;
+	}
 
-    /**
-     * Vrátí všechny kontexty v systému.
+	/**
+	 * Vrátí všechny kontexty v systému.
 	 * @return List<Kontext>
-     */
-    public List getAllContexts() {
-        List<Context> kontexty = new ArrayList<Context>();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts");
-            while (rset.next()) {
-                Context kon = new Context(rset.getInt(1), rset.getString(2));
-                //System.out.println(ukl);
-                kontexty.add(kon);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return kontexty;
-    }
+	 */
+	public List getAllKontexty(){
+		return null;
+	}
 
-    /**
-     * Vrátí kontext podle jeho ID.
-     *
-     * @param id
+	/**
+	 * Vrátí kontext podle jeho ID.
 	 * @return kontext
-     */
-    public Context getContext(int id) {
-      Context kontext = null;
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
-                    + "id = " + id);
-            while (rset.next()) {
-                kontext = new Context(rset.getInt(1), rset.getString(2));
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return kontext;
-    }
+	 * 
+	 * @param id
+	 */
+	public Context getKontext(int id){
+		return null;
+	}
 
-    /**
-     * Uloží zmenený kontext.
-     *
-     * @param kontext
-     */
-    public boolean updateContext(Context kontext) {
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            String jobquery = "begin pavlim33.API.CONTEXTS_IU("
-                    + "inp_id  =>" + kontext.getKontextId()
-                    + "inp_id_name  => '" + kontext.getKontextNazev() + "'"
-                    + "inp_id_person  =>" + DatabaseConnection.getID()
-                    + "); end;";
-            System.out.println(jobquery);
-            CallableStatement callStmt = con.prepareCall(jobquery);
-            callStmt.execute();
-            callStmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Vrátí všechny kontexty patrící zadané osobe.
+	 * @return List<Kontext>
+	 * 
+	 * @param osoba
+	 */
+	public List getKontextyOsoby(Person osoba){
+		return null;
+	}
 
-    /**
-     * Vrátí všechny kontexty patrící zadané osobe.
-     *
-     * @param osoba
-	 * @return List<Kontext> 
-     */
-    public List getContextsOfPerson(Person osoba) {
-        List<Context> kontexty = new ArrayList<Context>();
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            //Podminka pro prihlasenou osobu + DatabaseConnection.getID());
-            ResultSet rset = stmt.executeQuery("select id, name from pavlim33.contexts where "
-                    + "id_person = " + osoba.getId());
-            while (rset.next()) {
-                Context kon = new Context(rset.getInt(1), rset.getString(2));
-                //System.out.println(ukl);
-                kontexty.add(kon);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error: " + e.getMessage());
-        }
-        return kontexty;
-    }
+	/**
+	 * Uloží zmenený kontext.
+	 * @return
+	 * 
+	 * @param kontext
+	 */
+	public boolean updateKontext(Context kontext){
+		return false;
+	}
 
 }

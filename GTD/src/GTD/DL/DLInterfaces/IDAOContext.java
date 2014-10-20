@@ -2,53 +2,59 @@ package GTD.DL.DLInterfaces;
 
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
-import java.util.List;
 
 /**
  * Interface pro správu Kontextu v databázi.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:53
  */
 public interface IDAOContext {
 
 	/**
 	 * Vytvorí nový kontext zadaných vlastností a uloží ho do databáze.
+	 * @return
 	 * 
 	 * @param kontext
 	 */
-	public boolean createContext(Context kontext);
+	public boolean createKontext(Context kontext);
 
 	/**
 	 * Smaže kontext z databáze.
+	 * @return
 	 * 
 	 * @param kontext
 	 */
-	public boolean deleteContext(Context kontext);
+	public boolean deleteKontext(Context kontext);
 
 	/**
 	 * Vrátí všechny kontexty v systému.
+	 * @return
 	 */
-	public List getAllContexts();
+	public List getAllKontexty();
 
 	/**
 	 * Vrátí kontext podle jeho ID.
+	 * @return
 	 * 
 	 * @param id
 	 */
-	public Context getContext(int id);
-
-	/**
-	 * Uloží zmenený kontext.
-	 * 
-	 * @param kontext
-	 */
-	public boolean updateContext(Context kontext);
+	public Context getKontext(int id);
 
 	/**
 	 * Vrátí všechny kontexty patrící zadané osobe.
+	 * @return
 	 * 
 	 * @param osoba
 	 */
-	public List getContextsOfPerson(Person osoba);
+	public List getKontextyOsoby(Person osoba);
+
+	/**
+	 * Uloží zmenený kontext.
+	 * @return
+	 * 
+	 * @param kontext
+	 */
+	public boolean updateKontext(Context kontext);
 
 }

@@ -1,71 +1,81 @@
 package GTD.BL.BLFiltry;
 
-import GTD.DL.DLEntity.Context;
-import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
-import java.util.List;
+import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Context;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:51
  */
 public class ContextAdmin {
 
-	private IDAOContext daoKontext;
+	private IDAOContext DAOKontext;
+
+	public ContextAdmin(){
+
+	}
 
 	/**
-	 *
+	 * 
+	 * @exception Throwable
 	 */
-	public ContextAdmin() {
+	public void finalize()
+	  throws Throwable{
 
 	}
 
 	/**
 	 * Přidá osobě nový kontext.
-	 *
+	 * @return
+	 * 
 	 * @param kontext
-	 * @param person
+	 * @param osoba
 	 */
-	public boolean addContext(Context kontext, Person person) {
+	public boolean addKontext(Context kontext, Person osoba){
 		return false;
 	}
 
 	/**
 	 * Smaže kontext.
-	 *
+	 * @return
+	 * 
 	 * @param kontext
 	 */
-	public boolean deleteContext(Context kontext) {
+	public boolean deleteKontext(Context kontext){
 		return false;
 	}
 
 	/**
 	 * Vrátí kontext podle jeho ID.
-	 *
+	 * @return
+	 * 
 	 * @param id
 	 */
-	public Context getContext(int id) {
+	public Context getKontext(int id){
+		return null;
+	}
+
+	/**
+	 * Vrátí všechny kontexty patrící zadané osobe.
+	 * @return
+	 * 
+	 * @param osoba
+	 */
+	public List getKontextyOsoby(Person osoba){
 		return null;
 	}
 
 	/**
 	 * Uloží zmenený kontext.
-	 *
+	 * @return
+	 * 
 	 * @param kontext
 	 */
-	public boolean updateContext(Context kontext) {
+	public boolean updateKontext(Context kontext){
 		return false;
-	}
-
-	/**
-	 * Vrátí všechny kontexty patrící zadané osobe.
-	 *
-	 * @param osoba
-	 */
-	public List getContextsOfPerson(Person osoba) {
-		return null;
 	}
 
 }

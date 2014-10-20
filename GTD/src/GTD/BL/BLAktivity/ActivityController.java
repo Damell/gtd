@@ -1,89 +1,91 @@
 package GTD.BL.BLAktivity;
-import GTD.BL.BLInterfaces.IActivityController;
-import GTD.DL.DLDAO.DAOState;
+
+import GTD.DL.DLInterfaces.IDAOState;
+import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
-import GTD.DL.DLInterfaces.IDAOState;
-import GTD.PL.PLView.GTDGUI;
-import java.util.List;
+import GTD.BL.BLInterfaces.IActivityController;
 
 /**
  * Třída implementuje interface IActivityController.
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:50
  */
 public class ActivityController implements IActivityController {
 
-	private ActivitiyAdmin activityAdmin;
-	private IDAOState daoState;
+	private IDAOState DAOStav;
+	private IGTDGUI GUI;
+	private ActivitiyAdmin spravceCinnosti;
 
-	/**
-	 *
-	 */
+
+
+	public void finalize() throws Throwable {
+
+	}
+
 	public ActivityController(){
-		activityAdmin = new ActivitiyAdmin();
-		daoState = new DAOState();
+
 	}
 
 	/**
 	 * Přidá novou činnost zadaných vlastností.
 	 * 
 	 * @param nazev
-	 * @param popis
+	 * @param popis    popis
 	 */
 	@Override
 	public boolean addActivity(String nazev, String popis){
-		Activity newCinnost = new Activity(nazev, popis, daoState.getActivityForProcessingID(), GTDGUI.getMyself().getId());
-		return activityAdmin.addActivity(newCinnost);
-	}
-
-	/**
-	 * Smaže činnost.
-	 * 
-	 * @param cinnost
-	 */
-	@Override
-	public boolean deleteActivity(Activity cinnost){
-		return activityAdmin.deleteActivity(cinnost);
-	}
-
-	/**
-	 * Vrátí činnosti konkrétní osoby.
-	 * 
-	 * @param osoba
-	 */
-	@Override
-	public List<Activity> getActivitiesOfPerson(Person osoba){
-		return activityAdmin.getActivitiesOfPerson(osoba);
-	}
-
-	/**
-	 * Označí činnost jako "zpracovanou".
-	 * 
-	 * @param cinnost
-	 */
-	@Override
-	public boolean processActivity(Activity cinnost){
 		return false;
 	}
 
 	/**
 	 * Označí činnost jako "archivovanou".
 	 * 
-	 * @param cinnost
+	 * @param cinnost    cinnost
 	 */
 	@Override
 	public boolean archiveActivity(Activity cinnost){
-		return activityAdmin.archiveActivity(cinnost);
+		return false;
 	}
 
 	/**
-	 * Uloží změněnou činnost (změna jména/popisu).
+	 * Smaže činnost.
 	 * 
-	 * @param cinnost
+	 * @param cinnost    cinnost
 	 */
 	@Override
-	public boolean updateActivity(Activity cinnost){
+	public boolean deleteActivity(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Vrátí činnosti konkrétní osoby.
+	 * 
+	 * @param osoba    osoba
+	 */
+	@Override
+	public List<Activity> getActivitiesOfPerson(Person osoba){
+		return null;
+	}
+
+	/**
+	 * Označí činnost jako "odloženou".
+	 * 
+	 * @param cinnost    cinnost
+	 */
+	@Override
+	public boolean postponeActivity(Activity cinnost){
+		return false;
+	}
+
+	/**
+	 * Označí činnost jako "zpracovanou".
+	 * 
+	 * @param cinnost    cinnost
+	 */
+	@Override
+	public boolean processActivity(Activity cinnost){
 		return false;
 	}
 
@@ -92,17 +94,17 @@ public class ActivityController implements IActivityController {
 	 */
 	@Override
 	public void refresh(){
-		GTDGUI.getGTDGUI().refresh();
+
 	}
 
 	/**
-	 * Označí činnost jako "odloženou".
+	 * Uloží změněnou činnost (změna jména/popisu).
 	 * 
-	 * @param cinnost
+	 * @param cinnost    cinnost
 	 */
 	@Override
-	public boolean postponeActivity(Activity cinnost){
-		return activityAdmin.postponeActivity(cinnost);
+	public boolean updateActivity(Activity cinnost){
+		return false;
 	}
 
 }

@@ -1,196 +1,168 @@
 package GTD.DL.DLDAO;
 
 import GTD.DL.DLInterfaces.IDAOState;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Trída zapouzdruje metody pro získání ID stavů objektů
- *
- * @author GTD team
+ * @author Šimon
  * @version 1.0
+ * @created 19-10-2014 12:30:52
  */
 public class DAOState implements IDAOState {
 
-    /**
-     * Vrátí ID stavu: činnost Archivovaná
-     *
+	public DAOState(){
+
+	}
+
+	public void finalize() throws Throwable {
+
+	}
+
+	/**
+	 * Vrátí ID stavu: činnost Archivovaná
 	 * @return id
-     */
+	 */
 	@Override
-    public int getActivityArchivedID() {
-        return this.getID("activities", "A");
-    }
+	public int getCinnostArchivovanaID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: činost Ke zpracování
-     *
+	/**
+	 * Vrátí ID stavu: činost Ke zpracování
 	 * @return  id
-     */
+	 */
 	@Override
-    public int getActivityForProcessingID() {
-        return this.getID("activities", "K");
-    }
+	public int getCinnostKeZpracovaniID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: činost Zahozena
-     *
+	/**
+	 * Vrátí ID stavu: činost Odlozena
 	 * @return  id
-     */
+	 */
 	@Override
-    public int getActivityDroppedID() {
-        return this.getID("activities", "H");
-    }
+	public int getCinnostOdlozenaID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: činost Odlozena
-     *
+	/**
+	 * Vrátí ID stavu: činost Zahozena
 	 * @return  id
-     */
-    @Override
-    public int getActivityPostponedID() {
-        return this.getID("activities", "O");
-    }
+	 */
+	@Override
+	public int getCinnostZahozenaID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: činost Odlozena
-     *
+	/**
+	 * Vrátí ID stavu: činost Odlozena
 	 * @return  id
-     */
-    @Override
-    public int getActivityProcessedID() {
-        return this.getID("activities", "Z");
-    }
+	 */
+	@Override
+	public int getCinnostZpracovanaID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: osoby Aktivni
-     *
+	/**
+	 * Vrátí ID stavu dle tabulky a kodu stavu
+	 * @param název tabulky (tasks,project,..)
+	 * @param kód stavu
+	 * 
+	 * @param table_name
+	 * @param code
+	 */
+	private int getID(String table_name, String code){
+		return 0;
+	}
+
+	/**
+	 * Vrátí ID stavu: konatakt email
 	 * @return  id
-     */
-    @Override
-    public int getPersonActiveID() {
-        return this.getID("persons", "A");
-    }
+	 */
+	@Override
+	public int getKontaktEmailID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: osoby Aktivni
-     *
+	/**
+	 * Vrátí ID stavu: konatakt telefon
 	 * @return  id
-     */
-    @Override
-    public int getPersonNotActiveID() {
-        return this.getID("persons", "N");
-    }
+	 */
+	@Override
+	public int getKontaktTelefonID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: konatakt email
-     *
+	/**
+	 * Vrátí ID stavu: osoby Aktivni
 	 * @return  id
-     */
-    @Override
-    public int getContactEmailID() {
-        return this.getID("contacts", "E");
-    }
+	 */
+	@Override
+	public int getOsobaAktivniID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: konatakt telefon
-     *
+	/**
+	 * Vrátí ID stavu: osoby Aktivni
 	 * @return  id
-     */
-    @Override
-    public int getContactPhoneID() {
-        return this.getID("contacts", "T");
-    }
+	 */
+	@Override
+	public int getOsobaNeaktivniID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: projekt Aktivni
-     *
+	/**
+	 * Vrátí ID stavu: projekt Aktivni
 	 * @return  id
-     */
-    @Override
-    public int getProjectActiveID() {
-        return this.getID("projects", "A");
-    }
+	 */
+	@Override
+	public int getProjektAktivniID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: projekt Dokonceny
-     *
+	/**
+	 * Vrátí ID stavu: projekt Dokonceny
 	 * @return  id
-     */
-    @Override
-    public int getProjectFinishedID() {
-        return this.getID("projects", "D");
-    }
+	 */
+	@Override
+	public int getProjektDokoncenyID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: ukol Vytvoreny
-     *
+	/**
+	 * Vrátí ID stavu: ukol Aktivni
 	 * @return  id
-     */
-    @Override
-    public int getTaskCreatedID() {
-        return this.getID("tasks", "V");
-    }
+	 */
+	@Override
+	public int getUkolAktivniID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: ukol Aktivni
-     *
+	/**
+	 * Vrátí ID stavu: ukol Hotovy
 	 * @return  id
-     */
-    @Override
-    public int getTaskActiveID() {
-        return this.getID("tasks", "A");
-    }
+	 */
+	@Override
+	public int getUkolHotovyID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: ukol V kalendari
-     *
+	/**
+	 * Vrátí ID stavu: ukol V kalendari
 	 * @return  id
-     */
-    @Override
-    public int getTaskPlannedID() {
-        return this.getID("tasks", "K");
-    }
+	 */
+	@Override
+	public int getUkolVKalendariID(){
+		return 0;
+	}
 
-    /**
-     * Vrátí ID stavu: ukol Hotovy
-     *
+	/**
+	 * Vrátí ID stavu: ukol Vytvoreny
 	 * @return  id
-     */
-    @Override
-    public int getTaskFinishedID() {
-        return this.getID("tasks", "H");
-    }
-    
-
-    /**
-     * Vrátí ID stavu dle tabulky a kodu stavu
-     * 
-     * @param název tabulky (tasks,project,..)
-     * @param kód stavu
-     *
-     */
-    private int getID(String table_name, String code) {
-        int pid = -1;
-        Connection con = DatabaseConnection.getConnection();
-        try {
-            Statement stmt = con.createStatement();
-            String jobquery = "select id from pavlim33.types where "
-                    + "table_name = '" + table_name + "' "
-                    + "and code = '" + code + "'";
-            //System.out.println(jobquery);
-            ResultSet rset = stmt.executeQuery(jobquery);
-            while (rset.next()) {
-                pid = rset.getInt(1);
-            }
-            rset.close();
-            stmt.close();
-        } catch (SQLException e) {
-            DatabaseConnection.showError("DB query error :: getID: " + e.getMessage());
-        }
-        return pid;
-    }
+	 */
+	@Override
+	public int getUkolVytvorenyID(){
+		return 0;
+	}
 
 }

@@ -2,3 +2,5 @@
 /GTD/dist/
 /GTD/build/
 /GTD/GTD/.nb-gradle/private/
+.DS_Store
+.idea

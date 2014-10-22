@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class ActivitiyAdmin {
 
-  //Tady jsem to modifikoval ja MICHAL SLAMA see and dispair!!
 	private IDAOActivity DAOCinnost;
 	private IDAOState DAOStav;
 	public DAOActivity m_DAOCinnost;

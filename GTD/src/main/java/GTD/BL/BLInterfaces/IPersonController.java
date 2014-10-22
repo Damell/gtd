@@ -1,6 +1,7 @@
 package GTD.BL.BLInterfaces;
 
 import GTD.DL.DLEntity.Person;
+import java.util.List;
 
 /**
  * Interface defines the way BL and PL communicates concerning persons

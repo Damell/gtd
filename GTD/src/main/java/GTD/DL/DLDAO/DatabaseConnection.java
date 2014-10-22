@@ -1,5 +1,8 @@
 package GTD.DL.DLDAO;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 
 /**
  * Singleton for holding an instance of database connection

@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import java.util.Date;
+
 
 /**
  * Trída predstavuje casový interval pro daný úkol.

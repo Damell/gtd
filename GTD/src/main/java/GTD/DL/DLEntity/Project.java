@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import java.util.List;
+
 
 /**
  * Třída predstavuje projekt - množinu souvisejících úkolu. Project muže krome
@@ -28,7 +30,6 @@ public class Project extends Action {
 	 * Úkoly projektu.
 	 */
 	private List<Task> ukoly;
-
 
 
 	public void finalize() throws Throwable {

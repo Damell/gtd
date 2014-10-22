@@ -5,6 +5,7 @@ import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Project;
 import GTD.DL.DLEntity.Person;
 import GTD.BL.BLInterfaces.IProjectController;
+import java.util.List;
 
 /**
  * Třída implementuje interface IProjectController.
@@ -128,5 +129,6 @@ public class ProjectController implements IProjectController {
 	public boolean updateProject(Project projekt){
 		return false;
 	}
+
 
 }

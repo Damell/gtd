@@ -3,6 +3,7 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Project;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOProject;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání projektu z databáze.

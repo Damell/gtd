@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import java.util.List;
+
 
 /**
  * Trída predstavuje osobu, která je registrována v systému GTD.

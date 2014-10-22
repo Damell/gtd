@@ -5,6 +5,7 @@ import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Interval;
+import java.util.List;
 
 /**
  * Interface defines the way BL and PL communicates concerning tasks

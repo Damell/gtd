@@ -6,6 +6,7 @@ import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
+import java.util.List;
 
 /**
  * Trída pro manipulaci s úkoly.

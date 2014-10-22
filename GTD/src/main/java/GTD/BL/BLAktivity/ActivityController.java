@@ -5,6 +5,7 @@ import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
 import GTD.BL.BLInterfaces.IActivityController;
+import java.util.List;
 
 /**
  * Třída implementuje interface IActivityController.

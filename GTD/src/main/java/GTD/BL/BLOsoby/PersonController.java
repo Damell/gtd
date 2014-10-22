@@ -3,6 +3,7 @@ package GTD.BL.BLOsoby;
 import GTD.BL.BLInterfaces.IGTDGUI;
 import GTD.DL.DLEntity.Person;
 import GTD.BL.BLInterfaces.IPersonController;
+import java.util.List;
 
 /**
  * Třída implementuje interface IPersonController.

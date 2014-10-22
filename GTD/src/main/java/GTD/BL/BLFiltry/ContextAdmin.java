@@ -3,6 +3,7 @@ package GTD.BL.BLFiltry;
 import GTD.DL.DLInterfaces.IDAOContext;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLEntity.Context;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.

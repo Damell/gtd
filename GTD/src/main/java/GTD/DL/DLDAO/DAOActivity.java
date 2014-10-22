@@ -3,6 +3,7 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOActivity;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání cinností z databáze.

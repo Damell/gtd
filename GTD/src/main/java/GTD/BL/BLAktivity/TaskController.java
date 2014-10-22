@@ -8,6 +8,7 @@ import GTD.DL.DLEntity.Person;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Interval;
 import GTD.BL.BLInterfaces.ITaskController;
+import java.util.List;
 
 /**
  * Třída implementuje interface ITaskController.

@@ -2,6 +2,7 @@ package GTD.DL.DLInterfaces;
 
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
+import java.util.List;
 
 /**
  * Interface pro správu Cinností v databázi.

@@ -3,6 +3,7 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
+import java.util.List;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.

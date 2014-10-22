@@ -2,6 +2,7 @@ package GTD.BL.BLOsoby;
 
 import GTD.DL.DLInterfaces.IDAOPerson;
 import GTD.DL.DLEntity.Person;
+import java.util.List;
 
 /**
  * Třída zapouzdřuje metody pro ukládání a načítání osob z databáze.

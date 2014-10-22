@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import java.util.Date;
+
 
 /**
  * Třída predstavující úkol - realizovatelnou akci.

@@ -1,6 +1,13 @@
 package GTD.DL.DLEntity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 /**
@@ -9,33 +16,43 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:54
  */
+@Entity
 public class Person {
 
 	/**
 	 * unikátní id v celém systému
 	 */
+	@Id
+	@GeneratedValue
 	private int id;
 	/**
 	 * Křestní jméno uživatele.
 	 */
+	@Column(length = 20, nullable = false)
 	private String jmeno;
 	/**
 	 * Kontakty na uživatele - od každého typu max. 1 (v budoucích iteracích se budou
 	 * požívat pro různé notifikace).
 	 */
+	@OneToMany(mappedBy = "osoba", cascade = CascadeType.ALL)
 	private List<Contact> kontakty;
 	/**
 	 * uživatelské jméno, unikátní v celém systému
 	 */
+	@Column(length = 20, nullable = false)
 	private String login;
-	public Activity m_Cinnost;
-	public Context m_Kontext;
+	
+	@Transient
+	public Activity m_Cinnost;	// <---- TODO steklsim what are these?
+	@Transient					//    |
+	public Context m_Kontext;	// <--
 	/**
 	 * Příjmení uživatele.
 	 */
+	@Column(length = 20, nullable = false)
 	private String prijmeni;
 
-
+	// TODO steklsim v tabulce "persons" z minuleho semestru je fk id_types - co to je za vazbu? 
 
 	public void finalize() throws Throwable {
 

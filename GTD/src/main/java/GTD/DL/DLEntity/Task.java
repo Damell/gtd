@@ -1,6 +1,11 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 /**
@@ -9,32 +14,39 @@ import java.util.Date;
  * @version 1.0
  * @created 19-10-2014 12:30:55
  */
+@Entity
 public class Task extends Action {
 
 	/**
 	 * Projekt úkolu.
 	 */
-	private int id_projekt;
+	@ManyToOne
+	private Project projekt;
 	/**
 	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
 	 */
-	private int id_tvurce;
+	@ManyToOne
+	private Person tvurce;
 	/**
 	 * Záznam o úkolu v kalendáři.
 	 */
+	@OneToOne(cascade = CascadeType.ALL)	// TODO steklsim nebo je to kolekce?
 	private Interval kalendar;
 	/**
 	 * Context úkolu.
 	 */
+	@OneToOne
 	private Context kontext;
-	/**
-	 * Nazev projektu ukolu
-	 */
-	private String projekt_nazev;
-	/**
-	 * Popis projektu ukolu
-	 */
-	private String projekt_popis;
+//	/**
+//	 * Nazev projektu ukolu
+//	 */
+//	@Column(length = 100, nullable = false)
+//	private String projekt_nazev;			<- TODO steklsim proc je tady tohle?
+//	/**
+//	 * Popis projektu ukolu
+//	 */
+//	@Column(length = 1000)
+//	private String projekt_popis;
 
 
 

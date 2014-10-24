@@ -1,6 +1,10 @@
 package GTD.DL.DLEntity;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -11,24 +15,29 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:55
  */
+@Entity
 public class Project extends Action {
 
 	/**
 	 * Podprojekty projektu.
 	 */
+	@OneToMany(mappedBy = "rodic")
 	private List<Project> projekty;
 	/**
 	 * Rodič - nadřazený projekt.
 	 */
+	@ManyToOne
 	private Project rodic;
 	/**
 	 * Skupina osob pracujících na projektu - slouží pro delegování aktivit v rámci
 	 * projektu.
 	 */
+	@ManyToMany
 	private List<Person> skupina;
 	/**
 	 * Úkoly projektu.
 	 */
+	@OneToMany(mappedBy = "projekt")
 	private List<Task> ukoly;
 
 

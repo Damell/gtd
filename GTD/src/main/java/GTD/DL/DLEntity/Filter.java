@@ -1,5 +1,10 @@
 package GTD.DL.DLEntity;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 
 /**
  * Tato trída predstavuje spolecný nadtyp pro trídy Kontext, Složka (není rešena)
@@ -8,12 +13,16 @@ package GTD.DL.DLEntity;
  * @version 1.0
  * @created 19-10-2014 12:30:52
  */
-public class Filter {
+@MappedSuperclass
+public class Filter { // TODO steklsim nemela by tohle byt abstraktni trida?
 
+	@Id
+	@GeneratedValue
 	private int id;
 	/**
 	 * Název filtru (filtry jedné osoby musí mít různá jména).
 	 */
+	@Column(length = 100, nullable = false)
 	private String nazev;
 
 

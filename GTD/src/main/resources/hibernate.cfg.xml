@@ -7,8 +7,16 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gtd_testing</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">heslo123</property>
-    <property name="hibernate.hbm2ddl.auto">validate</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="GTD.DL.DLEntity.Action"/>
+    <mapping class="GTD.DL.DLEntity.Task"/>
+    <mapping class="GTD.DL.DLEntity.Activity"/>
+    <mapping class="GTD.DL.DLEntity.Project"/>
+    <mapping class="GTD.DL.DLEntity.Person"/>
+    <mapping class="GTD.DL.DLEntity.Contact"/>
+    <mapping class="GTD.DL.DLEntity.Filter"/>
+    <mapping class="GTD.DL.DLEntity.Context"/>
+    <mapping class="GTD.DL.DLEntity.Interval"/>
   </session-factory>
 </hibernate-configuration>

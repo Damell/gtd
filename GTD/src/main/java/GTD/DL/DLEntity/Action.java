@@ -1,8 +1,12 @@
 package GTD.DL.DLEntity;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 
 /**
@@ -11,35 +15,39 @@ import javax.persistence.Id;
  * @version 1.0
  * @created 19-10-2014 12:30:50
  */
-@Entity
-public class Action {
+@MappedSuperclass
+public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
 
 	@Id
-	@GeneratedValue()
+	@GeneratedValue
 	private int id;
 	/**
 	 * Název aktivity
 	 */
-	
+	@Column(length = 100, nullable = false)
 	private String nazev;
 	/**
 	 * Popis aktivity
 	 */
+	@Column(length = 1000, nullable = true)
 	private String popis;
 	/**
 	 * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy definované v
 	 * databázi).
 	 */
+	// TODO steklsim enum? entita? "types" tabulka? 
 	private int stav;
 	/**
 	 * Název stavu aktivity
 	 */
+	// TODO steklsim to same jako predchozi
 	private String stavPopis;
 	/**
 	 * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v
 	 * případě úkolu a projektu dokončit a delegovat).
 	 */
-	private int vlastnik_id;
+	@ManyToOne
+	private Person vlastnik;
 
 
 

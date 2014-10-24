@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import javax.persistence.Entity;
+
 
 /**
  * Tato trída predstavuje kontext, ve kterém je úkol plnen. Urcuje v jaké
@@ -9,6 +11,7 @@ package GTD.DL.DLEntity;
  * @version 1.0
  * @created 19-10-2014 12:30:51
  */
+@Entity
 public class Context extends Filter {
 
 

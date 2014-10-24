@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import javax.persistence.Entity;
+
 
 /**
  * Trída predstavuje surovou cinnost tak, jak ji uživatel vymyslí, bez dalšího
@@ -8,6 +10,7 @@ package GTD.DL.DLEntity;
  * @version 1.0
  * @created 19-10-2014 12:30:50
  */
+@Entity
 public class Activity extends Action {
 
 	public Activity(){

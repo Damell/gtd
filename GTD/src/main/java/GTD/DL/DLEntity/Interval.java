@@ -1,6 +1,11 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -9,19 +14,27 @@ import java.util.Date;
  * @version 1.0
  * @created 19-10-2014 12:30:53
  */
+@Entity
+@Table(name = "intervals")
 public class Interval {
 
+	@Id
+	@GeneratedValue
+	private int id;
+	
 	/**
 	 * Casový pocátek úkolu. Minimální presnost jsou dny.
 	 */
+	@Column(name = "from_date", nullable = false)
 	private Date from;
 	/**
 	 * Casový konec úkolu. Minimální presnost jsou dny.
 	 */
+	@Column(name = "to_date", nullable = false)
 	private Date to;
 
 
-
+	
 	public void finalize() throws Throwable {
 
 	}

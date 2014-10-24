@@ -1,5 +1,9 @@
 package GTD.DL.DLEntity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 /**
  * Tato trída predstavuje spolecný nadtyp pro trídy Cinnost, Úkol a Projekt.
@@ -7,12 +11,16 @@ package GTD.DL.DLEntity;
  * @version 1.0
  * @created 19-10-2014 12:30:50
  */
+@Entity
 public class Action {
 
+	@Id
+	@GeneratedValue()
 	private int id;
 	/**
 	 * Název aktivity
 	 */
+	
 	private String nazev;
 	/**
 	 * Popis aktivity
@@ -87,6 +95,13 @@ public class Action {
 	public String getNazev(){
 		return "";
 	}
+
+	public void setNazev(String nazev)
+	{
+		this.nazev = nazev;
+	}
+	
+	
 
 	/**
 	 * Vrátí popis aktivity

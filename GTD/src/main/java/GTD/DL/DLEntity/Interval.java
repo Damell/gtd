@@ -56,12 +56,18 @@ public class Interval {
 
 	}
 
+	
+	public int getId()
+	{
+		return id;
+	}
+	
 	/**
 	 * Vrátí datum do z intervalu
 	 * @return from
 	 */
 	public Date getFrom(){
-		return null;
+		return from;
 	}
 
 	/**
@@ -69,7 +75,7 @@ public class Interval {
 	 * @return to
 	 */
 	public Date getTo(){
-		return null;
+		return to;
 	}
 
 	/**
@@ -77,7 +83,7 @@ public class Interval {
 	 * @return
 	 */
 	public boolean isSet(){
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -87,7 +93,20 @@ public class Interval {
 	 * @param to    to
 	 */
 	public void setInterval(Date from, Date to){
-
+		this.from = from;
+		this.to = to;
 	}
+
+	public void setFrom(Date from)
+	{
+		this.from = from;
+	}
+
+	public void setTo(Date to)
+	{
+		this.to = to;
+	}
+	
+	
 
 }

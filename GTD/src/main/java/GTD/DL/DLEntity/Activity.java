@@ -1,6 +1,7 @@
 package GTD.DL.DLEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 
 /**
@@ -13,6 +14,12 @@ import javax.persistence.Entity;
 @Entity
 public class Activity extends Action {
 
+	/**
+	 * stav činnosti
+	 */
+	@ManyToOne
+	private ActivityState stav;
+	
 	public Activity(){
 
 	}
@@ -46,5 +53,17 @@ public class Activity extends Action {
 	public Activity(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
 
 	}
+
+	public ActivityState getStav()
+	{
+		return stav;
+	}
+
+	public void setStav(ActivityState stav)
+	{
+		this.stav = stav;
+	}
+	
+	
 
 }

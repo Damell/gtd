@@ -16,7 +16,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  * @created 19-10-2014 12:30:50
  */
 @MappedSuperclass
-public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
+public abstract class Action { 
 
 	@Id
 	@GeneratedValue
@@ -31,17 +31,14 @@ public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
 	 */
 	@Column(length = 1000, nullable = true)
 	private String popis;
-	/**
-	 * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy definované v
-	 * databázi).
-	 */
-	// TODO steklsim enum? entita? "types" tabulka? 
-	private int stav;
-	/**
-	 * Název stavu aktivity
-	 */
-	// TODO steklsim to same jako predchozi
-	private String stavPopis;
+	
+//	/**
+//	 * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy definované v
+//	 * databázi).
+//	 */
+//	// TODO steklsim enum? entita? "types" tabulka? 
+//	private int stav;
+	
 	/**
 	 * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v
 	 * případě úkolu a projektu dokončit a delegovat).
@@ -93,7 +90,7 @@ public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
 	 * @return id
 	 */
 	public int getId(){
-		return 0;
+		return id;
 	}
 
 	/**
@@ -101,7 +98,7 @@ public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
 	 * @return nazev
 	 */
 	public String getNazev(){
-		return "";
+		return nazev;
 	}
 
 	public void setNazev(String nazev)
@@ -116,72 +113,65 @@ public class Action { // TODO steklsim nemela by tohle byt abstraktni trida?
 	 * @return popis
 	 */
 	public String getPopis(){
-		return "";
+		return popis;
 	}
 
-	/**
-	 * Vrátí id stavu aktivity
-	 * @return id
-	 */
-	public int getStav(){
-		return 0;
-	}
+//	/**
+//	 * Vrátí id stavu aktivity
+//	 * @return id
+//	 */
+//	public int getStav(){
+//		return stav;
+//	}
 
-	/**
-	 * Vrátí popis stavu aktivity
-	 * @return popis
-	 */
-	public String getStavPopis(){
-		return "";
-	}
 
 	/**
 	 * Vrátí id vlastníka aktivity
 	 * @return vlastnik_id
 	 */
-	public int getVlastnik_id(){
-		return 0;
+	public Person getVlastnik() {
+		return vlastnik;
 	}
 
-	/**
-	 * Nastav aktivitu
-	 * 
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id    vlastnik_id
-	 */
-	public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
-
-	}
-
-	/**
-	 * Nastavi id aktivity
-	 * 
-	 * @param id    id
-	 */
-	public void setId(int id){
-
-	}
-
-	/**
-	 * Nastav stav aktivity
-	 * 
-	 * @param stav    stav
-	 */
-	public void setStav(int stav){
-
-	}
+//	/**
+//	 * Nastav aktivitu
+//	 * 
+//	 * @param id
+//	 * @param nazev
+//	 * @param popis
+//	 * @param stav
+//	 * @param stavPopis
+//	 * @param vlastnik_id    vlastnik_id
+//	 */
+//	public void setAktivita(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
+//
+//	}
+//
+//	/**
+//	 * Nastavi id aktivity
+//	 * 
+//	 * @param id    id
+//	 */
+//	public void setId(int id){
+//
+//	}
+//
+//	/**
+//	 * Nastav stav aktivity
+//	 * 
+//	 * @param stav    stav
+//	 */
+//	public void setStav(int stav){
+//
+//	}
 
 	/**
 	 * Nastav vlastníka aktivity
 	 * 
-	 * @param id    id
+	 * @param vlastnik
 	 */
-	public void setVlastnikID(int id){
-
+	public void setVlastnik(Person vlastnik){
+		this.vlastnik = vlastnik;
 	}
 
 	/**

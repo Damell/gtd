@@ -39,6 +39,12 @@ public class Project extends Action {
 	 */
 	@OneToMany(mappedBy = "projekt")
 	private List<Task> ukoly;
+	
+	/**
+	 * stav projektu
+	 */
+	@ManyToOne
+	private ProjectState stav;
 
 
 	public void finalize() throws Throwable {
@@ -86,7 +92,7 @@ public class Project extends Action {
 	 * @param osoba    osoba
 	 */
 	public void addOsoba(Person osoba){
-
+		
 	}
 
 	/**
@@ -95,7 +101,7 @@ public class Project extends Action {
 	 * @param projekt    projekt
 	 */
 	public void addProjekt(Project projekt){
-
+		
 	}
 
 	/**
@@ -112,7 +118,7 @@ public class Project extends Action {
 	 * @return List<Projekt>
 	 */
 	public List<Project> getProjekty(){
-		return null;
+		return projekty;
 	}
 
 	/**
@@ -120,15 +126,22 @@ public class Project extends Action {
 	 * @return id
 	 */
 	public Project getRodic(){
-		return null;
+		return rodic;
 	}
+
+	public void setRodic(Project rodic)
+	{
+		this.rodic = rodic;
+	}
+	
+	
 
 	/**
 	 * Vrati skupinu v projektu
-	 * @return List<Osoba>
+	 * @return List<Person>
 	 */
 	public List<Person> getSkupina(){
-		return null;
+		return skupina;
 	}
 
 	/**
@@ -161,5 +174,17 @@ public class Project extends Action {
 	public String toString(){
 		return "";
 	}
+
+	public ProjectState getStav()
+	{
+		return stav;
+	}
+
+	public void setStav(ProjectState stav)
+	{
+		this.stav = stav;
+	}
+	
+	
 
 }

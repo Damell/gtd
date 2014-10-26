@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -42,17 +43,21 @@ public class Person {
 	@Column(length = 20, nullable = false)
 	private String login;
 	
-	@Transient
-	public Activity m_Cinnost;	// <---- TODO steklsim what are these?
-	@Transient					//    |
-	public Context m_Kontext;	// <--
+//	@Transient
+//	public Activity m_Cinnost;	// <---- TODO steklsim smazat
+//	@Transient					//    |
+//	public Context m_Kontext;	// <--
 	/**
 	 * Příjmení uživatele.
 	 */
 	@Column(length = 20, nullable = false)
 	private String prijmeni;
 
-	// TODO steklsim v tabulce "persons" z minuleho semestru je fk id_types - co to je za vazbu? 
+	/**
+	 * stav osoby
+	 */
+	@ManyToOne
+	private PersonState stav;
 
 	public void finalize() throws Throwable {
 
@@ -91,7 +96,7 @@ public class Person {
 	 * @return id
 	 */
 	public int getId(){
-		return 0;
+		return id;
 	}
 
 	/**
@@ -99,7 +104,7 @@ public class Person {
 	 * @return jmeno
 	 */
 	public String getJmeno(){
-		return "";
+		return jmeno;
 	}
 
 	/**
@@ -107,7 +112,7 @@ public class Person {
 	 * @return List<Kontakt>
 	 */
 	public List<Contact> getKontakty(){
-		return null;
+		return kontakty;
 	}
 
 	/**
@@ -115,31 +120,16 @@ public class Person {
 	 * @return login
 	 */
 	public String getLogin(){
-		return "";
+		return login;
 	}
 
-	/**
-	 * Vrátí činnost
-	 * @return m_Cinnost
-	 */
-	public Activity getM_Cinnost(){
-		return null;
-	}
-
-	/**
-	 * Vrátí kontext
-	 * @return m_Kontext
-	 */
-	public Context getM_Kontext(){
-		return null;
-	}
 
 	/**
 	 * Vrátí příjmení osoby
 	 * @return prijmeni
 	 */
 	public String getPrijmeni(){
-		return "";
+		return prijmeni;
 	}
 
 	/**
@@ -151,4 +141,35 @@ public class Person {
 		return "";
 	}
 
+	public PersonState getStav()
+	{
+		return stav;
+	}
+
+	public void setJmeno(String jmeno)
+	{
+		this.jmeno = jmeno;
+	}
+
+	public void setKontakty(List<Contact> kontakty)
+	{
+		this.kontakty = kontakty;
+	}
+
+	public void setLogin(String login)
+	{
+		this.login = login;
+	}
+
+	public void setPrijmeni(String prijmeni)
+	{
+		this.prijmeni = prijmeni;
+	}
+
+	public void setStav(PersonState stav)
+	{
+		this.stav = stav;
+	}
+
+	
 }

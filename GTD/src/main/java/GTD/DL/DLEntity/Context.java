@@ -37,30 +37,4 @@ public class Context extends Filter {
 
 	}
 
-	/**
-	 * Vrati id kontextu
-	 * @return id
-	 */
-	public int getKontextId(){
-		return 0;
-	}
-
-	/**
-	 * Vrati nazev kontextu
-	 * @return nazev
-	 */
-	public String getKontextNazev(){
-		return "";
-	}
-
-	/**
-	 * Nastav kontext
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public void setKontext(int id, String nazev){
-
-	}
-
 }

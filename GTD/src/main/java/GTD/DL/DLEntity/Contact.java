@@ -23,18 +23,20 @@ public class Contact {
 	 * Contact pro zasílání upozornění
 	 */
 	@Column(length = 100, nullable = false)
-	private String Kontakt;
+	private String kontakt;
 	/**
 	 * typ spojení (email, telefon, ...)
 	 */
-	// TODO steklsim hibernate mapping - database table "types"? 
-	private String Typ;
-
+	@ManyToOne
+	private ContactType typ;
+	
 	/**
 	 * vlastník kontaktu
 	 */
 	@ManyToOne
 	private Person osoba;
+	
+	
 
 
 	public void finalize() throws Throwable {
@@ -47,5 +49,43 @@ public class Contact {
 	public Contact(){
 
 	}
+
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public String getKontakt()
+	{
+		return kontakt;
+	}
+
+	public void setKontakt(String kontakt)
+	{
+		this.kontakt = kontakt;
+	}
+
+	public ContactType getTyp()
+	{
+		return typ;
+	}
+
+	public void setTyp(ContactType typ)
+	{
+		this.typ = typ;
+	}
+
+	public Person getOsoba()
+	{
+		return osoba;
+	}
+
+	public void setOsoba(Person osoba)
+	{
+		this.osoba = osoba;
+	}
+	
+	
 
 }

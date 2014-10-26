@@ -3,6 +3,7 @@ package GTD.DL.DLEntity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 
@@ -25,7 +26,11 @@ public class Filter { // TODO steklsim nemela by tohle byt abstraktni trida?
 	@Column(length = 100, nullable = false)
 	private String nazev;
 
-
+	/**
+	 * Vlastník filtru (filtry má každý uživatel své)
+	 */
+	@ManyToOne
+	private Person vlastnik;
 
 	public void finalize() throws Throwable {
 
@@ -38,21 +43,28 @@ public class Filter { // TODO steklsim nemela by tohle byt abstraktni trida?
 
 	}
 
-	/**
-	 * Vrati id filtru
-	 * @return id
-	 */
-	public int getFiltrId(){
-		return 0;
-	}
+//	/**
+//	 * Vrati id filtru
+//	 * @return id
+//	 */
+//	public int getFiltrId(){
+//		return 0;
+//	}
+//
+//	/**
+//	 * Vrati nazev filtru
+//	 * @return nazev
+//	 */
+//	public String getFiltrNazev(){
+//		return "";
+//	}
 
-	/**
-	 * Vrati nazev filtru
-	 * @return nazev
-	 */
-	public String getFiltrNazev(){
-		return "";
+	public int getId()
+	{
+		return id;
 	}
+	
+	
 
 	/**
 	 * Nastavi id a nazev filtru
@@ -63,5 +75,27 @@ public class Filter { // TODO steklsim nemela by tohle byt abstraktni trida?
 	public void setFiltr(int id, String nazev){
 
 	}
+
+	public String getNazev()
+	{
+		return nazev;
+	}
+
+	public void setNazev(String nazev)
+	{
+		this.nazev = nazev;
+	}
+
+	public Person getVlastnik()
+	{
+		return vlastnik;
+	}
+
+	public void setVlastnik(Person vlastnik)
+	{
+		this.vlastnik = vlastnik;
+	}
+	
+	
 
 }

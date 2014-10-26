@@ -30,24 +30,19 @@ public class Task extends Action {
 	/**
 	 * Záznam o úkolu v kalendáři.
 	 */
-	@OneToOne(cascade = CascadeType.ALL)	// TODO steklsim nebo je to kolekce?
+	@OneToOne(cascade = CascadeType.ALL)
 	private Interval kalendar;
 	/**
 	 * Context úkolu.
 	 */
-	@OneToOne
+	@ManyToOne
 	private Context kontext;
-//	/**
-//	 * Nazev projektu ukolu
-//	 */
-//	@Column(length = 100, nullable = false)
-//	private String projekt_nazev;			<- TODO steklsim proc je tady tohle?
-//	/**
-//	 * Popis projektu ukolu
-//	 */
-//	@Column(length = 1000)
-//	private String projekt_popis;
 
+	/**
+	 * Stav úkolu
+	 */
+	@ManyToOne
+	private TaskState stav;
 
 
 	public void finalize() throws Throwable {
@@ -95,7 +90,7 @@ public class Task extends Action {
 	 * @return kalendar
 	 */
 	public Interval getKalendar(){
-		return null;
+		return kalendar;
 	}
 
 	/**
@@ -103,79 +98,56 @@ public class Task extends Action {
 	 * @return kontext
 	 */
 	public Context getKontext(){
-		return null;
+		return kontext;
 	}
 
 	/**
 	 * Vrati projekt úkolu
-	 * @return id
+	 * @return projekt
 	 */
-	public int getProjekt(){
-		return 0;
+	public Project getProjekt(){
+		return projekt;
 	}
 
 	/**
-	 * Vrátí název projektu
-	 * @return nazev
+	 * Vrati tvurce úkolu
+	 * @return tvurce
 	 */
-	public String getProjektNazev(){
-		return "";
+	public Person getTvurce(){
+		return tvurce;
 	}
 
-	/**
-	 * Vrátí popis projektu
-	 * @return nazev
-	 */
-	public String getProjektPopis(){
-		return "";
+	public void setProjekt(Project projekt)
+	{
+		this.projekt = projekt;
 	}
 
-	/**
-	 * Vrati id osoby tvurce úkolu
-	 * @return id
-	 */
-	public int getTvurce(){
-		return 0;
+	public void setTvurce(Person tvurce)
+	{
+		this.tvurce = tvurce;
 	}
 
-	/**
-	 * Nastav interval ukolu
-	 * 
-	 * @param from
-	 * @param to    to
-	 */
-	public void setInterval(Date from, Date to){
-
+	public void setKalendar(Interval kalendar)
+	{
+		this.kalendar = kalendar;
 	}
 
-	/**
-	 * Nastav uzivatelsky kontext ukolu
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public void setKontext(int id, String nazev){
-
+	public void setKontext(Context kontext)
+	{
+		// TODO steklsim vyjimka pokud vlastnik ukolu != vlastnik kontextu 
+		this.kontext = kontext;
 	}
 
-	/**
-	 * Nastav projekt ukolu
-	 * 
-	 * @param id_projekt
-	 * @param nazev
-	 * @param popis    popis
-	 */
-	public void setProjekt(int id_projekt, String nazev, String popis){
-
+	public TaskState getStav()
+	{
+		return stav;
 	}
 
-	/**
-	 * Nastav id projetku k ukolu
-	 * 
-	 * @param id_projekt    id_projekt
-	 */
-	public void setProjekt(int id_projekt){
-
+	public void setStav(TaskState stav)
+	{
+		this.stav = stav;
 	}
+
+	
 
 }

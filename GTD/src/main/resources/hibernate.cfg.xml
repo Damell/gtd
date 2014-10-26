@@ -18,5 +18,11 @@
     <mapping class="GTD.DL.DLEntity.Filter"/>
     <mapping class="GTD.DL.DLEntity.Context"/>
     <mapping class="GTD.DL.DLEntity.Interval"/>
+    <mapping class="GTD.DL.DLEntity.Type"/>
+    <mapping class="GTD.DL.DLEntity.ActivityState"/>
+    <mapping class="GTD.DL.DLEntity.ContactType"/>
+    <mapping class="GTD.DL.DLEntity.PersonState"/>
+    <mapping class="GTD.DL.DLEntity.ProjectState"/>
+    <mapping class="GTD.DL.DLEntity.TaskState"/>
   </session-factory>
 </hibernate-configuration>

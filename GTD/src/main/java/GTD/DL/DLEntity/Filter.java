@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
  * @created 19-10-2014 12:30:52
  */
 @MappedSuperclass
-public abstract class Filter { // TODO steklsim nemela by tohle byt abstraktni trida?
+public abstract class Filter { 
 
 	@Id
 	@GeneratedValue

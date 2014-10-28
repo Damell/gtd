@@ -1,168 +1,170 @@
 package GTD.DL.DLDAO;
 
+import GTD.DL.DLEntity.ActivityState;
+import GTD.DL.DLEntity.ContactType;
+import GTD.DL.DLEntity.PersonState;
+import GTD.DL.DLEntity.ProjectState;
+import GTD.DL.DLEntity.TaskState;
+import GTD.DL.DLEntity.Type;
 import GTD.DL.DLInterfaces.IDAOState;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
- * Trída zapouzdruje metody pro získání ID stavů objektů
+ * Trída zapouzdruje metody pro získání stavů objektů
+ *
  * @author Šimon
  * @version 1.0
  * @created 19-10-2014 12:30:52
  */
-public class DAOState implements IDAOState {
+public class DAOState implements IDAOState
+{
 
-	public DAOState(){
+	private static final String TYPE_PERSON_AKTIVNI = "A";
+	private static final String TYPE_PERSON_NEAKTIVNI = "N";
+
+	private static final String TYPE_ACTIVITY_KEZPRACOVANI = "K";
+	private static final String TYPE_ACTIVITY_ZAHOZENA = "H";
+	private static final String TYPE_ACTIVITY_ARCHIVOVANA = "A";
+	private static final String TYPE_ACTIVITY_ODLOZENA = "O";
+	private static final String TYPE_ACTIVITY_ZPRACOVANA = "Z";
+
+	private static final String TYPE_CONTACT_EMAIL = "E";
+	private static final String TYPE_CONTACT_TELEFON = "T";
+
+	private static final String TYPE_PROJECT_AKTIVNI = "A";
+	private static final String TYPE_PROJECT_DOKONCENY = "D";
+
+	private static final String TYPE_TASK_VYTVORENY = "V";
+	private static final String TYPE_TASK_AKTIVNI = "A";
+	private static final String TYPE_TASK_VKALENDARI = "K";
+	private static final String TYPE_TASK_HOTOVY = "H";
+
+	private SessionFactory sessionFactory;
+
+	public DAOState()
+	{
 
 	}
 
-	public void finalize() throws Throwable {
+	public void setSessionFactory(SessionFactory factory)
+	{
+		this.sessionFactory = factory;
+	}
+
+	protected Session openSession()
+	{
+		return sessionFactory.openSession();
+	}
+
+	public void finalize() throws Throwable
+	{
 
 	}
 
-	/**
-	 * Vrátí ID stavu: činnost Archivovaná
-	 * @return id
-	 */
+	private Type getType(Class clazz, String kod)
+	{
+		Session session = this.openSession();
+		String hql = "from " + clazz.getSimpleName() + " where kod = :code ";
+		Query query = session.createQuery(hql);
+		query.setParameter("code", kod);
+		List list = query.list();
+		if (list.size() != 1) {
+			throw new RuntimeException("One type for entity '" + clazz.getSimpleName() + "' with code '" + kod + "' expected, got " + list.size());
+		}
+		session.close();
+        return (Type) list.get(0);
+	}
+
 	@Override
-	public int getCinnostArchivovanaID(){
-		return 0;
+	public ActivityState getCinnostArchivovana()
+	{
+		return (ActivityState) this.getType(ActivityState.class, TYPE_ACTIVITY_ARCHIVOVANA);
 	}
 
-	/**
-	 * Vrátí ID stavu: činost Ke zpracování
-	 * @return  id
-	 */
 	@Override
-	public int getCinnostKeZpracovaniID(){
-		return 0;
+	public ActivityState getCinnostKeZpracovani()
+	{
+		return (ActivityState) this.getType(ActivityState.class, TYPE_ACTIVITY_KEZPRACOVANI);
 	}
 
-	/**
-	 * Vrátí ID stavu: činost Odlozena
-	 * @return  id
-	 */
 	@Override
-	public int getCinnostOdlozenaID(){
-		return 0;
+	public ActivityState getCinnostOdlozena()
+	{
+		return (ActivityState) this.getType(ActivityState.class, TYPE_ACTIVITY_ODLOZENA);
 	}
 
-	/**
-	 * Vrátí ID stavu: činost Zahozena
-	 * @return  id
-	 */
 	@Override
-	public int getCinnostZahozenaID(){
-		return 0;
+	public ActivityState getCinnostZahozena()
+	{
+		return (ActivityState) this.getType(ActivityState.class, TYPE_ACTIVITY_ZAHOZENA);
 	}
 
-	/**
-	 * Vrátí ID stavu: činost Odlozena
-	 * @return  id
-	 */
 	@Override
-	public int getCinnostZpracovanaID(){
-		return 0;
+	public ActivityState getCinnostZpracovana()
+	{
+		return (ActivityState) this.getType(ActivityState.class, TYPE_ACTIVITY_ZPRACOVANA);
 	}
 
-	/**
-	 * Vrátí ID stavu dle tabulky a kodu stavu
-	 * @param název tabulky (tasks,project,..)
-	 * @param kód stavu
-	 * 
-	 * @param table_name
-	 * @param code
-	 */
-	private int getID(String table_name, String code){
-		return 0;
-	}
-
-	/**
-	 * Vrátí ID stavu: konatakt email
-	 * @return  id
-	 */
 	@Override
-	public int getKontaktEmailID(){
-		return 0;
+	public ContactType getKontaktEmail()
+	{
+		return (ContactType) this.getType(ContactType.class, TYPE_CONTACT_EMAIL);
 	}
 
-	/**
-	 * Vrátí ID stavu: konatakt telefon
-	 * @return  id
-	 */
 	@Override
-	public int getKontaktTelefonID(){
-		return 0;
+	public ContactType getKontaktTelefon()
+	{
+		return (ContactType) this.getType(ContactType.class, TYPE_CONTACT_TELEFON);
 	}
 
-	/**
-	 * Vrátí ID stavu: osoby Aktivni
-	 * @return  id
-	 */
 	@Override
-	public int getOsobaAktivniID(){
-		return 0;
+	public PersonState getOsobaAktivni()
+	{
+		return (PersonState) this.getType(PersonState.class, TYPE_PERSON_AKTIVNI);
 	}
 
-	/**
-	 * Vrátí ID stavu: osoby Aktivni
-	 * @return  id
-	 */
 	@Override
-	public int getOsobaNeaktivniID(){
-		return 0;
+	public PersonState getOsobaNeaktivni()
+	{
+		return (PersonState) this.getType(PersonState.class, TYPE_PERSON_NEAKTIVNI);
 	}
 
-	/**
-	 * Vrátí ID stavu: projekt Aktivni
-	 * @return  id
-	 */
 	@Override
-	public int getProjektAktivniID(){
-		return 0;
+	public ProjectState getProjektAktivni()
+	{
+		return (ProjectState) this.getType(ProjectState.class, TYPE_PROJECT_AKTIVNI);
 	}
 
-	/**
-	 * Vrátí ID stavu: projekt Dokonceny
-	 * @return  id
-	 */
 	@Override
-	public int getProjektDokoncenyID(){
-		return 0;
+	public ProjectState getProjektDokonceny()
+	{
+		return (ProjectState) this.getType(ProjectState.class, TYPE_PROJECT_DOKONCENY);
 	}
 
-	/**
-	 * Vrátí ID stavu: ukol Aktivni
-	 * @return  id
-	 */
 	@Override
-	public int getUkolAktivniID(){
-		return 0;
+	public TaskState getUkolAktivni()
+	{
+		return (TaskState) this.getType(TaskState.class, TYPE_TASK_AKTIVNI);
 	}
 
-	/**
-	 * Vrátí ID stavu: ukol Hotovy
-	 * @return  id
-	 */
 	@Override
-	public int getUkolHotovyID(){
-		return 0;
+	public TaskState getUkolHotovy()
+	{
+		return (TaskState) this.getType(TaskState.class, TYPE_TASK_HOTOVY);
 	}
 
-	/**
-	 * Vrátí ID stavu: ukol V kalendari
-	 * @return  id
-	 */
 	@Override
-	public int getUkolVKalendariID(){
-		return 0;
+	public TaskState getUkolVKalendari()
+	{
+		return (TaskState) this.getType(TaskState.class, TYPE_TASK_VKALENDARI);
 	}
 
-	/**
-	 * Vrátí ID stavu: ukol Vytvoreny
-	 * @return  id
-	 */
 	@Override
-	public int getUkolVytvorenyID(){
-		return 0;
+	public TaskState getUkolVytvoreny()
+	{
+		return (TaskState) this.getType(TaskState.class, TYPE_TASK_VYTVORENY);
 	}
-
 }

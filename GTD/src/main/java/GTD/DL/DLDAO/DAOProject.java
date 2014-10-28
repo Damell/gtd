@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:51
  */
-public class DAOProject implements IDAOProject {
+public class DAOProject extends DAOGeneric<Project> implements IDAOProject {
 
 
 
@@ -26,44 +26,44 @@ public class DAOProject implements IDAOProject {
 
 	}
 
-	/**
-	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
-	 * @return
-	 * 
-	 * @param projekt
-	 */
-	public boolean createProjekt(Project projekt){
-		return false;
-	}
-
-	/**
-	 * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho úkoly
-	 * a podprojekty.
-	 * @return
-	 * 
-	 * @param projekt
-	 */
-	public boolean deleteProjekt(Project projekt){
-		return false;
-	}
-
-	/**
-	 * Vrátí všechny projekty v systému.
-	 * @return List<Projekt>
-	 */
-	public List<Project> getAllProjekty(){
-		return null;
-	}
-
-	/**
-	 * Vrátí projekt podle jeho ID.
-	 * @return projekt
-	 * 
-	 * @param id
-	 */
-	public Project getProjekt(int id){
-		return null;
-	}
+//	/**
+//	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze.
+//	 * @return
+//	 * 
+//	 * @param projekt
+//	 */
+//	public boolean createProjekt(Project projekt){
+//		return false;
+//	}
+//
+//	/**
+//	 * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho úkoly
+//	 * a podprojekty.
+//	 * @return
+//	 * 
+//	 * @param projekt
+//	 */
+//	public boolean deleteProjekt(Project projekt){
+//		return false;
+//	}
+//
+//	/**
+//	 * Vrátí všechny projekty v systému.
+//	 * @return List<Projekt>
+//	 */
+//	public List<Project> getAllProjekty(){
+//		return null;
+//	}
+//
+//	/**
+//	 * Vrátí projekt podle jeho ID.
+//	 * @return projekt
+//	 * 
+//	 * @param id
+//	 */
+//	public Project getProjekt(int id){
+//		return null;
+//	}
 
 	/**
 	 * Vrátí všechny projekty patřící zadané osobe.
@@ -75,14 +75,27 @@ public class DAOProject implements IDAOProject {
 		return null;
 	}
 
-	/**
-	 * Uloží zmenený projekt.
-	 * @return
-	 * 
-	 * @param projekt
-	 */
-	public boolean updateProjekt(Project projekt){
-		return false;
+//	/**
+//	 * Uloží zmenený projekt.
+//	 * @return
+//	 * 
+//	 * @param projekt
+//	 */
+//	public boolean updateProjekt(Project projekt){
+//		return false;
+//	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Project> getAll()
+	{
+		return (List<Project>) this.getAll(Project.class);
+	}
+
+	@Override
+	public Project get(int id)
+	{
+		return (Project) this.get(Project.class, id);
 	}
 
 }

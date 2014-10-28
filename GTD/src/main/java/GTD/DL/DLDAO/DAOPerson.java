@@ -10,7 +10,8 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:51
  */
-public class DAOPerson implements IDAOPerson {
+public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson 
+{
 
 
 
@@ -25,15 +26,15 @@ public class DAOPerson implements IDAOPerson {
 
 	}
 
-	/**
-	 * Vytvoří nového uživatele.
-	 * @return
-	 * 
-	 * @param osoba
-	 */
-	public boolean createOsoba(Person osoba){
-		return false;
-	}
+//	/**
+//	 * Vytvoří nového uživatele.
+//	 * @return
+//	 * 
+//	 * @param osoba
+//	 */
+//	public boolean createOsoba(Person osoba){
+//		return false;
+//	}
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
@@ -45,13 +46,13 @@ public class DAOPerson implements IDAOPerson {
 		return false;
 	}
 
-	/**
-	 * Vrátí všechny osoby.
-	 * @return List<Osoba>
-	 */
-	public List<Person> getAllOsoby(){
-		return null;
-	}
+//	/**
+//	 * Vrátí všechny osoby.
+//	 * @return List<Osoba>
+//	 */
+//	public List<Person> getAllOsoby(){
+//		return null;
+//	}
 
 	/**
 	 * Vráti osoby dle zadaného loginu
@@ -65,20 +66,21 @@ public class DAOPerson implements IDAOPerson {
 		return null;
 	}
 
-	/**
-	 * Vrátí osobu podle jejího ID.
-	 * @return osoba
-	 * 
-	 * @param id
-	 */
-	public Person getOsoba(int id){
-		return null;
-	}
+//	/**
+//	 * Vrátí osobu podle jejího ID.
+//	 * @return osoba
+//	 * 
+//	 * @param id
+//	 */
+//	public Person getOsoba(int id){
+//		return null;
+//	}
 
 	/**
 	 * Vrátí ID prihlasene ososby.
 	 * @return id
 	 */
+	@Override
 	public int getOsobaID(){
 		return 0;
 	}
@@ -89,6 +91,7 @@ public class DAOPerson implements IDAOPerson {
 	 * 
 	 * @param login
 	 */
+	@Override
 	public boolean checkNewLogin(String login){
 		return false;
 	}
@@ -99,6 +102,7 @@ public class DAOPerson implements IDAOPerson {
 	 * 
 	 * @param login
 	 */
+	@Override
 	public boolean checkPrihlaseni(String login){
 		return false;
 	}
@@ -111,6 +115,20 @@ public class DAOPerson implements IDAOPerson {
 	 */
 	public boolean updateOsoba(Person osoba){
 		return false;
+	}
+	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Person> getAll()
+	{
+		return (List<Person>) this.getAll(Person.class);
+	}
+
+	@Override
+	public Person get(int id)
+	{
+		return (Person) this.get(Person.class, id);
 	}
 
 }

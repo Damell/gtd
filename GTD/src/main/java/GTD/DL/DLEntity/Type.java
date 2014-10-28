@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Třída reprezentuje obecný typ (vlastnost která nabývá jen urč. konkrétních hodnot)
@@ -24,6 +26,9 @@ import javax.persistence.MappedSuperclass;
 @DiscriminatorColumn(
     name="type",
     discriminatorType = DiscriminatorType.STRING
+)
+@Table(
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"type", "kod"})}
 )
 abstract public class Type
 {

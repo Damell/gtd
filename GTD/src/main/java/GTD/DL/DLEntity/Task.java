@@ -148,6 +148,12 @@ public class Task extends Action {
 		this.stav = stav;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Ukol: id=" + this.getId() + ", nazev=" + this.getNazev();
+	}
+
 	
 
 }

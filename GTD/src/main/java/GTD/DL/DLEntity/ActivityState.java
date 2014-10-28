@@ -16,5 +16,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue("ActivityState")
 public class ActivityState extends Type
 {
+
+	@Override
+	public String toString()
+	{
+		return ActivityState.class.getSimpleName() + ": id=" + this.getId() + ", nazev=" + this.getNazev();
+	}
 	
 }

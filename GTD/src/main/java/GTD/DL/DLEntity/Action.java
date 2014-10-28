@@ -3,10 +3,8 @@ package GTD.DL.DLEntity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 
 /**
@@ -180,7 +178,7 @@ public abstract class Action {
 	 */
 	@Override
 	public String toString(){
-		return "";
+		return "Cinnost: id=" + id + ", nazev=" + nazev;
 	}
 
 }

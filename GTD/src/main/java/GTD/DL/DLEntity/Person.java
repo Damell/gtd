@@ -43,10 +43,6 @@ public class Person {
 	@Column(length = 20, nullable = false)
 	private String login;
 	
-//	@Transient
-//	public Activity m_Cinnost;	// <---- TODO steklsim smazat
-//	@Transient					//    |
-//	public Context m_Kontext;	// <--
 	/**
 	 * Příjmení uživatele.
 	 */
@@ -138,7 +134,7 @@ public class Person {
 	 */
 	@Override
 	public String toString(){
-		return "";
+		return "Osoba: id=" + id + ", login=" + login + ", jmeno=" + jmeno + " " + prijmeni;
 	}
 
 	public PersonState getStav()

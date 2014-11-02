@@ -1,8 +1,10 @@
 package GTD.DL.DLEntity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -30,6 +32,7 @@ public abstract class Filter {
 	 * Vlastník filtru (filtry má každý uživatel své)
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Person vlastnik;
 
 	public void finalize() throws Throwable {
@@ -42,6 +45,15 @@ public abstract class Filter {
 	public Filter(){
 
 	}
+
+	public Filter(String nazev, Person vlastnik)
+	{
+		this.nazev = nazev;
+		this.vlastnik = vlastnik;
+	}
+	
+	
+	
 
 //	/**
 //	 * Vrati id filtru
@@ -94,6 +106,37 @@ public abstract class Filter {
 	public void setVlastnik(Person vlastnik)
 	{
 		this.vlastnik = vlastnik;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 67 * hash + this.id;
+		hash = 67 * hash + Objects.hashCode(this.nazev);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Filter other = (Filter) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.nazev, other.nazev)) {
+			return false;
+		}
+		if (!Objects.equals(this.vlastnik, other.vlastnik)) {
+			return false;
+		}
+		return true;
 	}
 	
 	

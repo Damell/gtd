@@ -1,14 +1,15 @@
 package GTD.DL.DLEntity;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 
 /**
@@ -40,7 +41,7 @@ public class Person {
 	/**
 	 * uživatelské jméno, unikátní v celém systému
 	 */
-	@Column(length = 20, nullable = false)
+	@Column(length = 20, nullable = false, unique = true)
 	private String login;
 	
 	/**
@@ -53,39 +54,52 @@ public class Person {
 	 * stav osoby
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private PersonState stav;
 
 	public void finalize() throws Throwable {
 
 	}
-
-	/**
-	 * Nastav osobu
-	 * 
-	 * @param id
-	 * @param login
-	 * @param jmeno
-	 * @param prijmeni    prijmeni
-	 */
-	public Person(int id, String login, String jmeno, String prijmeni){
-
-	}
-
-	/**
-	 * Konstruktor osoby
-	 * 
-	 * @param osoba    osoba
-	 */
-	public Person(Person osoba){
-
-	}
-
+	
 	/**
 	 * Konstruktor osoby
 	 */
 	public Person(){
 
 	}
+
+//	/**
+//	 * Nastav osobu
+//	 * 
+//	 * @param id
+//	 * @param login
+//	 * @param jmeno
+//	 * @param prijmeni    prijmeni
+//	 */
+//	public Person(int id, String login, String jmeno, String prijmeni){
+//
+//	}
+
+	public Person(String jmeno, String prijmeni, String login, PersonState stav)
+	{
+		this.jmeno = jmeno;
+		this.login = login;
+		this.prijmeni = prijmeni;
+		this.stav = stav;
+	}
+	
+	
+
+//	/**
+//	 * kopirujici konstruktor
+//	 * 
+//	 * @param osoba    osoba
+//	 */
+//	public Person(Person osoba){
+//		this(osoba.getJmeno(), osoba.getPrijmeni(), osoba.getLogin(), osoba.getStav());
+//		kontakty = osoba.getKontakty();
+//	}
+
 
 	/**
 	 * Vrátí id osoby
@@ -167,5 +181,61 @@ public class Person {
 		this.stav = stav;
 	}
 
+	public void addKontakt(Contact kontakt)
+	{
+		// TODO steklsim Set misto Listu?
+		kontakty.add(kontakt);
+	}
+
+	public boolean removeKontakt(Contact kontakt)
+	{
+		return kontakty.remove(kontakt);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 37 * hash + this.id;
+		hash = 37 * hash + Objects.hashCode(this.jmeno);
+		hash = 37 * hash + Objects.hashCode(this.kontakty);
+		hash = 37 * hash + Objects.hashCode(this.login);
+		hash = 37 * hash + Objects.hashCode(this.prijmeni);
+		hash = 37 * hash + Objects.hashCode(this.stav);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Person other = (Person) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.jmeno, other.jmeno)) {
+			return false;
+		}
+		if (!Objects.equals(this.kontakty, other.kontakty)) {
+			return false;
+		}
+		if (!Objects.equals(this.login, other.login)) {
+			return false;
+		}
+		if (!Objects.equals(this.prijmeni, other.prijmeni)) {
+			return false;
+		}
+		if (!Objects.equals(this.stav, other.stav)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	
 }

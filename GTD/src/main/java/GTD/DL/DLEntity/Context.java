@@ -20,15 +20,15 @@ public class Context extends Filter {
 		super.finalize();
 	}
 
-	/**
-	 * Vytvor kontext
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public Context(int id, String nazev){
-
-	}
+//	/**
+//	 * Vytvor kontext
+//	 * 
+//	 * @param id
+//	 * @param nazev    nazev
+//	 */
+//	public Context(int id, String nazev){
+//
+//	}
 
 	/**
 	 * Kontruktor kontextu
@@ -36,5 +36,14 @@ public class Context extends Filter {
 	public Context(){
 
 	}
+	
+	public Context(String nazev, Person vlastnik)
+	{
+		super(nazev, vlastnik);
+	}
+	
+	
+	
+	
 
 }

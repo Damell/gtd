@@ -1,6 +1,7 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,22 +34,12 @@ public class Interval {
 	@Column(name = "to_date", nullable = false)
 	private Date to;
 
-
+	
 	
 	public void finalize() throws Throwable {
 
 	}
-
-	/**
-	 * Nastavení hodnot intervalu
-	 * 
-	 * @param from
-	 * @param to    to
-	 */
-	public Interval(Date from, Date to){
-
-	}
-
+	
 	/**
 	 * Konstruktor intevalu
 	 */
@@ -56,7 +47,14 @@ public class Interval {
 
 	}
 
+	public Interval(Date from, Date to)
+	{
+		this.from = from;
+		this.to = to;
+	}
+
 	
+
 	public int getId()
 	{
 		return id;
@@ -105,6 +103,38 @@ public class Interval {
 	public void setTo(Date to)
 	{
 		this.to = to;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 29 * hash + this.id;
+		hash = 29 * hash + Objects.hashCode(this.from);
+		hash = 29 * hash + Objects.hashCode(this.to);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Interval other = (Interval) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.from, other.from)) {
+			return false;
+		}
+		if (!Objects.equals(this.to, other.to)) {
+			return false;
+		}
+		return true;
 	}
 	
 	

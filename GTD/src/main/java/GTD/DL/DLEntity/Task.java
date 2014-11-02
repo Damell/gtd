@@ -1,9 +1,11 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -26,6 +28,7 @@ public class Task extends Action {
 	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Person tvurce;
 	/**
 	 * Záznam o úkolu v kalendáři.
@@ -42,6 +45,7 @@ public class Task extends Action {
 	 * Stav úkolu
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private TaskState stav;
 
 
@@ -49,6 +53,17 @@ public class Task extends Action {
 		super.finalize();
 	}
 
+	public Task(String nazev, String popis, Person vlastnik, Project projekt, Person tvurce, TaskState stav)
+	{
+		super(nazev, popis, vlastnik);
+		this.projekt = projekt;
+		this.tvurce = tvurce;
+		this.stav = stav;
+	}
+
+	
+	
+	
 	/**
 	 * Inicializace ukolu
 	 * 
@@ -152,6 +167,40 @@ public class Task extends Action {
 	public String toString()
 	{
 		return "Ukol: id=" + this.getId() + ", nazev=" + this.getNazev();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 41 * hash + Objects.hashCode(this.kalendar);
+		hash = 41 * hash + Objects.hashCode(this.kontext);
+		hash = 41 * hash + Objects.hashCode(this.stav);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!super.equals(obj)) return false;
+		
+		final Task other = (Task) obj;
+		if (!Objects.equals(this.projekt, other.projekt)) {
+			return false;
+		}
+		if (!Objects.equals(this.tvurce, other.tvurce)) {
+			return false;
+		}
+		if (!Objects.equals(this.kalendar, other.kalendar)) {
+			return false;
+		}
+		if (!Objects.equals(this.kontext, other.kontext)) {
+			return false;
+		}
+		if (!Objects.equals(this.stav, other.stav)) {
+			return false;
+		}
+		return true;
 	}
 
 	

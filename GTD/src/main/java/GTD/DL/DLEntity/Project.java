@@ -1,7 +1,9 @@
 package GTD.DL.DLEntity;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,6 +29,7 @@ public class Project extends Action {
 	 * Rodič - nadřazený projekt.
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Project rodic;
 	/**
 	 * Skupina osob pracujících na projektu - slouží pro delegování aktivit v rámci
@@ -44,47 +47,28 @@ public class Project extends Action {
 	 * stav projektu
 	 */
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private ProjectState stav;
 
 
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
-
-	/**
-	 * Konstruktor projektu
-	 * 
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param vlastnik_id
-	 * @param skupina
-	 * @param rodic    rodic
-	 */
-	public Project(String nazev, String popis, int stav, int vlastnik_id, List<Person> skupina, Project rodic){
-
-	}
-
-	/**
-	 * Konstruktor projektu
-	 * 
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id    vlastnik_id
-	 */
-	public Project(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
-
-	}
-
+	
 	/**
 	 * Konstruktor projektu
 	 */
 	public Project(){
 
 	}
+	
+	public Project(String nazev, String popis, Person vlastnik, Project rodic, ProjectState stav)
+	{
+		super(nazev, popis, vlastnik);
+		this.rodic = rodic;
+		this.stav = stav;
+	}
+	
 
 	/**
 	 * Pridej osobu do projektu
@@ -92,8 +76,15 @@ public class Project extends Action {
 	 * @param osoba    osoba
 	 */
 	public void addOsoba(Person osoba){
-		
+		// TODO steklsim nemela by byt this.skupina spis Set?
+		skupina.add(osoba);
 	}
+	
+	public boolean removeOsoba(Person osoba)
+	{
+		return skupina.remove(osoba);
+	}
+
 
 	/**
 	 * Pridej podprojekt do projektu
@@ -101,8 +92,15 @@ public class Project extends Action {
 	 * @param projekt    projekt
 	 */
 	public void addProjekt(Project projekt){
-		
+		// TODO steklsim nemelo by byt this.projekty spis Set?
+		projekty.add(projekt);
 	}
+	
+	public boolean removeProjekt(Project projekt)
+	{
+		return projekty.remove(projekt);
+	}
+
 
 	/**
 	 * Pridej ukol do projektu
@@ -110,9 +108,16 @@ public class Project extends Action {
 	 * @param ukol    ukol
 	 */
 	public void addUkol(Task ukol){
-
+		// TODO steklsim nemelo by byt this.ukoly spis Set?
+		ukoly.add(ukol);
 	}
 
+	public boolean removeUkol(Task ukol)
+	{
+		// TODO steklsim nemelo by byt this.ukoly spis Set?
+		return ukoly.remove(ukol);
+	}
+	
 	/**
 	 * Vrátí podprojekty
 	 * @return List<Projekt>
@@ -121,6 +126,13 @@ public class Project extends Action {
 		return projekty;
 	}
 
+	public void setProjekty(List<Project> projekty)
+	{
+		this.projekty = projekty;
+	}
+
+	
+	
 	/**
 	 * Vrati id rodice projektu
 	 * @return id
@@ -144,6 +156,13 @@ public class Project extends Action {
 		return skupina;
 	}
 
+	public void setSkupina(List<Person> skupina)
+	{
+		this.skupina = skupina;
+	}
+	
+	
+
 	/**
 	 * Vratí úkoly v projekty
 	 * @returnList<Ukol>
@@ -152,6 +171,13 @@ public class Project extends Action {
 		return null;
 	}
 
+	public void setUkoly(List<Task> ukoly)
+	{
+		this.ukoly = ukoly;
+	}
+
+	
+	
 	/**
 	 * Nastav rodice projektu
 	 * 
@@ -183,6 +209,39 @@ public class Project extends Action {
 	public void setStav(ProjectState stav)
 	{
 		this.stav = stav;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 37 * hash + Objects.hashCode(this.skupina);
+		hash = 37 * hash + Objects.hashCode(this.stav);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!super.equals(obj)) return false;
+		
+		final Project other = (Project) obj;
+		if (!Objects.equals(this.projekty, other.projekty)) {
+			return false;
+		}
+		if (!Objects.equals(this.rodic, other.rodic)) {
+			return false;
+		}
+		if (!Objects.equals(this.skupina, other.skupina)) {
+			return false;
+		}
+		if (!Objects.equals(this.ukoly, other.ukoly)) {
+			return false;
+		}
+		if (!Objects.equals(this.stav, other.stav)) {
+			return false;
+		}
+		return true;
 	}
 	
 	

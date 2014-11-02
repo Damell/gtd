@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -49,39 +50,40 @@ public abstract class Action {
 	public void finalize() throws Throwable {
 
 	}
-
-	/**
-	 * Konstruktor aktivity
-	 * 
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param vlastnik_id    vlastnik_id
-	 */
-	public Action(String nazev, String popis, int stav, int vlastnik_id){
-
-	}
-
-	/**
-	 * Konstruktor aktivity
-	 * 
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id    vlastnik_id
-	 */
-	public Action(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
-
-	}
-
+	
 	/**
 	 * Konstruktor aktivity
 	 */
 	public Action(){
 
 	}
+
+	/**
+	 * Konstruktor aktivity
+	 * 
+	 * @param nazev
+	 * @param popis
+	 * @param vlastnik 
+	 */
+	public Action(String nazev, String popis, Person vlastnik){
+		this.nazev = nazev;
+		this.popis = popis;
+		this.vlastnik = vlastnik;
+	}
+
+//	/**
+//	 * Konstruktor aktivity
+//	 * 
+//	 * @param id
+//	 * @param nazev
+//	 * @param popis
+//	 * @param stav
+//	 * @param stavPopis
+//	 * @param vlastnik_id    vlastnik_id
+//	 */
+//	public Action(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id){
+//
+//	}
 
 	/**
 	 * Vrátí id aktivity
@@ -113,6 +115,13 @@ public abstract class Action {
 	public String getPopis(){
 		return popis;
 	}
+
+	public void setPopis(String popis)
+	{
+		this.popis = popis;
+	}
+	
+	
 
 //	/**
 //	 * Vrátí id stavu aktivity
@@ -180,5 +189,43 @@ public abstract class Action {
 	public String toString(){
 		return "Cinnost: id=" + id + ", nazev=" + nazev;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 89 * hash + this.id;
+		hash = 89 * hash + Objects.hashCode(this.nazev);
+		hash = 89 * hash + Objects.hashCode(this.popis);
+		hash = 89 * hash + Objects.hashCode(this.vlastnik);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Action other = (Action) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.nazev, other.nazev)) {
+			return false;
+		}
+		if (!Objects.equals(this.popis, other.popis)) {
+			return false;
+		}
+		if (!Objects.equals(this.vlastnik, other.vlastnik)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 }

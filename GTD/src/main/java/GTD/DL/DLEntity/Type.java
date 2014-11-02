@@ -5,6 +5,7 @@
  */
 package GTD.DL.DLEntity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -68,29 +70,65 @@ abstract public class Type
 		return kod;
 	}
 
-	public void setKod(String kod)
-	{
-		this.kod = kod;
-	}
+//	public void setKod(String kod)
+//	{
+//		this.kod = kod;
+//	}
 
 	public String getNazev()
 	{
 		return nazev;
 	}
 
-	public void setNazev(String nazev)
-	{
-		this.nazev = nazev;
-	}
+//	public void setNazev(String nazev)
+//	{
+//		this.nazev = nazev;
+//	}
 
 	public String getPopis()
 	{
 		return popis;
 	}
 
-	public void setPopis(String popis)
+//	public void setPopis(String popis)
+//	{
+//		this.popis = popis;
+//	}
+
+	@Override
+	public int hashCode()
 	{
-		this.popis = popis;
+		int hash = 5;
+		hash = 43 * hash + this.id;
+		hash = 43 * hash + Objects.hashCode(this.kod);
+		hash = 43 * hash + Objects.hashCode(this.nazev);
+		hash = 43 * hash + Objects.hashCode(this.popis);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Type other = (Type) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.kod, other.kod)) {
+			return false;
+		}
+		if (!Objects.equals(this.nazev, other.nazev)) {
+			return false;
+		}
+		if (!Objects.equals(this.popis, other.popis)) {
+			return false;
+		}
+		return true;
 	}
 
 	

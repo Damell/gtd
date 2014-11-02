@@ -16,6 +16,7 @@ import GTD.DL.DLEntity.Action;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.PersonState;
 import GTD.DL.DLEntity.Task;
 import java.util.List;
 
@@ -58,29 +59,32 @@ public class HibernateMain
 //		System.out.println("After delete:\n" + all);
 		
 		
+		DAOPerson daoPerson = new DAOPerson();
+		daoPerson.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOState daoState = new DAOState();
+		daoState.setSessionFactory(HibernateUtil.getSessionFactory());
+		
 		// person
 		
 		Person person = new Person();
-		person.setJmeno("testJmeno");
-		person.setPrijmeni("testPrijmeni");
-		person.setLogin("testLogin2");
+		person.setJmeno("Pepa");
+		person.setPrijmeni("Vomáčka");
+		person.setLogin("testLogin");
+		PersonState state = daoState.getOsobaAktivni();
+		person.setStav(state);
 
-		DAOPerson dA = new DAOPerson();
-		dA.setSessionFactory(HibernateUtil.getSessionFactory());
-		
-//		//Get Session
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		//start transaction
-//		session.beginTransaction();
-		//Save the Model object
-//		session.save(task);
-//		//Commit transaction
-//		session.getTransaction().commit();
-//		System.out.println("Task ID=" + task.getId());
+//		Person person2 = new Person();
+//		person2.setJmeno("Franta");
+//		person2.setPrijmeni("Votýpka");
+//		person2.setLogin("testLogin");
+//		person2.setStav(state);
 
-		dA.create(person);
+		daoPerson.create(person);
+//		daoPerson.create(person2);
 		
-		List<Person> all = dA.getAll();
+		
+		
+		List<Person> all = daoPerson.getAll();
 		System.out.println(all);
 //		Person a1 = dA.get(2);
 //		System.out.println(a1);
@@ -92,9 +96,9 @@ public class HibernateMain
 //		all = dA.getAll();
 //		System.out.println("After delete:\n" + all);
 		
-		DAOState ds = new DAOState();
-		ds.setSessionFactory(HibernateUtil.getSessionFactory());
-		ActivityState as = ds.getCinnostKeZpracovani();
+//		DAOState ds = new DAOState();
+//		ds.setSessionFactory(HibernateUtil.getSessionFactory());
+		ActivityState as = daoState.getCinnostKeZpracovani();
 		
 		System.out.println(as);
 		

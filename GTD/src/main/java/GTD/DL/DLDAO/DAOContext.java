@@ -1,9 +1,12 @@
 package GTD.DL.DLDAO;
 
+import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOContext;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání kontextu z databáze.
@@ -70,8 +73,19 @@ public class DAOContext extends DAOGeneric<Context> implements IDAOContext {
 	 * 
 	 * @param osoba
 	 */
+	@Override
+	@SuppressWarnings("unchecked")
 	public List getKontextyOsoby(Person osoba){
-		return null;
+		Session session = this.openSession();
+		Query query = session.createQuery(
+				"from " + Context.class.getName() + " c " + 
+				"where c.vlastnik = :vlastnik"
+		);
+		query.setParameter("vlastnik", osoba);
+		List<Context> contexts = (List<Context>) query.list();
+		session.close();
+		
+		return contexts;
 	}
 
 //	/**

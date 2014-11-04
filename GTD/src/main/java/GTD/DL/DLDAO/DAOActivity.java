@@ -4,6 +4,8 @@ import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOActivity;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání cinností z databáze.
@@ -71,8 +73,18 @@ public class DAOActivity extends DAOGeneric<Activity> implements IDAOActivity {
 	 * @param osoba
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Activity> getCinnostiOsoby(Person osoba){
-		return null;
+		Session session = this.openSession();
+		Query query = session.createQuery(
+				"from " + Activity.class.getName() + " a " + 
+				"where a.vlastnik = :vlastnik"
+		);
+		query.setParameter("vlastnik", osoba);
+		List<Activity> activities = (List<Activity>) query.list();
+		session.close();
+		
+		return activities;
 	}
 //
 //	/**

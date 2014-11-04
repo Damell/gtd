@@ -61,17 +61,17 @@ public class HibernateMain
 		
 		DAOPerson daoPerson = new DAOPerson();
 		daoPerson.setSessionFactory(HibernateUtil.getSessionFactory());
-		DAOState daoState = new DAOState();
-		daoState.setSessionFactory(HibernateUtil.getSessionFactory());
-		
-		// person
-		
-		Person person = new Person();
-		person.setJmeno("Pepa");
-		person.setPrijmeni("Vomáčka");
-		person.setLogin("testLogin");
-		PersonState state = daoState.getOsobaAktivni();
-		person.setStav(state);
+//		DAOState daoState = new DAOState();
+//		daoState.setSessionFactory(HibernateUtil.getSessionFactory());
+//		
+//		// person
+//		
+//		Person person = new Person();
+//		person.setJmeno("Pepa");
+//		person.setPrijmeni("Vomáčka");
+//		person.setLogin("testLogin");
+//		PersonState state = daoState.getOsobaAktivni();
+//		person.setStav(state);
 
 //		Person person2 = new Person();
 //		person2.setJmeno("Franta");
@@ -79,13 +79,17 @@ public class HibernateMain
 //		person2.setLogin("testLogin");
 //		person2.setStav(state);
 
-		daoPerson.create(person);
+//		daoPerson.create(person);
 //		daoPerson.create(person2);
 		
 		
 		
-		List<Person> all = daoPerson.getAll();
-		System.out.println(all);
+//		List<Person> all = daoPerson.getAll();
+//		System.out.println(all);
+//		for (Person p : all) {
+//			System.out.println(p.getClass().getName() + "\n");
+//		}
+		
 //		Person a1 = dA.get(2);
 //		System.out.println(a1);
 //		a1.setJmeno("zmeneny nazev");
@@ -98,12 +102,23 @@ public class HibernateMain
 		
 //		DAOState ds = new DAOState();
 //		ds.setSessionFactory(HibernateUtil.getSessionFactory());
-		ActivityState as = daoState.getCinnostKeZpracovani();
+//		ActivityState as = daoState.getCinnostKeZpracovani();
 		
-		System.out.println(as);
+		DAOActivity daoActivity = new DAOActivity();
+		daoActivity.setSessionFactory(HibernateUtil.getSessionFactory());
+		
+		Person pepa = daoPerson.getOsoba("testLogin");
+		System.out.println("pepa = " + pepa);
+		List<Activity> pepovyCinnosti = daoActivity.getCinnostiOsoby(pepa);
+		
+		for (Activity a : pepovyCinnosti) {
+			System.out.println("Nazev: " + a.getNazev() + ", id: " + a.getId());
+		}
 		
 		//terminate session factory, otherwise program won't end
 		HibernateUtil.getSessionFactory().close();
+		
+		System.out.println("Jo!");
 	}
  
 	

@@ -1,8 +1,11 @@
 package GTD.DL.DLDAO;
 
+import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOPerson;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání osob z databáze.
@@ -58,12 +61,22 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 * Vráti osoby dle zadaného loginu
 	 * @param login
 	 * @return osoba
-	 * 
-	 * @param username
 	 */
 	@Override
-	public Person getOsoba(String username){
-		return null;
+	public Person getOsoba(String login)
+	{
+		Session session = this.openSession();
+		Query query = session.createQuery(
+				"from " + Person.class.getName() + " p " + 
+				"where c.login = :login"
+		);
+		query.setParameter("login", login);
+		List<Person> persons = (List<Person>) query.list();
+		session.close();
+		
+		if (persons.isEmpty()) return null; // TODO steklsim pri neplatnem loginu hodit vyjimku?
+		
+		return persons.get(0);
 	}
 
 //	/**
@@ -82,18 +95,19 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 */
 	@Override
 	public int getOsobaID(){
-		return 0;
+		throw new UnsupportedOperationException("method is not yet implemented");
+		// TODO steklsim implementovat tohle az bude jasny jak funguje prihlasovani
 	}
 
 	/**
 	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
-	 * @return
+	 * @return true kdyz je login volny, jinak false
 	 * 
 	 * @param login
 	 */
 	@Override
 	public boolean checkNewLogin(String login){
-		return false;
+		return this.getOsoba(login) == null;
 	}
 
 	/**
@@ -104,18 +118,19 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 */
 	@Override
 	public boolean checkPrihlaseni(String login){
-		return false;
+		throw new UnsupportedOperationException("method is not yet implemented");
+		// TODO steklsim implementovat tohle az bude jasny jak funguje prihlasovani
 	}
 
-	/**
-	 * Uloží změny osoby.
-	 * @return
-	 * 
-	 * @param osoba
-	 */
-	public boolean updateOsoba(Person osoba){
-		return false;
-	}
+//	/**
+//	 * Uloží změny osoby.
+//	 * @return
+//	 * 
+//	 * @param osoba
+//	 */
+//	public boolean updateOsoba(Person osoba){
+//		return false;
+//	}
 	
 	
 	@Override

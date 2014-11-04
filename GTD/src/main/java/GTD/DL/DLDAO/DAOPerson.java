@@ -63,6 +63,7 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 * @return osoba
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public Person getOsoba(String login)
 	{
 		Session session = this.openSession();

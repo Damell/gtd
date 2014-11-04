@@ -54,7 +54,7 @@ public interface IDAOTask extends IDAOGeneric<Task>
 	 * 
 	 * @param kontext
 	 */
-	public List getUkolyKontextu(Context kontext);
+	public List<Task> getUkolyKontextu(Context kontext);
 
 	/**
 	 * Vrátí všechny úkoly přiřazené dané osobě
@@ -62,7 +62,7 @@ public interface IDAOTask extends IDAOGeneric<Task>
 	 * 
 	 * @param osoba
 	 */
-	public List getUkolyOsoby(Person osoba);
+	public List<Task> getUkolyOsoby(Person osoba);
 
 //	/**
 //	 * Uloží zmenený úkol.

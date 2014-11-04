@@ -3,8 +3,11 @@ package GTD.DL.DLDAO;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Project;
 import GTD.DL.DLInterfaces.IDAOTask;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
@@ -71,8 +74,19 @@ public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 	 * 
 	 * @param kontext
 	 */
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<Task> getUkolyKontextu(Context kontext){
-		return null;
+		Session session = this.openSession();
+		Query query = session.createQuery(
+				"from " + Task.class.getName() + " t " + 
+				"where t.kontext = :kontext"
+		);
+		query.setParameter("kontext", kontext);
+		List<Task> projects = (List<Task>) query.list();
+		session.close();
+		
+		return projects;
 	}
 
 	/**
@@ -81,8 +95,19 @@ public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 	 * 
 	 * @param osoba
 	 */
-	public List getUkolyOsoby(Person osoba){
-		return null;
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Task> getUkolyOsoby(Person osoba){
+		Session session = this.openSession();
+		Query query = session.createQuery(
+				"from " + Task.class.getName() + " t " + 
+				"where t.vlastnik = :vlastnik"
+		);
+		query.setParameter("vlastnik", osoba);
+		List<Task> projects = (List<Task>) query.list();
+		session.close();
+		
+		return projects;
 	}
 
 //	/**

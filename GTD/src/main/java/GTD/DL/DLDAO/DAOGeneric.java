@@ -82,5 +82,7 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 		session.close();
         return t;
 	}
+	
+	// TODO steklsim nemely by DAO tridy chytat Hibernate vyjimky a dal posilat jiny?
 
 }

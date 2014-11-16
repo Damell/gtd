@@ -30,7 +30,7 @@ public interface IDAOPerson extends IDAOGeneric<Person>
 	 * 
 	 * @param osoba
 	 */
-	public boolean deactivateOsoba(Person osoba); // TODO steklsim nemelo by tohle byt az v BL?
+//	public boolean deactivateOsoba(Person osoba); // TODO steklsim nemelo by tohle byt az v BL?
 
 //	/**
 //	 * Vrátí všechny osoby.

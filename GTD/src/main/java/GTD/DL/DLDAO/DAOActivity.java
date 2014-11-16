@@ -4,8 +4,10 @@ import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOActivity;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání cinností z databáze.
@@ -28,44 +30,6 @@ public class DAOActivity extends DAOGeneric<Activity> implements IDAOActivity {
 
 	}
 
-//	/**
-//	 * Vytvorí novou cinnost zadaných vlastností a uloží ji do databáze.
-//	 * @return
-//	 * 
-//	 * @param cinnost
-//	 */
-//	public boolean createCinnost(Activity cinnost){
-//		return false;
-//	}
-//
-//	/**
-//	 * Smaže cinnost z databáze.
-//	 * @return
-//	 * 
-//	 * @param cinnost
-//	 */
-//	public boolean deleteCinnost(Activity cinnost){
-//		return false;
-//	}
-//
-//	/**
-//	 * Vrátí všechny cinnosti v systému.
-//	 * @return List<Cinnost>
-//	 */
-//	public List getAllCinnosti(){
-//		return null;
-//	}
-//
-//	/**
-//	 * Vrátí cinnost podle jejího ID.
-//	 * @return cinnost
-//	 * 
-//	 * @param id
-//	 */
-//	public Activity getCinnost(int id){
-//		return null;
-//	}
-//
 	/**
 	 * Vrátí všechny cinnosti patrící zadané osobe.
 	 * @return List<Cinnost>
@@ -75,27 +39,28 @@ public class DAOActivity extends DAOGeneric<Activity> implements IDAOActivity {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Activity> getCinnostiOsoby(Person osoba){
-		Session session = this.openSession();
-		Query query = session.createQuery(
-				"from " + Activity.class.getName() + " a " + 
-				"where a.vlastnik = :vlastnik"
-		);
-		query.setParameter("vlastnik", osoba);
-		List<Activity> activities = (List<Activity>) query.list();
-		session.close();
+		Session session = null;
+		Transaction tx = null;
+		List<Activity> activities = null;
+		try {
+			session = this.openSession();
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+					"from " + Activity.class.getName() + " a "
+					+ "where a.vlastnik = :vlastnik"
+			);
+			query.setParameter("vlastnik", osoba);
+			activities = (List<Activity>) query.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			handleException(e, tx);
+		} finally {
+			if (session != null) session.close();
+		}
 		
 		return activities;
 	}
-//
-//	/**
-//	 * Uloží zmenenou cinnost.
-//	 * @return
-//	 * 
-//	 * @param cinnost
-//	 */
-//	public boolean updateCinnost(Activity cinnost){
-//		return false;
-//	}
+
 
 	@Override
 	@SuppressWarnings("unchecked")

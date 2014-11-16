@@ -41,9 +41,12 @@ public class Context extends Filter {
 	{
 		super(nazev, vlastnik);
 	}
-	
-	
-	
+
+	@Override
+	public String toString()
+	{
+		return "Kontext: id=" + getId() + ", nazev=" + getNazev();
+	}
 	
 
 }

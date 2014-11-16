@@ -4,8 +4,10 @@ import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import GTD.DL.DLInterfaces.IDAOPerson;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání osob z databáze.
@@ -29,15 +31,6 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 
 	}
 
-//	/**
-//	 * Vytvoří nového uživatele.
-//	 * @return
-//	 * 
-//	 * @param osoba
-//	 */
-//	public boolean createOsoba(Person osoba){
-//		return false;
-//	}
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
@@ -45,17 +38,11 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 * 
 	 * @param osoba
 	 */
-	public boolean deactivateOsoba(Person osoba){
-		return false;
-	}
-
-//	/**
-//	 * Vrátí všechny osoby.
-//	 * @return List<Osoba>
-//	 */
-//	public List<Person> getAllOsoby(){
-//		return null;
+//	@Override
+//	public boolean deactivateOsoba(Person osoba){
+//		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //	}
+
 
 	/**
 	 * Vráti osoby dle zadaného loginu
@@ -66,18 +53,29 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	@SuppressWarnings("unchecked")
 	public Person getOsoba(String login)
 	{
-		Session session = this.openSession();
-		Query query = session.createQuery(
-				"from " + Person.class.getName() + " p " + 
-				"where c.login = :login"
-		);
-		query.setParameter("login", login);
-		List<Person> persons = (List<Person>) query.list();
-		session.close();
+		Session session = null;
+		Transaction tx = null;
+		List<Person> persons = null;
+		try {
+			session = this.openSession();
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+					"from " + Person.class.getName() + " p "
+					+ "where p.login = :login"
+			);
+			query.setParameter("login", login);
+			persons = (List<Person>) query.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			handleException(e, tx);
+		} finally {
+			if (session != null) session.close();
+		}
 		
-		if (persons.isEmpty()) return null; // TODO steklsim pri neplatnem loginu hodit vyjimku?
-		
+		if (persons == null || persons.isEmpty()) return null; // prvni cast podminky je tam jen aby si netbeans nestezoval (dereferencing possible null)
+		// TODO steklsim pri neplatnem loginu hodit vyjimku?
 		return persons.get(0);
+		// TODO steklsim kontrolovat, jestli ve vysledku je jen jeden uzivatel?
 	}
 
 //	/**

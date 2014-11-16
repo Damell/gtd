@@ -6,8 +6,10 @@ import GTD.DL.DLEntity.Person;
 import GTD.DL.DLEntity.Project;
 import GTD.DL.DLInterfaces.IDAOTask;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
@@ -30,43 +32,6 @@ public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 		
 	}
 
-//	/**
-//	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
-//	 * @return
-//	 * 
-//	 * @param ukol
-//	 */
-//	public boolean createUkol(Task ukol){
-//		return false;
-//	}
-//
-//	/**
-//	 * Smaže úkol z databáze (resp. označí jako smazaný).
-//	 * @return
-//	 * 
-//	 * @param ukol
-//	 */
-//	public boolean deleteUkol(Task ukol){
-//		return false;
-//	}
-//
-//	/**
-//	 * Vrátí všechny úkoly v systému.
-//	 * @return List<Ukol>
-//	 */
-//	public List getAllUkoly(){
-//		return null;
-//	}
-//
-//	/**
-//	 * Vrátí úkol podle jeho ID.
-//	 * @return ukol
-//	 * 
-//	 * @param id
-//	 */
-//	public Task getUkol(int id){
-//		return null;
-//	}
 
 	/**
 	 * Vrátí všechny úkoly daného kontextu.
@@ -77,16 +42,26 @@ public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Task> getUkolyKontextu(Context kontext){
-		Session session = this.openSession();
-		Query query = session.createQuery(
-				"from " + Task.class.getName() + " t " + 
-				"where t.kontext = :kontext"
-		);
-		query.setParameter("kontext", kontext);
-		List<Task> projects = (List<Task>) query.list();
-		session.close();
+		Session session = null;
+		List<Task> tasks = null;
+		Transaction tx = null;
+		try {
+			session = this.openSession();
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+					"from " + Task.class.getName() + " t "
+					+ "where t.kontext = :kontext"
+			);
+			query.setParameter("kontext", kontext);
+			tasks = (List<Task>) query.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			handleException(e, tx);
+		} finally {
+			if (session != null) session.close();
+		}
 		
-		return projects;
+		return tasks;
 	}
 
 	/**
@@ -98,16 +73,27 @@ public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Task> getUkolyOsoby(Person osoba){
-		Session session = this.openSession();
-		Query query = session.createQuery(
-				"from " + Task.class.getName() + " t " + 
-				"where t.vlastnik = :vlastnik"
-		);
-		query.setParameter("vlastnik", osoba);
-		List<Task> projects = (List<Task>) query.list();
-		session.close();
 		
-		return projects;
+		Session session = null;
+		Transaction tx = null;
+		List<Task> tasks = null;
+		try {
+			session = this.openSession();
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+					"from " + Task.class.getName() + " t "
+					+ "where t.vlastnik = :vlastnik"
+			);
+			query.setParameter("vlastnik", osoba);
+			tasks = (List<Task>) query.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			handleException(e, tx);
+		} finally {
+			if (session != null) session.close();
+		}
+		
+		return tasks;
 	}
 
 //	/**

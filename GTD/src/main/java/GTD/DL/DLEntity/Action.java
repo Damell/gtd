@@ -187,7 +187,7 @@ public abstract class Action {
 	 */
 	@Override
 	public String toString(){
-		return "Cinnost: id=" + id + ", nazev=" + nazev;
+		return "Aktivita: id=" + id + ", nazev=" + nazev;
 	}
 
 	@Override

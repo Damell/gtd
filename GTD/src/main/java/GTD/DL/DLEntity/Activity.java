@@ -91,6 +91,12 @@ public class Activity extends Action {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Cinnost: id=" + getId() + ", nazev=" + getNazev();
+	}
 	
 	
 

@@ -8,9 +8,11 @@ import GTD.DL.DLEntity.TaskState;
 import GTD.DL.DLEntity.Type;
 import GTD.DL.DLInterfaces.IDAOState;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * Trída zapouzdruje metody pro získání stavů objektů
@@ -66,16 +68,27 @@ public class DAOState implements IDAOState
 
 	private Type getType(Class clazz, String kod)
 	{
-		Session session = this.openSession();
-		String hql = "from " + clazz.getSimpleName() + " where kod = :code ";
-		Query query = session.createQuery(hql);
-		query.setParameter("code", kod);
-		List list = query.list();
-		if (list.size() != 1) {
+		List list = null;
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = this.openSession();
+			tx = session.beginTransaction();
+			String hql = "from " + clazz.getSimpleName() + " where kod = :code ";
+			Query query = session.createQuery(hql);
+			query.setParameter("code", kod);
+			list = query.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			handleException(e, tx);
+		} finally {
+			if (session != null) session.close();
+		}
+		if (list != null && list.size() != 1) {
 			throw new RuntimeException("One type for entity '" + clazz.getSimpleName() + "' with code '" + kod + "' expected, got " + list.size());
 		}
-		session.close();
-        return (Type) list.get(0);
+        if (list == null || list.isEmpty()) return null;
+		else return (Type) list.get(0);
 	}
 
 	@Override
@@ -166,5 +179,16 @@ public class DAOState implements IDAOState
 	public TaskState getUkolVytvoreny()
 	{
 		return (TaskState) this.getType(TaskState.class, TYPE_TASK_VYTVORENY);
+	}
+	
+	/**
+	 * Resi vyjimky v DAO operacich - zrusi transakci a vyhodi vlastni vyjimku
+	 * @param e
+	 * @param tx 
+	 */
+	protected void handleException(HibernateException e, Transaction tx)
+	{
+		if (tx != null) tx.rollback();
+		throw new DAOException(e.getMessage(), e);
 	}
 }

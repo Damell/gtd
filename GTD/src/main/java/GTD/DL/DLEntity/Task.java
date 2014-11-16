@@ -61,37 +61,7 @@ public class Task extends Action {
 		this.stav = stav;
 	}
 
-	
-	
-	
-	/**
-	 * Inicializace ukolu
-	 * 
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param tvurce_id
-	 * @param vlastnik_id
-	 * @param id_projekt    id_projekt
-	 */
-	public Task(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt){
 
-	}
-
-	/**
-	 * Inicializace ukolu
-	 * 
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id
-	 * @param id_projekt    id_projekt
-	 */
-	public Task(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt){
-
-	}
 
 	/**
 	 * Konstruktor ukolu

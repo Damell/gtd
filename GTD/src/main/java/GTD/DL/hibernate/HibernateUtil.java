@@ -34,7 +34,7 @@ public class HibernateUtil
 //			System.err.println("Initial SessionFactory creation failed." + ex);
 //			throw new ExceptionInInitializerError(ex);
 //		}
-		
+		System.out.println("static start");
 		try {
 		// Create the SessionFactory from hibernate.cfg.xml
             Configuration configuration = new Configuration();

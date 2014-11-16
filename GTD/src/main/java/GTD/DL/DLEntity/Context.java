@@ -1,5 +1,7 @@
 package GTD.DL.DLEntity;
 
+import javax.persistence.Entity;
+
 
 /**
  * Tato trída predstavuje kontext, ve kterém je úkol plnen. Urcuje v jaké
@@ -9,6 +11,7 @@ package GTD.DL.DLEntity;
  * @version 1.0
  * @created 19-10-2014 12:30:51
  */
+@Entity
 public class Context extends Filter {
 
 
@@ -17,15 +20,15 @@ public class Context extends Filter {
 		super.finalize();
 	}
 
-	/**
-	 * Vytvor kontext
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public Context(int id, String nazev){
-
-	}
+//	/**
+//	 * Vytvor kontext
+//	 * 
+//	 * @param id
+//	 * @param nazev    nazev
+//	 */
+//	public Context(int id, String nazev){
+//
+//	}
 
 	/**
 	 * Kontruktor kontextu
@@ -33,31 +36,17 @@ public class Context extends Filter {
 	public Context(){
 
 	}
-
-	/**
-	 * Vrati id kontextu
-	 * @return id
-	 */
-	public int getKontextId(){
-		return 0;
+	
+	public Context(String nazev, Person vlastnik)
+	{
+		super(nazev, vlastnik);
 	}
 
-	/**
-	 * Vrati nazev kontextu
-	 * @return nazev
-	 */
-	public String getKontextNazev(){
-		return "";
+	@Override
+	public String toString()
+	{
+		return "Kontext: id=" + getId() + ", nazev=" + getNazev();
 	}
-
-	/**
-	 * Nastav kontext
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public void setKontext(int id, String nazev){
-
-	}
+	
 
 }

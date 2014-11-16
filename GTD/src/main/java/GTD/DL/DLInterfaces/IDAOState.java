@@ -1,8 +1,14 @@
 package GTD.DL.DLInterfaces;
 
+import GTD.DL.DLEntity.ActivityState;
+import GTD.DL.DLEntity.ContactType;
+import GTD.DL.DLEntity.PersonState;
+import GTD.DL.DLEntity.ProjectState;
+import GTD.DL.DLEntity.TaskState;
+
 
 /**
- * Interface pro získání ID typů
+ * Interface pro získání typů
  * @author Šimon
  * @version 1.0
  * @created 19-10-2014 12:30:53
@@ -10,93 +16,93 @@ package GTD.DL.DLInterfaces;
 public interface IDAOState {
 
 	/**
-	 * Vrátí ID stavu: činnost Archivovaná
+	 * Vrátí stav: činnost Archivovaná
 	 * @return
 	 */
-	public int getCinnostArchivovanaID();
+	public ActivityState getCinnostArchivovana();
 
 	/**
-	 * Vrátí ID stavu: činost Ke zpracování
+	 * Vrátí stav: činost Ke zpracování
 	 * @return
 	 */
-	public int getCinnostKeZpracovaniID();
+	public ActivityState getCinnostKeZpracovani();
 
 	/**
-	 * Vrátí ID stavu: činost Odlozena
+	 * Vrátí stav: činost Odlozena
 	 * @return
 	 */
-	public int getCinnostOdlozenaID();
+	public ActivityState getCinnostOdlozena();
 
 	/**
-	 * Vrátí ID stavu: činost Zahozena
+	 * Vrátí stav: činost Zahozena
 	 * @return
 	 */
-	public int getCinnostZahozenaID();
+	public ActivityState getCinnostZahozena();
 
 	/**
-	 * Vrátí ID stavu: činost Odlozena
+	 * Vrátí stav: činost Odlozena
 	 * @return
 	 */
-	public int getCinnostZpracovanaID();
+	public ActivityState getCinnostZpracovana();
 
 	/**
-	 * Vrátí ID stavu: konatakt email
+	 * Vrátí stav: konatakt email
 	 * @return
 	 */
-	public int getKontaktEmailID();
+	public ContactType getKontaktEmail();
 
 	/**
-	 * Vrátí ID stavu: konatakt telefon
+	 * Vrátí stav: konatakt telefon
 	 * @return
 	 */
-	public int getKontaktTelefonID();
+	public ContactType getKontaktTelefon();
 
 	/**
-	 * Vrátí ID stavu: osoby Aktivni
+	 * Vrátí stav: osoby Aktivni
 	 * @return
 	 */
-	public int getOsobaAktivniID();
+	public PersonState getOsobaAktivni();
 
 	/**
-	 * Vrátí ID stavu: osoby Aktivni
+	 * Vrátí stav: osoby Aktivni
 	 * @return
 	 */
-	public int getOsobaNeaktivniID();
+	public PersonState getOsobaNeaktivni();
 
 	/**
-	 * Vrátí ID stavu: projekt Aktivni
+	 * Vrátí stav: projekt Aktivni
 	 * @return
 	 */
-	public int getProjektAktivniID();
+	public ProjectState getProjektAktivni();
 
 	/**
-	 * Vrátí ID stavu: projekt Dokonceny
+	 * Vrátí stav: projekt Dokonceny
 	 * @return
 	 */
-	public int getProjektDokoncenyID();
+	public ProjectState getProjektDokonceny();
 
 	/**
-	 * Vrátí ID stavu: úkol aktivní
+	 * Vrátí stav: úkol aktivní
 	 * @return
 	 */
-	public int getUkolAktivniID();
+	public TaskState getUkolAktivni();
 
 	/**
-	 * Vrátí ID stavu: úkol hotový
+	 * Vrátí stav: úkol hotový
 	 * @return
 	 */
-	public int getUkolHotovyID();
+	public TaskState getUkolHotovy();
 
 	/**
-	 * Vrátí ID stavu: úkol v kalendáři
+	 * Vrátí stav: úkol v kalendáři
 	 * @return
 	 */
-	public int getUkolVKalendariID();
+	public TaskState getUkolVKalendari();
 
 	/**
-	 * Vrátí ID stavu: úkol vytvořený
+	 * Vrátí stav: úkol vytvořený
 	 * @return
 	 */
-	public int getUkolVytvorenyID();
+	public TaskState getUkolVytvoreny();
 
 }

@@ -11,7 +11,7 @@ sourceCompatibility = '1.7'
 // prefer. In this case NetBeans will not add these tasks but you may rely on
 // your own implementation.
 if (!hasProperty('mainClass')) {
-    ext.mainClass = ''
+    ext.mainClass = 'GTD.DL.hibernate.HibernateMain'
 }
 
 repositories {
@@ -26,4 +26,24 @@ dependencies {
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
     testCompile group: 'junit', name: 'junit', version: '4.10'
+	compile 'org.hibernate:hibernate-core:4.3.6.Final'
+	compile 'mysql:mysql-connector-java:5.1.31'
 }
+
+jar {
+    manifest {
+        attributes ('Main-Class': 'GTD.DL.hibernate.HibernateMain')
+    }
+}
+
+
+// Kdyz se tohle odkomentuje, ve vysledném JARu budou i vsechny zavislosti
+
+//jar {
+//    dependsOn configurations.runtime
+//    from {
+//        (configurations.runtime).collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+//}

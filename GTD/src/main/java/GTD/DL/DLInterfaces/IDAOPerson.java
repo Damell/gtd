@@ -9,15 +9,20 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:53
  */
-public interface IDAOPerson {
-
-	/**
-	 * Vytvoří nového uživatele.
-	 * @return
-	 * 
-	 * @param osoba
-	 */
-	public boolean createOsoba(Person osoba);
+public interface IDAOPerson extends IDAOGeneric<Person>
+{
+	public List<Person> getAll();
+	
+	public Person get(int id);
+	
+	
+//	/**
+//	 * Vytvoří nového uživatele.
+//	 * @return
+//	 * 
+//	 * @param osoba
+//	 */
+//	public boolean createOsoba(Person osoba);
 
 	/**
 	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
@@ -25,13 +30,13 @@ public interface IDAOPerson {
 	 * 
 	 * @param osoba
 	 */
-	public boolean deactivateOsoba(Person osoba);
+//	public boolean deactivateOsoba(Person osoba); // TODO steklsim nemelo by tohle byt az v BL?
 
-	/**
-	 * Vrátí všechny osoby.
-	 * @return
-	 */
-	public List getAllOsoby();
+//	/**
+//	 * Vrátí všechny osoby.
+//	 * @return
+//	 */
+//	public List getAllOsoby();
 
 	/**
 	 * Vrátí uživatele na základě uživatelského jména
@@ -41,19 +46,19 @@ public interface IDAOPerson {
 	 */
 	public Person getOsoba(String username);
 
-	/**
-	 * Vrátí osobu podle jejího ID.
-	 * @return
-	 * 
-	 * @param id
-	 */
-	public Person getOsoba(int id);
+//	/**
+//	 * Vrátí osobu podle jejího ID.
+//	 * @return
+//	 * 
+//	 * @param id
+//	 */
+//	public Person getOsoba(int id);
 
 	/**
 	 * Vrátí ID prihlasene osoby.
 	 * @return
 	 */
-	public int getOsobaID();
+	public int getOsobaID(); // TODO steklsim tohle urcite patri do BL
 
 	/**
 	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
@@ -64,19 +69,19 @@ public interface IDAOPerson {
 	public boolean checkNewLogin(String login);
 
 	/**
-	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
+	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen. 
 	 * @return
 	 * 
 	 * @param login
 	 */
 	public boolean checkPrihlaseni(String login);
 
-	/**
-	 * Uloží změny osoby.
-	 * @return
-	 * 
-	 * @param osoba
-	 */
-	public boolean updateOsoba(Person osoba);
+//	/**
+//	 * Uloží změny osoby.
+//	 * @return
+//	 * 
+//	 * @param osoba
+//	 */
+//	public boolean updateOsoba(Person osoba);
 
 }

@@ -1,6 +1,13 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 /**
@@ -9,67 +16,52 @@ import java.util.Date;
  * @version 1.0
  * @created 19-10-2014 12:30:55
  */
+@Entity
 public class Task extends Action {
 
 	/**
 	 * Projekt úkolu.
 	 */
-	private int id_projekt;
+	@ManyToOne
+	private Project projekt;
 	/**
 	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
 	 */
-	private int id_tvurce;
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Person tvurce;
 	/**
 	 * Záznam o úkolu v kalendáři.
 	 */
+	@OneToOne(cascade = CascadeType.ALL)
 	private Interval kalendar;
 	/**
 	 * Context úkolu.
 	 */
+	@ManyToOne
 	private Context kontext;
-	/**
-	 * Nazev projektu ukolu
-	 */
-	private String projekt_nazev;
-	/**
-	 * Popis projektu ukolu
-	 */
-	private String projekt_popis;
 
+	/**
+	 * Stav úkolu
+	 */
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private TaskState stav;
 
 
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
 
-	/**
-	 * Inicializace ukolu
-	 * 
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param tvurce_id
-	 * @param vlastnik_id
-	 * @param id_projekt    id_projekt
-	 */
-	public Task(String nazev, String popis, int stav, int tvurce_id, int vlastnik_id, int id_projekt){
-
+	public Task(String nazev, String popis, Person vlastnik, Project projekt, Person tvurce, TaskState stav)
+	{
+		super(nazev, popis, vlastnik);
+		this.projekt = projekt;
+		this.tvurce = tvurce;
+		this.stav = stav;
 	}
 
-	/**
-	 * Inicializace ukolu
-	 * 
-	 * @param id
-	 * @param nazev
-	 * @param popis
-	 * @param stav
-	 * @param stavPopis
-	 * @param vlastnik_id
-	 * @param id_projekt    id_projekt
-	 */
-	public Task(int id, String nazev, String popis, int stav, String stavPopis, int vlastnik_id, int id_projekt){
 
-	}
 
 	/**
 	 * Konstruktor ukolu
@@ -83,7 +75,7 @@ public class Task extends Action {
 	 * @return kalendar
 	 */
 	public Interval getKalendar(){
-		return null;
+		return kalendar;
 	}
 
 	/**
@@ -91,79 +83,96 @@ public class Task extends Action {
 	 * @return kontext
 	 */
 	public Context getKontext(){
-		return null;
+		return kontext;
 	}
 
 	/**
 	 * Vrati projekt úkolu
-	 * @return id
+	 * @return projekt
 	 */
-	public int getProjekt(){
-		return 0;
+	public Project getProjekt(){
+		return projekt;
 	}
 
 	/**
-	 * Vrátí název projektu
-	 * @return nazev
+	 * Vrati tvurce úkolu
+	 * @return tvurce
 	 */
-	public String getProjektNazev(){
-		return "";
+	public Person getTvurce(){
+		return tvurce;
 	}
 
-	/**
-	 * Vrátí popis projektu
-	 * @return nazev
-	 */
-	public String getProjektPopis(){
-		return "";
+	public void setProjekt(Project projekt)
+	{
+		this.projekt = projekt;
 	}
 
-	/**
-	 * Vrati id osoby tvurce úkolu
-	 * @return id
-	 */
-	public int getTvurce(){
-		return 0;
+	public void setTvurce(Person tvurce)
+	{
+		this.tvurce = tvurce;
 	}
 
-	/**
-	 * Nastav interval ukolu
-	 * 
-	 * @param from
-	 * @param to    to
-	 */
-	public void setInterval(Date from, Date to){
-
+	public void setKalendar(Interval kalendar)
+	{
+		this.kalendar = kalendar;
 	}
 
-	/**
-	 * Nastav uzivatelsky kontext ukolu
-	 * 
-	 * @param id
-	 * @param nazev    nazev
-	 */
-	public void setKontext(int id, String nazev){
-
+	public void setKontext(Context kontext)
+	{
+		// TODO steklsim vyjimka pokud vlastnik ukolu != vlastnik kontextu 
+		this.kontext = kontext;
 	}
 
-	/**
-	 * Nastav projekt ukolu
-	 * 
-	 * @param id_projekt
-	 * @param nazev
-	 * @param popis    popis
-	 */
-	public void setProjekt(int id_projekt, String nazev, String popis){
-
+	public TaskState getStav()
+	{
+		return stav;
 	}
 
-	/**
-	 * Nastav id projetku k ukolu
-	 * 
-	 * @param id_projekt    id_projekt
-	 */
-	public void setProjekt(int id_projekt){
-
+	public void setStav(TaskState stav)
+	{
+		this.stav = stav;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Ukol: id=" + this.getId() + ", nazev=" + this.getNazev();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 41 * hash + Objects.hashCode(this.kalendar);
+		hash = 41 * hash + Objects.hashCode(this.kontext);
+		hash = 41 * hash + Objects.hashCode(this.stav);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!super.equals(obj)) return false;
+		
+		final Task other = (Task) obj;
+		if (!Objects.equals(this.projekt, other.projekt)) {
+			return false;
+		}
+		if (!Objects.equals(this.tvurce, other.tvurce)) {
+			return false;
+		}
+		if (!Objects.equals(this.kalendar, other.kalendar)) {
+			return false;
+		}
+		if (!Objects.equals(this.kontext, other.kontext)) {
+			return false;
+		}
+		if (!Objects.equals(this.stav, other.stav)) {
+			return false;
+		}
+		return true;
+	}
+
+	
 
 }

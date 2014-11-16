@@ -11,37 +11,42 @@ import java.util.List;
  * @version 1.0
  * @created 19-10-2014 12:30:53
  */
-public interface IDAOTask {
+public interface IDAOTask extends IDAOGeneric<Task> 
+{
 
-	/**
-	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
-	 * @return
-	 * 
-	 * @param ukol
-	 */
-	public boolean createUkol(Task ukol);
-
-	/**
-	 * Smaže úkol z databáze (resp. označí jako smazaný).
-	 * @return
-	 * 
-	 * @param ukol
-	 */
-	public boolean deleteUkol(Task ukol);
-
-	/**
-	 * Vrátí všechny úkoly v systému.
-	 * @return
-	 */
-	public List getAllUkoly();
-
-	/**
-	 * Vrátí úkol podle jeho ID.
-	 * @return
-	 * 
-	 * @param id
-	 */
-	public Task getUkol(int id);
+	public List<Task> getAll();
+	
+	public Task get(int id);
+	
+//	/**
+//	 * Vytvorí nový úkol zadaných vlastností a uloží ho do databáze.
+//	 * @return
+//	 * 
+//	 * @param ukol
+//	 */
+//	public boolean createUkol(Task ukol);
+//
+//	/**
+//	 * Smaže úkol z databáze (resp. označí jako smazaný).
+//	 * @return
+//	 * 
+//	 * @param ukol
+//	 */
+//	public boolean deleteUkol(Task ukol);
+//
+//	/**
+//	 * Vrátí všechny úkoly v systému.
+//	 * @return
+//	 */
+//	public List getAllUkoly();
+//
+//	/**
+//	 * Vrátí úkol podle jeho ID.
+//	 * @return
+//	 * 
+//	 * @param id
+//	 */
+//	public Task getUkol(int id);
 
 	/**
 	 * Vrátí všechny úkoly daného kontextu.
@@ -49,7 +54,7 @@ public interface IDAOTask {
 	 * 
 	 * @param kontext
 	 */
-	public List getUkolyKontextu(Context kontext);
+	public List<Task> getUkolyKontextu(Context kontext);
 
 	/**
 	 * Vrátí všechny úkoly přiřazené dané osobě
@@ -57,14 +62,14 @@ public interface IDAOTask {
 	 * 
 	 * @param osoba
 	 */
-	public List getUkolyOsoby(Person osoba);
+	public List<Task> getUkolyOsoby(Person osoba);
 
-	/**
-	 * Uloží zmenený úkol.
-	 * @return
-	 * 
-	 * @param úkol
-	 */
-	public boolean updateUkol(Task úkol);
+//	/**
+//	 * Uloží zmenený úkol.
+//	 * @return
+//	 * 
+//	 * @param úkol
+//	 */
+//	public boolean updateUkol(Task úkol);
 
 }

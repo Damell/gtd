@@ -1,6 +1,12 @@
 package GTD.DL.DLEntity;
 
 import java.util.Date;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -9,33 +15,31 @@ import java.util.Date;
  * @version 1.0
  * @created 19-10-2014 12:30:53
  */
+@Entity
+@Table(name = "intervals")
 public class Interval {
 
+	@Id
+	@GeneratedValue
+	private int id;
+	
 	/**
 	 * Casový pocátek úkolu. Minimální presnost jsou dny.
 	 */
+	@Column(name = "from_date", nullable = false)
 	private Date from;
 	/**
 	 * Casový konec úkolu. Minimální presnost jsou dny.
 	 */
+	@Column(name = "to_date", nullable = false)
 	private Date to;
 
-
-
+	
+	
 	public void finalize() throws Throwable {
 
 	}
-
-	/**
-	 * Nastavení hodnot intervalu
-	 * 
-	 * @param from
-	 * @param to    to
-	 */
-	public Interval(Date from, Date to){
-
-	}
-
+	
 	/**
 	 * Konstruktor intevalu
 	 */
@@ -43,12 +47,25 @@ public class Interval {
 
 	}
 
+	public Interval(Date from, Date to)
+	{
+		this.from = from;
+		this.to = to;
+	}
+
+	
+
+	public int getId()
+	{
+		return id;
+	}
+	
 	/**
 	 * Vrátí datum do z intervalu
 	 * @return from
 	 */
 	public Date getFrom(){
-		return null;
+		return from;
 	}
 
 	/**
@@ -56,7 +73,7 @@ public class Interval {
 	 * @return to
 	 */
 	public Date getTo(){
-		return null;
+		return to;
 	}
 
 	/**
@@ -64,7 +81,7 @@ public class Interval {
 	 * @return
 	 */
 	public boolean isSet(){
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -74,7 +91,52 @@ public class Interval {
 	 * @param to    to
 	 */
 	public void setInterval(Date from, Date to){
-
+		this.from = from;
+		this.to = to;
 	}
+
+	public void setFrom(Date from)
+	{
+		this.from = from;
+	}
+
+	public void setTo(Date to)
+	{
+		this.to = to;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 29 * hash + this.id;
+		hash = 29 * hash + Objects.hashCode(this.from);
+		hash = 29 * hash + Objects.hashCode(this.to);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Interval other = (Interval) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (!Objects.equals(this.from, other.from)) {
+			return false;
+		}
+		if (!Objects.equals(this.to, other.to)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 }

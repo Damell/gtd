@@ -2,5 +2,10 @@
 /GTD/dist/
 /GTD/build/
 /GTD/.nb-gradle/private/
+/GTD/.gradle
 .DS_Store
 .idea
+
+# hibernate config
+/GTD/src/main/resources/hibernate.cfg.xml
+

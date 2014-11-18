@@ -1,6 +1,8 @@
 package GTD.DL.DLEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 /**
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
  * @created 19-10-2014 12:30:51
  */
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"nazev", "vlastnik_id"})})
 public class Context extends Filter {
 
 

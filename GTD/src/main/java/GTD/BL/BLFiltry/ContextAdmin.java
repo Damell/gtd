@@ -16,9 +16,14 @@ public class ContextAdmin {
 	private IDAOContext DAOKontext;
 
 	public ContextAdmin(){
-
+		
 	}
 
+	public void setDAOContext(IDAOContext $dao)
+	{
+		this.DAOKontext = $dao;
+	}
+	
 	/**
 	 * 
 	 * @exception Throwable
@@ -35,8 +40,9 @@ public class ContextAdmin {
 	 * @param kontext
 	 * @param osoba
 	 */
-	public boolean addKontext(Context kontext, Person osoba){
-		return false;
+	public void addKontext(Context kontext, Person osoba){ // TODO steklsim nestaci jen parametr 'kontext', resp. metoda updateContext()? (kontext ma atribut 'vlastnik')
+		kontext.setVlastnik(osoba);
+		DAOKontext.create(kontext); // TODO steklsim chytat DAOException v BL?
 	}
 
 	/**
@@ -45,8 +51,8 @@ public class ContextAdmin {
 	 * 
 	 * @param kontext
 	 */
-	public boolean deleteKontext(Context kontext){
-		return false;
+	public void deleteKontext(Context kontext){
+		DAOKontext.delete(kontext);
 	}
 
 	/**
@@ -56,7 +62,7 @@ public class ContextAdmin {
 	 * @param id
 	 */
 	public Context getKontext(int id){
-		return null;
+		return DAOKontext.get(id);
 	}
 
 	/**
@@ -66,7 +72,7 @@ public class ContextAdmin {
 	 * @param osoba
 	 */
 	public List getKontextyOsoby(Person osoba){
-		return null;
+		return DAOKontext.getKontextyOsoby(osoba);
 	}
 
 	/**
@@ -75,8 +81,8 @@ public class ContextAdmin {
 	 * 
 	 * @param kontext
 	 */
-	public boolean updateKontext(Context kontext){
-		return false;
+	public void updateKontext(Context kontext){
+		DAOKontext.update(kontext);
 	}
 
 }

@@ -19,9 +19,9 @@ public class ContextAdmin {
 		
 	}
 
-	public void setDAOContext(IDAOContext $dao)
+	public void setDAOContext(IDAOContext dao)
 	{
-		this.DAOKontext = $dao;
+		this.DAOKontext = dao;
 	}
 	
 	/**

@@ -62,6 +62,10 @@ public class TaskAdmin {
 	 * pro označení činnosti jako "zpracované".
 	 */
 	public void addUkol(Task ukol, Activity cinnost){
+		if (ukol.getVlastnik() != null && !ukol.getVlastnik().equals(cinnost.getVlastnik())) {
+			throw new RuntimeException("Vytvorit ukol z cinnosti muze pouze jeji vlastnik"); 
+		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
+		}
 		DAOUkol.create(ukol);
 		spravceCinnosti.processCinnost(cinnost); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit ukol?
 	}
@@ -81,7 +85,7 @@ public class TaskAdmin {
 	 * Vrátí všechny úkoly
 	 * @return
 	 */
-	public List getAllUkoly(){
+	public List<Task> getAllUkoly(){
 		return DAOUkol.getAll();
 	}
 

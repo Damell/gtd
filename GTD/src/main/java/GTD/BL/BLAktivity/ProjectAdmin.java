@@ -5,6 +5,8 @@ import GTD.BL.BLOsoby.PersonAdmin;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.Project;
 import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.ProjectState;
+import GTD.DL.DLInterfaces.IDAOState;
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ import java.util.List;
 public class ProjectAdmin {
 
 	private IDAOProject DAOProjekt;
+	private IDAOState DAOStav;
 	/**
 	 * Odkaz na ActivitiyAdmin - při přidání projektu vzniklého z činnosti je třeba
 	 * tuto činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
@@ -36,6 +39,24 @@ public class ProjectAdmin {
 
 	}
 
+	public void setDAOProjekt(IDAOProject DAOProjekt)
+	{
+		this.DAOProjekt = DAOProjekt;
+	}
+
+	public void setSpravceCinnosti(ActivitiyAdmin spravceCinnosti)
+	{
+		this.spravceCinnosti = spravceCinnosti;
+	}
+
+	public void setDAOStav(IDAOState DAOStav)
+	{
+		this.DAOStav = DAOStav;
+	}
+
+	
+	
+	
 	/**
 	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze. Podprojekt v
 	 * projektu může vytvořit pouze vlastník tohoto nadřazeného projektu.
@@ -45,8 +66,13 @@ public class ProjectAdmin {
 	 * @param cinnost    Činnost, ze které projekt vznikl (pokud existuje) - používá
 	 * se pro označení činnosti jako "zpracované".
 	 */
-	public boolean addProjekt(Project projekt, Activity cinnost){
-		return false;
+	public void addProjekt(Project projekt, Activity cinnost){
+		if (projekt.getVlastnik() != null && !projekt.getVlastnik().equals(cinnost.getVlastnik())) {
+			throw new RuntimeException("Vytvorit projekt z cinnosti muze pouze jeji vlastnik"); 
+		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
+		}
+		DAOProjekt.create(projekt);
+		spravceCinnosti.processCinnost(cinnost); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 	}
 
 	/**
@@ -57,8 +83,8 @@ public class ProjectAdmin {
 	 * 
 	 * @param projekt
 	 */
-	public boolean deleteProjekt(Project projekt){
-		return false;
+	public void deleteProjekt(Project projekt){ // TODO steklsim v docBlocku je projekt "oznacen jako smazany" - nemame na to stav
+		DAOProjekt.delete(projekt);
 	}
 
 	/**
@@ -68,16 +94,18 @@ public class ProjectAdmin {
 	 * 
 	 * @param projekt
 	 */
-	public boolean finishProjekt(Project projekt){
-		return false;
+	public void finishProjekt(Project projekt){
+		ProjectState dokonceny = DAOStav.getProjektDokonceny();
+		projekt.setStav(dokonceny);
+		DAOProjekt.update(projekt);
 	}
 
 	/**
 	 * Vrátí všechny projekty
 	 * @return
 	 */
-	public List getAllProjekty(){
-		return null;
+	public List<Project> getAllProjekty(){
+		return DAOProjekt.getAll();
 	}
 
 	/**
@@ -87,7 +115,7 @@ public class ProjectAdmin {
 	 * @param id
 	 */
 	public Project getProjekt(int id){
-		return null;
+		return DAOProjekt.get(id);
 	}
 
 	/**
@@ -96,8 +124,8 @@ public class ProjectAdmin {
 	 * 
 	 * @param osoba
 	 */
-	public List getProjektyOsoby(Person osoba){
-		return null;
+	public List<Project> getProjektyOsoby(Person osoba){
+		return DAOProjekt.getProjektyOsoby(osoba);
 	}
 
 	/**
@@ -107,8 +135,8 @@ public class ProjectAdmin {
 	 * 
 	 * @param projekt
 	 */
-	public boolean updateProjekt(Project projekt){
-		return false;
+	public void updateProjekt(Project projekt){ // TODO steklsim metoda zatim na nic
+		DAOProjekt.update(projekt);
 	}
-
+	
 }

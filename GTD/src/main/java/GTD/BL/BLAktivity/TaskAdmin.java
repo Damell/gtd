@@ -2,11 +2,14 @@ package GTD.BL.BLAktivity;
 
 import GTD.DL.DLInterfaces.IDAOTask;
 import GTD.BL.BLOsoby.PersonAdmin;
+import GTD.DL.DLDAO.DAOTask;
 import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
 import java.util.List;
+import javax.security.auth.login.LoginException;
 
 /**
  * Trída pro manipulaci s úkoly.
@@ -37,6 +40,18 @@ public class TaskAdmin {
 
 	}
 
+	public void setDAOUkol(IDAOTask DAOUkol)
+	{
+		this.DAOUkol = DAOUkol;
+	}
+
+	public void setSpravceCinnosti(ActivitiyAdmin spravceCinnosti)
+	{
+		this.spravceCinnosti = spravceCinnosti;
+	}
+
+	
+	
 	/**
 	 * Vytvoří nový úkol. Úkol v projektu může vytvořit pouze vlastník tohoto projektu.
 	 * 
@@ -46,8 +61,9 @@ public class TaskAdmin {
 	 * @param cinnost    Činnost, ze které úkol vznikl (pokud existuje) - používá se
 	 * pro označení činnosti jako "zpracované".
 	 */
-	public boolean addUkol(Task ukol, Activity cinnost){
-		return false;
+	public void addUkol(Task ukol, Activity cinnost){
+		DAOUkol.create(ukol);
+		spravceCinnosti.processCinnost(cinnost); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit ukol?
 	}
 
 	/**
@@ -57,8 +73,8 @@ public class TaskAdmin {
 	 * 
 	 * @param ukol
 	 */
-	public boolean deleteUkol(Task ukol){
-		return false;
+	public void deleteUkol(Task ukol){
+		DAOUkol.delete(ukol);
 	}
 
 	/**
@@ -66,7 +82,7 @@ public class TaskAdmin {
 	 * @return
 	 */
 	public List getAllUkoly(){
-		return null;
+		return DAOUkol.getAll();
 	}
 
 	/**
@@ -76,7 +92,7 @@ public class TaskAdmin {
 	 * @param id
 	 */
 	public Task getUkol(int id){
-		return null;
+		return DAOUkol.get(id);
 	}
 
 	/**
@@ -86,7 +102,7 @@ public class TaskAdmin {
 	 * @param kontext
 	 */
 	public List getUkolyKontextu(Context kontext){
-		return null;
+		return DAOUkol.getUkolyKontextu(kontext);
 	}
 
 	/**
@@ -95,7 +111,7 @@ public class TaskAdmin {
 	 * @param osoba
 	 */
 	public List getUkolyOsoby(Person osoba){
-		return null;
+		return DAOUkol.getUkolyOsoby(osoba);
 	}
 
 	/**
@@ -105,8 +121,13 @@ public class TaskAdmin {
 	 * @param ukol
 	 * @param kontext
 	 */
-	public boolean setKontext(Task ukol, Context kontext){
-		return false;
+	public void setKontext(Task ukol, Context kontext){
+		if (!ukol.getVlastnik().equals(kontext.getVlastnik())) {
+			throw new RuntimeException("Zmenit kontext ukolu muze pouze jeho vlastnik"); 
+		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
+		}
+		ukol.setKontext(kontext);
+		DAOUkol.update(ukol);
 	}
 
 	/**
@@ -116,8 +137,8 @@ public class TaskAdmin {
 	 * 
 	 * @param ukol
 	 */
-	public boolean updateUkol(Task ukol){
-		return false;
+	public void updateUkol(Task ukol){ // TODO steklsim metoda zatim na nic
+		DAOUkol.update(ukol);
 	}
 
 }

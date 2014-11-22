@@ -16,27 +16,7 @@ public interface IDAOPerson extends IDAOGeneric<Person>
 	public Person get(int id);
 	
 	
-//	/**
-//	 * Vytvoří nového uživatele.
-//	 * @return
-//	 * 
-//	 * @param osoba
-//	 */
-//	public boolean createOsoba(Person osoba);
 
-	/**
-	 * Deaktivuje uživatele (na jeho účet se nepůjde přihlásit).
-	 * @return
-	 * 
-	 * @param osoba
-	 */
-//	public boolean deactivateOsoba(Person osoba); // TODO steklsim nemelo by tohle byt az v BL?
-
-//	/**
-//	 * Vrátí všechny osoby.
-//	 * @return
-//	 */
-//	public List getAllOsoby();
 
 	/**
 	 * Vrátí uživatele na základě uživatelského jména
@@ -46,35 +26,24 @@ public interface IDAOPerson extends IDAOGeneric<Person>
 	 */
 	public Person getOsoba(String username);
 
+
+
+
 //	/**
-//	 * Vrátí osobu podle jejího ID.
+//	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
 //	 * @return
 //	 * 
-//	 * @param id
+//	 * @param login
 //	 */
-//	public Person getOsoba(int id);
-
-	/**
-	 * Vrátí ID prihlasene osoby.
-	 * @return
-	 */
-	public int getOsobaID(); // TODO steklsim tohle urcite patri do BL
-
-	/**
-	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
-	 * @return
-	 * 
-	 * @param login
-	 */
-	public boolean checkNewLogin(String login);
-
-	/**
-	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen. 
-	 * @return
-	 * 
-	 * @param login
-	 */
-	public boolean checkPrihlaseni(String login);
+//	public boolean checkNewLogin(String login);
+//
+//	/**
+//	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen. 
+//	 * @return
+//	 * 
+//	 * @param login
+//	 */
+//	public boolean checkPrihlaseni(String login);
 
 //	/**
 //	 * Uloží změny osoby.

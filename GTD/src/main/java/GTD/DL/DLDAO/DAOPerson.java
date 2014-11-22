@@ -92,34 +92,32 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 	 * Vrátí ID prihlasene ososby.
 	 * @return id
 	 */
-	@Override
-	public int getOsobaID(){
-		throw new UnsupportedOperationException("method is not yet implemented");
-		// TODO steklsim implementovat tohle az bude jasny jak funguje prihlasovani
-	}
+//	@Override
+//	public int getOsobaID(){
+//		throw new UnsupportedOperationException("method is not yet implemented");
+//	}
 
-	/**
-	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
-	 * @return true kdyz je login volny, jinak false
-	 * 
-	 * @param login
-	 */
-	@Override
-	public boolean checkNewLogin(String login){
-		return this.getOsoba(login) == null;
-	}
-
-	/**
-	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
-	 * @return true=povolen, false=nepovolen
-	 * 
-	 * @param login
-	 */
-	@Override
-	public boolean checkPrihlaseni(String login){
-		throw new UnsupportedOperationException("method is not yet implemented");
-		// TODO steklsim implementovat tohle az bude jasny jak funguje prihlasovani
-	}
+//	/**
+//	 * Zkontroluje, jestli už neexistuje uživatel s daným uživ. jménem.
+//	 * @return true kdyz je login volny, jinak false
+//	 * 
+//	 * @param login
+//	 */
+//	@Override
+//	public boolean checkNewLogin(String login){
+//		return this.getOsoba(login) == null;
+//	}
+//
+//	/**
+//	 * Zkontroluje přihlašovací údaje. Zda je ucet povolen.
+//	 * @return true=povolen, false=nepovolen
+//	 * 
+//	 * @param login
+//	 */
+//	@Override
+//	public boolean checkPrihlaseni(String login){
+//		throw new UnsupportedOperationException("method is not yet implemented");
+//	}
 
 //	/**
 //	 * Uloží změny osoby.

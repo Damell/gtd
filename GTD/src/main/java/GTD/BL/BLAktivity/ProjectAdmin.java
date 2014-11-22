@@ -60,44 +60,66 @@ public class ProjectAdmin {
 	/**
 	 * Vytvorí nový projekt zadaných vlastností a uloží ho do databáze. Podprojekt v
 	 * projektu může vytvořit pouze vlastník tohoto nadřazeného projektu.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param projekt
 	 * @param cinnost    Činnost, ze které projekt vznikl (pokud existuje) - používá
 	 * se pro označení činnosti jako "zpracované".
 	 */
-	public void addProjekt(Project projekt, Activity cinnost){
-		if (projekt.getVlastnik() != null && !projekt.getVlastnik().equals(cinnost.getVlastnik())) {
-			throw new RuntimeException("Vytvorit projekt z cinnosti muze pouze jeji vlastnik"); 
+	public void addProjekt(Project projekt, Activity cinnost, Person user){
+		if (projekt.getVlastnik().equals(cinnost.getVlastnik())
+				&& projekt.getVlastnik().equals(user)
+				&& projekt.getRodic().getVlastnik().equals(user)) {
+			DAOProjekt.create(projekt);
+			spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
+		} else {
+			throw new SecurityException("Project owned by '" 
+				+ projekt.getVlastnik().getLogin() + "' can't be added by '" 
+				+ user.getLogin() + "'");
 		}
-		DAOProjekt.create(projekt);
-		spravceCinnosti.processCinnost(cinnost); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 	}
 
 	/**
 	 * Smaže projekt (resp. označí jako smazaný) z databáze spolu se všemi jeho úkoly
 	 * a podprojekty. Project může mazat jeho vlastník nebo vlastník nadřazeného
 	 * projektu (v 1.úrovni).
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param projekt
 	 */
-	public void deleteProjekt(Project projekt){ // TODO steklsim v docBlocku je projekt "oznacen jako smazany" - nemame na to stav
-		DAOProjekt.delete(projekt);
+	public void deleteProjekt(Project projekt, Person user){ // TODO steklsim v docBlocku je projekt "oznacen jako smazany" - nemame na to stav
+		if (projekt.getVlastnik().equals(user)
+				|| projekt.getRodic().getVlastnik().equals(user)) {
+			DAOProjekt.delete(projekt);
+		} else {
+			throw new SecurityException("Project owned by '" 
+				+ projekt.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Označí projekt jako "dokončený". Dokončit projekt může jeho vlastník nebo
 	 * vlastník nadřazeného projektu (v 1.úrovni).
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param projekt
 	 */
-	public void finishProjekt(Project projekt){
-		ProjectState dokonceny = DAOStav.getProjektDokonceny();
-		projekt.setStav(dokonceny);
-		DAOProjekt.update(projekt);
+	public void finishProjekt(Project projekt, Person user){
+		if (projekt.getVlastnik().equals(user)
+				|| projekt.getRodic().getVlastnik().equals(user)) {
+			ProjectState dokonceny = DAOStav.getProjektDokonceny();
+			projekt.setStav(dokonceny);
+			DAOProjekt.update(projekt);
+		} else {
+			throw new SecurityException("Project '" 
+				+ projekt.getNazev() + "' can't be marked as finished by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
@@ -105,38 +127,56 @@ public class ProjectAdmin {
 	 * @return
 	 */
 	public List<Project> getAllProjekty(){
+		// if user has role ROLE_ADMIN
 		return DAOProjekt.getAll();
 	}
 
 	/**
 	 * Vrátí projekt podle jeho ID.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param id
 	 */
-	public Project getProjekt(int id){
-		return DAOProjekt.get(id);
+	public Project getProjekt(int id, Person user){
+		Project projekt = DAOProjekt.get(id);
+		if (projekt != null 
+				&& !projekt.getVlastnik().equals(user)
+				&& !projekt.getRodic().getVlastnik().equals(user)) {
+			throw new SecurityException("Project '" 
+					+ projekt.getNazev() + "' can't be marked as finished by '" 
+					+ user.getLogin() + "'");
+		}
+		return projekt;
 	}
 
 	/**
 	 * Vrátí všechny projekty patrící zadané osobe.
 	 * @return
 	 * 
-	 * @param osoba
+	 * @param user logged-in user
 	 */
-	public List<Project> getProjektyOsoby(Person osoba){
-		return DAOProjekt.getProjektyOsoby(osoba);
+	public List<Project> getProjektyOsoby(Person user){
+		return DAOProjekt.getProjektyOsoby(user);
 	}
 
 	/**
 	 * Uloží změněný projekt (změna názvu/popisu). Měnit projekt může  jeho vlastník
 	 * nebo vlastník nadřazeného projektu (v 1.úrovni).
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param projekt
 	 */
-	public void updateProjekt(Project projekt){ // TODO steklsim metoda zatim na nic
-		DAOProjekt.update(projekt);
+	public void updateProjekt(Project projekt, Person user){ // TODO steklsim metoda zatim na nic
+		if (projekt.getVlastnik().equals(user)
+				|| projekt.getRodic().getVlastnik().equals(user)) {
+			DAOProjekt.update(projekt);
+		} else {
+			throw new SecurityException("Project '" 
+				+ projekt.getNazev() + "' can't be updated by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 	
 }

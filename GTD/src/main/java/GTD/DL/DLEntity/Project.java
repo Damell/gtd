@@ -2,6 +2,7 @@ package GTD.DL.DLEntity;
 
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -40,7 +41,7 @@ public class Project extends Action {
 	/**
 	 * Úkoly projektu.
 	 */
-	@OneToMany(mappedBy = "projekt")
+	@OneToMany(mappedBy = "projekt", cascade = {CascadeType.ALL})
 	private List<Task> ukoly;
 	
 	/**

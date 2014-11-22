@@ -5,6 +5,7 @@ import GTD.DL.DLInterfaces.IDAOState;
 import GTD.DL.DLDAO.DAOActivity;
 import GTD.BL.BLOsoby.PersonAdmin;
 import GTD.DL.DLEntity.Activity;
+import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Person;
 import java.util.List;
 
@@ -18,13 +19,12 @@ public class ActivitiyAdmin {
 
 	private IDAOActivity DAOCinnost;
 	private IDAOState DAOStav;
-	public DAOActivity m_DAOCinnost;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
 	private PersonAdmin spravceOsob;
 
-
+	
 
 	public void finalize() throws Throwable {
 
@@ -34,84 +34,146 @@ public class ActivitiyAdmin {
 
 	}
 
+	public void setDAOCinnost(IDAOActivity dao) {
+		DAOCinnost = dao;
+	}
+
+	public void setDAOStav(IDAOState DAOStav)
+	{
+		this.DAOStav = DAOStav;
+	}
+	
+	
 	/**
 	 * Vytvorí novou cinnost.
-	 * @return
+	 * @param user logged-in user
 	 * 
 	 * @param cinnost
 	 */
-	public boolean addCinnost(Activity cinnost){
-		return false;
+	public void addCinnost(Activity cinnost, Person user){
+		if (cinnost.getVlastnik().equals(user)) {
+			DAOCinnost.create(cinnost);
+		} else {
+			throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be added by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Označí činnost jako "archivovanou". Toto může udělat pouze vlastník činnosti.
-	 * @return
+	 * @param user logged-in user
 	 * 
 	 * @param cinnost
 	 */
-	public boolean archiveCinnost(Activity cinnost){
-		return false;
+	public void archiveCinnost(Activity cinnost, Person user){
+		if (cinnost.getVlastnik().equals(user)) {
+			ActivityState archivovana = DAOStav.getCinnostArchivovana();
+			cinnost.setStav(archivovana);
+			DAOCinnost.update(cinnost);
+		} else {
+			throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be archived by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Smaže činnost. Toto může udělat pouze vlastník činnosti.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean deleteCinnost(Activity cinnost){
-		return false;
+	public void deleteCinnost(Activity cinnost, Person user){
+		if (cinnost.getVlastnik().equals(user)) DAOCinnost.delete(cinnost);
+		else throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ user.getLogin() + "'");
 	}
 
 	/**
 	 * Vrátí cinnost na základě jejího ID.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param id
 	 */
-	public Activity getCinnost(int id){
-		return null;
+	public Activity getCinnost(int id, Person user){
+		Activity cinnost = DAOCinnost.get(id);
+		if (cinnost != null) {
+			if (!cinnost.getVlastnik().equals(user)) {
+				throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be read by '" 
+				+ user.getLogin() + "'");
+			}
+		}
+		return cinnost;
 	}
 
 	/**
 	 * Vrátí všechny cinnosti osoby.
+	 * @param user logged-in user
 	 * @return
 	 * 
-	 * @param osoba
 	 */
-	public List<Activity> getCinnostiOsoby(Person osoba){
-		return null;
+	public List<Activity> getCinnostiOsoby(Person user){
+		return DAOCinnost.getCinnostiOsoby(user);
 	}
 
 	/**
 	 * Označí činnost jako "odloženou". Toto může udělat pouze vlastník činnosti.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean postponeCinnost(Activity cinnost){
-		return false;
+	public void postponeCinnost(Activity cinnost, Person user){
+		if (cinnost.getVlastnik().equals(user)) {
+			ActivityState odlozena = DAOStav.getCinnostOdlozena();
+			cinnost.setStav(odlozena);
+			DAOCinnost.update(cinnost);
+		} else {
+			throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be postponed by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Označí činnost jako "zpracovanou". Toto může udělat pouze vlastník činnosti.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean processCinnost(Activity cinnost){
-		return false;
+	public void processCinnost(Activity cinnost, Person user){
+		if (cinnost.getVlastnik().equals(user)) {
+			ActivityState zpracovana = DAOStav.getCinnostZpracovana();
+			cinnost.setStav(zpracovana);
+			DAOCinnost.update(cinnost);
+		} else {
+			throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be processed by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Uloží změněnou činnost. Toto může udělat pouze vlastník činnosti.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param cinnost
 	 */
-	public boolean updateCinnost(Activity cinnost){
-		return false;
+	public void updateCinnost(Activity cinnost, Person user){ // TODO steklsim updateCinnnost() je asi k nicemu
+		if (cinnost.getVlastnik().equals(user)) {
+			DAOCinnost.update(cinnost);
+		} else {
+			throw new SecurityException("Activity owned by '" 
+				+ cinnost.getVlastnik().getLogin() + "' can't be updated by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 }

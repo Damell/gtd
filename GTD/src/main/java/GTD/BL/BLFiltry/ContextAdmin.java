@@ -19,9 +19,9 @@ public class ContextAdmin {
 		
 	}
 
-	public void setDAOContext(IDAOContext $dao)
+	public void setDAOContext(IDAOContext dao)
 	{
-		this.DAOKontext = $dao;
+		this.DAOKontext = dao;
 	}
 	
 	/**
@@ -38,51 +38,79 @@ public class ContextAdmin {
 	 * @return
 	 * 
 	 * @param kontext
-	 * @param osoba
+	 * @param user logged-in user
 	 */
-	public void addKontext(Context kontext, Person osoba){ // TODO steklsim nestaci jen parametr 'kontext', resp. metoda updateContext()? (kontext ma atribut 'vlastnik')
-		kontext.setVlastnik(osoba);
-		DAOKontext.create(kontext); // TODO steklsim chytat DAOException v BL?
+	public void addKontext(Context kontext, Person user){ 
+		if (kontext.getVlastnik().equals(user)) {
+			DAOKontext.create(kontext); 
+		} else {
+			throw new SecurityException("Context owned by '" 
+				+ kontext.getVlastnik().getLogin() + "' can't be added by '" 
+				+ user.getLogin() + "'");
+		}
+		
 	}
 
 	/**
 	 * Smaže kontext.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param kontext
 	 */
-	public void deleteKontext(Context kontext){
-		DAOKontext.delete(kontext);
+	public void deleteKontext(Context kontext, Person user){
+		if (kontext.getVlastnik().equals(user)) {
+			DAOKontext.delete(kontext);
+		} else {
+			throw new SecurityException("Context owned by '" 
+				+ kontext.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 	/**
 	 * Vrátí kontext podle jeho ID.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param id
 	 */
-	public Context getKontext(int id){
-		return DAOKontext.get(id);
+	public Context getKontext(int id, Person user){
+		Context kontext = DAOKontext.get(id);
+		if (kontext != null && !kontext.getVlastnik().equals(user)) {	
+			throw new SecurityException("Context owned by '" 
+				+ kontext.getVlastnik().getLogin() + "' can't be accessed by '" 
+				+ user.getLogin() + "'");
+		}
+		return kontext;
 	}
 
 	/**
 	 * Vrátí všechny kontexty patrící zadané osobe.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param osoba
 	 */
-	public List getKontextyOsoby(Person osoba){
-		return DAOKontext.getKontextyOsoby(osoba);
+	public List getKontextyOsoby(Person user){
+		return DAOKontext.getKontextyOsoby(user);
 	}
 
 	/**
 	 * Uloží zmenený kontext.
+	 * @param user logged-in user
 	 * @return
 	 * 
 	 * @param kontext
 	 */
-	public void updateKontext(Context kontext){
-		DAOKontext.update(kontext);
+	public void updateKontext(Context kontext, Person user){
+		if (kontext.getVlastnik().equals(user)) {
+			DAOKontext.update(kontext);
+		} else {
+			throw new SecurityException("Context owned by '" 
+				+ kontext.getVlastnik().getLogin() + "' can't be updated by '" 
+				+ user.getLogin() + "'");
+		}
 	}
 
 }

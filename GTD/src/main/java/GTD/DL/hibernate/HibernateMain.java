@@ -5,6 +5,8 @@
  */
 package GTD.DL.hibernate;
 
+import GTD.BL.BLAktivity.ActivitiyAdmin;
+import GTD.BL.BLOsoby.PersonAdmin;
 import GTD.DL.DLDAO.DAOActivity;
 import GTD.DL.DLDAO.DAOContext;
 import GTD.DL.DLDAO.DAOException;
@@ -34,21 +36,30 @@ public class HibernateMain
 //	{
 		
 		
-//		DAOPerson daoPerson = new DAOPerson();
-//		daoPerson.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOState daoState = new DAOState();
-//		daoState.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOActivity daoActivity = new DAOActivity();
-//		daoActivity.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOContext daoContext = new DAOContext();
-//		daoContext.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOProject daoProject = new DAOProject();
-//		daoProject.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOTask daoTask = new DAOTask();
-//		daoTask.setSessionFactory(HibernateUtil.getSessionFactory());
-//		
-//		// person
-//		
+		DAOPerson daoPerson = new DAOPerson();
+		daoPerson.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOState daoState = new DAOState();
+		daoState.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOActivity daoActivity = new DAOActivity();
+		daoActivity.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOContext daoContext = new DAOContext();
+		daoContext.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOProject daoProject = new DAOProject();
+		daoProject.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOTask daoTask = new DAOTask();
+		daoTask.setSessionFactory(HibernateUtil.getSessionFactory());
+		
+		PersonAdmin personAdmin = new PersonAdmin();
+		personAdmin.setDAOOsoba(daoPerson);
+		personAdmin.setDAOStav(daoState);
+		ActivitiyAdmin actAdmin = new ActivitiyAdmin();
+		actAdmin.setDAOCinnost(daoActivity);
+		actAdmin.setDAOStav(daoState);
+		
+		
+		
+		// person
+		
 //		Person person = new Person();
 //		person.setJmeno("Pepa");
 //		person.setPrijmeni("Vomáčka");
@@ -62,16 +73,26 @@ public class HibernateMain
 //		person2.setLogin("testLogin");
 //		person2.setStav(state);
 //
-//		try {
+		try {
 //			daoPerson.create(person);
 //			System.out.println("person1 created");
-//			Person dbPerson = daoPerson.getOsoba("testLogin");
+//			Person dbPerson = daoPerson.getOsoba("blablabla");
 //			System.out.println("dbPerson: " + dbPerson);
 //			daoPerson.create(person2);
+			
+			Person pepa = daoPerson.getOsoba("testLogin");
+			Activity a = daoActivity.get(5);
+			System.out.println(pepa);
+			System.out.println(a);
+//			personAdmin.deactivateOsoba(pepa);
+			actAdmin.deleteCinnost(a, pepa);
+			
 //			
-//		} catch (DAOException e) {
-//			System.out.println("!!! Catch !!! : " + e.getMessage());
-//		}
+		} catch (DAOException e) {
+			System.out.println("!!! Catch !!! : " + e.getMessage());
+		} catch (SecurityException se) {
+			System.out.println("Access denied: " + se.getMessage());
+		}
 //		
 //		// activity
 //		

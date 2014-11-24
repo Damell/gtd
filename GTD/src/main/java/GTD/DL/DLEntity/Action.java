@@ -31,12 +31,6 @@ public abstract class Action {
 	@Column(length = 1000, nullable = true)
 	private String popis;
 	
-//	/**
-//	 * Stav, ve kterém se aktivita nachází (každá podtřída má své stavy definované v
-//	 * databázi).
-//	 */
-//	// TODO steklsim enum? entita? "types" tabulka? 
-//	private int stav;
 	
 	/**
 	 * Vlastník aktivity - má právo ji upravovat (změnit název/popis, smazat, v

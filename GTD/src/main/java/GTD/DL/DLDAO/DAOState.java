@@ -87,7 +87,10 @@ public class DAOState implements IDAOState
 		if (list != null && list.size() != 1) {
 			throw new RuntimeException("One type for entity '" + clazz.getSimpleName() + "' with code '" + kod + "' expected, got " + list.size());
 		}
-        if (list == null || list.isEmpty()) return null;
+        if (list == null || list.isEmpty()) {
+			System.out.println("DAOState.getType() returns NULL");
+			return null;
+		}
 		else return (Type) list.get(0);
 	}
 

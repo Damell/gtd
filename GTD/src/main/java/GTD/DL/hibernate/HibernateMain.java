@@ -30,8 +30,8 @@ import java.util.List;
  */
 public class HibernateMain
 {
-	public static void main(String[] args)
-	{
+//	public static void main(String[] args)
+//	{
 		
 		
 //		DAOPerson daoPerson = new DAOPerson();
@@ -109,11 +109,11 @@ public class HibernateMain
 		
 		
 		//terminate session factory, otherwise program won't end
-		HibernateUtil.getSessionFactory().close();
-		
-		System.out.println("Jo!");
-	}
- 
+//		HibernateUtil.getSessionFactory().close();
+//
+//		System.out.println("Jo!");
+//	}
+//
 	
 	
 }

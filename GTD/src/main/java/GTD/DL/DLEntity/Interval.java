@@ -136,6 +136,12 @@ public class Interval {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return from.toString() + " - " + to.toString();
+	}
 	
 	
 

@@ -6,6 +6,7 @@
 package GTD.DL.DLDAO;
 
 import GTD.DL.DLInterfaces.IDAOGeneric;
+import GTD.DL.hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -22,6 +23,10 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 {
 
 	private SessionFactory sessionFactory;
+	
+//	public DAOGeneric() {
+//		sessionFactory = HibernateUtil.getSessionFactory();
+//	}
 
 	public void setSessionFactory(SessionFactory factory) 
 	{

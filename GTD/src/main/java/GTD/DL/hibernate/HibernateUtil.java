@@ -12,6 +12,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -21,7 +23,6 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtil
 {
-
 	private static final SessionFactory sessionFactory;
 	
 	static {
@@ -54,6 +55,7 @@ public class HibernateUtil
         }
 	}
 	
+//	@Bean
 	public static SessionFactory getSessionFactory()
 	{
 		return sessionFactory;

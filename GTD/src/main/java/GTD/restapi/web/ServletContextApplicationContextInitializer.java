@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package restapi.web;
+package GTD.restapi.web;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.Ordered;

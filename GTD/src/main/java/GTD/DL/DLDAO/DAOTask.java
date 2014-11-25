@@ -10,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Service;
 
 /**
  * Trída zapouzdruje metody pro ukládání a nacítání úkolu z databáze.
@@ -17,6 +18,7 @@ import org.hibernate.Transaction;
  * @version 1.0
  * @created 19-10-2014 12:30:52
  */
+@Service
 public class DAOTask extends DAOGeneric<Task> implements IDAOTask {
 
 

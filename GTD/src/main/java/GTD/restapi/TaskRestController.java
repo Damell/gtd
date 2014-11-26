@@ -6,17 +6,25 @@
 package GTD.restapi;
 
 import GTD.DL.DLDAO.DAOException;
+import GTD.DL.DLDAO.DAOPerson;
+import GTD.DL.DLDAO.DAOProject;
 import GTD.DL.DLDAO.DAOTask;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Interval;
+import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Project;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.TaskState;
 import GTD.DL.hibernate.HibernateUtil;
+import java.io.StringReader;
+import java.util.Date;
 import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.stream.JsonParser;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,6 +46,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tasks")
 public class TaskRestController
 {
+	public static final String JSON_TASK_TITLE = "title";
+	public static final String JSON_TASK_DESCRIPTION = "description";
+	public static final String JSON_TASK_CREATOR = "creator";
+	// etc... 
+	// TODO steklsim ^ use these (or other) constants instead of strings
+	
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get(@PathVariable int id)
 	{
@@ -96,11 +111,67 @@ public class TaskRestController
 		}
 	}
 	
-//	@RequestMapping(method = RequestMethod.POST)
-//	public ResponseEntity<?> create(@RequestBody JsonObject task)
-//	{
-//		
-//	}
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> create(@RequestBody String taskString)
+	{
+		DAOTask dt = new DAOTask();
+		dt.setSessionFactory(HibernateUtil.getSessionFactory());
+//		DAOPerson dp = new DAOPerson();
+//		dp.setSessionFactory(HibernateUtil.getSessionFactory());
+//		DAOProject dpr = new DAOProject();
+//		dpr.setSessionFactory(HibernateUtil.getSessionFactory());
+		
+		JsonReader jr = Json.createReader(new StringReader(taskString));
+		JsonObject tj = jr.readObject();
+		
+//		if (!checkJsonTask(tj)) {
+//			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//		}
+		try {
+			Person owner = new Person();
+			owner.setId(tj.getInt("owner"));
+			Person creator = new Person();
+			creator.setId(tj.getInt("creator"));
+			Project project = null;
+			if (tj.containsKey("project")) {
+				project = new Project();
+				project.setId(tj.getJsonObject("project").getInt("id"));
+			}
+			TaskState state = new TaskState();
+			state.setId(tj.getJsonObject("state").getInt("id"));
+			Context context = null;
+			if (tj.containsKey("context")) {
+				context = new Context();
+				context.setId(tj.getJsonObject("context").getInt("id"));
+			}
+			Interval calendar = null;
+			if (tj.containsKey("calendar")) {
+				calendar = new Interval();
+				calendar.setFrom(new Date(tj.getJsonObject("calendar").getString("from")));
+				calendar.setTo(new Date(tj.getJsonObject("calendar").getString("to")));
+			}
+			
+			Task task = new Task();
+			task.setNazev(tj.getString("title"));
+			task.setVlastnik(owner);
+			task.setTvurce(creator);
+			task.setStav(state);
+			if (tj.containsKey("description")) task.setPopis(tj.getString("description"));
+			if (project != null) task.setProjekt(project);
+			if (calendar != null) task.setKalendar(calendar);
+			if (context != null) task.setKontext(context);
+			
+			dt.create(task);
+			
+			return new ResponseEntity<>(null, null, HttpStatus.CREATED);
+		
+		} catch (DAOException de) {
+			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+			// TODO steklsim it can also be BAD_REQUEST
+		} catch (NullPointerException npe) {
+			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 	private JsonObject getTaskJSON(Task t)
 	{
@@ -163,6 +234,11 @@ public class TaskRestController
 		
 		return obj.build();
 			
+	}
+
+	private boolean checkJsonTask(JsonObject tj)
+	{
+		return true; // TODO steklsim checkJsonTask()
 	}
 	
 }

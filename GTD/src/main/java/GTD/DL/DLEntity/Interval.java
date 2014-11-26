@@ -60,6 +60,11 @@ public class Interval {
 		return id;
 	}
 	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
 	/**
 	 * Vrátí datum do z intervalu
 	 * @return from

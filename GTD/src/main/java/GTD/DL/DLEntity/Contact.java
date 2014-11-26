@@ -68,6 +68,11 @@ public class Contact {
 		return id;
 	}
 	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
 	public String getKontakt()
 	{
 		return kontakt;

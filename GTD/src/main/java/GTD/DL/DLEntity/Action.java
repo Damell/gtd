@@ -87,6 +87,13 @@ public abstract class Action {
 		return id;
 	}
 
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	
+
 	/**
 	 * Vrátí název aktivity
 	 * @return nazev

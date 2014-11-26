@@ -76,7 +76,10 @@ public abstract class Filter {
 		return id;
 	}
 	
-	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
 	/**
 	 * Nastavi id a nazev filtru

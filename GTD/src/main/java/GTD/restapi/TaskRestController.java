@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +56,24 @@ public class TaskRestController
 		}
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable int id)
+	{
+		DAOTask dt = new DAOTask();
+		dt.setSessionFactory(HibernateUtil.getSessionFactory());
+		
+		
+		try {
+			Task t = dt.get(id);
+			if (t != null) dt.delete(t);
+			HttpStatus status = t != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+			return new ResponseEntity<>(null, null, status);
+			
+		} catch (DAOException e) {
+			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll()
 	{
@@ -75,12 +94,13 @@ public class TaskRestController
 		} catch (DAOException e) {
 			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-
-//		SessionFactory sf = (SessionFactory) ac.getBean(SessionFactory.class);
-//		if (sf == null) return "nefunguje";
-//		return "Hello, sf = " + sf.getClass().getSimpleName();
 	}
+	
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ResponseEntity<?> create(@RequestBody JsonObject task)
+//	{
+//		
+//	}
 	
 	private JsonObject getTaskJSON(Task t)
 	{
@@ -101,11 +121,15 @@ public class TaskRestController
 		JsonObjectBuilder obj = Json.createObjectBuilder()
 				.add("id", t.getId())
 				.add("title", t.getNazev())
-				.add("description", t.getPopis())
+				
 				.add("owner", t.getVlastnik().getId())
 				.add("creator", t.getTvurce().getId())
 				.add("state", state)
 		;
+		
+		if (t.getPopis() != null) {
+			obj.add("description", t.getPopis());
+		}
 
 		if (t.getProjekt() != null) {
 			JsonObject project = Json.createObjectBuilder()

@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author simon
  */
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/v1/tasks")
 public class TaskRestController
 {
 	public static final String JSON_TASK_TITLE = "title";
@@ -163,7 +163,13 @@ public class TaskRestController
 			
 			dt.create(task);
 			
-			return new ResponseEntity<>(null, null, HttpStatus.CREATED);
+			Task createdTask = dt.get(task.getId());
+			JsonObject taskJson = getTaskJSON(createdTask);
+			
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+			
+			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
 		
 		} catch (DAOException de) {
 			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);

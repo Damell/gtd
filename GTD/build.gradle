@@ -20,10 +20,10 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 war {
-    baseName = 'RestApi'
+    baseName = 'gtd'
     war {
-        baseName = 'RestApi'
-        version = '0.1'
+        baseName = 'gtd'
+//        version = '0.1'
     }
 }
 

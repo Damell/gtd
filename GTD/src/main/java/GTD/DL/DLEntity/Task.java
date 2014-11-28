@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -17,6 +18,7 @@ import javax.persistence.OneToOne;
  * @created 19-10-2014 12:30:55
  */
 @Entity
+@Table(name = "task")
 public class Task extends Action {
 
 	/**

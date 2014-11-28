@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
  * @created 19-10-2014 12:30:50
  */
 @Entity
+@Table(name = "contact")
 public class Contact {
 
 	@Id

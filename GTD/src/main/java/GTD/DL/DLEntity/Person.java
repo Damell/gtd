@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
  * @created 19-10-2014 12:30:54
  */
 @Entity
+@Table(name = "person")
 public class Person {
 
 	/**

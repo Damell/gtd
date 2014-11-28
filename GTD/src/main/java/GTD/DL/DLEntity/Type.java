@@ -30,6 +30,7 @@ import javax.persistence.UniqueConstraint;
     discriminatorType = DiscriminatorType.STRING
 )
 @Table(
+	name = "type",
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"type", "kod"})}
 )
 abstract public class Type

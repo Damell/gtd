@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
  * @created 19-10-2014 12:30:51
  */
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"nazev", "vlastnik_id"})})
+@Table(name = "context",uniqueConstraints = {@UniqueConstraint(columnNames = {"nazev", "vlastnik_id"})})
 public class Context extends Filter {
 
 

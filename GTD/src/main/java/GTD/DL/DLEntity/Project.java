@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
  * @created 19-10-2014 12:30:55
  */
 @Entity
+@Table(name = "project")
 public class Project extends Action {
 
 	/**

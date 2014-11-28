@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/v1/projects")
 public class ProjectRestController {
 
     @RequestMapping(method = RequestMethod.GET)

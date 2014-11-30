@@ -34,6 +34,15 @@ public class ActivitiyAdmin {
 
 	}
 
+	public ActivitiyAdmin(IDAOActivity DAOCinnost, IDAOState DAOStav, PersonAdmin spravceOsob)
+	{
+		this.DAOCinnost = DAOCinnost;
+		this.DAOStav = DAOStav;
+		this.spravceOsob = spravceOsob;
+	}
+	
+	
+
 	public void setDAOCinnost(IDAOActivity dao) {
 		DAOCinnost = dao;
 	}

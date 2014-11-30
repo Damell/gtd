@@ -2,12 +2,14 @@ package GTD.BL.BLAktivity;
 
 import GTD.DL.DLInterfaces.IDAOTask;
 import GTD.BL.BLOsoby.PersonAdmin;
+import GTD.DL.DLDAO.DAOState;
 import GTD.DL.DLDAO.DAOTask;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
+import GTD.DL.DLInterfaces.IDAOState;
 import java.util.List;
 import javax.security.auth.login.LoginException;
 
@@ -19,16 +21,18 @@ import javax.security.auth.login.LoginException;
  */
 public class TaskAdmin {
 
-	private IDAOTask DAOUkol;
+	private IDAOTask daoTask;
 	/**
 	 * Odkaz na ActivitiyAdmin - při přidání úkolu vzniklého z činnosti je třeba tuto
 	 * činnost označit jako "zpracovanou" - to zařídí právě ActivitiyAdmin.
 	 */
-	private ActivitiyAdmin spravceCinnosti;
+	private ActivitiyAdmin activityAdmin;
 	/**
 	 * Správce osob - pomocí něj přistupují ostatní správci k přihlášenému uživateli.
 	 */
-	private PersonAdmin spravceOsob;
+	private PersonAdmin personAdmin;
+	
+	private IDAOState daoState;
 
 
 
@@ -40,16 +44,37 @@ public class TaskAdmin {
 
 	}
 
-	public void setDAOUkol(IDAOTask DAOUkol)
+	public TaskAdmin(IDAOTask daoTask, ActivitiyAdmin activityAdmin, PersonAdmin personAdmin, IDAOState daoState)
 	{
-		this.DAOUkol = DAOUkol;
+		this.daoTask = daoTask;
+		this.activityAdmin = activityAdmin;
+		this.personAdmin = personAdmin;
+		this.daoState = daoState;
+	}
+	
+	
+
+	public void setDaoTask(IDAOTask daoTask)
+	{
+		this.daoTask = daoTask;
 	}
 
-	public void setSpravceCinnosti(ActivitiyAdmin spravceCinnosti)
+	public void setActivityAdmin(ActivitiyAdmin activityAdmin)
 	{
-		this.spravceCinnosti = spravceCinnosti;
+		this.activityAdmin = activityAdmin;
 	}
 
+	public void setPersonAdmin(PersonAdmin personAdmin)
+	{
+		this.personAdmin = personAdmin;
+	}
+
+	public void setDaoState(IDAOState daoState)
+	{
+		this.daoState = daoState;
+	}
+
+	
 	
 	
 	/**
@@ -62,11 +87,15 @@ public class TaskAdmin {
 	 * @param cinnost    Činnost, ze které úkol vznikl (pokud existuje) - používá se
 	 * pro označení činnosti jako "zpracované".
 	 */
-	public void addUkol(Task ukol, Activity cinnost, Person user){
-		if (ukol.getVlastnik().equals(cinnost.getVlastnik()) 
-				&& ukol.getProjekt().getVlastnik().equals(user)) {
-			DAOUkol.create(ukol);
-			spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit ukol?
+	public void addUkol(Task ukol, Person user, Activity cinnost){
+		boolean isProjectOwner = ukol.getProjekt() == null ? true : ukol.getProjekt().getVlastnik().equals(user);
+		boolean isActivityOwner = cinnost == null ? true : ukol.getVlastnik().equals(cinnost.getVlastnik());
+		if (isProjectOwner && isActivityOwner) {
+			ukol.setStav(daoState.getUkolVytvoreny());
+			ukol.setTvurce(user);
+			ukol.setVlastnik(user); // don't care if owner or creator is already set - maybe not?
+			daoTask.create(ukol);
+			if (cinnost != null) activityAdmin.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit ukol?
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
 		} else {
 			throw new SecurityException("User '" + user.getLogin()
@@ -86,7 +115,7 @@ public class TaskAdmin {
 	public void deleteUkol(Task ukol, Person user){
 		if (ukol.getVlastnik().equals(user) 
 				|| ukol.getProjekt().getVlastnik().equals(user)) {
-			DAOUkol.delete(ukol);
+			daoTask.delete(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 
 				+ ukol.getVlastnik().getLogin() + "' can't be deleted by '" 
@@ -101,7 +130,7 @@ public class TaskAdmin {
 	 */
 	public List<Task> getAllUkoly(){
 		// if user has role ROLE_ADMIN
-		return DAOUkol.getAll();
+		return daoTask.getAll();
 	}
 
 	/**
@@ -112,7 +141,7 @@ public class TaskAdmin {
 	 * @param id
 	 */
 	public Task getUkol(int id, Person user){
-		Task ukol = DAOUkol.get(id);
+		Task ukol = daoTask.get(id);
 		if (ukol != null) {
 			if (!ukol.getVlastnik().equals(user) 
 					&& !ukol.getProjekt().getVlastnik().equals(user)) { // TODO steklsim authorization not needed here maybe?
@@ -133,7 +162,7 @@ public class TaskAdmin {
 	 */
 	public List getUkolyKontextu(Context kontext, Person user){
 		if (kontext.getVlastnik().equals(user)) {
-			return DAOUkol.getUkolyKontextu(kontext);	
+			return daoTask.getUkolyKontextu(kontext);	
 		} else {
 			throw new SecurityException("User '" + user.getLogin() 
 					+ "' can't access context owned by '"
@@ -147,7 +176,7 @@ public class TaskAdmin {
 	 * @param user logged-in user
 	 */
 	public List getUkolyOsoby(Person user){
-		return DAOUkol.getUkolyOsoby(user);
+		return daoTask.getUkolyOsoby(user);
 	}
 
 	/**
@@ -162,7 +191,7 @@ public class TaskAdmin {
 		if (ukol.getVlastnik().equals(kontext.getVlastnik())
 				&& ukol.getVlastnik().equals(user)) {
 			ukol.setKontext(kontext);
-			DAOUkol.update(ukol);
+			daoTask.update(ukol);
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
 		} else {
 			throw new SecurityException("Task owned by '" 
@@ -182,7 +211,7 @@ public class TaskAdmin {
 	public void updateUkol(Task ukol, Person user){ // TODO steklsim metoda zatim na nic
 		if (ukol.getVlastnik().equals(user) 
 				|| ukol.getProjekt().getVlastnik().equals(user)) {
-			DAOUkol.update(ukol);
+			daoTask.update(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 
 				+ ukol.getVlastnik().getLogin() + "' can't be updated by '" 

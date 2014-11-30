@@ -7,6 +7,7 @@ import GTD.DL.DLEntity.ProjectState;
 import GTD.DL.DLEntity.TaskState;
 import GTD.DL.DLEntity.Type;
 import GTD.DL.DLInterfaces.IDAOState;
+import GTD.DL.hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -48,7 +49,7 @@ public class DAOState implements IDAOState
 
 	public DAOState()
 	{
-
+		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 
 	public void setSessionFactory(SessionFactory factory)

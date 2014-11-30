@@ -32,6 +32,14 @@ public class PersonAdmin {
 
 	}
 
+	public PersonAdmin(IDAOPerson DAOOsoba, IDAOState DAOStav)
+	{
+		this.DAOOsoba = DAOOsoba;
+		this.DAOStav = DAOStav;
+	}
+
+	
+	
 	public void setDAOOsoba(IDAOPerson DAOOsoba)
 	{
 		this.DAOOsoba = DAOOsoba;
@@ -83,6 +91,10 @@ public class PersonAdmin {
 	 */
 	public Person getOsoba(int id){
 		return DAOOsoba.get(id);
+	}
+	
+	public Person getOsoba(String username){
+		return DAOOsoba.getOsoba(username);
 	}
 
 	/**

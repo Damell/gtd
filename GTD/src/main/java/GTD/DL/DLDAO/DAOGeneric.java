@@ -24,9 +24,9 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 
 	private SessionFactory sessionFactory;
 	
-//	public DAOGeneric() {
-//		sessionFactory = HibernateUtil.getSessionFactory();
-//	}
+	public DAOGeneric() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+	}
 
 	public void setSessionFactory(SessionFactory factory) 
 	{

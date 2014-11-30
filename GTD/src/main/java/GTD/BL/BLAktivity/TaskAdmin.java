@@ -9,6 +9,7 @@ import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Person;
+import GTD.DL.DLEntity.Project;
 import GTD.DL.DLInterfaces.IDAOState;
 import java.util.List;
 import javax.security.auth.login.LoginException;
@@ -88,8 +89,8 @@ public class TaskAdmin {
 	 * pro označení činnosti jako "zpracované".
 	 */
 	public void addUkol(Task ukol, Person user, Activity cinnost){
-		boolean isProjectOwner = ukol.getProjekt() == null ? true : ukol.getProjekt().getVlastnik().equals(user);
-		boolean isActivityOwner = cinnost == null ? true : ukol.getVlastnik().equals(cinnost.getVlastnik());
+		boolean isProjectOwner = ukol.getProjekt() == null ? true : ukol.getProjekt().getVlastnik().getId() == user.getId();
+		boolean isActivityOwner = cinnost == null ? true : ukol.getVlastnik().getId() == cinnost.getVlastnik().getId();
 		if (isProjectOwner && isActivityOwner) {
 			ukol.setStav(daoState.getUkolVytvoreny());
 			ukol.setTvurce(user);
@@ -113,8 +114,8 @@ public class TaskAdmin {
 	 * @param ukol
 	 */
 	public void deleteUkol(Task ukol, Person user){
-		if (ukol.getVlastnik().equals(user) 
-				|| ukol.getProjekt().getVlastnik().equals(user)) {
+		if (ukol.getVlastnik().getId() == user.getId() 
+				|| (ukol.getProjekt() != null && ukol.getProjekt().getVlastnik().getId() == user.getId())) {
 			daoTask.delete(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 
@@ -143,11 +144,13 @@ public class TaskAdmin {
 	public Task getUkol(int id, Person user){
 		Task ukol = daoTask.get(id);
 		if (ukol != null) {
-			if (!ukol.getVlastnik().equals(user) 
-					&& !ukol.getProjekt().getVlastnik().equals(user)) { // TODO steklsim authorization not needed here maybe?
+			int taskOwnerId = ukol.getVlastnik().getId();
+			Project project = ukol.getProjekt();
+			if ((taskOwnerId != user.getId() && project == null)
+				|| (taskOwnerId != user.getId() && ukol.getProjekt().getVlastnik().getId() != user.getId())) { // TODO steklsim authorization not needed here maybe?
 				throw new SecurityException("Task owned by '" 
-						+ ukol.getVlastnik().getLogin() + "' can't be read by '" 
-						+ user.getLogin() + "'");
+						+ ukol.getVlastnik() + "' can't be read by '" 
+						+ user);
 			}
 		}
 		return ukol;
@@ -161,7 +164,7 @@ public class TaskAdmin {
 	 * @param kontext
 	 */
 	public List getUkolyKontextu(Context kontext, Person user){
-		if (kontext.getVlastnik().equals(user)) {
+		if (kontext.getVlastnik().getId() == user.getId()) {
 			return daoTask.getUkolyKontextu(kontext);	
 		} else {
 			throw new SecurityException("User '" + user.getLogin() 
@@ -188,8 +191,8 @@ public class TaskAdmin {
 	 * @param kontext
 	 */
 	public void setKontext(Task ukol, Context kontext, Person user){
-		if (ukol.getVlastnik().equals(kontext.getVlastnik())
-				&& ukol.getVlastnik().equals(user)) {
+		if (ukol.getVlastnik().getId() == kontext.getVlastnik().getId()
+				&& ukol.getVlastnik().getId() == user.getId()) {
 			ukol.setKontext(kontext);
 			daoTask.update(ukol);
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
@@ -208,9 +211,9 @@ public class TaskAdmin {
 	 * 
 	 * @param ukol
 	 */
-	public void updateUkol(Task ukol, Person user){ // TODO steklsim metoda zatim na nic
-		if (ukol.getVlastnik().equals(user) 
-				|| ukol.getProjekt().getVlastnik().equals(user)) {
+	public void updateUkol(Task ukol, Person user){ 
+		if (ukol.getVlastnik().getId() == user.getId()
+				|| ukol.getProjekt().getVlastnik().getId() == user.getId()) {
 			daoTask.update(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 

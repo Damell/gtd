@@ -137,6 +137,12 @@ abstract public class Type
 		return true;
 	}
 
+	@Override
+	public String toString()
+	{
+		return this.getClass().getSimpleName() + ": id=" + id + ", code=" + kod + ", name=" + nazev;
+	}
+
 	
 	
 	

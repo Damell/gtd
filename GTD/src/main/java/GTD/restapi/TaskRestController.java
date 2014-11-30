@@ -144,27 +144,14 @@ public class TaskRestController
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody String taskString)
 	{
-//		DAOTask dt = new DAOTask();
-//		dt.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOPerson dp = new DAOPerson();
-//		dp.setSessionFactory(HibernateUtil.getSessionFactory());
-//		DAOProject dpr = new DAOProject();
-//		dpr.setSessionFactory(HibernateUtil.getSessionFactory());
-		
-//		JsonReader jr = Json.createReader(new StringReader(taskString));
-//		JsonObject tj = jr.readObject();
-		
-//		if (!checkJsonTask(tj)) {
-//			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-//		}
 		try {
-			Task task = getTaskFromJSON(taskString);
+			JsonObject json = getJsonObjectFromString(taskString);
 			
+			Task task = getTaskFromJSON(json);
 			Person creator = task.getTvurce();
 			
 			taskAdmin.addUkol(task, creator, null); // TODO steklsim what about task's activity?
 			
-//			Task createdTask = taskAdmin.getUkol(task.getId(), creator); // TODO steklsim is this reloading neccessary?
 			JsonObject taskJson = getJSONFromTask(task);
 			
 			HttpHeaders httpHeaders = new HttpHeaders();
@@ -183,6 +170,40 @@ public class TaskRestController
 		}
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> update(@PathVariable int id, @RequestBody String taskString)
+	{
+		try {
+			JsonObject json = getJsonObjectFromString(taskString);
+			
+			Person creator = personAdmin.getOsoba(json.getInt("creator"));
+			if (creator == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+			
+			Task dbTask = taskAdmin.getUkol(id, creator); // TODO steklsim change this when authentization is working
+			if (dbTask == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+			Task task = getTaskFromJSON(json, dbTask);
+			
+			taskAdmin.updateUkol(task, task.getTvurce());
+			Task updatedTask = taskAdmin.getUkol(id, creator);
+			JsonObject taskJson = getJSONFromTask(updatedTask);
+			
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+			
+			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
+		
+		} catch (DAOException de) {
+			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
+				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+			} else {
+				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		} catch (JsonException je) {
+			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
 	/**
 	 * Creates a JsonObject instance from given Task instance
 	 * @param t
@@ -194,6 +215,7 @@ public class TaskRestController
 		
 			
 		
+//		System.out.println("STATE");
 		TaskState ts = t.getStav();
 		JsonObject state = Json.createObjectBuilder()
 				.add("id", ts.getId())
@@ -203,7 +225,7 @@ public class TaskRestController
 				.build()
 		;
 
-		
+//		System.out.println("BASIC");
 		JsonObjectBuilder obj = Json.createObjectBuilder()
 				.add("id", t.getId())
 				.add("title", t.getNazev())
@@ -212,11 +234,11 @@ public class TaskRestController
 				.add("creator", t.getTvurce().getId())
 				.add("state", state)
 		;
-		
+//		System.out.println("DESCRIPTION");
 		if (t.getPopis() != null) {
 			obj.add("description", t.getPopis());
 		}
-
+//		System.out.println("PROJECT");
 		if (t.getProjekt() != null) {
 			JsonObject project = Json.createObjectBuilder()
 						.add("id", t.getProjekt().getId())
@@ -225,7 +247,7 @@ public class TaskRestController
 			;
 			obj.add("project", project);
 		}
-		
+//		System.out.println("CONTEXT");
 		Context ctx = t.getKontext();
 		if (ctx != null) {
 			JsonObject context = Json.createObjectBuilder()
@@ -235,7 +257,7 @@ public class TaskRestController
 			;
 			obj.add("context", context);
 		}
-		
+//		System.out.println("CALENDAR");
 		Interval interval = t.getKalendar();
 		if (interval != null) {
 			JsonObject calendar = Json.createObjectBuilder()
@@ -251,56 +273,90 @@ public class TaskRestController
 			
 	}
 	
+	private JsonObject getJsonObjectFromString(String jsonString)
+	{
+		JsonReader jr = Json.createReader(new StringReader(jsonString));
+		return jr.readObject();
+	}
+	
 	/**
-	 * Creates a Task instace from JSON string. ONLY sets fields that are important
-	 * when persisting new task to database (mostly IDs)!
-	 * @param taskJson
+	 * Creates a Task instace from JsonObject instance. ONLY sets fields that are important
+	 * when persisting new task or updating it in database (mostly IDs)!
+	 * @param tj 
+	 * @param updatedTask if specified, this task is updated instead of creating a new one
 	 * @return 
 	 */
-	private Task getTaskFromJSON(String taskJson)
+	private Task getTaskFromJSON(JsonObject tj, Task updatedTask)
 	{
-		JsonReader jr = Json.createReader(new StringReader(taskJson));
-		JsonObject tj = jr.readObject();
+//		JsonReader jr = Json.createReader(new StringReader(taskJson));
+//		JsonObject tj = jr.readObject();
 		
-//		Person owner = new Person();
-//		owner.setId(tj.getInt("owner"));
-		Person creator = new Person();
-		creator.setId(tj.getInt("creator"));
-		Project project = null;
-		if (tj.containsKey("project")) {
-			project = new Project();
-			project.setId(tj.getJsonObject("project").getInt("id"));
+		boolean isUpdate = updatedTask != null;
+		Task task = updatedTask != null ? updatedTask : new Task();
+		
+		if (isUpdate) {
+			if (tj.containsKey("owner")) {							// owner
+				Person owner = new Person();
+				owner.setId(tj.getInt("owner"));
+				task.setVlastnik(owner);
+			}
+			if (tj.containsKey("state")) {							// state
+				TaskState state = new TaskState();
+				state.setId(tj.getJsonObject("state").getInt("id"));
+				task.setStav(state);
+			}
+			if (tj.containsKey("title")) {							// title (update)
+				task.setNazev(tj.getString("title"));
+			}
+			
+		} else {
+			task.setNazev(tj.getString("title"));					// title (new)
+			
+			Person creator = new Person();							// creator
+			creator.setId(tj.getInt("creator"));
+			task.setTvurce(creator);
 		}
+//		Project project = null;
+		if (tj.containsKey("project")) {							// project
+			Project project = new Project();
+			project.setId(tj.getJsonObject("project").getInt("id"));
+			task.setProjekt(project);
+		}
+		
 //		TaskState state = new TaskState();
 //		state.setId(tj.getJsonObject("state").getInt("id"));
-		Context context = null;
-		if (tj.containsKey("context")) {
-			context = new Context();
+//		Context context = null;
+		if (tj.containsKey("context")) {							// context
+			Context context = new Context();
 			context.setId(tj.getJsonObject("context").getInt("id"));
 		}
-		Interval calendar = null;
-		if (tj.containsKey("calendar")) {
-			calendar = new Interval();
+//		Interval calendar = null;
+		if (tj.containsKey("calendar")) {							// calendar
+			Interval calendar = new Interval();
 			calendar.setFrom(new Date(tj.getJsonObject("calendar").getString("from")));
 			calendar.setTo(new Date(tj.getJsonObject("calendar").getString("to")));
+			task.setKalendar(calendar);
 		}
+		if (tj.containsKey("description")) {
+			task.setPopis(tj.getString("description"));				// description
+		} 
 
-		Task task = new Task();
-		task.setNazev(tj.getString("title"));
+//		Task task = new Task();
+//		task.setNazev(tj.getString("title"));
 //		task.setVlastnik(owner);
-		task.setTvurce(creator);
+//		task.setTvurce(creator);
 //		task.setStav(state);
-		if (tj.containsKey("description")) task.setPopis(tj.getString("description"));
-		if (project != null) task.setProjekt(project);
-		if (calendar != null) task.setKalendar(calendar);
-		if (context != null) task.setKontext(context);
+//		if (project != null) task.setProjekt(project);
+//		if (calendar != null) task.setKalendar(calendar);
+//		if (context != null) task.setKontext(context);
 		
 		return task;
 	}
 
-	private boolean checkJsonTask(JsonObject tj)
+	
+	private Task getTaskFromJSON(JsonObject taskJson)
 	{
-		return true; // TODO steklsim checkJsonTask()
+		return getTaskFromJSON(taskJson, null);
 	}
 	
 }

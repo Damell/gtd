@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -82,23 +83,25 @@ public class TaskRestController
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> get(@PathVariable int id)
+	public @ResponseBody Task get(@PathVariable int id)
 	{
 		// TODO steklsim add authentication
 		DAOTask daoTask = new DAOTask();
 //		daoTask.setSessionFactory(HibernateUtil.getSessionFactory());
 		
 		
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//		HttpHeaders httpHeaders = new HttpHeaders();
+//		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//		
+//		try {
+//			Task t = daoTask.get(id);
+//			HttpStatus status = t != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+//			return new ResponseEntity<>(getJSONFromTask(t).toString(), httpHeaders, status);
+//		} catch (DAOException e) {
+//			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 		
-		try {
-			Task t = daoTask.get(id);
-			HttpStatus status = t != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-			return new ResponseEntity<>(getJSONFromTask(t).toString(), httpHeaders, status);
-		} catch (DAOException e) {
-			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return daoTask.get(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -120,25 +123,27 @@ public class TaskRestController
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getAll()
+	public @ResponseBody List<Task> getAll()
 	{
-//		DAOTask dt = new DAOTask();
+		DAOTask dt = new DAOTask();
 //		dt.setSessionFactory(HibernateUtil.getSessionFactory());
 		
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		try {
-			List<Task> tasks = taskAdmin.getAllUkoly();
-
-			JsonArrayBuilder builder = Json.createArrayBuilder();
-			for (Task t : tasks) {
-				JsonObject obj = getJSONFromTask(t);
-				builder.add(obj);
-			}
-			return new ResponseEntity<>(builder.build().toString(), httpHeaders, HttpStatus.OK);
-		} catch (DAOException e) {
-			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+//		HttpHeaders httpHeaders = new HttpHeaders();
+//		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//		try {
+//			List<Task> tasks = taskAdmin.getAllUkoly();
+//
+//			JsonArrayBuilder builder = Json.createArrayBuilder();
+//			for (Task t : tasks) {
+//				JsonObject obj = getJSONFromTask(t);
+//				builder.add(obj);
+//			}
+//			return new ResponseEntity<>(builder.build().toString(), httpHeaders, HttpStatus.OK);
+//		} catch (DAOException e) {
+//			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+		
+		return dt.getAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -148,7 +153,7 @@ public class TaskRestController
 			JsonObject json = getJsonObjectFromString(taskString);
 			
 			Task task = getTaskFromJSON(json);
-			Person creator = task.getTvurce();
+			Person creator = task.getCreator();
 			
 			taskAdmin.addUkol(task, creator, null); // TODO steklsim what about task's activity?
 			
@@ -183,7 +188,7 @@ public class TaskRestController
 			if (dbTask == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
 			Task task = getTaskFromJSON(json, dbTask);
 			
-			taskAdmin.updateUkol(task, task.getTvurce());
+			taskAdmin.updateUkol(task, task.getCreator());
 			Task updatedTask = taskAdmin.getUkol(id, creator);
 			JsonObject taskJson = getJSONFromTask(updatedTask);
 			
@@ -216,7 +221,7 @@ public class TaskRestController
 			
 		
 //		System.out.println("STATE");
-		TaskState ts = t.getStav();
+		TaskState ts = t.getState();
 		JsonObject state = Json.createObjectBuilder()
 				.add("id", ts.getId())
 				.add("code", ts.getKod())
@@ -228,27 +233,27 @@ public class TaskRestController
 //		System.out.println("BASIC");
 		JsonObjectBuilder obj = Json.createObjectBuilder()
 				.add("id", t.getId())
-				.add("title", t.getNazev())
+				.add("title", t.getTitle())
 				
-				.add("owner", t.getVlastnik().getId())
-				.add("creator", t.getTvurce().getId())
+				.add("owner", t.getOwner().getId())
+				.add("creator", t.getCreator().getId())
 				.add("state", state)
 		;
 //		System.out.println("DESCRIPTION");
-		if (t.getPopis() != null) {
-			obj.add("description", t.getPopis());
+		if (t.getDescription() != null) {
+			obj.add("description", t.getDescription());
 		}
 //		System.out.println("PROJECT");
-		if (t.getProjekt() != null) {
+		if (t.getProject() != null) {
 			JsonObject project = Json.createObjectBuilder()
-						.add("id", t.getProjekt().getId())
-						.add("title", t.getProjekt().getNazev())
+						.add("id", t.getProject().getId())
+						.add("title", t.getProject().getTitle())
 						.build()
 			;
 			obj.add("project", project);
 		}
 //		System.out.println("CONTEXT");
-		Context ctx = t.getKontext();
+		Context ctx = t.getContext();
 		if (ctx != null) {
 			JsonObject context = Json.createObjectBuilder()
 					.add("id", ctx.getId())
@@ -258,7 +263,7 @@ public class TaskRestController
 			obj.add("context", context);
 		}
 //		System.out.println("CALENDAR");
-		Interval interval = t.getKalendar();
+		Interval interval = t.getCalendar();
 		if (interval != null) {
 			JsonObject calendar = Json.createObjectBuilder()
 					.add("id", interval.getId())
@@ -298,29 +303,29 @@ public class TaskRestController
 			if (tj.containsKey("owner")) {							// owner
 				Person owner = new Person();
 				owner.setId(tj.getInt("owner"));
-				task.setVlastnik(owner);
+				task.setOwner(owner);
 			}
 			if (tj.containsKey("state")) {							// state
 				TaskState state = new TaskState();
 				state.setId(tj.getJsonObject("state").getInt("id"));
-				task.setStav(state);
+				task.setState(state);
 			}
 			if (tj.containsKey("title")) {							// title (update)
-				task.setNazev(tj.getString("title"));
+				task.setTitle(tj.getString("title"));
 			}
 			
 		} else {
-			task.setNazev(tj.getString("title"));					// title (new)
+			task.setTitle(tj.getString("title"));					// title (new)
 			
 			Person creator = new Person();							// creator
 			creator.setId(tj.getInt("creator"));
-			task.setTvurce(creator);
+			task.setCreator(creator);
 		}
 //		Project project = null;
 		if (tj.containsKey("project")) {							// project
 			Project project = new Project();
 			project.setId(tj.getJsonObject("project").getInt("id"));
-			task.setProjekt(project);
+			task.setProject(project);
 		}
 		
 //		TaskState state = new TaskState();
@@ -335,10 +340,10 @@ public class TaskRestController
 			Interval calendar = new Interval();
 			calendar.setFrom(new Date(tj.getJsonObject("calendar").getString("from")));
 			calendar.setTo(new Date(tj.getJsonObject("calendar").getString("to")));
-			task.setKalendar(calendar);
+			task.setCalendar(calendar);
 		}
 		if (tj.containsKey("description")) {
-			task.setPopis(tj.getString("description"));				// description
+			task.setDescription(tj.getString("description"));				// description
 		} 
 
 //		Task task = new Task();

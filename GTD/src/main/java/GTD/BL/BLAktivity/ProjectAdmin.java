@@ -68,15 +68,15 @@ public class ProjectAdmin {
 	 * se pro označení činnosti jako "zpracované".
 	 */
 	public void addProjekt(Project projekt, Activity cinnost, Person user){
-		if (projekt.getVlastnik().equals(cinnost.getVlastnik())
-				&& projekt.getVlastnik().equals(user)
-				&& projekt.getRodic().getVlastnik().equals(user)) {
+		if (projekt.getOwner().equals(cinnost.getOwner())
+				&& projekt.getOwner().equals(user)
+				&& projekt.getRodic().getOwner().equals(user)) {
 			DAOProjekt.create(projekt);
 			spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
 		} else {
 			throw new SecurityException("Project owned by '" 
-				+ projekt.getVlastnik().getLogin() + "' can't be added by '" 
+				+ projekt.getOwner().getLogin() + "' can't be added by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -91,12 +91,12 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void deleteProjekt(Project projekt, Person user){ // TODO steklsim v docBlocku je projekt "oznacen jako smazany" - nemame na to stav
-		if (projekt.getVlastnik().equals(user)
-				|| projekt.getRodic().getVlastnik().equals(user)) {
+		if (projekt.getOwner().equals(user)
+				|| projekt.getRodic().getOwner().equals(user)) {
 			DAOProjekt.delete(projekt);
 		} else {
 			throw new SecurityException("Project owned by '" 
-				+ projekt.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ projekt.getOwner().getLogin() + "' can't be deleted by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -110,14 +110,14 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void finishProjekt(Project projekt, Person user){
-		if (projekt.getVlastnik().equals(user)
-				|| projekt.getRodic().getVlastnik().equals(user)) {
+		if (projekt.getOwner().equals(user)
+				|| projekt.getRodic().getOwner().equals(user)) {
 			ProjectState dokonceny = DAOStav.getProjektDokonceny();
 			projekt.setStav(dokonceny);
 			DAOProjekt.update(projekt);
 		} else {
 			throw new SecurityException("Project '" 
-				+ projekt.getNazev() + "' can't be marked as finished by '" 
+				+ projekt.getTitle() + "' can't be marked as finished by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -141,10 +141,10 @@ public class ProjectAdmin {
 	public Project getProjekt(int id, Person user){
 		Project projekt = DAOProjekt.get(id);
 		if (projekt != null 
-				&& !projekt.getVlastnik().equals(user)
-				&& !projekt.getRodic().getVlastnik().equals(user)) {
+				&& !projekt.getOwner().equals(user)
+				&& !projekt.getRodic().getOwner().equals(user)) {
 			throw new SecurityException("Project '" 
-					+ projekt.getNazev() + "' can't be marked as finished by '" 
+					+ projekt.getTitle() + "' can't be marked as finished by '" 
 					+ user.getLogin() + "'");
 		}
 		return projekt;
@@ -169,12 +169,12 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void updateProjekt(Project projekt, Person user){ // TODO steklsim metoda zatim na nic
-		if (projekt.getVlastnik().equals(user)
-				|| projekt.getRodic().getVlastnik().equals(user)) {
+		if (projekt.getOwner().equals(user)
+				|| projekt.getRodic().getOwner().equals(user)) {
 			DAOProjekt.update(projekt);
 		} else {
 			throw new SecurityException("Project '" 
-				+ projekt.getNazev() + "' can't be updated by '" 
+				+ projekt.getTitle() + "' can't be updated by '" 
 				+ user.getLogin() + "'");
 		}
 	}

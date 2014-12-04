@@ -97,7 +97,7 @@ public class Activity extends Action {
 	@Override
 	public String toString()
 	{
-		return "Cinnost: id=" + getId() + ", nazev=" + getNazev();
+		return "Cinnost: id=" + getId() + ", nazev=" + getTitle();
 	}
 	
 	

@@ -44,7 +44,7 @@ public class ProjectRestController {
         for (Project p : projects) {
             JsonObject Rodic = Json.createObjectBuilder()
                     .add("id", p.getRodic().getId())
-                    .add("title", p.getRodic().getNazev())
+                    .add("title", p.getRodic().getTitle())
                     .build();
 
             ProjectState ps = p.getStav();
@@ -57,9 +57,9 @@ public class ProjectRestController {
 
             JsonObject obj = Json.createObjectBuilder()
                     .add("id", p.getId())
-                    .add("title", p.getNazev())
-                    .add("description", p.getPopis())
-                    .add("owner", p.getVlastnik().getId())
+                    .add("title", p.getTitle())
+                    .add("description", p.getDescription())
+                    .add("owner", p.getOwner().getId())
                     .add("creator", "none") // TODO p.getTvurce().getId()
                     .add("project", Rodic)
                     .add("state", state)

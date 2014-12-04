@@ -43,7 +43,7 @@ public class Project extends Action {
 	/**
 	 * Úkoly projektu.
 	 */
-	@OneToMany(mappedBy = "projekt", cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "project", cascade = {CascadeType.ALL})
 	private List<Task> ukoly;
 	
 	/**

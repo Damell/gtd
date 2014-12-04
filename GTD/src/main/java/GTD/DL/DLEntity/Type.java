@@ -5,6 +5,7 @@
  */
 package GTD.DL.DLEntity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -33,7 +34,7 @@ import javax.persistence.UniqueConstraint;
 	name = "type",
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"type", "kod"})}
 )
-abstract public class Type
+abstract public class Type implements Serializable
 {
 	/**
 	 * Id typu

@@ -1,5 +1,13 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.PersonDeserializer;
+import GTD.restapi.PersonSerializer;
+import GTD.restapi.ProjectDeserializer;
+import GTD.restapi.ProjectSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -19,36 +27,44 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "task")
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Task extends Action {
 
 	/**
 	 * Projekt úkolu.
 	 */
 	@ManyToOne
-	private Project projekt;
+	@JoinColumn(name = "projekt_id")
+	@JsonSerialize(using = ProjectSerializer.class)
+	@JsonDeserialize(using = ProjectDeserializer.class)
+	private Project project;
 	/**
 	 * Tvůrce úkolu (může se lišit od vlastníka - což je přiřazená osoba)
 	 */
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Person tvurce;
+	@JoinColumn(name = "tvurce_id", nullable = false)
+	@JsonSerialize(using = PersonSerializer.class)
+	@JsonDeserialize(using = PersonDeserializer.class)
+	private Person creator;
 	/**
 	 * Záznam o úkolu v kalendáři.
 	 */
 	@OneToOne(cascade = CascadeType.ALL)
-	private Interval kalendar;
+	@JoinColumn(name = "kalendar_id")
+	private Interval calendar;
 	/**
 	 * Context úkolu.
 	 */
 	@ManyToOne
-	private Context kontext;
+	@JoinColumn(name = "kontext_id")
+	private Context context;
 
 	/**
 	 * Stav úkolu
 	 */
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private TaskState stav;
+	@JoinColumn(name = "stav_id", nullable = false)
+	private TaskState state;
 
 
 	public void finalize() throws Throwable {
@@ -58,9 +74,9 @@ public class Task extends Action {
 	public Task(String nazev, String popis, Person vlastnik, Project projekt, Person tvurce, TaskState stav)
 	{
 		super(nazev, popis, vlastnik);
-		this.projekt = projekt;
-		this.tvurce = tvurce;
-		this.stav = stav;
+		this.project = projekt;
+		this.creator = tvurce;
+		this.state = stav;
 	}
 
 
@@ -76,78 +92,78 @@ public class Task extends Action {
 	 * Vrati kalendat ukolu
 	 * @return kalendar
 	 */
-	public Interval getKalendar(){
-		return kalendar;
+	public Interval getCalendar(){
+		return calendar;
 	}
 
 	/**
 	 * Vrati kontext ukolu
 	 * @return kontext
 	 */
-	public Context getKontext(){
-		return kontext;
+	public Context getContext(){
+		return context;
 	}
 
 	/**
 	 * Vrati projekt úkolu
 	 * @return projekt
 	 */
-	public Project getProjekt(){
-		return projekt;
+	public Project getProject(){
+		return project;
 	}
 
 	/**
 	 * Vrati tvurce úkolu
 	 * @return tvurce
 	 */
-	public Person getTvurce(){
-		return tvurce;
+	public Person getCreator(){
+		return creator;
 	}
 
-	public void setProjekt(Project projekt)
+	public void setProject(Project project)
 	{
-		this.projekt = projekt;
+		this.project = project;
 	}
 
-	public void setTvurce(Person tvurce)
+	public void setCreator(Person creator)
 	{
-		this.tvurce = tvurce;
+		this.creator = creator;
 	}
 
-	public void setKalendar(Interval kalendar)
+	public void setCalendar(Interval calendar)
 	{
-		this.kalendar = kalendar;
+		this.calendar = calendar;
 	}
 
-	public void setKontext(Context kontext)
+	public void setContext(Context context)
 	{
 		// TODO steklsim vyjimka pokud vlastnik ukolu != vlastnik kontextu 
-		this.kontext = kontext;
+		this.context = context;
 	}
 
-	public TaskState getStav()
+	public TaskState getState()
 	{
-		return stav;
+		return state;
 	}
 
-	public void setStav(TaskState stav)
+	public void setState(TaskState state)
 	{
-		this.stav = stav;
+		this.state = state;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "Ukol: id=" + this.getId() + ", nazev=" + this.getNazev();
+		return "Ukol: id=" + this.getId() + ", nazev=" + this.getTitle();
 	}
 
 	@Override
 	public int hashCode()
 	{
 		int hash = 5;
-		hash = 41 * hash + Objects.hashCode(this.kalendar);
-		hash = 41 * hash + Objects.hashCode(this.kontext);
-		hash = 41 * hash + Objects.hashCode(this.stav);
+		hash = 41 * hash + Objects.hashCode(this.calendar);
+		hash = 41 * hash + Objects.hashCode(this.context);
+		hash = 41 * hash + Objects.hashCode(this.state);
 		return hash;
 	}
 
@@ -157,19 +173,19 @@ public class Task extends Action {
 		if (!super.equals(obj)) return false;
 		
 		final Task other = (Task) obj;
-		if (!Objects.equals(this.projekt, other.projekt)) {
+		if (!Objects.equals(this.project, other.project)) {
 			return false;
 		}
-		if (!Objects.equals(this.tvurce, other.tvurce)) {
+		if (!Objects.equals(this.creator, other.creator)) {
 			return false;
 		}
-		if (!Objects.equals(this.kalendar, other.kalendar)) {
+		if (!Objects.equals(this.calendar, other.calendar)) {
 			return false;
 		}
-		if (!Objects.equals(this.kontext, other.kontext)) {
+		if (!Objects.equals(this.context, other.context)) {
 			return false;
 		}
-		if (!Objects.equals(this.stav, other.stav)) {
+		if (!Objects.equals(this.state, other.state)) {
 			return false;
 		}
 		return true;

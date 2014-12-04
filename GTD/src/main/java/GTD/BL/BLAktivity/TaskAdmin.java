@@ -89,19 +89,19 @@ public class TaskAdmin {
 	 * pro označení činnosti jako "zpracované".
 	 */
 	public void addUkol(Task ukol, Person user, Activity cinnost){
-		boolean isProjectOwner = ukol.getProjekt() == null ? true : ukol.getProjekt().getVlastnik().getId() == user.getId();
-		boolean isActivityOwner = cinnost == null ? true : ukol.getVlastnik().getId() == cinnost.getVlastnik().getId();
+		boolean isProjectOwner = ukol.getProject() == null ? true : ukol.getProject().getOwner().getId() == user.getId();
+		boolean isActivityOwner = cinnost == null ? true : ukol.getOwner().getId() == cinnost.getOwner().getId();
 		if (isProjectOwner && isActivityOwner) {
-			ukol.setStav(daoState.getUkolVytvoreny());
-			ukol.setTvurce(user);
-			ukol.setVlastnik(user); // don't care if owner or creator is already set - maybe not?
+			ukol.setState(daoState.getUkolVytvoreny());
+			ukol.setCreator(user);
+			ukol.setOwner(user); // don't care if owner or creator is already set - maybe not?
 			daoTask.create(ukol);
 			if (cinnost != null) activityAdmin.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit ukol?
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
 		} else {
 			throw new SecurityException("User '" + user.getLogin()
 				+ "' can't add a task to a project owned by '" 
-				+ ukol.getVlastnik().getLogin() + "'");
+				+ ukol.getOwner().getLogin() + "'");
 		}
 	}
 
@@ -114,12 +114,12 @@ public class TaskAdmin {
 	 * @param ukol
 	 */
 	public void deleteUkol(Task ukol, Person user){
-		if (ukol.getVlastnik().getId() == user.getId() 
-				|| (ukol.getProjekt() != null && ukol.getProjekt().getVlastnik().getId() == user.getId())) {
+		if (ukol.getOwner().getId() == user.getId() 
+				|| (ukol.getProject() != null && ukol.getProject().getOwner().getId() == user.getId())) {
 			daoTask.delete(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 
-				+ ukol.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ ukol.getOwner().getLogin() + "' can't be deleted by '" 
 				+ user.getLogin() + "'");
 		}
 		
@@ -144,12 +144,12 @@ public class TaskAdmin {
 	public Task getUkol(int id, Person user){
 		Task ukol = daoTask.get(id);
 		if (ukol != null) {
-			int taskOwnerId = ukol.getVlastnik().getId();
-			Project project = ukol.getProjekt();
+			int taskOwnerId = ukol.getOwner().getId();
+			Project project = ukol.getProject();
 			if ((taskOwnerId != user.getId() && project == null)
-				|| (taskOwnerId != user.getId() && ukol.getProjekt().getVlastnik().getId() != user.getId())) { // TODO steklsim authorization not needed here maybe?
+				|| (taskOwnerId != user.getId() && ukol.getProject().getOwner().getId() != user.getId())) { // TODO steklsim authorization not needed here maybe?
 				throw new SecurityException("Task owned by '" 
-						+ ukol.getVlastnik() + "' can't be read by '" 
+						+ ukol.getOwner() + "' can't be read by '" 
 						+ user);
 			}
 		}
@@ -191,14 +191,14 @@ public class TaskAdmin {
 	 * @param kontext
 	 */
 	public void setKontext(Task ukol, Context kontext, Person user){
-		if (ukol.getVlastnik().getId() == kontext.getVlastnik().getId()
-				&& ukol.getVlastnik().getId() == user.getId()) {
-			ukol.setKontext(kontext);
+		if (ukol.getOwner().getId() == kontext.getVlastnik().getId()
+				&& ukol.getOwner().getId() == user.getId()) {
+			ukol.setContext(kontext);
 			daoTask.update(ukol);
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
 		} else {
 			throw new SecurityException("Task owned by '" 
-				+ ukol.getVlastnik().getLogin() + "' can't be altered by '" 
+				+ ukol.getOwner().getLogin() + "' can't be altered by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -212,12 +212,12 @@ public class TaskAdmin {
 	 * @param ukol
 	 */
 	public void updateUkol(Task ukol, Person user){ 
-		if (ukol.getVlastnik().getId() == user.getId()
-				|| ukol.getProjekt().getVlastnik().getId() == user.getId()) {
+		if (ukol.getOwner().getId() == user.getId()
+				|| ukol.getProject().getOwner().getId() == user.getId()) {
 			daoTask.update(ukol);
 		} else {
 			throw new SecurityException("Task owned by '" 
-				+ ukol.getVlastnik().getLogin() + "' can't be updated by '" 
+				+ ukol.getOwner().getLogin() + "' can't be updated by '" 
 				+ user.getLogin() + "'");
 		}
 	}

@@ -1,0 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GTD.restapi;
+
+import GTD.DL.DLEntity.Project;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import java.io.IOException;
+
+/**
+ *
+ * @author simon
+ */
+public class ProjectSerializer extends JsonSerializer<Project>
+{
+
+	@Override
+	public void serialize(Project p, JsonGenerator jg, SerializerProvider sp) throws IOException, JsonProcessingException
+	{
+		jg.writeStartObject();
+		jg.writeNumberField("id", p.getId());
+		jg.writeStringField("title", p.getTitle());
+		jg.writeEndObject();
+	}
+	
+}

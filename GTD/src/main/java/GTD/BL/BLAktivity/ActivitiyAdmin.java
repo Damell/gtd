@@ -60,11 +60,11 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void addCinnost(Activity cinnost, Person user){
-		if (cinnost.getVlastnik().equals(user)) {
+		if (cinnost.getOwner().equals(user)) {
 			DAOCinnost.create(cinnost);
 		} else {
 			throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be added by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be added by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -76,13 +76,13 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void archiveCinnost(Activity cinnost, Person user){
-		if (cinnost.getVlastnik().equals(user)) {
+		if (cinnost.getOwner().equals(user)) {
 			ActivityState archivovana = DAOStav.getCinnostArchivovana();
 			cinnost.setStav(archivovana);
 			DAOCinnost.update(cinnost);
 		} else {
 			throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be archived by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be archived by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -95,9 +95,9 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void deleteCinnost(Activity cinnost, Person user){
-		if (cinnost.getVlastnik().equals(user)) DAOCinnost.delete(cinnost);
+		if (cinnost.getOwner().equals(user)) DAOCinnost.delete(cinnost);
 		else throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be deleted by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be deleted by '" 
 				+ user.getLogin() + "'");
 	}
 
@@ -111,9 +111,9 @@ public class ActivitiyAdmin {
 	public Activity getCinnost(int id, Person user){
 		Activity cinnost = DAOCinnost.get(id);
 		if (cinnost != null) {
-			if (!cinnost.getVlastnik().equals(user)) {
+			if (!cinnost.getOwner().equals(user)) {
 				throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be read by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be read by '" 
 				+ user.getLogin() + "'");
 			}
 		}
@@ -138,13 +138,13 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void postponeCinnost(Activity cinnost, Person user){
-		if (cinnost.getVlastnik().equals(user)) {
+		if (cinnost.getOwner().equals(user)) {
 			ActivityState odlozena = DAOStav.getCinnostOdlozena();
 			cinnost.setStav(odlozena);
 			DAOCinnost.update(cinnost);
 		} else {
 			throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be postponed by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be postponed by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -157,13 +157,13 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void processCinnost(Activity cinnost, Person user){
-		if (cinnost.getVlastnik().equals(user)) {
+		if (cinnost.getOwner().equals(user)) {
 			ActivityState zpracovana = DAOStav.getCinnostZpracovana();
 			cinnost.setStav(zpracovana);
 			DAOCinnost.update(cinnost);
 		} else {
 			throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be processed by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be processed by '" 
 				+ user.getLogin() + "'");
 		}
 	}
@@ -176,11 +176,11 @@ public class ActivitiyAdmin {
 	 * @param cinnost
 	 */
 	public void updateCinnost(Activity cinnost, Person user){ // TODO steklsim updateCinnnost() je asi k nicemu
-		if (cinnost.getVlastnik().equals(user)) {
+		if (cinnost.getOwner().equals(user)) {
 			DAOCinnost.update(cinnost);
 		} else {
 			throw new SecurityException("Activity owned by '" 
-				+ cinnost.getVlastnik().getLogin() + "' can't be updated by '" 
+				+ cinnost.getOwner().getLogin() + "' can't be updated by '" 
 				+ user.getLogin() + "'");
 		}
 	}

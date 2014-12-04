@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "intervals")
-public class Interval {
+public class Interval implements Serializable {
 
 	@Id
 	@GeneratedValue

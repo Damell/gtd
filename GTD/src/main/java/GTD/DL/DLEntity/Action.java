@@ -1,9 +1,12 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.PersonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -23,13 +26,13 @@ public abstract class Action {
 	/**
 	 * Název aktivity
 	 */
-	@Column(length = 100, nullable = false)
-	private String nazev;
+	@Column(name = "nazev", length = 100, nullable = false)
+	private String title;
 	/**
 	 * Popis aktivity
 	 */
-	@Column(length = 1000, nullable = true)
-	private String popis;
+	@Column(name = "popis", length = 1000, nullable = true)
+	private String description;
 	
 	
 	/**
@@ -37,7 +40,9 @@ public abstract class Action {
 	 * případě úkolu a projektu dokončit a delegovat).
 	 */
 	@ManyToOne
-	private Person vlastnik;
+	@JoinColumn(name = "vlastnik_id")
+	@JsonSerialize(using = PersonSerializer.class)
+	private Person owner;
 
 
 
@@ -60,9 +65,9 @@ public abstract class Action {
 	 * @param vlastnik 
 	 */
 	public Action(String nazev, String popis, Person vlastnik){
-		this.nazev = nazev;
-		this.popis = popis;
-		this.vlastnik = vlastnik;
+		this.title = nazev;
+		this.description = popis;
+		this.owner = vlastnik;
 	}
 
 //	/**
@@ -98,13 +103,13 @@ public abstract class Action {
 	 * Vrátí název aktivity
 	 * @return nazev
 	 */
-	public String getNazev(){
-		return nazev;
+	public String getTitle(){
+		return title;
 	}
 
-	public void setNazev(String nazev)
+	public void setTitle(String title)
 	{
-		this.nazev = nazev;
+		this.title = title;
 	}
 	
 	
@@ -113,13 +118,13 @@ public abstract class Action {
 	 * Vrátí popis aktivity
 	 * @return popis
 	 */
-	public String getPopis(){
-		return popis;
+	public String getDescription(){
+		return description;
 	}
 
-	public void setPopis(String popis)
+	public void setDescription(String description)
 	{
-		this.popis = popis;
+		this.description = description;
 	}
 	
 	
@@ -137,8 +142,8 @@ public abstract class Action {
 	 * Vrátí id vlastníka aktivity
 	 * @return vlastnik_id
 	 */
-	public Person getVlastnik() {
-		return vlastnik;
+	public Person getOwner() {
+		return owner;
 	}
 
 //	/**
@@ -176,10 +181,10 @@ public abstract class Action {
 	/**
 	 * Nastav vlastníka aktivity
 	 * 
-	 * @param vlastnik
+	 * @param owner
 	 */
-	public void setVlastnik(Person vlastnik){
-		this.vlastnik = vlastnik;
+	public void setOwner(Person owner){
+		this.owner = owner;
 	}
 
 	/**
@@ -188,7 +193,7 @@ public abstract class Action {
 	 */
 	@Override
 	public String toString(){
-		return "Aktivita: id=" + id + ", nazev=" + nazev;
+		return "Aktivita: id=" + id + ", nazev=" + title;
 	}
 
 	@Override
@@ -196,9 +201,9 @@ public abstract class Action {
 	{
 		int hash = 5;
 		hash = 89 * hash + this.id;
-		hash = 89 * hash + Objects.hashCode(this.nazev);
-		hash = 89 * hash + Objects.hashCode(this.popis);
-		hash = 89 * hash + Objects.hashCode(this.vlastnik);
+		hash = 89 * hash + Objects.hashCode(this.title);
+		hash = 89 * hash + Objects.hashCode(this.description);
+		hash = 89 * hash + Objects.hashCode(this.owner);
 		return hash;
 	}
 
@@ -215,13 +220,13 @@ public abstract class Action {
 		if (this.id != other.id) {
 			return false;
 		}
-		if (!Objects.equals(this.nazev, other.nazev)) {
+		if (!Objects.equals(this.title, other.title)) {
 			return false;
 		}
-		if (!Objects.equals(this.popis, other.popis)) {
+		if (!Objects.equals(this.description, other.description)) {
 			return false;
 		}
-		if (!Objects.equals(this.vlastnik, other.vlastnik)) {
+		if (!Objects.equals(this.owner, other.owner)) {
 			return false;
 		}
 		return true;

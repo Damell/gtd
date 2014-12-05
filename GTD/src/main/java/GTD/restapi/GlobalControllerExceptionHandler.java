@@ -9,6 +9,7 @@ import GTD.DL.DLDAO.ConstraintException;
 import GTD.DL.DLDAO.DAOException;
 import GTD.DL.DLDAO.DAOServerException;
 import GTD.DL.DLDAO.ItemNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -71,7 +72,7 @@ public class GlobalControllerExceptionHandler
 	
 	@ExceptionHandler(DAOServerException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public void handleDAOServerException(DAOServerException se) 
+	public void handleDAOServerException(DAOServerException dse) 
 	{
 		
 	}
@@ -85,4 +86,18 @@ public class GlobalControllerExceptionHandler
 //		
 //		return new ResponseEntity<>(null, httpHeaders, HttpStatus.FORBIDDEN);
     }
+	
+	@ExceptionHandler(JsonProcessingException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public void handleJsonProcessingException(JsonProcessingException jpe) 
+	{
+		
+	}
+	
+	@ExceptionHandler(NullPointerException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public String handleJsonProcessingException(NullPointerException npe) 
+	{
+		return npe.getMessage();
+	}
 }

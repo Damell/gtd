@@ -5,6 +5,7 @@ import GTD.restapi.PersonDeserializer;
 import GTD.restapi.PersonSerializer;
 import GTD.restapi.ProjectDeserializer;
 import GTD.restapi.ProjectSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -61,6 +62,7 @@ public class Task extends Action {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "kontext_id")
+	@JsonIgnore
 	private Context context;
 
 	/**

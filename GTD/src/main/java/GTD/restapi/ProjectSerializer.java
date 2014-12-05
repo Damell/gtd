@@ -23,8 +23,8 @@ public class ProjectSerializer extends JsonSerializer<Project>
 	public void serialize(Project p, JsonGenerator jg, SerializerProvider sp) throws IOException, JsonProcessingException
 	{
 		jg.writeStartObject();
-		jg.writeNumberField("id", p.getId());
-		jg.writeStringField("title", p.getTitle());
+		jg.writeNumberField(ApiConstants.PROJECT_ID, p.getId());
+		jg.writeStringField(ApiConstants.PROJECT_TITLE, p.getTitle());
 		jg.writeEndObject();
 	}
 	

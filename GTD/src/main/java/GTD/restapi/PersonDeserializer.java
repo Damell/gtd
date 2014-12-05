@@ -24,9 +24,9 @@ public class PersonDeserializer extends JsonDeserializer<Person>
 	public Person deserialize(JsonParser jp, DeserializationContext dc) throws IOException, JsonProcessingException
 	{
 		JsonNode node = jp.getCodec().readTree(jp);
-		int id = node.asInt();
+		String login = node.asText();
 		Person person = new Person();
-		person.setId(id);
+		person.setLogin(login);
 		
 		return person;
 	}

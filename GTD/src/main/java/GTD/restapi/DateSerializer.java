@@ -5,8 +5,7 @@
  */
 package GTD.restapi;
 
-import GTD.DL.DLEntity.Person;
-import GTD.DL.DLEntity.Project;
+import GTD.DL.DLEntity.Interval;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -17,13 +16,16 @@ import java.io.IOException;
  *
  * @author simon
  */
-public class PersonSerializer extends JsonSerializer<Person>
+public class DateSerializer extends JsonSerializer<Interval>
 {
 
 	@Override
-	public void serialize(Person p, JsonGenerator jg, SerializerProvider sp) throws IOException, JsonProcessingException
+	public void serialize(Interval t, JsonGenerator jg, SerializerProvider sp) throws IOException, JsonProcessingException
 	{
-		jg.writeString(p.getLogin());
+		jg.writeStartObject();
+		jg.writeNumberField(ApiConstants.INTERVAL_FROM, t.getFrom().getTime());
+		jg.writeNumberField(ApiConstants.INTERVAL_TO, t.getTo().getTime());
+		jg.writeEndObject();
 	}
 	
 }

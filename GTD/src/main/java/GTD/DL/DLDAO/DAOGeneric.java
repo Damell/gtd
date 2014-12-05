@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -125,6 +126,7 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 		} finally {
 			if (session != null) session.close();
 		}
+		if (t == null) throw new ItemNotFoundException("entity of class '" + clazz.getSimpleName() + "' with id '" + id + "' not found");
         return t;
 	}
 	
@@ -136,7 +138,12 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 	protected void handleException(HibernateException e, Transaction tx)
 	{
 		if (tx != null) tx.rollback();
-		throw new DAOException(e.getMessage(), e);
+		
+		if (e instanceof ConstraintViolationException) {
+			throw new ConstraintException(e.getMessage(), e);
+		} else {
+			throw new DAOServerException(e.getMessage(), e);
+		}
 	}
 
 }

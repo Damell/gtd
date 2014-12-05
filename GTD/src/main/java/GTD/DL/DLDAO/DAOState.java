@@ -89,11 +89,43 @@ public class DAOState implements IDAOState
 			throw new RuntimeException("One type for entity '" + clazz.getSimpleName() + "' with code '" + kod + "' expected, got " + list.size());
 		}
         if (list == null || list.isEmpty()) {
-			System.out.println("DAOState.getType() returns NULL");
-			return null;
+			throw new ItemNotFoundException("Type with class '" + clazz.getSimpleName() + "' and code '" + kod + "' not found");
 		}
 		else return (Type) list.get(0);
 	}
+
+	@Override
+	public ActivityState getActivityState(String code)
+	{
+		return (ActivityState) getType(ActivityState.class, code);
+	}
+
+	@Override
+	public ContactType getContactType(String code)
+	{
+		return (ContactType) getType(ContactType.class, code);
+	}
+
+	@Override
+	public PersonState getPersonState(String code)
+	{
+		return (PersonState) getType(PersonState.class, code);
+	}
+
+	@Override
+	public ProjectState getProjectState(String code)
+	{
+		return (ProjectState) getType(ProjectState.class, code);
+	}
+
+	@Override
+	public TaskState getTaskState(String code)
+	{
+		return (TaskState) getType(TaskState.class, code);
+	}
+	
+	
+	
 
 	@Override
 	public ActivityState getCinnostArchivovana()

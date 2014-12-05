@@ -16,6 +16,12 @@ import GTD.DL.DLEntity.TaskState;
 public interface IDAOState {
 
 	/**
+	 * Returns activity state with given code
+	 * @param code
+	 * @return 
+	 */
+	public ActivityState getActivityState(String code);
+	/**
 	 * Vrátí stav: činnost Archivovaná
 	 * @return
 	 */
@@ -46,6 +52,13 @@ public interface IDAOState {
 	public ActivityState getCinnostZpracovana();
 
 	/**
+	 * Returns contact type with given code
+	 * @param code
+	 * @return 
+	 */
+	public ContactType getContactType(String code);
+	
+	/**
 	 * Vrátí stav: konatakt email
 	 * @return
 	 */
@@ -57,6 +70,13 @@ public interface IDAOState {
 	 */
 	public ContactType getKontaktTelefon();
 
+	/**
+	 * Returns person state with given code
+	 * @param code
+	 * @return 
+	 */
+	public PersonState getPersonState(String code);
+	
 	/**
 	 * Vrátí stav: osoby Aktivni
 	 * @return
@@ -70,6 +90,13 @@ public interface IDAOState {
 	public PersonState getOsobaNeaktivni();
 
 	/**
+	 * Returns project state with given code
+	 * @param code
+	 * @return 
+	 */
+	public ProjectState getProjectState(String code);
+	
+	/**
 	 * Vrátí stav: projekt Aktivni
 	 * @return
 	 */
@@ -81,6 +108,13 @@ public interface IDAOState {
 	 */
 	public ProjectState getProjektDokonceny();
 
+	/**
+	 * Returns task state with given code
+	 * @param code
+	 * @return 
+	 */
+	public TaskState getTaskState(String code);
+	
 	/**
 	 * Vrátí stav: úkol aktivní
 	 * @return

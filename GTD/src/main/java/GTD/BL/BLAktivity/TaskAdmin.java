@@ -4,6 +4,7 @@ import GTD.DL.DLInterfaces.IDAOTask;
 import GTD.BL.BLOsoby.PersonAdmin;
 import GTD.DL.DLDAO.DAOState;
 import GTD.DL.DLDAO.DAOTask;
+import GTD.DL.DLDAO.ItemNotFoundException;
 import GTD.DL.DLEntity.Activity;
 import GTD.DL.DLEntity.ActivityState;
 import GTD.DL.DLEntity.Task;
@@ -211,10 +212,15 @@ public class TaskAdmin {
 	 * 
 	 * @param ukol
 	 */
-	public void updateUkol(Task ukol, Person user){ 
-		if (ukol.getOwner().getId() == user.getId()
-				|| ukol.getProject().getOwner().getId() == user.getId()) {
-			daoTask.update(ukol);
+	public void updateUkol(Task ukol, Person user)
+	{ 
+		Task oldTask = daoTask.get(ukol.getId());
+//		if (oldTask == null) throw new ItemNotFoundException("Task with id '" + ukol.getId() + "' not found");
+		oldTask.update(ukol);
+		
+		if (oldTask.getOwner().getId() == user.getId()
+				|| (oldTask.getProject() != null && oldTask.getProject().getOwner().getId() == user.getId())) {
+			daoTask.update(oldTask);
 		} else {
 			throw new SecurityException("Task owned by '" 
 				+ ukol.getOwner().getLogin() + "' can't be updated by '" 

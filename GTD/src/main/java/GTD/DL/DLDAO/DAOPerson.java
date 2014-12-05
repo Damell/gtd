@@ -72,10 +72,8 @@ public class DAOPerson extends DAOGeneric<Person> implements IDAOPerson
 			if (session != null) session.close();
 		}
 		
-		if (persons == null || persons.isEmpty()) return null; // prvni cast podminky je tam jen aby si netbeans nestezoval (dereferencing possible null)
-		// TODO steklsim pri neplatnem loginu hodit vyjimku?
+		if (persons == null || persons.isEmpty()) throw new ItemNotFoundException("User '" + login + "' not found"); // prvni cast podminky je tam jen aby si netbeans nestezoval (dereferencing possible null)
 		return persons.get(0);
-		// TODO steklsim kontrolovat, jestli ve vysledku je jen jeden uzivatel?
 	}
 
 //	/**

@@ -6,6 +6,7 @@
 package GTD.restapi;
 
 import GTD.BL.BLAktivity.ActivitiyAdmin;
+import GTD.BL.BLAktivity.ProjectAdmin;
 import GTD.BL.BLAktivity.TaskAdmin;
 import GTD.BL.BLOsoby.PersonAdmin;
 import GTD.DL.DLDAO.DAOActivity;
@@ -14,6 +15,7 @@ import GTD.DL.DLDAO.DAOPerson;
 import GTD.DL.DLDAO.DAOProject;
 import GTD.DL.DLDAO.DAOState;
 import GTD.DL.DLDAO.DAOTask;
+import GTD.DL.DLDAO.ItemNotFoundException;
 import GTD.DL.DLEntity.Context;
 import GTD.DL.DLEntity.Interval;
 import GTD.DL.DLEntity.Person;
@@ -22,6 +24,7 @@ import GTD.DL.DLEntity.Task;
 import GTD.DL.DLEntity.TaskState;
 import GTD.DL.DLInterfaces.IDAOActivity;
 import GTD.DL.DLInterfaces.IDAOPerson;
+import GTD.DL.DLInterfaces.IDAOProject;
 import GTD.DL.DLInterfaces.IDAOState;
 import GTD.DL.DLInterfaces.IDAOTask;
 import GTD.DL.hibernate.HibernateUtil;
@@ -45,6 +48,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -58,25 +62,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/tasks")
 public class TaskRestController
 {
-	public static final String JSON_TASK_TITLE = "title";
-	public static final String JSON_TASK_DESCRIPTION = "description";
-	public static final String JSON_TASK_CREATOR = "creator";
-	// etc... 
-	// TODO steklsim ^ use these (or other) constants instead of strings
+	
+	
+//	public static final String JSON_TASK_TITLE = "title";
+//	public static final String JSON_TASK_DESCRIPTION = "description";
+//	public static final String JSON_TASK_CREATOR = "creator";
+//	// etc... 
+//	// TODO steklsim ^ use these (or other) constants instead of strings
 	
 	private TaskAdmin taskAdmin;
 	private PersonAdmin personAdmin;
+	private ProjectAdmin projectAdmin;
+	private DAOState daoState;
 
 	public TaskRestController()
 	{
 		IDAOActivity da = new DAOActivity();
 		IDAOTask dt = new DAOTask();
-		IDAOState ds = new DAOState();
 		IDAOPerson dp = new DAOPerson();
+		IDAOProject dpr = new DAOProject();
 		
-		personAdmin = new PersonAdmin(dp, ds);
-		ActivitiyAdmin aa = new ActivitiyAdmin(da, ds, personAdmin);
-		taskAdmin = new TaskAdmin(dt, aa, personAdmin, ds);
+		daoState = new DAOState();
+		personAdmin = new PersonAdmin(dp, daoState);
+		ActivitiyAdmin aa = new ActivitiyAdmin(da, daoState, personAdmin);
+		taskAdmin = new TaskAdmin(dt, aa, personAdmin, daoState);
+		projectAdmin = new ProjectAdmin(dpr, daoState, aa, personAdmin);
 	}
 	
 	
@@ -86,8 +96,7 @@ public class TaskRestController
 	public @ResponseBody Task get(@PathVariable int id)
 	{
 		// TODO steklsim add authentication
-		DAOTask daoTask = new DAOTask();
-//		daoTask.setSessionFactory(HibernateUtil.getSessionFactory());
+		DAOTask daoTask = new DAOTask(); // TODO steklsim az bude autentizace bude se nacitat pres taskAdmin
 		
 		
 //		HttpHeaders httpHeaders = new HttpHeaders();
@@ -100,8 +109,9 @@ public class TaskRestController
 //		} catch (DAOException e) {
 //			return new ResponseEntity<>(null, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
 //		}
-		
-		return daoTask.get(id);
+		Task task = daoTask.get(id);
+//		if (task == null) throw new ItemNotFoundException("Task with id '" + id + "' not found");
+		return task;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -111,15 +121,15 @@ public class TaskRestController
 //		dt.setSessionFactory(HibernateUtil.getSessionFactory());
 		
 		
-		try {
+//		try {
 			Task t = dt.get(id);
 			if (t != null) dt.delete(t);
-			HttpStatus status = t != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-			return new ResponseEntity<>(null, null, status);
+//			HttpStatus status = t != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+			return new ResponseEntity<>(null, null, HttpStatus.OK);
 			
-		} catch (DAOException e) {
-			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+//		} catch (DAOException e) {
+//			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -147,221 +157,102 @@ public class TaskRestController
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody String taskString)
+	@ResponseStatus(HttpStatus.CREATED)
+	public Task create(@RequestBody Task task)
 	{
-		try {
-			JsonObject json = getJsonObjectFromString(taskString);
+//		try {
+//			JsonObject json = getJsonObjectFromString(taskString);
+//			
+//			Task task = getTaskFromJSON(json);
+			Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
+//			if (testUser == null) throw new ItemNotFoundException("User with id '" + ApiConstants.TEST_USER_ID + "' not found");
+			populateTask(task, testUser);
 			
-			Task task = getTaskFromJSON(json);
-			Person creator = task.getCreator();
+			taskAdmin.addUkol(task, testUser, null); // TODO steklsim what about task's activity?
 			
-			taskAdmin.addUkol(task, creator, null); // TODO steklsim what about task's activity?
-			
-			JsonObject taskJson = getJSONFromTask(task);
-			
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			
-			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
-		
-		} catch (DAOException de) {
-			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
-				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-			} else {
-				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		} catch (JsonException je) {
-			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-		}
+//			JsonObject taskJson = getJSONFromTask(task);
+//			
+//			HttpHeaders httpHeaders = new HttpHeaders();
+//			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//			
+//			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
+//		
+//		} catch (DAOException de) {
+//			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
+//				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//			} else {
+//				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+//			}
+//		} catch (JsonException je) {
+//			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//		}
+		return task;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@PathVariable int id, @RequestBody String taskString)
+	public @ResponseBody Task update(@PathVariable int id, @RequestBody Task task)
 	{
-		try {
-			JsonObject json = getJsonObjectFromString(taskString);
-			
-			Person creator = personAdmin.getOsoba(json.getInt("creator"));
-			if (creator == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-			
-			Task dbTask = taskAdmin.getUkol(id, creator); // TODO steklsim change this when authentization is working
-			if (dbTask == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-			Task task = getTaskFromJSON(json, dbTask);
-			
-			taskAdmin.updateUkol(task, task.getCreator());
-			Task updatedTask = taskAdmin.getUkol(id, creator);
-			JsonObject taskJson = getJSONFromTask(updatedTask);
-			
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			
-			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
+//		try {
+//			JsonObject json = getJsonObjectFromString(taskString);
+//			
+//			Person creator = personAdmin.getOsoba(json.getInt("creator"));
+////			if (creator == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//			if (creator == null) throw new Item;
+//			
+//			Task dbTask = taskAdmin.getUkol(id, creator); // TODO steklsim change this when authentization is working
+//			if (dbTask == null) return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//			Task task = getTaskFromJSON(json, dbTask);
+//			
+//			taskAdmin.updateUkol(task, task.getCreator());
+//			Task updatedTask = taskAdmin.getUkol(id, creator);
+//			JsonObject taskJson = getJSONFromTask(updatedTask);
+//			
+//			HttpHeaders httpHeaders = new HttpHeaders();
+//			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//			
+//			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
+//		
+//		} catch (DAOException de) {
+//			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
+//				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//			} else {
+//				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+//			}
+//		} catch (JsonException je) {
+//			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+//		}
+		task.setId(id);
+		Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
+		populateTask(task, testUser);
+//		if (testUser == null) throw new ItemNotFoundException("User with id '" + ApiConstants.TEST_USER_ID + "' not found");
+		taskAdmin.updateUkol(task, testUser);
 		
-		} catch (DAOException de) {
-			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
-				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-			} else {
-				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		} catch (JsonException je) {
-			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	/**
-	 * Creates a JsonObject instance from given Task instance
-	 * @param t
-	 * @return 
-	 */
-	private JsonObject getJSONFromTask(Task t)
-	{
-		if (t == null) return Json.createObjectBuilder().build();
 		
-			
-		
-//		System.out.println("STATE");
-		TaskState ts = t.getState();
-		JsonObject state = Json.createObjectBuilder()
-				.add("id", ts.getId())
-				.add("code", ts.getKod())
-				.add("title", ts.getNazev())
-				.add("description", ts.getPopis())
-				.build()
-		;
-
-//		System.out.println("BASIC");
-		JsonObjectBuilder obj = Json.createObjectBuilder()
-				.add("id", t.getId())
-				.add("title", t.getTitle())
-				
-				.add("owner", t.getOwner().getId())
-				.add("creator", t.getCreator().getId())
-				.add("state", state)
-		;
-//		System.out.println("DESCRIPTION");
-		if (t.getDescription() != null) {
-			obj.add("description", t.getDescription());
-		}
-//		System.out.println("PROJECT");
-		if (t.getProject() != null) {
-			JsonObject project = Json.createObjectBuilder()
-						.add("id", t.getProject().getId())
-						.add("title", t.getProject().getTitle())
-						.build()
-			;
-			obj.add("project", project);
-		}
-//		System.out.println("CONTEXT");
-		Context ctx = t.getContext();
-		if (ctx != null) {
-			JsonObject context = Json.createObjectBuilder()
-					.add("id", ctx.getId())
-					.add("title", ctx.getNazev())
-					.build()
-			;
-			obj.add("context", context);
-		}
-//		System.out.println("CALENDAR");
-		Interval interval = t.getCalendar();
-		if (interval != null) {
-			JsonObject calendar = Json.createObjectBuilder()
-					.add("id", interval.getId())
-					.add("from", interval.getFrom().getTime())
-					.add("to", interval.getTo().getTime())
-					.build()
-			;
-			obj.add("calendar", calendar);
-		}
-		
-		return obj.build();
-			
-	}
-	
-	private JsonObject getJsonObjectFromString(String jsonString)
-	{
-		JsonReader jr = Json.createReader(new StringReader(jsonString));
-		return jr.readObject();
+		return taskAdmin.getUkol(id, testUser);
 	}
 	
 	/**
-	 * Creates a Task instace from JsonObject instance. ONLY sets fields that are important
-	 * when persisting new task or updating it in database (mostly IDs)!
-	 * @param tj 
-	 * @param updatedTask if specified, this task is updated instead of creating a new one
-	 * @return 
+	 * Replaces dummy properties from API with their real counterparts from database
+	 * (where it's needed)
+	 * @param task 
+	 * @param user logged-in user 
 	 */
-	private Task getTaskFromJSON(JsonObject tj, Task updatedTask)
+	private void populateTask(Task task, Person user)
 	{
-//		JsonReader jr = Json.createReader(new StringReader(taskJson));
-//		JsonObject tj = jr.readObject();
-		
-		boolean isUpdate = updatedTask != null;
-		Task task = updatedTask != null ? updatedTask : new Task();
-		
-		if (isUpdate) {
-			if (tj.containsKey("owner")) {							// owner
-				Person owner = new Person();
-				owner.setId(tj.getInt("owner"));
-				task.setOwner(owner);
-			}
-			if (tj.containsKey("state")) {							// state
-				TaskState state = new TaskState();
-				state.setId(tj.getJsonObject("state").getInt("id"));
-				task.setState(state);
-			}
-			if (tj.containsKey("title")) {							// title (update)
-				task.setTitle(tj.getString("title"));
-			}
-			
-		} else {
-			task.setTitle(tj.getString("title"));					// title (new)
-			
-			Person creator = new Person();							// creator
-			creator.setId(tj.getInt("creator"));
-			task.setCreator(creator);
+		if (task.getOwner() != null) {
+			Person owner = personAdmin.getOsoba(task.getOwner().getLogin());
+			task.setOwner(owner);
 		}
-//		Project project = null;
-		if (tj.containsKey("project")) {							// project
-			Project project = new Project();
-			project.setId(tj.getJsonObject("project").getInt("id"));
+		if (task.getState() != null) {
+			TaskState state = daoState.getTaskState(task.getState().getKod());
+			task.setState(state);
+		}
+		// TODO steklsim resolve context
+		
+		if (task.getProject() != null) {
+			Project project = projectAdmin.getProjekt(task.getProject().getId(), user);
 			task.setProject(project);
 		}
 		
-//		TaskState state = new TaskState();
-//		state.setId(tj.getJsonObject("state").getInt("id"));
-//		Context context = null;
-		if (tj.containsKey("context")) {							// context
-			Context context = new Context();
-			context.setId(tj.getJsonObject("context").getInt("id"));
-		}
-//		Interval calendar = null;
-		if (tj.containsKey("calendar")) {							// calendar
-			Interval calendar = new Interval();
-			calendar.setFrom(new Date(tj.getJsonObject("calendar").getString("from")));
-			calendar.setTo(new Date(tj.getJsonObject("calendar").getString("to")));
-			task.setCalendar(calendar);
-		}
-		if (tj.containsKey("description")) {
-			task.setDescription(tj.getString("description"));				// description
-		} 
-
-//		Task task = new Task();
-//		task.setNazev(tj.getString("title"));
-//		task.setVlastnik(owner);
-//		task.setTvurce(creator);
-//		task.setStav(state);
-//		if (project != null) task.setProjekt(project);
-//		if (calendar != null) task.setKalendar(calendar);
-//		if (context != null) task.setKontext(context);
-		
-		return task;
 	}
-
-	
-	private Task getTaskFromJSON(JsonObject taskJson)
-	{
-		return getTaskFromJSON(taskJson, null);
-	}
-	
 }

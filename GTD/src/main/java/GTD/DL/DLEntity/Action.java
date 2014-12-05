@@ -1,6 +1,8 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.PersonDeserializer;
 import GTD.restapi.PersonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -42,6 +44,7 @@ public abstract class Action {
 	@ManyToOne
 	@JoinColumn(name = "vlastnik_id")
 	@JsonSerialize(using = PersonSerializer.class)
+	@JsonDeserialize(using = PersonDeserializer.class)
 	private Person owner;
 
 
@@ -232,6 +235,18 @@ public abstract class Action {
 		return true;
 	}
 	
-	
+	public void update(Action a)
+	{
+		if (a == null) {
+			return;
+		}
+		if (getClass() != a.getClass()) {
+			throw new IllegalArgumentException("Can't update '" + getClass().getSimpleName() + "' with '" + a.getClass().getSimpleName() + "' (they must be of same class)");
+		}
+		if (a.getTitle() != null) setTitle(a.getTitle());
+		if (a.getDescription() != null) setDescription(a.getDescription());
+		if (a.getOwner() != null) setOwner(a.getOwner());
+		
+	}
 
 }

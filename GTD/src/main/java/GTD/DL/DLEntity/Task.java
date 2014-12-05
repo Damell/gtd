@@ -1,9 +1,11 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.DateSerializer;
 import GTD.restapi.PersonDeserializer;
 import GTD.restapi.PersonSerializer;
 import GTD.restapi.ProjectDeserializer;
 import GTD.restapi.ProjectSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -28,6 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "task")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Action {
 
 	/**
@@ -51,6 +54,7 @@ public class Task extends Action {
 	 */
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "kalendar_id")
+	@JsonSerialize(using = DateSerializer.class) 
 	private Interval calendar;
 	/**
 	 * Context úkolu.
@@ -191,6 +195,19 @@ public class Task extends Action {
 		return true;
 	}
 
-	
+	/**
+	 * 
+	 * @param task 
+	 */
+	@Override
+	public void update(Action task)
+	{
+		super.update(task);
+		Task t = (Task) task;
+		if (t.getProject() != null) setProject(t.getProject());
+		if (t.getCalendar() != null) setCalendar(t.getCalendar());
+		if (t.getContext() != null) setContext(t.getContext());
+		if (t.getState()!= null) setState(t.getState());
+	}
 
 }

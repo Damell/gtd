@@ -39,6 +39,16 @@ public class ProjectAdmin {
 
 	}
 
+	public ProjectAdmin(IDAOProject DAOProjekt, IDAOState DAOStav, ActivitiyAdmin spravceCinnosti, PersonAdmin spravceOsob)
+	{
+		this.DAOProjekt = DAOProjekt;
+		this.DAOStav = DAOStav;
+		this.spravceCinnosti = spravceCinnosti;
+		this.spravceOsob = spravceOsob;
+	}
+	
+	
+
 	public void setDAOProjekt(IDAOProject DAOProjekt)
 	{
 		this.DAOProjekt = DAOProjekt;
@@ -68,9 +78,9 @@ public class ProjectAdmin {
 	 * se pro označení činnosti jako "zpracované".
 	 */
 	public void addProjekt(Project projekt, Activity cinnost, Person user){
-		if (projekt.getOwner().equals(cinnost.getOwner())
-				&& projekt.getOwner().equals(user)
-				&& projekt.getRodic().getOwner().equals(user)) {
+		if (projekt.getOwner().getId() == cinnost.getOwner().getId()
+				&& projekt.getOwner().getId() == user.getId()
+				&& projekt.getRodic().getOwner().getId() == user.getId()) {
 			DAOProjekt.create(projekt);
 			spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
@@ -91,8 +101,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void deleteProjekt(Project projekt, Person user){ // TODO steklsim v docBlocku je projekt "oznacen jako smazany" - nemame na to stav
-		if (projekt.getOwner().equals(user)
-				|| projekt.getRodic().getOwner().equals(user)) {
+		if (projekt.getOwner().getId() == user.getId()
+				|| projekt.getRodic().getOwner().getId() == user.getId()) {
 			DAOProjekt.delete(projekt);
 		} else {
 			throw new SecurityException("Project owned by '" 
@@ -110,8 +120,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void finishProjekt(Project projekt, Person user){
-		if (projekt.getOwner().equals(user)
-				|| projekt.getRodic().getOwner().equals(user)) {
+		if (projekt.getOwner().getId() == user.getId()
+				|| projekt.getRodic().getOwner().getId() == user.getId()) {
 			ProjectState dokonceny = DAOStav.getProjektDokonceny();
 			projekt.setStav(dokonceny);
 			DAOProjekt.update(projekt);
@@ -141,8 +151,8 @@ public class ProjectAdmin {
 	public Project getProjekt(int id, Person user){
 		Project projekt = DAOProjekt.get(id);
 		if (projekt != null 
-				&& !projekt.getOwner().equals(user)
-				&& !projekt.getRodic().getOwner().equals(user)) {
+				&& !(projekt.getOwner().getId() == user.getId())
+				&& !(projekt.getRodic().getOwner().getId() == user.getId())) {
 			throw new SecurityException("Project '" 
 					+ projekt.getTitle() + "' can't be marked as finished by '" 
 					+ user.getLogin() + "'");
@@ -169,8 +179,8 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void updateProjekt(Project projekt, Person user){ // TODO steklsim metoda zatim na nic
-		if (projekt.getOwner().equals(user)
-				|| projekt.getRodic().getOwner().equals(user)) {
+		if (projekt.getOwner().getId() == user.getId()
+				|| projekt.getRodic().getOwner().getId() == user.getId()) {
 			DAOProjekt.update(projekt);
 		} else {
 			throw new SecurityException("Project '" 

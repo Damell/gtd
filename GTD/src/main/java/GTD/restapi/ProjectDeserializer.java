@@ -24,8 +24,8 @@ public class ProjectDeserializer extends JsonDeserializer<Project>
 	public Project deserialize(JsonParser jp, DeserializationContext dc) throws IOException, JsonProcessingException
 	{
 		JsonNode node = jp.getCodec().readTree(jp);
-		int id = node.get("id").asInt();
-		String title = node.get("title").asText();
+		int id = node.get(ApiConstants.PROJECT_ID).asInt();
+		String title = node.get(ApiConstants.PROJECT_TITLE).asText();
 		Project project = new Project();
 		project.setId(id);
 		project.setTitle(title);

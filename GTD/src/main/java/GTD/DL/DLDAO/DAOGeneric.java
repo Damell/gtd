@@ -140,7 +140,7 @@ public abstract class DAOGeneric<T> implements IDAOGeneric<T>
 		if (tx != null) tx.rollback();
 		
 		if (e instanceof ConstraintViolationException) {
-			throw new ConstraintException(e.getMessage(), e);
+			throw new ConstraintException(e.getCause().getMessage(), e);
 		} else {
 			throw new DAOServerException(e.getMessage(), e);
 		}

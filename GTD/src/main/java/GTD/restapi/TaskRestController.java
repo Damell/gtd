@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 
 /**
@@ -82,7 +84,8 @@ public class TaskRestController {
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public
   @ResponseBody
-  Task get(@PathVariable int id) {
+  Task get(@PathVariable int id, ServletWebRequest wr) {
+	  logRequest(wr);
     // TODO steklsim add authentication
     DAOTask daoTask = new DAOTask(); // TODO steklsim az bude autentizace bude se nacitat pres taskAdmin
     Task task = daoTask.get(id);
@@ -91,7 +94,8 @@ public class TaskRestController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<?> delete(@PathVariable int id) {
+  public ResponseEntity<?> delete(@PathVariable int id, ServletWebRequest wr) {
+	  logRequest(wr);
     DAOTask dt = new DAOTask();
     Task t = dt.get(id);
     if (t != null) dt.delete(t);
@@ -102,8 +106,9 @@ public class TaskRestController {
   @RequestMapping(method = RequestMethod.GET)
   public
   @ResponseBody
-  List<Task> getAll() {
-    logger.debug(getMessageSource().getMessage("restApi.taskCont.tasks.get.request.accepted", null, null));
+  List<Task> getAll(ServletWebRequest wr) {
+	  
+    logRequest(wr);
     DAOTask dt = new DAOTask();
 
     return dt.getAll();
@@ -111,7 +116,8 @@ public class TaskRestController {
 
   @RequestMapping(method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
-  public Task create(@RequestBody Task task) {
+  public Task create(@RequestBody Task task, ServletWebRequest wr) {
+	  logRequest(wr);
     Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
 //			if (testUser == null) throw new ItemNotFoundException("User with id '" + ApiConstants.TEST_USER_ID + "' not found");
     populateTask(task, testUser);
@@ -124,8 +130,8 @@ public class TaskRestController {
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public
   @ResponseBody
-  Task update(@PathVariable int id, @RequestBody Task task) {
-
+  Task update(@PathVariable int id, @RequestBody Task task, ServletWebRequest wr) {
+	  logRequest(wr);
     task.setId(id);
     Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
     populateTask(task, testUser);
@@ -157,5 +163,10 @@ public class TaskRestController {
       Project project = projectAdmin.getProjekt(task.getProject().getId(), user);
       task.setProject(project);
     }
+  }
+  
+  private void logRequest(ServletWebRequest wr) 
+  {
+	  logger.info(getMessageSource().getMessage("restApi.request.accepted", null, null), wr.getHttpMethod(), wr.getDescription(true));
   }
 }

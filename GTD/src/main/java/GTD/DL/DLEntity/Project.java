@@ -1,5 +1,15 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.ProjectDeserializer;
+import GTD.restapi.ProjectSerializer;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -21,29 +31,39 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "project")
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends Action {
 
 	/**
 	 * Podprojekty projektu.
 	 */
 	@OneToMany(mappedBy = "rodic")
+	@JsonIgnore
 	private List<Project> projekty;
 	/**
 	 * Rodič - nadřazený projekt.
 	 */
 	@ManyToOne
-	@JoinColumn(nullable = false)
+//	@JoinColumn(nullable = false)
+//	@JsonIgnore
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+	@JsonSerialize(using = ProjectSerializer.class)
+	@JsonDeserialize(using = ProjectDeserializer.class)
+	@JsonProperty(value = "project")
 	private Project rodic;
 	/**
 	 * Skupina osob pracujících na projektu - slouží pro delegování aktivit v rámci
 	 * projektu.
 	 */
 	@ManyToMany
+	@JsonIgnore
 	private List<Person> skupina;
 	/**
 	 * Úkoly projektu.
 	 */
 	@OneToMany(mappedBy = "project", cascade = {CascadeType.ALL})
+	@JsonIgnore
 	private List<Task> ukoly;
 	
 	/**

@@ -1,5 +1,6 @@
 package GTD.DL.DLEntity;
 
+import GTD.restapi.ApiConstants;
 import GTD.restapi.ProjectDeserializer;
 import GTD.restapi.ProjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -50,7 +51,7 @@ public class Project extends Action {
 //	@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 	@JsonSerialize(using = ProjectSerializer.class)
 	@JsonDeserialize(using = ProjectDeserializer.class)
-	@JsonProperty(value = "project")
+	@JsonProperty(value = ApiConstants.PROJECT_PARENT)
 	private Project rodic;
 	/**
 	 * Skupina osob pracujících na projektu - slouží pro delegování aktivit v rámci
@@ -71,6 +72,7 @@ public class Project extends Action {
 	 */
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@JsonProperty(value = ApiConstants.STATE)
 	private ProjectState stav;
 
 
@@ -267,6 +269,21 @@ public class Project extends Action {
 		return true;
 	}
 	
-	
+	/**
+	 * Updates this project based on not-null properties of another project
+	 * (doesn't update collection properties)
+	 * @param project 
+	 */
+	@Override
+	public void update(Action project)
+	{
+		super.update(project);
+		Project p = (Project) project;
+		if (p.getRodic() != null) setRodic(p.getRodic());
+//		if (!p.getProjekty().isEmpty()) setProjekty(p.getProjekty());
+//		if (!p.getSkupina().isEmpty()) setSkupina(p.getSkupina());
+//		if (!p.getUkoly().isEmpty()) setUkoly(p.getUkoly());
+		if (p.getStav() != null) setStav(p.getStav());
+	}
 
 }

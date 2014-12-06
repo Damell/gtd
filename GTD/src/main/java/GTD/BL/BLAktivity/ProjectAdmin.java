@@ -78,12 +78,17 @@ public class ProjectAdmin {
 	 * se pro označení činnosti jako "zpracované".
 	 */
 	public void addProjekt(Project projekt, Activity cinnost, Person user){
-		if (projekt.getOwner().getId() == cinnost.getOwner().getId()
-				&& projekt.getOwner().getId() == user.getId()
-				&& projekt.getRodic().getOwner().getId() == user.getId()) {
+		boolean isActivityOwner = cinnost == null ? true : user.getId() == cinnost.getOwner().getId();
+		boolean isParentOwner = projekt.getRodic() == null ? true : user.getId() == projekt.getRodic().getOwner().getId();
+		
+//		if (projekt.getOwner().getId() == cinnost.getOwner().getId()
+//				&& projekt.getOwner().getId() == user.getId()
+//				&& projekt.getRodic().getOwner().getId() == user.getId()) {
+		if (isActivityOwner && isParentOwner) {
+			projekt.setStav(DAOStav.getProjektAktivni());
+			projekt.setOwner(user);
 			DAOProjekt.create(projekt);
-			spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
-		// TODO steklsim tady hodit nejakou Spring exception? (az bude Spring)
+			if (cinnost != null) spravceCinnosti.processCinnost(cinnost, user); // TODO steklsim pokud processCinnost() hodi vyjimku, nemel by se zrusit projekt?
 		} else {
 			throw new SecurityException("Project owned by '" 
 				+ projekt.getOwner().getLogin() + "' can't be added by '" 
@@ -179,12 +184,15 @@ public class ProjectAdmin {
 	 * @param projekt
 	 */
 	public void updateProjekt(Project projekt, Person user){ // TODO steklsim metoda zatim na nic
-		if (projekt.getOwner().getId() == user.getId()
-				|| projekt.getRodic().getOwner().getId() == user.getId()) {
-			DAOProjekt.update(projekt);
+		Project oldProject = DAOProjekt.get(projekt.getId());
+		oldProject.update(projekt);
+		
+		if (oldProject.getOwner().getId() == user.getId()
+				|| (oldProject.getRodic() != null && oldProject.getRodic().getOwner().getId() == user.getId())) {
+			DAOProjekt.update(oldProject);
 		} else {
 			throw new SecurityException("Project '" 
-				+ projekt.getTitle() + "' can't be updated by '" 
+				+ oldProject.getTitle() + "' can't be updated by '" 
 				+ user.getLogin() + "'");
 		}
 	}

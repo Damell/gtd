@@ -50,6 +50,7 @@ public class ProjectRestController
 
 	private PersonAdmin personAdmin;
 	private ProjectAdmin projectAdmin;
+	private DAOState daoState;
 	
 	public ProjectRestController()
 	{
@@ -58,7 +59,7 @@ public class ProjectRestController
 		IDAOPerson dp = new DAOPerson();
 		IDAOProject dpr = new DAOProject();
 		
-		DAOState daoState = new DAOState();
+		daoState = new DAOState();
 		personAdmin = new PersonAdmin(dp, daoState);
 		ActivitiyAdmin aa = new ActivitiyAdmin(da, daoState, personAdmin);
 //		taskAdmin = new TaskAdmin(dt, aa, personAdmin, daoState);
@@ -97,75 +98,50 @@ public class ProjectRestController
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public Project create(@RequestBody Project task)
+	public Project create(@RequestBody Project prj)
 	{
-//		try {
-//			JsonObject json = getJsonObjectFromString(taskString);
-//			
-//			Task task = getTaskFromJSON(json);
-//			Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
-////			if (testUser == null) throw new ItemNotFoundException("User with id '" + ApiConstants.TEST_USER_ID + "' not found");
-//			populateTask(task, testUser);
-//			
-//			taskAdmin.addUkol(task, testUser, null); // TODO steklsim what about task's activity?
+		Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
+//			if (testUser == null) throw new ItemNotFoundException("User with id '" + ApiConstants.TEST_USER_ID + "' not found");
+		populateProject(prj, testUser);
+
+		projectAdmin.addProjekt(prj, null, testUser); // TODO steklsim what about projects's activity?
 			
-//			JsonObject taskJson = getJSONFromTask(task);
-//			
-//			HttpHeaders httpHeaders = new HttpHeaders();
-//			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-//			
-//			return new ResponseEntity<>(taskJson.toString(), httpHeaders, HttpStatus.CREATED);
-//		
-//		} catch (DAOException de) {
-//			if (de.getCause() instanceof ConstraintViolationException) { // TODO steklsim is this enough?
-//				return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-//			} else {
-//				return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
-//			}
-//		} catch (JsonException je) {
-//			return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
-//		}
-		return task;
+		return prj;
 	}
 	
-//    @RequestMapping(method = RequestMethod.GET)
-//    @ResponseBody
-//    String getAll() {
-//
-//        DAOProject dp = new DAOProject();
-//        dp.setSessionFactory(HibernateUtil.getSessionFactory());
-//
-//        List<Project> projects = dp.getAll();
-//
-//        JsonArrayBuilder builder = Json.createArrayBuilder();
-//        for (Project p : projects) {
-//            JsonObject Rodic = Json.createObjectBuilder()
-//                    .add("id", p.getRodic().getId())
-//                    .add("title", p.getRodic().getTitle())
-//                    .build();
-//
-//            ProjectState ps = p.getStav();
-//            JsonObject state = Json.createObjectBuilder()
-//                    .add("id", ps.getId())
-//                    .add("code", ps.getKod())
-//                    .add("title", ps.getNazev())
-//                    .add("description", ps.getPopis())
-//                    .build();
-//
-//            JsonObject obj = Json.createObjectBuilder()
-//                    .add("id", p.getId())
-//                    .add("title", p.getTitle())
-//                    .add("description", p.getDescription())
-//                    .add("owner", p.getOwner().getId())
-//                    .add("creator", "none") // TODO p.getTvurce().getId()
-//                    .add("project", Rodic)
-//                    .add("state", state)
-//                    .build();
-//            builder.add(obj);
-//
-//        }
-//
-//        return builder.build().toString();
-//
-//    }
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public @ResponseBody Project update(@PathVariable int id, @RequestBody Project prj)
+	{
+		prj.setId(id);
+		Person testUser = personAdmin.getOsoba(ApiConstants.TEST_USER_ID);
+		populateProject(prj, testUser);
+		projectAdmin.updateProjekt(prj, testUser);
+		
+		
+		return projectAdmin.getProjekt(id, testUser);
+	}
+	
+	/**
+	 * Replaces dummy properties from API with their real counterparts from database
+	 * (where it's needed)
+	 * @param prj 
+	 * @param user logged-in user 
+	 */
+	private void populateProject(Project prj, Person user)
+	{
+		if (prj.getStav()!= null) {
+			ProjectState state = daoState.getProjectState(prj.getStav().getKod());
+			prj.setStav(state);
+		}
+		
+		if (prj.getRodic()!= null) {
+			Project project = projectAdmin.getProjekt(prj.getRodic().getId(), user);
+			prj.setRodic(project);
+		}
+		if (prj.getOwner() != null) {
+			Person person = personAdmin.getOsoba(prj.getOwner().getLogin());
+			prj.setOwner(person);
+		}
+	}
+	
 }

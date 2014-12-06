@@ -18,6 +18,11 @@ public class ApiConstants
 	public static final String PROJECT_TITLE = "title";
 	public static final String PROJECT_PARENT = "project";
 	
+	public static final String STATE = "state";
+	public static final String STATE_TITLE = "title";
+	public static final String STATE_CODE = "code";
+	public static final String STATE_DESCRIPTION = "description";
+	
 	public static final int TEST_USER_ID = 1;
 	public static final String TEST_USER_LOGIN = "jannovak";
 	

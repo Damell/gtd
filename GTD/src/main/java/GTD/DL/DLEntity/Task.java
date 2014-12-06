@@ -198,7 +198,7 @@ public class Task extends Action {
 	}
 
 	/**
-	 * 
+	 * Updates this task based on not-null properties of given task
 	 * @param task 
 	 */
 	@Override

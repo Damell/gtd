@@ -5,6 +5,8 @@
  */
 package GTD.DL.DLEntity;
 
+import GTD.restapi.ApiConstants;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -47,18 +49,21 @@ abstract public class Type implements Serializable
 	 * Kód typu
 	 */
 	@Column(length = 2, nullable = false)
+	@JsonProperty(value = ApiConstants.STATE_CODE)
 	private String kod;
 	
 	/**
 	 * Název typu
 	 */
 	@Column(length = 20, nullable = false)
+	@JsonProperty(value = ApiConstants.STATE_TITLE)
 	private String nazev;
 	
 	/**
 	 * Popis typu
 	 */
 	@Column(length = 200)
+	@JsonProperty(value = ApiConstants.STATE_DESCRIPTION)
 	private String popis;
 
 	

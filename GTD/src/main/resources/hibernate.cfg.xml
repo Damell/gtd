@@ -4,9 +4,9 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://webdev.fit.cvut.cz:3306/steklsim</property>
-    <property name="hibernate.connection.username">steklsim</property>
-    <property name="hibernate.connection.password">uzf20edm</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gtd_testing</property>
+    <property name="hibernate.connection.username">Drugnanov</property>
+    <property name="hibernate.connection.password">Qazwsxedc369</property>
     <property name="hibernate.hbm2ddl.auto">validate</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="GTD.DL.DLEntity.Action"/>

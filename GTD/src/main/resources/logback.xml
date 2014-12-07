@@ -7,6 +7,7 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
+
   <appender name="DAILY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>../logs/gtd_restapi.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -19,7 +20,15 @@
   </appender>
 
   <logger name="GTD.restapi" level="DEBUG"/>
-  <!--<logger name="org.springframework.jdbc.core" level="TRACE"/>-->
+  <logger name="httpclient.wire" level="TRACE" />
+  <logger name="org.apache.commons.httpclient" level="DEBUG" />
+  <logger name="org.springframework.ws.server.MessageTracing" level="DEBUG" />
+  <logger name="httpclient.wire.content" level="DEBUG" />
+  <logger name="org.springframework.ws.client.MessageTracing.received" level="DEBUG" />
+  <logger name="httpclient.wire.header" level="DEBUG" />
+  <logger name="org.springframework.web.filter" level="DEBUG" />
+  <logger name="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" level="DEBUG" />
+  <logger name="org.springframework.ws.client.MessageTracing.sent" level="TRACE" />
 
   <root level="WARN">
     <appender-ref ref="DAILY_FILE"/>

@@ -69,7 +69,7 @@ public class TaskRestController {
 
   public TaskRestController() {
     IDAOActivity da = new DAOActivity();
-	IDAOTask dt = new DAOTask();
+	  IDAOTask dt = new DAOTask();
     IDAOPerson dp = new DAOPerson();
     IDAOProject dpr = new DAOProject();
 
@@ -167,6 +167,6 @@ public class TaskRestController {
   
   private void logRequest(ServletWebRequest wr) 
   {
-	  logger.info(getMessageSource().getMessage("restApi.request.accepted", null, null), wr.getHttpMethod(), wr.getDescription(true));
+	  logger.debug(getMessageSource().getMessage("restApi.request.accepted", null, null), wr.getHttpMethod(), wr.getDescription(true));
   }
 }
